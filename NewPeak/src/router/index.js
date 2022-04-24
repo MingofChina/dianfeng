@@ -14,9 +14,13 @@ import cooperativePartner from '../views/intoThePeak/cooperativePartner.vue'
 import professionalWorks from '../views/peakView/professionalWorks.vue'
 import industrialAlliance from '../views/intoThePeak/industrialAlliance.vue'
 import legalDeclaration from '../views/contactUs/legalDeclaration.vue'
+import contactUs from '../views/contactUs/contactUs.vue'
+import siteMap from '../views/contactUs/siteMap.vue'
+import peakViewDetail from '../views/peakView/peakViewDetail.vue'
+
 Vue.use(VueRouter)
 
-const routes = [
+export const constantRoutes = [
     {
         path: '/',
         name: 'home',
@@ -83,6 +87,12 @@ const routes = [
                 name:'peakView',
                 component:peakView,
             },
+            // 巅峰观点-行业观点
+            {
+                path:'peakViewDetail/:id',
+                name:'peakViewDetail',
+                component:peakViewDetail,
+            },
             // 巅峰观点-专业著作
             {
                 path:'professionalWorks/:id',
@@ -95,20 +105,36 @@ const routes = [
                 name:'legalDeclaration',
                 component:legalDeclaration,
             },
+            //联系我们
+            {
+                path:'contactUs',
+                name:'contactUs',
+                component:contactUs,
+            },
+            //网站地图
+            {
+                path:'siteMap',
+                name:'siteMap',
+                component:siteMap,
+            },
         ]
     },
     
 ]
 
-
-const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes
-})
+export default new VueRouter({
+    mode: 'history', // 去掉url中的#
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
+// const router = new VueRouter({
+//     mode: 'history',
+//     base: process.env.BASE_URL,
+//     routes
+// })
 
 // router.beforeEach((to,from,next)=>{
 
 //   })
 
-export default router
+// export default router

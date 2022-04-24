@@ -5,8 +5,9 @@
         <div class="finish-1">
           <div class="arrlist-1">
             <div v-for="(itemd,index1) in top" :key="itemd.id" class="zuoce">
-              <h2>{{ itemd.name }}</h2>
-              <li v-for="(itemds,index) in itemd.child_column" :key="itemds.id" @click="footNavfn(itemds,index,index1)">
+              <h2 v-if="itemd.name!='联系我们'">{{ itemd.name }}</h2>
+              <h2 v-else @click="tositeMap">网站地图</h2>
+              <li v-show='index1 != top.length -1' v-for="(itemds,index) in itemd.child_column" :key="itemds.id" @click="footNavfn(itemds,index,index1)">
                 {{ itemds.name }}
               </li>
             </div>
@@ -20,19 +21,19 @@
               </ul>
               <ul>
                 <li>
-                  <img src="../assets/bei/Rectangle 68.png" alt="" />
+                  <img :src="baseUrl+bottom.applet_url" alt="" />
                   <p>关注小程序</p>
                 </li>
               </ul>
               <ul>
                 <li>
-                  <img src="../assets/bei/Rectangle 68(2).png" alt="" />
+                  <img :src="baseUrl+bottom.video_number_url" alt="" />
                   <p>关注视频号</p>
                 </li>
               </ul>
               <ul>
                 <li>
-                  <img src="../assets/bei/Rectangle 68(1).png" alt="" />
+                  <img :src="baseUrl+bottom.public_number_url" alt="" />
                   <p>关注公众号</p>
                 </li>
               </ul>
@@ -76,6 +77,7 @@ export default {
     return {
       top: [],
       bottom: [], //底部导航信息数据
+      baseUrl:'http://ceshi.davost.com'
     };
   },
   created() {
@@ -87,6 +89,9 @@ export default {
     async BottomMessagefn() {
       let { data } = await BottomMessage({id:45});
       this.bottom = data.data;
+    },
+    tositeMap(){
+      this.$router.push("/siteMap") ;
     },
     routerFn(){
       this.$router.push("/legalDeclaration") ;

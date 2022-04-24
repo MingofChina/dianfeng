@@ -8,12 +8,12 @@
         <el-row style="line-height:4.125rem;
         font-size: 18px;font-weight:400"> 
           <el-col :span="4" v-for="(item,index) in navList" :key="index" >
-            <div @click="ulNavFn(index)">{{item.name}}</div>
+            <div @click="ulNavFn(item,index)">{{item.name}}</div>
           </el-col>
         </el-row>
-        <el-row v-if="subscript|| subscript==0" class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
+        <el-row v-if="subscript|| subscript==0" class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',zIndex:99,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
           <el-col :span="(subscript == 1)?8:12 ">
-            <img :src="navList[subscript].url" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
+            <img  v-show="navList[subscript].original_image" :src="baseUrl+navList[subscript].original_image" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
           </el-col>
           <el-col :span="(subscript==0||subscript==2)?12:4" >
             <el-col :span="(subscript==0||subscript==2)?12:24"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div class="navli1" @click="linkFn(item,index)">{{item.name}}</div></el-col>
@@ -36,7 +36,8 @@ export default {
       navList:[],
       subscript:null,
       subscript1:null,
-      marginLeft:9.625
+      marginLeft:9.625,
+      baseUrl:'http://ceshi.davost.com'
     };
   },
 
@@ -65,17 +66,20 @@ export default {
       })
       
     },
-    ulNavFn(index){
+    ulNavFn(data,index){
       let that = this;
       that.marginLeft = index*9.625-9.625
       if(index == 4){
+        location.href = data.url
         that.subscript=null
         return
       }else if(index == 1){
-        
         that.subscript1 = 0
+      }else if(index == 5){
+         this.$router.push(`/${data.url}`) ;
+        that.subscript1 = null
+        return
       }else{
-
         that.subscript1 = null
       }
       that.subscript=index
@@ -83,6 +87,7 @@ export default {
     },
     linkFn1(data){
       this.$router.push(`/peakBusiness/${data.id}`) ;
+      this.subscript = null
     },
     linkFn(data,index){
       if(this.subscript != 1){
@@ -94,7 +99,7 @@ export default {
       }else{
         this.subscript1 = index
       }
-      
+      this.subscript = null
       
     }
     // async formsjiefn() {

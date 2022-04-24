@@ -4,13 +4,13 @@ import axios from 'axios'
 // import { tansParams } from "@/utils/ruoyi";
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-axios.defaults.headers.get['Cache-Control'] = 'no-cache' 
+axios.defaults.headers.get['Cache-Control'] = 'no-cache'
 
 axios.defaults.headers.get['Pragma'] = 'no-cache'
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
-  baseURL: '/api',
+  baseURL: process.env.VUE_APP_BASE_API,
   // 超时
   timeout: 50000
 })

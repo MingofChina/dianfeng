@@ -1,16 +1,15 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/mines/Group 389@2x.png"/>
-        <div class="lega-header-cont">
-            <div>法律声明</div>
-            <div>Legal notices</div>
-            <div></div>
-        </div>
         <div class="lega-header-foot">
             <img src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div>法律声明</div>
+            <div>巅峰观点</div>
+            <img src="../../assets/search-img/icon@2x.png">
+            <div>详情</div>
+        </div>
+        <div class="lega-header-foot">
+            <img src="../../assets/story-detail/Group 397@2x.png"/>
         </div>
     </div>
     <div class="lega-content">
@@ -60,6 +59,13 @@ export default {
     height: 100%;
     background: #F4F4F4;
 }
+.lega-header-foot1{
+    position: absolute;
+    right: 0;
+}
+.lega-header-foot1 img {
+    width: 4rem;
+}
 .lega-header {
     width: 100%;
     position: relative;
@@ -76,7 +82,7 @@ export default {
     top: 17.9375rem;
     left: 50.8125rem;
     z-index: 999;
-    color: #FFFFFF;
+    /* color: #FFFFFF; */
     text-align: center;
 }
 .lega-header-cont div:nth-child(1){
@@ -95,7 +101,7 @@ export default {
     position: absolute;
     bottom: 2.0625rem;
     left: 16.4375rem;
-    color: #FFFFFF;
+    /* color: #FFFFFF; */
     display: flex;
 }
 .lega-header-foot img{

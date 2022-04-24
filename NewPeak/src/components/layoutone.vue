@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import { team, banner, column } from "@/api/api";
 
 import footernavs from "../components/footernav.vue";
