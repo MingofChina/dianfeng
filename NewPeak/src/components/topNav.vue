@@ -1,7 +1,7 @@
 <template>
   <div id="Header">
     <el-row :gutter="20">
-      <el-col :span="5" style="text-align:center">
+      <el-col :span="7" style="text-align:center">
         <img src="../assets/img/logo.png"  alt=""  class="logo-img" />
       </el-col>
       <el-col :span="14">
@@ -23,7 +23,20 @@
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="5" style="line-height:4.125rem"><div class="grid-content bg-purple">1</div></el-col>
+      <el-col :span="3" style="line-height:4.125rem">
+        <div class="grid-content ">
+          <div class="bg-purple"></div>
+          <div class="grid-div">
+            <div class="grid-img"><img src='../assets/bei/路径 80@2x.png' @click="serachFn()" style="width:100%;background:#ffffff"/></div>
+            
+            <el-input
+              placeholder="请输入内容"
+              prefix-icon="el-icon-search"
+              v-model="input2">
+            </el-input>
+          </div>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -37,12 +50,16 @@ export default {
       subscript:null,
       subscript1:null,
       marginLeft:9.625,
+      input2:null,
       baseUrl:'http://ceshi.davost.com'
     };
   },
 
   mounted() {
     this.columnfn(); //头部搜岁页面的接口
+    document.getElementsByClassName('el-input__prefix')[0].click(()=>{
+      console.log('1')
+    })
      document.addEventListener("click",e=>{
       let that = this
       if (!this.$el.contains(e.target)) {
@@ -65,6 +82,9 @@ export default {
         }
       })
       
+    },
+    serachFn(){
+      this.$router.push(`/queryResults/${this.input2}`) ;
     },
     ulNavFn(data,index){
       let that = this;
@@ -115,6 +135,37 @@ export default {
 </script>
 
 <style scoped lang="less">
+.bg-purple{
+  height: 1.25rem;
+  border: 2px solid #CACACA;
+  position: absolute;
+  top: 1.45rem;
+  background: #CACACA;
+}
+.grid-img{
+  position: absolute;
+  width: 1.5rem;
+  z-index: 99;
+  // background: #ffffff;
+  top: .7rem;
+  left: 1.3rem;
+}
+.grid-input{
+  width: 6.13rem;
+  height: 1.25rem;
+  font-size: 0.88rem;;
+  font-weight: 400;
+  color: #B1B1B1;
+  border: none;
+  line-height: 1.25rem;
+}
+.grid-div{
+  margin-left: 1rem;
+  display: flex;
+  height: 3.5rem;
+  margin-top: .3rem;
+  width: 100%;
+}
 #Header{
   padding: 1.5rem 0 1.5625rem 0;
 }
@@ -126,6 +177,10 @@ export default {
   font-size: 18px;
   margin-top: 32px;
   font-weight: 500;
+}
+.grid-content{
+  display: flex;
+  position: relative;
 }
 .navLIST{
   position: absolute;

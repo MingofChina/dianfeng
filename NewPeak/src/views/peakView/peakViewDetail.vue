@@ -7,27 +7,31 @@
             <div>巅峰观点</div>
             <img src="../../assets/search-img/icon@2x.png">
             <div>详情</div>
+            
         </div>
-        <div class="lega-header-foot">
+        <div class="lega-header-foot1">
             <img src="../../assets/story-detail/Group 397@2x.png"/>
         </div>
     </div>
     <div class="lega-content">
         <div class="lega-content-div1">
-            <div class="lega-content-title">{{mesage}}</div>
-            <div v-html="textHeml"></div>
-            <!-- <div class="lineHeight">本网站内容、《旅游智业》杂志及我公司其他出版物除非书面授权或特别声明，均指由“北京巅峰智业旅游文化创意股份有限公司”独家所有，本网站内容、《旅游智业》杂志及我公司其他出版物，均与“北京巅峰智业旅游文化创意股份有限公司”属于同一主体。</div>
-            <div class="content-div1">
-                <div class="lineHeight content-div1-title">所有权及相关权包括</div>
-                <div class="lineHeight">该网站包括：www.davost.com 、 www.aftrip.com以及《旅游智业》和其他域名的所有权、知识产权(包括但不仅限于著作权、专利权、商标权、署名权、商业秘密以及“北京巅峰智业旅游文化创意股份有限公司”所有智力成果的法人作品权)。除上述权利之外，任何与本网站和《旅游智业》信息和内容相关联的发布、及其它载体和表现形式的使用、署名、利用、传播、复制、发行、编辑、修改、处分等的权利。</div>
-            </div> -->
+            <el-row >
+                <el-col :span="18">
+                    <div class="content-title">1</div>
+                    <div>
+                        <el-col :span="20">1</el-col>
+                        <el-col :span="4">3</el-col>
+                    </div>
+                </el-col>
+                <el-col :span="6">333</el-col>
+            </el-row>
         </div>
         
     </div>
   </div>
 </template>
 <script>
-import { legislation } from "@/api/api";
+import { viewpointdetail } from "@/api/api";
 export default {
   data() {
     return {
@@ -38,13 +42,15 @@ export default {
   computed: {
   },
   mounted() {
-      this.legislationfn() //调用联系我们接口
+      this.viewpointdetailfn() //调用联系我们接口
   },
   methods: {
-    async legislationfn() {
-      let { data } = await legislation();
-      this.mesage = data.data.message.title
-      this.textHeml = data.data.message.description
+    async viewpointdetailfn() {
+        console.log(this.$router.params)
+        console.log(this.$router.query)
+      let { data } = await viewpointdetail({id:this.$route.params.id});
+    //   this.mesage = data.data.message.title
+    //   this.textHeml = data.data.message.description
     //   this.description=data.data.message
     //   this.descriptionson=data.data.message.description
       console.log(data.data);
@@ -59,18 +65,26 @@ export default {
     height: 100%;
     background: #F4F4F4;
 }
+.content-title{
+    font-size: 2.13rem;
+    font-weight: bold;
+    color: #231914;
+    margin-bottom: 1.75rem;
+}
 .lega-header-foot1{
     position: absolute;
-    right: 0;
+    right: 16.5rem;
+    bottom: 1rem;
 }
 .lega-header-foot1 img {
     width: 4rem;
+
 }
 .lega-header {
     width: 100%;
     position: relative;
 }
-.lega-header img {
+.lega-header-foot img {
     width: 100%;
 }
 .lega-header-foot div{
@@ -112,11 +126,11 @@ export default {
 .lega-content{
     width: 90.5rem;
     margin:6.25rem auto 0;
-    background: #FFFFFF;
+    /* background: #FFFFFF; */
     padding-bottom: 6.25rem;
 }
 .lega-content-div1{
-    width: 80.5rem;
+    width: 100%;
     margin: 0 auto;
 }
 .lega-content-title{

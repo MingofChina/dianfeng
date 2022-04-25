@@ -17,6 +17,7 @@ import legalDeclaration from '../views/contactUs/legalDeclaration.vue'
 import contactUs from '../views/contactUs/contactUs.vue'
 import siteMap from '../views/contactUs/siteMap.vue'
 import peakViewDetail from '../views/peakView/peakViewDetail.vue'
+import queryResults from '../views/contactUs/queryResults.vue'
 
 Vue.use(VueRouter)
 
@@ -116,6 +117,18 @@ export const constantRoutes = [
                 path:'siteMap',
                 name:'siteMap',
                 component:siteMap,
+            },
+            //搜索
+            {
+                path:'queryResults/:id',
+                name:'queryResults',
+                component:queryResults,
+            },
+            //搜索
+            {
+                path:'queryResults',
+                name:'queryResults',
+                component:queryResults,
             },
         ]
     },
