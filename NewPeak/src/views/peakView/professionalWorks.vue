@@ -1,60 +1,135 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/mines/Group 389@2x.png"/>
+        <img src="../../assets/specialty/Group 505@2x.png"/>
         <div class="lega-header-cont">
-            <div>法律声明</div>
-            <div>Legal notices</div>
+            <div>专业著作</div>
+            <div>Professional work</div>
             <div></div>
         </div>
         <div class="lega-header-foot">
             <img src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div>法律声明</div>
+            <div>专业著作</div>
         </div>
     </div>
     <div class="lega-content">
         <div class="lega-content-div1">
-            <div class="lega-content-title">{{mesage}}</div>
-            <div v-html="textHeml"></div>
-            <!-- <div class="lineHeight">本网站内容、《旅游智业》杂志及我公司其他出版物除非书面授权或特别声明，均指由“北京巅峰智业旅游文化创意股份有限公司”独家所有，本网站内容、《旅游智业》杂志及我公司其他出版物，均与“北京巅峰智业旅游文化创意股份有限公司”属于同一主体。</div>
-            <div class="content-div1">
-                <div class="lineHeight content-div1-title">所有权及相关权包括</div>
-                <div class="lineHeight">该网站包括：www.davost.com 、 www.aftrip.com以及《旅游智业》和其他域名的所有权、知识产权(包括但不仅限于著作权、专利权、商标权、署名权、商业秘密以及“北京巅峰智业旅游文化创意股份有限公司”所有智力成果的法人作品权)。除上述权利之外，任何与本网站和《旅游智业》信息和内容相关联的发布、及其它载体和表现形式的使用、署名、利用、传播、复制、发行、编辑、修改、处分等的权利。</div>
-            </div> -->
+            <el-row :gutter="20">
+                <el-col :span="12" v-for="(item,index) in dataList"  :key="item.id+index">
+                    <div class="lega-cont-div">
+                        <div class="lega-cont-img">
+                            <img :src='baseUrl+item.original_image'/>
+                        </div>
+                        <div class="lega-cont-div2">
+                            <div class="lega-cont-div3" @click="detailFn(item,index)" :class="{active: index === 0}">{{item.title}}</div>
+                            <div class="lega-cont-div4">{{item.summary}}</div>
+                        </div>
+                    </div>
+                </el-col>
+            </el-row>
+            <div class="pagination">
+                <el-pagination
+                background
+                @current-change="handleCurrentChange"
+                :page-size="10"
+                layout="prev, pager, next"
+                :total="total">
+                </el-pagination>
+        </div>
         </div>
         
     </div>
   </div>
 </template>
 <script>
-import { legislation } from "@/api/api";
+import { specialty } from "@/api/api";
 export default {
   data() {
     return {
       mesage:'',
-      textHeml:''
+      textHeml:'',
+      dataList:[],
+      total:0,
+      baseUrl:'http://ceshi.davost.com/',
     };
   },
   computed: {
   },
   mounted() {
-      this.legislationfn() //调用联系我们接口
+      this.specialtyfn(1) //调用联系我们接口
   },
   methods: {
-    async legislationfn() {
-      let { data } = await legislation();
-      this.mesage = data.data.message.title
-      this.textHeml = data.data.message.description
+    async specialtyfn(val) {
+      let { data } = await specialty({pages:val,pagesize:10});
+     this.dataList = data.data.books
+     this.total = data.data.books_pages_number * 10
     //   this.description=data.data.message
     //   this.descriptionson=data.data.message.description
       console.log(data.data);
     },
+     handleCurrentChange(val) {
+       this.specialtyfn(val)
+    },
+    detailFn(data){
+        this.$router.push(`/professWorksDetail/${data.id}`);
+    }
   },
 };
 </script>
 
 <style scoped>
+.pagination{
+    margin-top: 3.13rem;
+    text-align: center;
+}
+.active{
+    color: red !important;
+}
+.lega-cont-div{
+    display: flex;
+    padding: 1.5rem;
+    background: #FFFFFF;
+    margin-top: 1.5rem;
+}
+.lega-cont-div2{
+    width: 26.88rem;
+}
+.lega-cont-img{
+     width: 11.73rem;
+    height: 14.75rem;
+    border: 1px solid red;
+    margin-right: 1.25rem;
+}
+.lega-cont-img img {
+    width: 100%;
+    height: 100%;
+}
+.lega-cont-div3{
+    font-size: 1.38rem;
+    margin-top: .3rem;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+     width: 100%;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    color: #6E6E6E;
+}
+.lega-cont-div4{
+    font-size: 1rem;
+    /* font-weight: 400; */
+    color: #6E6E6E;
+     width: 100%;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-line-clamp: 8; 
+    -webkit-box-orient: vertical;
+    color: #6E6E6E;
+}
 #legalDeclaration{
     width: 100%;
     height: 100%;
@@ -104,13 +179,13 @@ export default {
     height: 1rem;
 }
 .lega-content{
-    width: 90.5rem;
-    margin:6.25rem auto 0;
-    background: #FFFFFF;
+    width: 87.5rem;
+    margin:3.25rem auto 0;
+    /* background: #FFFFFF; */
     padding-bottom: 6.25rem;
 }
 .lega-content-div1{
-    width: 80.5rem;
+    width: 100%;
     margin: 0 auto;
 }
 .lega-content-title{

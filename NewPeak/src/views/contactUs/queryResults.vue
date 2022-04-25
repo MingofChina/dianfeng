@@ -9,79 +9,107 @@
             <div>{{text}}</div>
             
         </div>
-        <div class="lega-header-foot1">
+        <!-- <div class="lega-header-foot1">
             <img src="../../assets/story-detail/Group 397@2x.png"/>
-        </div>
+        </div> -->
     </div>
     <div class="lega-content">
         <div class="lega-content-div1">
             <div style="display:flex">
-                <div class="tabDiv">案例<span>（11）</span></div>
-                <div class="tabDiv">案例<span>（11）</span></div>
-                <div class="tabDiv">案例<span>（11）</span></div>
+                <div class="tabDiv" :class="{active: isActive === index}" @click="navFn(item,index)" v-for="(item,index) in columnsList" :key="item.id+index">{{item.title}}<span>（{{item.search_number}}）</span></div>
             </div>
         </div>
-        <div class="lega-content-div2" v-if="false">
-            <div class="lega-content-div21">
-                <div class="leag-div21"><img src/></div>
-                <div class="leag-div22">111</div>
-                <div class="leag-div23">111</div>
-            </div>
-        </div>
-        <el-row class="lega-const" v-for="(item,index) in dataList" :key="index+item.id">
-                   <el-col :span="9" style="margin-right:1rem">
+        <el-row class="lega-content-div2" v-if="isActive == 0">
+            <el-col  class="lega-content-div21" v-for="(item,index) in dataList" :key="index+item.id">
+                <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
+                <div class="leag-div22">{{item.title}}</div>
+                <div class="leag-div23">{{item.summary}}</div>
+            </el-col>
+        </el-row>
+        <div v-else>
+            <el-row class="lega-const" v-for="(item,index) in dataList" :key="index+item.id">
+                   <el-col :span="8" style="margin-right:1rem">
                        <img :src="baseUrl+item.original_image" style="width:31.88rem;height:20rem"/>
                    </el-col>
-                   <el-col :span="12">
+                   <el-col :span="15">
                        <div class="textime">{{item.addtime}}</div>
                        <div class="textelte">{{item.title}}</div>
                        <div class="textcontent">{{item.summary}}</div>
                        <div class="textlook" @click="detailFn(item)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
                    </el-col>
         </el-row>
+        </div>
         
+        <div class="pagination">
+            <el-pagination
+            background
+            @current-change="handleCurrentChange"
+            :page-size="10"
+            layout="prev, pager, next"
+            :total="total">
+            </el-pagination>
+        </div>
     </div>
   </div>
 </template>
 <script>
-import { formsjie ,viewpoints} from "@/api/api";
+import { search ,viewpoints} from "@/api/api";
 export default {
   data() {
     return {
       mesage:'',
       textHeml:'',
       text:'',
-      dataList:[]
+      dataList:[],
+      columnsList:[],
+      isActive:0,
+      total:0,
+      id:null,
+      baseUrl:'http://ceshi.davost.com/',
     };
   },
   computed: {
   },
   mounted() {
-      this.formsjiefn() //调用联系我们接口
+      this.searchfn(1) //调用联系我们接口
   },
   watch:{
      $route: {
           handler() {
-              this.viewpointsfn(1);
+              this.searchfn(1);
         },
         deep: true,
     }
   },
   methods: {
-    async formsjiefn() {
+    async searchfn(val) {
       let that = this;
     //   console.log(that.$route.params.id)
 
-      let { data } = await formsjie();
-    //   this.description=data.data.message
-    //   this.descriptionson=data.data.message.description
-    //   console.log(data.data);
+     let params = {
+         search_keywords: that.$route.params.id,
+         pages:val,
+         pagesize:8,
+         id:that.id
+     }
+      let { data } = await search(params);
+      that.columnsList = data.data.columns
+      let toatl = 0
+      data.data.columns.forEach((item,index)=>{
+          toatl+=item.search_number
+      })
+      that.dataList = data.data.document
+      that.total = data.data.document_pages_number * 10
+      that.text='"'+ that.$route.params.id+'"的'+toatl+'条数据'
     },
-    async viewpointsfn(val) {
-      let { data } = await viewpoints({pages:val,pagesize:10});
-      this.dataList = data.data.idea
-      this.total = data.data.idea_pages_number
-      console.log(data.data);
+    navFn(item,index){
+        let that =this
+        that.isActive = index
+        that.id = item.id
+        that.searchfn(1)
+    },
+     handleCurrentChange(val) {
+       this.searchfn(val)
     },
   },
   
@@ -89,8 +117,17 @@ export default {
 </script>
 
 <style scoped>
+.active{
+background: red;
+color: #FFFFFF;
+}
+.pagination{
+    margin-top: 3.13rem;
+    text-align: center;
+}
 .lega-const{
     padding-bottom: 2rem;
+    padding-top: 1rem;
     border-bottom: 1px solid #C4C4C4;
 }
 .textime{
@@ -133,11 +170,13 @@ export default {
 }
 .lega-content-div21{
     width: 25rem;
-    height: 31.13rem;
+    height: 34.13rem;
     background: #ffffff;
+    margin-right: 1.25rem;
+    margin-bottom: 1.75rem;
 }
 .lega-content-div2{
-    display: flex;
+    /* display: flex; */
 }
 .leag-div22{
     margin-top: 3.13rem;
@@ -150,18 +189,21 @@ export default {
     color: #6E6E6E;
     font-size: 1rem;
     margin-bottom:4rem ;
-    width: 100%;
+    width: 94%;
     overflow: hidden; 
     text-overflow: ellipsis; 
     display: -webkit-box;
-    -webkit-line-clamp: 1; 
+    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
     margin-left: 1.25rem;
 }
 .leag-div21{
     width: 100%;
     height: 20.3rem;
-    border: 1px solid red;
+}
+.leag-div21 img{
+    width: 100%;
+    height: 100%;
 }
 .tabDiv{
     height: 1.93rem;
@@ -226,7 +268,7 @@ export default {
 .lega-header-foot{
     position: absolute;
     bottom: 2.0625rem;
-    left: 16.4375rem;
+    left: 7.4375rem;
     /* color: #FFFFFF; */
     display: flex;
 }
@@ -236,10 +278,10 @@ export default {
     height: 1rem;
 }
 .lega-content{
-    width: 86rem;
-    margin:6.25rem auto 0;
+    width: 105rem;
+    margin:5rem auto 0;
     /* background: #FFFFFF; */
-    padding-bottom: 6.25rem;
+    padding-bottom: 4.38rem;
 }
 .lega-content-div1{
     width: 100%;

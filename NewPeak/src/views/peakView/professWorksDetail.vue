@@ -6,6 +6,8 @@
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">巅峰观点</div>
             <img src="../../assets/search-img/icon@2x.png">
+            <div style="color:#231914">专业著作</div>
+            <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">详情</div>
             
         </div>
@@ -59,7 +61,7 @@
   </div>
 </template>
 <script>
-import { viewpointdetail } from "@/api/api";
+import { specialtyde } from "@/api/api";
 export default {
   data() {
     return {
@@ -73,15 +75,15 @@ export default {
   computed: {
   },
   mounted() {
-      this.viewpointdetailfn() //调用联系我们接口
+      this.specialtydefn() //调用联系我们接口
   },
   methods: {
-    async viewpointdetailfn() {
-      let { data } = await viewpointdetail({id:this.$route.params.id});
-      this.mesage = data.data.idea_detail
-      this.textHeml = data.data.idea_detail.description
-      this.list1 = data.data.peak_idea_hots
-      this.list2 = data.data.peak_idea_relevant
+    async specialtydefn() {
+      let { data } = await specialtyde({id:this.$route.params.id});
+      this.mesage = data.data.books_detail
+      this.textHeml = data.data.books_detail.description
+      this.list1 = data.data.peak_books_hots
+      this.list2 = data.data.peak_books_relevant
     //   this.textHeml = data.data.message.description
     //   this.description=data.data.message
     //   this.descriptionson=data.data.message.description

@@ -127,6 +127,8 @@ export default {
   width: 100%;
   height: 31.875rem;
    background-color: #000000;
+   position: relative;
+   z-index: 9999;
 }
 .arrlist {
   width: 100%;

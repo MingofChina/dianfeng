@@ -6,6 +6,7 @@ import index from '../views/index.vue'
 import peakIntroduction from '../views/intoThePeak/peakIntroduction.vue'
 import peakBusiness from '../views/peakBusiness/peakBusiness.vue'
 import peakCases from '../views/peakCases/peakCases.vue'
+import peakCasesDetail from '../views/peakCases/peakCasesDetail.vue'
 import peakView from '../views/peakView/peakView.vue'
 import peakTeam from '../views/intoThePeak/peakTeam.vue'
 import topNews from '../views/intoThePeak/topNews.vue'
@@ -17,6 +18,7 @@ import legalDeclaration from '../views/contactUs/legalDeclaration.vue'
 import contactUs from '../views/contactUs/contactUs.vue'
 import siteMap from '../views/contactUs/siteMap.vue'
 import peakViewDetail from '../views/peakView/peakViewDetail.vue'
+import professWorksDetail from '../views/peakView/professWorksDetail.vue'
 import queryResults from '../views/contactUs/queryResults.vue'
 
 Vue.use(VueRouter)
@@ -82,13 +84,19 @@ export const constantRoutes = [
                 name:'peakCases',
                 component:peakCases,
             },
+            // 巅峰案例-详情
+            {
+                path:'peakCasesDetail/:id',
+                name:'peakCasesDetail',
+                component:peakCasesDetail,
+            },
             // 巅峰观点-行业观点
             {
                 path:'peakView/:id',
                 name:'peakView',
                 component:peakView,
             },
-            // 巅峰观点-行业观点
+            // 巅峰观点-行业观点详情
             {
                 path:'peakViewDetail/:id',
                 name:'peakViewDetail',
@@ -99,6 +107,12 @@ export const constantRoutes = [
                 path:'professionalWorks/:id',
                 name:'professionalWorks',
                 component:professionalWorks,
+            },
+            // 巅峰观点-专业著作详情
+            {
+                path:'professWorksDetail/:id',
+                name:'professWorksDetail',
+                component:professWorksDetail,
             },
             //法律声明
             {
@@ -124,12 +138,7 @@ export const constantRoutes = [
                 name:'queryResults',
                 component:queryResults,
             },
-            //搜索
-            {
-                path:'queryResults',
-                name:'queryResults',
-                component:queryResults,
-            },
+            
         ]
     },
     

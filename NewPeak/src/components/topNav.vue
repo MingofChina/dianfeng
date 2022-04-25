@@ -113,14 +113,18 @@ export default {
       if(this.subscript != 1){
         if(data.name == '加入巅峰'){
         location.href = data.url
+        }else if(this.subscript == 2){
+          this.$router.push(`/peakCases/${data.id}`) ;
         }else{
           this.$router.push(`/${data.url}/${data.id}`) ;
         }
+         this.subscript = null
       }else{
         this.subscript1 = index
+       
       }
-      this.subscript = null
       
+      console.log(data)
     }
     // async formsjiefn() {
     //   let { data } = await formsjie({ company: 1, name: 11, phone: 1111 });

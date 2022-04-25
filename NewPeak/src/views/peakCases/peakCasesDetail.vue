@@ -59,7 +59,7 @@
   </div>
 </template>
 <script>
-import { viewpointdetail } from "@/api/api";
+import { sexampledetail } from "@/api/api";
 export default {
   data() {
     return {
@@ -73,19 +73,19 @@ export default {
   computed: {
   },
   mounted() {
-      this.viewpointdetailfn() //调用联系我们接口
+      this.sexampledetailfn() //调用联系我们接口
   },
   methods: {
-    async viewpointdetailfn() {
-      let { data } = await viewpointdetail({id:this.$route.params.id});
-      this.mesage = data.data.idea_detail
-      this.textHeml = data.data.idea_detail.description
-      this.list1 = data.data.peak_idea_hots
-      this.list2 = data.data.peak_idea_relevant
+    async sexampledetailfn() {
+      let { data } = await sexampledetail({id:this.$route.params.id});
+      this.mesage = data.data.case_detail
+      this.textHeml = data.data.case_detail.description
+      this.list1 = data.data.peak_case_hots
+      this.list2 = data.data.peak_case_relevant
     //   this.textHeml = data.data.message.description
     //   this.description=data.data.message
     //   this.descriptionson=data.data.message.description
-      console.log(data.data);
+
     },
   },
 };
