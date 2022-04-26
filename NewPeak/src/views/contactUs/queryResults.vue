@@ -2,7 +2,7 @@
   <div id="legalDeclaration">
     <div class="lega-header">
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div>搜索接口</div>
             <img src="../../assets/search-img/icon@2x.png">
@@ -82,6 +82,9 @@ export default {
     }
   },
   methods: {
+      homeFn(){
+      this.$router.push("/index") ;
+    },
     async searchfn(val) {
       let that = this;
     //   console.log(that.$route.params.id)

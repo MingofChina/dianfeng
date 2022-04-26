@@ -2,9 +2,9 @@
   <div id="legalDeclaration">
     <div class="lega-header">
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div style="color:#231914">巅峰观点</div>
+            <div @click="peckviewFn()" style="color:#231914">巅峰观点</div>
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">详情</div>
             
@@ -76,16 +76,18 @@ export default {
       this.viewpointdetailfn() //调用联系我们接口
   },
   methods: {
+    homeFn(){
+      this.$router.push("/index") ;
+    },
+    peckviewFn(){
+
+    },
     async viewpointdetailfn() {
       let { data } = await viewpointdetail({id:this.$route.params.id});
       this.mesage = data.data.idea_detail
       this.textHeml = data.data.idea_detail.description
       this.list1 = data.data.peak_idea_hots
       this.list2 = data.data.peak_idea_relevant
-    //   this.textHeml = data.data.message.description
-    //   this.description=data.data.message
-    //   this.descriptionson=data.data.message.description
-      console.log(data.data);
     },
   },
 };

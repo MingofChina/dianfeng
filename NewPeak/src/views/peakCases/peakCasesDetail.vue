@@ -2,14 +2,14 @@
   <div id="legalDeclaration">
     <div class="lega-header">
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img  @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div style="color:#231914">巅峰观点</div>
+            <div @click="dianfeng()" style="color:#231914">巅峰案例</div>
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">详情</div>
             
         </div>
-        <div class="lega-header-foot1">
+        <div class="lega-header-foot1" @click="dianfeng()">
             <img src="../../assets/story-detail/Group 397@2x.png"/>
         </div>
     </div>
@@ -76,6 +76,13 @@ export default {
       this.sexampledetailfn() //调用联系我们接口
   },
   methods: {
+    homeFn(){
+      this.$router.push("/index") ;
+    },
+    dianfeng(){
+        console('1')
+        this.$router.push('/peakView/56') ;
+    },
     async sexampledetailfn() {
       let { data } = await sexampledetail({id:this.$route.params.id});
       this.mesage = data.data.case_detail
@@ -169,6 +176,7 @@ font-size: 2rem;
     position: absolute;
     right: 12rem;
     bottom: 1rem;
+    z-index: 99;
 }
 .lega-header-foot1 img {
     width: 4rem;

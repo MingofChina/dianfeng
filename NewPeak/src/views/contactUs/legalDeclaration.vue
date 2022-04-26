@@ -8,7 +8,7 @@
             <div></div>
         </div>
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div>法律声明</div>
         </div>
@@ -42,6 +42,9 @@ export default {
       this.legislationfn() //调用联系我们接口
   },
   methods: {
+    homeFn(){
+      this.$router.push("/index") ;
+    },
     async legislationfn() {
       let { data } = await legislation();
       this.mesage = data.data.message.title

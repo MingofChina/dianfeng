@@ -1,25 +1,25 @@
 <template>
   <div id="Header">
     <el-row :gutter="20">
-      <el-col :span="7" style="text-align:center">
-        <img src="../assets/img/logo.png"  alt=""  class="logo-img" />
+      <el-col :span="6" style="text-align:center">
+        <img src="../assets/img/logo.png"  alt=""  @click="homeFn()"  class="logo-img" />
       </el-col>
       <el-col :span="14">
         <el-row style="line-height:4.125rem;
         font-size: 18px;font-weight:400"> 
-          <el-col :span="4" v-for="(item,index) in navList" :key="index" >
-            <div @click="ulNavFn(item,index)">{{item.name}}</div>
+          <el-col :span="4" v-for="(item,index) in navList" class="divhover" :key="index" style="textAlign:center">
+            <div @mouseenter="ulNavFn(item,index)"  :style="{color:index == isActive?'red':''}" @click="ulNavFn(item,index,true)">{{item.name}}</div>
           </el-col>
         </el-row>
-        <el-row v-if="subscript|| subscript==0" class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',zIndex:99,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
+        <el-row v-if="subscript|| subscript==0" class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',zIndex:9999,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
           <el-col :span="(subscript == 1)?8:12 ">
             <img  v-show="navList[subscript].original_image" :src="baseUrl+navList[subscript].original_image" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
           </el-col>
           <el-col :span="(subscript==0||subscript==2)?12:4" >
-            <el-col :span="(subscript==0||subscript==2)?12:24"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div class="navli1" @click="linkFn(item,index)">{{item.name}}</div></el-col>
+            <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover"   v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div class="navli1" :style="{color:(index == isActive1 && subscript == isActive)?'red':''}"   @click="linkFn(item,index)">{{item.name}}</div></el-col>
           </el-col>
           <el-col :span="12"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:26.5rem">
-            <el-col :span="12" class="navli1" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
+            <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
           </el-col>
         </el-row>
       </el-col>
@@ -50,16 +50,27 @@ export default {
       subscript:null,
       subscript1:null,
       marginLeft:9.625,
+      isActive:null,
+      isActive1:null,
       input2:null,
       baseUrl:'http://ceshi.davost.com'
     };
   },
-
+  watch:{
+     $route: {
+        handler() {
+           let that =this;
+           that.colorFn()
+        },
+        deep: true,
+    }
+  },
   mounted() {
     this.columnfn(); //头部搜岁页面的接口
     document.getElementsByClassName('el-input__prefix')[0].click(()=>{
       console.log('1')
     })
+    
      document.addEventListener("click",e=>{
       let that = this
       if (!this.$el.contains(e.target)) {
@@ -72,13 +83,41 @@ export default {
     // this.searchfn() //搜索的接口
   },
   methods: {
+    colorFn(){
+      let that =this
+      that.navList.forEach((item,index)=>{
+             if(item.url){
+              if(that.$route.path.indexOf(`${item.url}`)>-1){
+                that.isActive = index
+              }
+             }else{
+                if(item.child_column && item.child_column.length != 0){
+                  item.child_column.forEach((item1,index1)=>{
+                    if(item1.url){
+                      if(that.$route.path.indexOf(`${item1.url}`)>-1){
+                          that.isActive = index
+                          if(index == 0){
+                            if(item1.id == that.$route.params.id){
+                              that.isActive1 = index1
+                            }
+                          }
+                      }
+                    }
+                  })
+                }
+              }
+           })
+    },
+    homeFn(){
+      this.$router.push("/index") ;
+    },
     async columnfn() {
       let that= this;
       // let { data } = await column({ id: 14 });
       column({id:14}).then((res)=>{
-        console.log(res)
         if(res.data.code == 0){
           that.navList = res.data.data
+          this.colorFn()
         }
       })
       
@@ -86,18 +125,27 @@ export default {
     serachFn(){
       this.$router.push(`/queryResults/${this.input2}`) ;
     },
-    ulNavFn(data,index){
+    ulNavFn(data,index,boolen){
       let that = this;
       that.marginLeft = index*9.625-9.625
       if(index == 4){
-        location.href = data.url
-        that.subscript=null
+        if(boolen){
+          location.href = data.url
+          that.subscript=null
+        }else{
+           that.subscript=null
+        }
+        
         return
       }else if(index == 1){
         that.subscript1 = 0
       }else if(index == 5){
-         this.$router.push(`/${data.url}`) ;
+         if(boolen){
+          this.$router.push(`/${data.url}`) ;
         that.subscript1 = null
+        }else{
+           that.subscript1=null
+        }
         return
       }else{
         that.subscript1 = null
@@ -123,22 +171,15 @@ export default {
         this.subscript1 = index
        
       }
-      
-      console.log(data)
     }
-    // async formsjiefn() {
-    //   let { data } = await formsjie({ company: 1, name: 11, phone: 1111 });
-    //   // console.log(data);
-    // },
-    //  async searchfn() {
-    //   let { data } = await search({ id: 45, search_keywords: "巅峰", pages: 1,pagesize:8 });
-    //   console.log(data);
-    // },
   },
 };
 </script>
 
 <style scoped lang="less">
+.divhover:hover{
+  color: red;
+}
 .bg-purple{
   height: 1.25rem;
   border: 2px solid #CACACA;

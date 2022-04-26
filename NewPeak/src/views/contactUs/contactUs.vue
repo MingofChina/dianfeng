@@ -8,16 +8,16 @@
             <div></div>
         </div>
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div>联系我们</div>
         </div>
     </div>
     <div class="lega-content">
         <div class="lega-content-div1">
-            <div class="lega-content-map"></div>
+            <div class="lega-content-map" id="container"></div>
             <el-row :gutter="20">
-                <el-col :span='8'  v-for="(item,index) in branchOffice" :key="index">
+                <el-col :span='item.span'  v-for="(item,index) in branchOffice" :key="index">
                     <div class="lega-content-div111">
                         <el-col :span='3'><img class="lega-img" src='../../assets/bei/icong_weizhi@2x.png'/></el-col>
                         <el-col :span='21' class="lega-div2">
@@ -37,9 +37,6 @@
                     </div>
                     
                 </el-col>
-                </el-row>
-            <el-row :gutter="20" >
-                
             </el-row>
         </div>
         
@@ -62,14 +59,52 @@ export default {
       this.legislationfn() //调用联系我们接口
   },
   methods: {
+    homeFn(){
+      this.$router.push("/index") ;
+    },
     async legislationfn() {
-      let { data } = await relation();
-      data.data.branch_office.forEach((item1,index1)=>{
-
-      })
-      this.branchOffice=data.data.branch_office
-    //   this.descriptionson=data.data.message.description
-      console.log(data.data);
+        let { data } = await relation();
+        let lenth1 = data.data.branch_office.length
+        let yushu = lenth1%3
+        let shang1 = parseInt(lenth1/3)
+        this.branchOffice=data.data.branch_office
+        data.data.branch_office.forEach((item1,index1)=>{
+            if(index1 < shang1*3){
+                this.branchOffice[index1].span=8
+            }else{
+                this.branchOffice[index1].span = 24/yushu
+            }
+        })
+        var map = new BMapGL.Map('container');    
+        // 创建函数接收四个参数（提示信息的标题，详细地址，经度，纬度），并向map实例中添加一系列对象
+        function addMessage(title, detailedAddress, longitude, latitude) {
+        // 这里的let关键词是必须的，let声明是局部变量，且无变量提升，用完就会回收
+        let point = new BMapGL.Point(longitude, latitude);
+        // 初始化地图,设置中心点坐标和地图级别
+        map.centerAndZoom(point, 3);
+        // 开启鼠标滚轮缩放
+        map.enableScrollWheelZoom(true);
+        // 创建点标记
+        let marker = new BMapGL.Marker(point);
+        // 在地图上添加点标记
+        map.addOverlay(marker);
+        // 创建窗口提升信息对象
+        let opts = {
+        width: 200,
+        height: 100,
+        title: title
+        };
+        let infoWindow = new BMapGL.InfoWindow(detailedAddress, opts);
+        // 点标记添加点击事件
+        marker.addEventListener('click', function () {
+        map.openInfoWindow(infoWindow, point); // 开启信息窗口
+        });
+    }
+    // 循环调用函数，给map实例添加对象
+    for (let index = 0; index < data.data.branch_office.length; index++) {
+        let objindex = data.data.branch_office[index];
+        addMessage(objindex.company_name, objindex.company_address, objindex.longitude, objindex.latitude);
+    }
     },
   },
 };

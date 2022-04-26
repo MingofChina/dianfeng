@@ -23,10 +23,12 @@
                        <img :src="baseUrl+item.original_image" style="width:31.88rem;height:20rem"/>
                    </el-col>
                    <el-col :span="12">
-                       <div class="textime">{{item.addtime}}</div>
-                       <div class="textelte">{{item.title}}</div>
+                       <div class="textime" >{{item.addtime}}</div>
+                       <div class="textelte" :style="{color:index == 0?'red':''}">{{item.title}}</div>
                        <div class="textcontent">{{item.summary}}</div>
-                       <div class="textlook" @click="detailFn(item)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
+                       <div class="textlook" :style="{color:index == 0?'red':''}" @click="detailFn(item)">
+                           <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == 0' style="width:.5rem;height:.88rem;margin-right:.3rem" />
+                           <img src="../../assets/bei/icon_more.png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
                    </el-col>
                </el-row>
            </div>

@@ -2,7 +2,7 @@
   <div id="legalDeclaration">
     <div class="lega-header">
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">巅峰观点</div>
             <img src="../../assets/search-img/icon@2x.png">
@@ -78,6 +78,9 @@ export default {
       this.specialtydefn() //调用联系我们接口
   },
   methods: {
+    homeFn(){
+      this.$router.push("/index") ;
+    },
     async specialtydefn() {
       let { data } = await specialtyde({id:this.$route.params.id});
       this.mesage = data.data.books_detail

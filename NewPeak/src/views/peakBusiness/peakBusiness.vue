@@ -2,7 +2,7 @@
   <div id="legalDeclaration" >
     <div class="lega-header">
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img  @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">巅峰业务</div>
             <img src="../../assets/search-img/icon@2x.png">
@@ -17,40 +17,62 @@
         <div class="lega-content-div1">
             <el-row>
                 <el-col  class="content-div1" :span="5" >
-                <div  style="position:fixed;zIndex:0;">
-                    <div class="tab1" v-for="(item,index) in list1" :key="index" @click="navFn(item,index)">{{item.title}}</div>
-                </div>
-                    
-                </el-col>
-                <el-col :span="19">
-                    <div>
+                    <div  style="position:fixed;zIndex:0;">
+                        <div class="tab1" v-for="(item,index) in list1" :key="index" @click="navFn(item,index)">{{item.title}}</div>
+                    </div>
+                        
+                    </el-col>
+                    <el-col :span="19">
                         <div>
-                            <div class="contCont1" v-for="(item,index) in list1" :key="index">
-                                <div class="contLine"></div>
-                                <div class="cont-right1-title">{{item.title}}</div>
-                                <div v-html="item.description" class="cont-right1-title1" ref="cont1"></div>
-                                <el-row>
-                                    <el-col  class="lega-content-div21" v-for="(item,index) in item.case" :key="index+item.id">
-                                        <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
-                                        <div class="leag-div22" @click="detailFn(item)">{{item.title}}</div>
-                                        <div class="leag-div23">{{item.summary}}</div>
-                                    </el-col>
-                                </el-row>
-                                <el-row class="lega-const" v-for="(item,index) in item.news" :key="index+item.id">
-                                    <el-col :span="9" style="margin-right:1rem">
-                                        <img :src="baseUrl+item.original_image" style="width:27.88rem;height:20rem"/>
-                                    </el-col>
-                                    <el-col :span="12">
-                                        <div class="textime">{{item.addtime}}</div>
-                                        <div class="textelte">{{item.title}}</div>
-                                        <div class="textcontent">{{item.summary}}</div>
-                                        <div class="textlook" @click="detailFn(item)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
-                                    </el-col>
-                                </el-row>
+                            <div>
+                                <div class="contCont1" v-for="(item,index) in list1" :key="index">
+                                    <div class="contLine"></div>
+                                    <div class="cont-right1-title">{{item.title}}</div>
+                                    <div v-html="item.description" class="cont-right1-title1" ref="cont1"></div>
+                                    <el-row>
+                                        <el-col  class="lega-content-div21" v-for="(item2,index2) in item.case" :key="index2+item2.id">
+                                            <div class="leag-div21"><img :src='baseUrl+item2.original_image'/></div>
+                                            <div class="leag-div22" @click="detailFn(item)">{{item2.title}}</div>
+                                            <div class="leag-div23">{{item2.summary}}</div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="lega-const" v-for="(item1,index1) in item.news" :key="index1+item1.id">
+                                        <el-col :span="9" style="margin-right:1rem">
+                                            <img :src="baseUrl+item1.original_image" style="width:27.88rem;height:20rem"/>
+                                        </el-col>
+                                        <el-col :span="12">
+                                            <div class="textime">{{item1.addtime}}</div>
+                                            <div class="textelte">{{item1.title}}</div>
+                                            <div class="textcontent">{{item1.summary}}</div>
+                                            <div class="textlook" @click="detailFn(item1)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :gutter="20">
+                                        <el-col :span='item3.span'  v-for="(item3,index3) in item.branch_office" :key="index3">
+                                            <div class="lega-content-div111">
+                                                <el-col :span='24' class="lega-div2">
+                                                    <img class="lega-img" src='../../assets/bei/icong_weizhi@2x.png'/>
+                                                    <span>{{item3.company_name}}</span>
+                                                    <div>{{item3.company_address}}</div>
+                                                    <div>
+                                                        <span style="margin-right:1rem"><img src='../../assets/bei/icom_dianhua@2x.png' style="width:1rem"/></span>
+                                                        <span style="margin-right:.5rem">咨询电话：</span>
+                                                        <span style="margin-right:.5rem">{{item3.company_phone}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span style="margin-right:1rem"><img src='../../assets/bei/icom_youxiang@2x.png' style="width:1rem"/></span>
+                                                        <span style="margin-right:.5rem">业务邮箱：</span>
+                                                        <span style="margin-right:.5rem">{{item3.company_email}}</span>
+                                                    </div>
+                                                </el-col>
+                                            </div>
+                                            
+                                        </el-col>
+                                    </el-row>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </el-col>
+                    </el-col>
             </el-row>
         </div>
         
@@ -65,6 +87,7 @@ export default {
       mesage:{},
       textHeml:'',
       list1:[],
+      branchOffice:[],
       list2:[
           {
               title:'经典案例'
@@ -91,10 +114,14 @@ export default {
     }
   },
   mounted() {
+      
       this.Businessfn() //调用联系我们接口
     //   window.addEventListener("scroll", this.windowScroll, true);
   },
   methods: {
+    homeFn(){
+      this.$router.push("/index") ;
+    },
     async Businessfn() {
       let { data } = await Business({id:this.$route.params.id});
       this.list1 = data.data.business_detail
@@ -104,9 +131,23 @@ export default {
       if(data.data.news.length != 0){
         this.list2[1] = {...this.list2[1],news:data.data.news}
       }
-    //   if(data.data.news.length != 0){
-    //     this.list2[2] = {...this.list2[2],news:data.data.news}
-    //   }
+      if(data.data.branch_office.length != 0){
+          let lenth1 = data.data.branch_office.length
+          let yushu = lenth1%3
+          
+        let shang1 = parseInt(lenth1/3)
+          this.list2[2] = {...this.list2[2],branch_office:data.data.branch_office}
+          data.data.branch_office.forEach((item1,index1)=>{
+            if(index1 < shang1*3){
+                this.list2[2].branch_office[index1].span=8
+            }else{
+                this.list2[2].branch_office[index1].span = 24/yushu
+            }
+            
+        })
+        console.log( this.list2[2].branch_office)
+        
+      }
       if(data.data.business_detail.length == 0){
           this.list1 = this.list2
       }else{
@@ -121,6 +162,7 @@ export default {
               })
           }
       }
+      console.log()
     },
     navFn(data,index){
         let scrollTop = 0
@@ -144,6 +186,27 @@ export default {
 </script>
 
 <style scoped>
+.lega-content-div111{
+
+    background: #FFFFFF;
+    padding:2.81rem 0 2.5rem 2.5rem;
+}
+.lega-div2 div:nth-child(1){
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #231914;
+    line-height: 2.05rem;
+}
+.lega-div2 div:nth-child(2){
+    font-size: 1.13rem;
+    color: #231914;
+    margin-top: 1.69rem;
+}
+.lega-div2 div:nth-child(3){
+    font-size: 1.13rem;
+    color: #231914;
+    margin-top: 1.5rem;
+}
 .lega-const{
     padding-bottom: 2rem;
     border-bottom: 1px solid #C4C4C4;
@@ -272,7 +335,11 @@ font-size: 2rem;
     -webkit-box-orient: vertical;
     color: #3C3C3C;
 }
-
+.lega-img{
+    /* width: 2rem; */
+    height: 2rem;
+    float: left;
+}
 .cont-right-cont2{
     font-size: 1rem;
     font-weight: 300;

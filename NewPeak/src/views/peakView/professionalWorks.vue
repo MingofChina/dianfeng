@@ -8,7 +8,7 @@
             <div></div>
         </div>
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div>专业著作</div>
         </div>
@@ -17,12 +17,12 @@
         <div class="lega-content-div1">
             <el-row :gutter="20">
                 <el-col :span="12" v-for="(item,index) in dataList"  :key="item.id+index">
-                    <div class="lega-cont-div">
+                    <div class="lega-cont-div" @click="detailFn(item,index)">
                         <div class="lega-cont-img">
                             <img :src='baseUrl+item.original_image'/>
                         </div>
                         <div class="lega-cont-div2">
-                            <div class="lega-cont-div3" @click="detailFn(item,index)" :class="{active: index === 0}">{{item.title}}</div>
+                            <div class="lega-cont-div3"  :class="{active: index === 0}">{{item.title}}</div>
                             <div class="lega-cont-div4">{{item.summary}}</div>
                         </div>
                     </div>
@@ -71,6 +71,9 @@ export default {
      handleCurrentChange(val) {
        this.specialtyfn(val)
     },
+    homeFn(){
+      this.$router.push("/index") ;
+    },
     detailFn(data){
         this.$router.push(`/professWorksDetail/${data.id}`);
     }
@@ -98,7 +101,6 @@ export default {
 .lega-cont-img{
      width: 11.73rem;
     height: 14.75rem;
-    border: 1px solid red;
     margin-right: 1.25rem;
 }
 .lega-cont-img img {

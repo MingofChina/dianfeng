@@ -8,7 +8,7 @@
             <div></div>
         </div>
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div>巅峰案例</div>
         </div>
@@ -19,11 +19,18 @@
                 <div class="tabDiv" :class="{active: isActive === index}" @click="navFn(item,index)" v-for="(item,index) in columnsList" :key="item.id+index">{{item.name}}</div>
             </div>
         </div>
-        <el-row class="lega-content-div2">
-            <el-col  class="lega-content-div21" v-for="(item,index) in dataList" :key="index+item.id">
-                <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
-                <div class="leag-div22" @click="detailFn(item)">{{item.title}}</div>
+        <el-row class="lega-content-div2" >
+            <el-col  class="lega-content-div21"  v-for="(item,index) in dataList" :key="index+item.id">
+                <div @mouseenter="colorFn1(item,index)" @mouseleave="leave" @click="detailFn(item)">
+                    <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
+                <div class="leag-div22" :style="{color:isActive1 == index?'red':''}" @click="detailFn(item)">{{item.title}}</div>
                 <div class="leag-div23">{{item.summary}}</div>
+                <div class="leag-div24" v-if="isActive1 == index">
+                    <img src="../../assets/bei/icon_more@2x(1).png" style="width:.5rem;height:.88rem;margin-right:.3rem" />
+                     查看详情
+                </div>
+                </div>
+                
             </el-col>
         </el-row>
         <div class="pagination">
@@ -49,6 +56,7 @@ export default {
       dataList:[],
       columnsList:[],
       isActive:0,
+      isActive1:null,
       total:0,
       id:null,
       baseUrl:'http://ceshi.davost.com/',
@@ -56,10 +64,28 @@ export default {
   },
   computed: {
   },
+  watch:{
+     $route: {
+        handler() {
+           let that =this;
+           that.colorFn()
+        },
+        deep: true,
+    }
+  },
   mounted() {
       this.sexamplefn(1) //调用联系我们接口
   },
   methods: {
+    colorFn1(data,index){
+        let that = this
+        console.log(index)
+        that.isActive1 = index
+    },
+    leave(){
+        let that =this
+        that.isActive1=null
+    },
     async sexamplefn(val) {
       let that = this;
      let params = {
@@ -71,6 +97,19 @@ export default {
       that.columnsList = data.data.column
       that.dataList = data.data.case
       that.total = data.data.case_pages_number * 10
+      that.colorFn()
+    },
+    colorFn(){
+        let that =this;
+        that.columnsList.forEach((item,index) => {
+          console.log(item.id == that.$route.params.id)
+         if(item.id == that.$route.params.id){
+             that.isActive = index
+         }
+      });
+    },
+    homeFn(){
+      this.$router.push("/index") ;
     },
     navFn(item,index){
         let that =this
@@ -97,7 +136,10 @@ export default {
 background: red;
 color: #FFFFFF;
 }
-
+.leag-div24{
+    color:red;
+    margin-left: 1.25rem;
+}
 #legalDeclaration{
     width: 100%;
     height: 100%;
@@ -257,11 +299,18 @@ color: #FFFFFF;
     font-weight: 400;
     margin-bottom: 1.18rem;
     margin-left: 1.25rem;
+    width: 94%;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    margin-left: 1.25rem;
 }
 .leag-div23{
     color: #6E6E6E;
     font-size: 1rem;
-    margin-bottom:4rem ;
+    margin-bottom:2rem ;
     width: 94%;
     overflow: hidden; 
     text-overflow: ellipsis; 
