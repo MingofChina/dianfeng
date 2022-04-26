@@ -7,18 +7,14 @@
             <div v-for="(itemd,index1) in top" :key="itemd.id" class="zuoce">
               <h2 v-if="itemd.name!='联系我们'">{{ itemd.name }}</h2>
               <h2 v-else @click="tositeMap">网站地图</h2>
-              <li v-show='index1 != top.length -1' v-for="(itemds,index) in itemd.child_column" :key="itemds.id" @click="footNavfn(itemds,index,index1)">
+              <li v-show='index1 != top.length -1' v-for="(itemds,index) in itemd.child_column" :key="itemds.id" @click="footNavfn(itemds,index,index1)" style="white-space:nowrap;">
                 {{ itemds.name }}
               </li>
             </div>
           </div>
           <div class="arrlist-2">
-            <div>
-              <ul>
-                <!-- <li v-for="item in bottom" :key="item.id"> -->
-                <img :src="bottom.applet_url" alt="" class="ones" />
-                <!-- </li> -->
-              </ul>
+            <div style="white-space:nowrap;">
+              
               <ul>
                 <li>
                   <img :src="baseUrl+bottom.applet_url" alt="" />
@@ -136,7 +132,7 @@ export default {
   // background-color: #fff;
 }
 .finish-1 {
-  width: 90%;
+  width: 85%;
   margin: 0 auto;
   padding-left: 2.3125rem;
   padding-top:1.875rem;
@@ -148,7 +144,7 @@ export default {
 }
 .arrlist-1 div {
   box-sizing: border-box;
-  margin-right: 5rem;
+  margin-right: 4rem;
   text-align: center;
   color: #676767;
 }
@@ -169,6 +165,7 @@ export default {
 }
 .arrlist-2 div ul {
   display: inline-block;
+  padding: 0;
 }
 .arrlist-2 div ul li {
   list-style: none;

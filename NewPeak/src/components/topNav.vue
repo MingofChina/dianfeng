@@ -28,7 +28,6 @@
           <div class="bg-purple"></div>
           <div class="grid-div">
             <div class="grid-img"><img src='../assets/bei/路径 80@2x.png' @click="serachFn()" style="width:100%;background:#ffffff"/></div>
-            
             <el-input
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
@@ -42,7 +41,7 @@
 </template>
 
 <script>
-import { column, formsjie ,search} from "@/api/api";
+import { column, formsjie, search } from "@/api/api";
 export default {
   data() {
     return {
@@ -74,11 +73,10 @@ export default {
      document.addEventListener("click",e=>{
       let that = this
       if (!this.$el.contains(e.target)) {
-        this.subscript = null
+        this.subscript = null;
       } else {
-       
       }
-     })
+    });
     // this.formsjiefn(); //头部搜岁页面的接口
     // this.searchfn() //搜索的接口
   },
@@ -112,15 +110,14 @@ export default {
       this.$router.push("/index") ;
     },
     async columnfn() {
-      let that= this;
+      let that = this;
       // let { data } = await column({ id: 14 });
       column({id:14}).then((res)=>{
         if(res.data.code == 0){
           that.navList = res.data.data
           this.colorFn()
         }
-      })
-      
+      });
     },
     serachFn(){
       this.$router.push(`/queryResults/${this.input2}`) ;
@@ -150,8 +147,7 @@ export default {
       }else{
         that.subscript1 = null
       }
-      that.subscript=index
-
+      that.subscript = index;
     },
     linkFn1(data){
       this.$router.push(`/peakBusiness/${data.id}`) ;
@@ -214,10 +210,10 @@ export default {
 #Header{
   padding: 1.5rem 0 1.5625rem 0;
 }
-.logo-img{
+.logo-img {
   height: 3.875rem;
 }
-.navli1{
+.navli1 {
   height: 1.6875rem;
   font-size: 18px;
   margin-top: 32px;
@@ -229,6 +225,6 @@ export default {
 }
 .navLIST{
   position: absolute;
-  top:3.75rem;
+  top: 3.75rem;
 }
 </style>

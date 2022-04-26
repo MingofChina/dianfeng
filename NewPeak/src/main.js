@@ -15,6 +15,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 
+//视频
+import Video from 'video.js';
+import 'video.js/dist/video-js.css';
+
+Vue.prototype.$video = Video;
+
+
 //全局axios
 // import axios from 'axios'
 // Vue.prototype.$http = axios;
