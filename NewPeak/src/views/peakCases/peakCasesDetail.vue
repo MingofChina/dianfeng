@@ -22,13 +22,12 @@
                         <el-col :span="20">来源：{{mesage.branch}}</el-col>
                         <el-col :span="4">发布时间：{{mesage.addtime}}</el-col>
                     </el-row>
-                    <div>&nbsp;1111</div>
                     <div v-html="textHeml"></div>
                 </el-col>
                 <el-col :span="7">
                     <div class="cont-right1" >
                         <div class="contLine"></div>
-                        <div class="cont-right1-title">前沿观点推荐</div>
+                        <div class="cont-right1-title">热点案例</div>
                         <el-row :gutter="30" class="cont-right-cont" v-for="(item,index) in list1" :key="item.id+index">
                             <el-col :span="15">
                                 <div class="cont-right-cont1">{{item.title}}</div>
@@ -81,8 +80,7 @@ export default {
       this.$router.push("/index") ;
     },
     dianfeng(){
-        console('1')
-        this.$router.push('/peakView/56') ;
+        this.$router.push(`/peakCases/${sessionStorage.getItem('peakCasesId')}`) ;
     },
     async sexampledetailfn() {
       let { data } = await sexampledetail({id:this.$route.params.id});
@@ -90,10 +88,6 @@ export default {
       this.textHeml = data.data.case_detail.description.replace(/\"/g, '')
       this.list1 = data.data.peak_case_hots
       this.list2 = data.data.peak_case_relevant
-    //   this.textHeml = data.data.message.description
-    //   this.description=data.data.message
-    //   this.descriptionson=data.data.message.description
-
     },
   },
 };
@@ -176,7 +170,7 @@ font-size: 2rem;
 .lega-header-foot1{
     position: absolute;
     right: 12rem;
-    bottom: 1rem;
+    bottom: -1.2rem;
     z-index: 99;
 }
 .lega-header-foot1 img {
@@ -215,9 +209,9 @@ font-size: 2rem;
     margin-left: 5.1rem;
 }
 .lega-header-foot{
-    position: absolute;
-    bottom: 2.0625rem;
-    left: 11.8rem;
+    /* position: absolute; */
+    padding-top: 2.0625rem;
+    margin-left: 11.8rem;
     /* color: #FFFFFF; */
     display: flex;
 }
@@ -228,7 +222,7 @@ font-size: 2rem;
 }
 .lega-content{
     width: 96rem;
-    margin:6.25rem auto 0;
+    margin:3.25rem auto 0;
     /* background: #FFFFFF; */
     padding-bottom: 6.25rem;
 }

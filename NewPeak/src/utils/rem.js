@@ -12,9 +12,23 @@ function setRem () {
   }
   
 }
+function setRem1 () {
+  if(document.documentElement.clientWidth<1200){
+    const scale = 1200 / 1920
+    // 设置页面根节点字体大小（“Math.min(scale, 2)” 指最高放大比例为2，可根据实际业务需求调整）
+    document.documentElement.style.fontSize = baseSize * Math.min(scale, 2) + "px"
+    return
+  }
+  
+  
+}
 // 初始化
 setRem()
 // 改变窗口大小时重新设置 rem
-window.onresize = function () {
-  setRem()
+window.addEventListener('resize', setRem);
+// window.onresize = function () {
+//   setRem()
+// }
+window.onload = function(){
+  setRem1()
 }

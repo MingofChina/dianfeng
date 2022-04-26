@@ -21,9 +21,11 @@
         </div>
         <el-row class="lega-content-div2" v-if="isActive == 0">
             <el-col  class="lega-content-div21" v-for="(item,index) in dataList" :key="index+item.id">
-                <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
-                <div class="leag-div22">{{item.title}}</div>
-                <div class="leag-div23">{{item.summary}}</div>
+                <div @click="peakCasesDetail(item)">
+                    <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
+                    <div class="leag-div22" v-html="item.title"></div>
+                    <div class="leag-div23" v-html="item.summary"></div>
+                </div>
             </el-col>
         </el-row>
         <div v-else>
@@ -33,8 +35,8 @@
                    </el-col>
                    <el-col :span="15">
                        <div class="textime">{{item.addtime}}</div>
-                       <div class="textelte">{{item.title}}</div>
-                       <div class="textcontent">{{item.summary}}</div>
+                       <div class="textelte"  v-html="item.title"></div>
+                       <div class="textcontent"  v-html="item.summary"></div>
                        <div class="textlook" @click="detailFn(item)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
                    </el-col>
         </el-row>
@@ -85,6 +87,32 @@ export default {
       homeFn(){
       this.$router.push("/index") ;
     },
+    peakCasesDetail(data){
+        this.$router.push(`/peakCasesDetail/${data.id}`) ;
+    },
+    highLight(title){
+      // 如果标题中包含，关键字就替换一下
+        if(title.includes(this.$route.params.id)){
+            title = title.replace(
+                this.$route.params.id, 
+                // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+                '<font style="color:red!important;">'+ this.$route.params.id +'</font>'
+            )
+            return title
+        }
+        // 不包含的话还用这个
+        else{
+            return title
+        }
+        
+    },
+    detailFn(data){
+        if(this.isActive == 1){
+
+        }else if(this.isActive == 2){
+            this.$router.push(`/peakViewDetail/${data.id}`) 
+        }
+    },
     async searchfn(val) {
       let that = this;
     //   console.log(that.$route.params.id)
@@ -100,7 +128,13 @@ export default {
       let toatl = 0
       data.data.columns.forEach((item,index)=>{
           toatl+=item.search_number
+
       })
+      data.data.document.forEach((item,index)=>{
+         data.data.document[index].title =  that.highLight(item.title)
+         data.data.document[index].title =  that.highLight(item.title)
+      })
+      
       that.dataList = data.data.document
       that.total = data.data.document_pages_number * 10
       that.text='"'+ that.$route.params.id+'"的'+toatl+'条数据'
@@ -269,9 +303,9 @@ color: #FFFFFF;
     margin-left: 5.1rem;
 }
 .lega-header-foot{
-    position: absolute;
-    bottom: 2.0625rem;
-    left: 7.4375rem;
+    /* position: absolute; */
+    padding-top: 2.0625rem;
+    margin-left: 7.4375rem;
     /* color: #FFFFFF; */
     display: flex;
 }
@@ -281,8 +315,8 @@ color: #FFFFFF;
     height: 1rem;
 }
 .lega-content{
-    width: 105rem;
-    margin:5rem auto 0;
+    width: 90%;
+    margin:3rem auto 0;
     /* background: #FFFFFF; */
     padding-bottom: 4.38rem;
 }

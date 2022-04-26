@@ -9,22 +9,22 @@
             <div style="color:#231914">详情</div>
             
         </div>
-        <div class="lega-header-foot1">
+        <!-- <div class="lega-header-foot1">
             <img src="../../assets/story-detail/Group 397@2x.png"/>
-        </div>
+        </div> -->
     </div>
     <div class="lega-content">
         <div class="lega-content-div1">
             <el-row>
                 <el-col  class="content-div1" :span="5" >
-                    <div  style="position:fixed;zIndex:0;">
+                    <div  style="position:fixed;zIndex:0;" :style="{top:top+'rem'}">
                         <div class="tab1" v-for="(item,index) in list1" :key="index" @click="navFn(item,index)">{{item.title}}</div>
                     </div>
                         
                     </el-col>
-                    <el-col :span="19">
+                    <el-col :span="19" :offset="5">
                         <div>
-                            <div>
+                            <div >
                                 <div class="contCont1" v-for="(item,index) in list1" :key="index">
                                     <div class="contLine"></div>
                                     <div class="cont-right1-title">{{item.title}}</div>
@@ -49,23 +49,26 @@
                                     </el-row>
                                     <el-row :gutter="20">
                                         <el-col :span='item3.span'  v-for="(item3,index3) in item.branch_office" :key="index3">
-                                            <div class="lega-content-div111">
+                                            <el-row class="lega-content-div111">
                                                 <el-col :span='24' class="lega-div2">
-                                                    <img class="lega-img" src='../../assets/bei/icong_weizhi@2x.png'/>
-                                                    <span>{{item3.company_name}}</span>
-                                                    <div>{{item3.company_address}}</div>
-                                                    <div>
+                                                    <div style="display:flex;margin-bottom:.88rem">
+                                                         <img class="lega-img" src='../../assets/bei/icong_weizhi@2x.png'/>
+                                                         <div style="font-size: 1.5rem;font-weight: 500;margin-left:.75rem;padding-top:.2rem">{{item3.company_name}}</div>
+                                                    </div>
+                                                    
+                                                    <div style="font-size: 1.13rem;font-weight: 400;color: #3C3C3C;minHeight:3.56rem">{{item3.company_address}}</div>
+                                                    <div style="margin-bottom:.75rem">
                                                         <span style="margin-right:1rem"><img src='../../assets/bei/icom_dianhua@2x.png' style="width:1rem"/></span>
-                                                        <span style="margin-right:.5rem">咨询电话：</span>
+                                                        <span style="margin-right:.5rem;color: #3C3C3C;">咨询电话：</span>
                                                         <span style="margin-right:.5rem">{{item3.company_phone}}</span>
                                                     </div>
-                                                    <div>
+                                                    <div style="margin-bottom:.75rem">
                                                         <span style="margin-right:1rem"><img src='../../assets/bei/icom_youxiang@2x.png' style="width:1rem"/></span>
-                                                        <span style="margin-right:.5rem">业务邮箱：</span>
+                                                        <span style="margin-right:.5rem;color: #3C3C3C;">业务邮箱：</span>
                                                         <span style="margin-right:.5rem">{{item3.company_email}}</span>
                                                     </div>
                                                 </el-col>
-                                            </div>
+                                            </el-row>
                                             
                                         </el-col>
                                     </el-row>
@@ -101,6 +104,7 @@ export default {
 
       ],
       baseUrl:'http://ceshi.davost.com/',
+      top:13
     };
   },
   computed: {
@@ -116,7 +120,7 @@ export default {
   mounted() {
       
       this.Businessfn() //调用联系我们接口
-    //   window.addEventListener("scroll", this.windowScroll, true);
+      window.addEventListener("scroll", this.windowScroll, true);
   },
   methods: {
     homeFn(){
@@ -145,8 +149,6 @@ export default {
             }
             
         })
-        console.log( this.list2[2].branch_office)
-        
       }
       if(data.data.business_detail.length == 0){
           this.list1 = this.list2
@@ -162,24 +164,27 @@ export default {
               })
           }
       }
-      console.log()
     },
     navFn(data,index){
-        let scrollTop = 0
+        var height = document.body.clientHeight * 0.045
         if(index>0){
-            for(var i=0;i<index;i++){
-                console.log(i)
-                scrollTop += this.$refs.cont1[i].clientHeight
-                console.log(scrollTop)
-            }
+            document.documentElement.scrollTop = document.getElementsByClassName('contCont1')[index].offsetTop + height
+            this.top=1
         }else{
-            scrollTop=0
+            document.documentElement.scrollTop = 0
+            this.top=13
         }
-
-        document.documentElement.scrollTop = scrollTop
-        console.log(scrollTop)
-        // document.body.scrollTop = 77
         
+
+        
+        
+    },
+    windowScroll(e) {
+      let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+       if(scrollTop<200){
+           this.top=13
+       }
     },
   },
 };
@@ -187,11 +192,13 @@ export default {
 
 <style scoped>
 .lega-content-div111{
-
-    background: #FFFFFF;
-    padding:2.81rem 0 2.5rem 2.5rem;
+    width: 100%;
+    height: 100%;
+    background:#f0eeee;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
-.lega-div2 div:nth-child(1){
+/* .lega-div2 div:nth-child(1){
     font-size: 1.75rem;
     font-weight: 500;
     color: #231914;
@@ -207,6 +214,16 @@ export default {
     color: #231914;
     margin-top: 1.5rem;
 }
+.lega-div2 div:nth-child(3){
+    font-size: 1.13rem;
+    color: #231914;
+    margin-top: 1rem;
+}
+.lega-div2 div:nth-child(4){
+    font-size: 1.13rem;
+    color: #231914;
+    margin-top: 1rem;
+} */
 .lega-const{
     padding-bottom: 2rem;
     border-bottom: 1px solid #C4C4C4;
@@ -281,7 +298,7 @@ export default {
 }
 .content-div1{
     /* overflow: hidden; */
-    position: relative;
+    /* position: relative; */
 }
 .cont-right1-title1{
     width: 100%;

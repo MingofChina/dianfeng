@@ -1,7 +1,7 @@
 <template>
   <div id="homes">
     <el-container>
-        <el-header style="height:99px">
+        <el-header style="height:6.22rem">
             <Header></Header>
         </el-header>
         <el-main style="padding:0">

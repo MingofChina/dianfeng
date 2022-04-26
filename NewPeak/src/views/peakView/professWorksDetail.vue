@@ -29,28 +29,34 @@
                 <el-col :span="7">
                     <div class="cont-right1" >
                         <div class="contLine"></div>
-                        <div class="cont-right1-title">前沿观点推荐</div>
+                        <div class="cont-right1-title">著作推荐</div>
                         <el-row :gutter="30" class="cont-right-cont" v-for="(item,index) in list1" :key="item.id+index">
-                            <el-col :span="15">
-                                <div class="cont-right-cont1">{{item.title}}</div>
-                                <div class="cont-right-cont2">{{item.summary}}</div>
-                            </el-col>
-                            <el-col :span="8">
-                                <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
-                            </el-col>
+                            <div @click="professWorksDetail(item)">
+                                <el-col :span="15">
+                                    <div class="cont-right-cont1">{{item.title}}</div>
+                                    <div class="cont-right-cont2">{{item.summary}}</div>
+                                </el-col>
+                                <el-col :span="8">
+                                    <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
+                                </el-col>
+                            </div>
+                            
                         </el-row>
                     </div>
                     <div class="cont-right2" >
                         <div class="contLine"></div>
                         <div class="cont-right1-title">相关文章推荐</div>
                         <el-row :gutter="30" class="cont-right-cont" v-for="(item,index) in list2" :key="item.id+index">
-                            <el-col :span="15">
-                                <div class="cont-right-cont1">{{item.title}}</div>
-                                <div class="cont-right-cont2">{{item.summary}}</div>
-                            </el-col>
-                            <el-col :span="8">
-                                <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
-                            </el-col>
+                            <div @click="professWorksDetail(item)">
+                                <el-col :span="15">
+                                    <div class="cont-right-cont1">{{item.title}}</div>
+                                    <div class="cont-right-cont2">{{item.summary}}</div>
+                                </el-col>
+                                <el-col :span="8">
+                                    <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
+                                </el-col>
+                            </div>
+                            
                         </el-row>
                     </div>
                 </el-col>
@@ -74,12 +80,23 @@ export default {
   },
   computed: {
   },
+  watch:{
+     $route: {
+          handler() {
+              this.specialtydefn();
+        },
+        deep: true,
+    }
+  },
   mounted() {
       this.specialtydefn() //调用联系我们接口
   },
   methods: {
     homeFn(){
       this.$router.push("/index") ;
+    },
+    professWorksDetail(data){
+        this.$router.push( `/professWorksDetail/${data.id}`) ;
     },
     async specialtydefn() {
       let { data } = await specialtyde({id:this.$route.params.id});
@@ -173,7 +190,7 @@ font-size: 2rem;
 .lega-header-foot1{
     position: absolute;
     right: 12rem;
-    bottom: 1rem;
+    bottom: -1rem;
 }
 .lega-header-foot1 img {
     width: 4rem;
@@ -211,9 +228,9 @@ font-size: 2rem;
     margin-left: 5.1rem;
 }
 .lega-header-foot{
-    position: absolute;
-    bottom: 2.0625rem;
-    left: 11.8rem;
+    /* position: absolute; */
+    padding-top: 2.0625rem;
+    margin-left: 11.8rem;
     /* color: #FFFFFF; */
     display: flex;
 }

@@ -68,18 +68,23 @@ export default {
      $route: {
         handler() {
            let that =this;
-           that.colorFn()
+           if(that.isActive){
+               return
+           }else{
+               that.colorFn()
+           }
+           
         },
         deep: true,
     }
   },
   mounted() {
       this.sexamplefn(1) //调用联系我们接口
+    //   this.colorFn()
   },
   methods: {
     colorFn1(data,index){
         let that = this
-        console.log(index)
         that.isActive1 = index
     },
     leave(){
@@ -97,15 +102,18 @@ export default {
       that.columnsList = data.data.column
       that.dataList = data.data.case
       that.total = data.data.case_pages_number * 10
-      that.colorFn()
+    //   that.colorFn()
+       if(!that.isActive){
+           that.colorFn()
+       }
     },
     colorFn(){
         let that =this;
         that.columnsList.forEach((item,index) => {
-          console.log(item.id == that.$route.params.id)
-         if(item.id == that.$route.params.id){
-             that.isActive = index
-         }
+            console.log(item.id == sessionStorage.getItem('peakCasesId'))
+            if(item.id == sessionStorage.getItem('peakCasesId')){
+                that.isActive = index
+            }
       });
     },
     homeFn(){
@@ -114,6 +122,7 @@ export default {
     navFn(item,index){
         let that =this
         that.isActive = index
+        sessionStorage.setItem('peakCasesId',item.id)
         that.id = item.id
         that.sexamplefn(1)
     },
@@ -210,7 +219,7 @@ color: #FFFFFF;
 }
 
 .lega-content{
-    width: 105rem;
+    width: 106rem;
     margin:5rem auto 0;
     /* background: #FFFFFF; */
     padding-bottom: 4.38rem;
