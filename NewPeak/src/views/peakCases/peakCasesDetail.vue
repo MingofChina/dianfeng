@@ -22,6 +22,7 @@
                         <el-col :span="20">来源：{{mesage.branch}}</el-col>
                         <el-col :span="4">发布时间：{{mesage.addtime}}</el-col>
                     </el-row>
+                    <div>&nbsp;1111</div>
                     <div v-html="textHeml"></div>
                 </el-col>
                 <el-col :span="7">
@@ -86,7 +87,7 @@ export default {
     async sexampledetailfn() {
       let { data } = await sexampledetail({id:this.$route.params.id});
       this.mesage = data.data.case_detail
-      this.textHeml = data.data.case_detail.description
+      this.textHeml = data.data.case_detail.description.replace(/\"/g, '')
       this.list1 = data.data.peak_case_hots
       this.list2 = data.data.peak_case_relevant
     //   this.textHeml = data.data.message.description
