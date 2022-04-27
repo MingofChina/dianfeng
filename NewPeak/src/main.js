@@ -29,19 +29,22 @@ Vue.prototype.$video = Video;
 
 export const eventBus = new Vue();
 
- //less
+//less
 import less from 'less'
 Vue.use(less)
 
+// 全局lodash
+import _ from 'lodash'
+Vue.prototype._ = _
 
 
 // 路由进入前(进度条)
 router.beforeEach((to, from, next) => {
-	nprogress.start() // 每次切换页面调用滚动条
-	next()
+    nprogress.start() // 每次切换页面调用滚动条
+    next()
 })
 router.afterEach(() => {
-	nprogress.done() // 路由进入后关闭进度条
+    nprogress.done() // 路由进入后关闭进度条
 })
 //
 new Vue({

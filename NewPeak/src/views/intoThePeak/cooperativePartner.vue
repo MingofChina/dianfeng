@@ -18,17 +18,32 @@
     <div v-if="showClient" class="partner-main-info-wrapper">
       <div class="partner-main-title">客户名录</div>
       <div class="partner-main-titletrans">CLIENT LIST</div>
-      <ul class="partner-main-info-nav">
-        <li
+      <div class="partner-main-info-nav">
+        <div
           class="partner-nav-middle-item"
           v-for="(item) in customer_list"
           :key="item.id"
-        >{{ item.title }}</li>
-      </ul>
+        >{{ item.title }}</div>
+      </div>
       <div class="partner-display-part">
-        <img class="partner-display-item"
+        <img
+          class="partner-display-client"
           v-for="(item, index) in customer_list[0].child"
-          :key="index" :src="item.original_image"> 
+          :key="index"
+          :src="item.original_image"
+        />
+      </div>
+    </div>
+    <div v-if="showClient" class="partner-main-info-wrapper">
+      <div class="partner-main-title">合作伙伴</div>
+      <div class="partner-main-titletrans">PARTNERS</div>
+      <div class="partner-display-part">
+        <img
+          class="partner-display-partner"
+          v-for="(item, index) in cooperative_partner"
+          :key="index"
+          :src="item.original_image"
+        />
       </div>
     </div>
   </div>
@@ -47,44 +62,47 @@ export default {
           child: [
             {
               title: "第一个",
-              original_image:
-                require("../../assets/img/banner.png"),
+              original_image: require("../../assets/img/banner.png"),
               linkurl: "baidu.com"
             },
             {
               title: "第2个",
-              original_image:
-                require("../../assets/img/guangyingyeyou.png"),
+              original_image: require("../../assets/img/guangyingyeyou.png"),
               linkurl: "baidu.com"
             },
             {
               title: "第3个",
-              original_image:
-                require("../../assets/img/guihuasheji.png"),
+              original_image: require("../../assets/img/guihuasheji.png"),
               linkurl: "baidu.com"
             },
             {
               title: "第4个",
-              original_image:
-                require("../../assets/img/wenchuangshej.png"),
+              original_image: require("../../assets/img/wenchuangshej.png"),
               linkurl: "baidu.com"
             },
             {
               title: "第5个",
-              original_image:
-                require("../../assets/img/guihuasheji.png"),
+              original_image: require("../../assets/img/guihuasheji.png"),
               linkurl: "baidu.com"
             },
             {
               title: "第6个",
-              original_image:
-                require("../../assets/img/guihuasheji.png"),
+              original_image: require("../../assets/img/guihuasheji.png"),
               linkurl: "baidu.com"
             },
             {
               title: "第7个",
-              original_image:
-                require("../../assets/img/wenchuangshej.png"),
+              original_image: require("../../assets/img/wenchuangshej.png"),
+              linkurl: "baidu.com"
+            },
+            {
+              title: "第7个",
+              original_image: require("../../assets/img/wenchuangshej.png"),
+              linkurl: "baidu.com"
+            },
+            {
+              title: "第7个",
+              original_image: require("../../assets/img/wenchuangshej.png"),
               linkurl: "baidu.com"
             }
           ]
@@ -93,6 +111,53 @@ export default {
           id: "1",
           title: "旅游景区",
           child: []
+        }
+      ],
+      cooperative_partner: [
+        {
+          title: "第一个",
+          original_image: require("../../assets/img/banner.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第2个",
+          original_image: require("../../assets/img/guangyingyeyou.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第3个",
+          original_image: require("../../assets/img/guihuasheji.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第4个",
+          original_image: require("../../assets/img/wenchuangshej.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第5个",
+          original_image: require("../../assets/img/guihuasheji.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第6个",
+          original_image: require("../../assets/img/guihuasheji.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第7个",
+          original_image: require("../../assets/img/wenchuangshej.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第7个",
+          original_image: require("../../assets/img/wenchuangshej.png"),
+          linkurl: "baidu.com"
+        },
+        {
+          title: "第7个",
+          original_image: require("../../assets/img/wenchuangshej.png"),
+          linkurl: "baidu.com"
         }
       ]
     };
@@ -105,7 +170,6 @@ export default {
 <style scoped>
 .cooperative-partner {
   width: 1920px;
-  height: 3378px;
 }
 .partner-top-wrapper {
   widows: 1920px;
@@ -218,19 +282,19 @@ export default {
   font-weight: 400;
   color: #231914;
   line-height: 23px;
+  margin: 0px;
+  margin-bottom: 40px;
 }
 .partner-main-info-nav {
   list-style: none;
-  height: 154px;
   width: 1920px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   align-content: space-between;
   padding-left: 236px;
-  padding-right: 1094px;
+  margin-bottom: 30px;
 }
-.partner-main-info-nav li {
+.partner-main-info-nav div {
   width: 170px;
   height: 54px;
   border: 1px solid #cacaca;
@@ -246,13 +310,22 @@ export default {
 }
 .partner-display-part {
   margin-left: 236px;
-  width: 1450px;
-  height: 100px;
+  width: 1484px;
   display: flex;
+  flex-wrap: wrap;
 }
-.partner-display-item {
+.partner-display-client {
   width: 178px;
   height: 130px;
   margin-right: 34px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+.partner-display-partner {
+  width: 178px;
+  height: 82px;
+  margin-right: 34px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
 }
 </style>

@@ -17,11 +17,11 @@
     </div>
     <div class="main-info-wrapper">
       <ul class="main-info-nav">
-        <li>管理团队</li>
-        <li class="nav-middle-item">专家团队</li>
-        <li>技术团队</li>
+        <li :class="{'light': active === 1}" @click="changeTab(1)">管理团队</li>
+        <li :class="{'light': active === 2}" class="nav-middle-item" @click="changeTab(2)">专家团队</li>
+        <li :class="{'light': active === 3}" @click="changeTab(3)">技术团队</li>
       </ul>
-      <div class="team-introduction-part">
+      <div v-if="active === 1" class="team-introduction-part">
         <div class="intr-partone">
           <div class="partone-first-child">图片</div>
            <div class="partone-inner">
@@ -33,31 +33,121 @@
           </div>
           </div>
         <div class="intr-parttwo">
-          <div>束盈</div>
-          <div>邸倩</div>
+          <div class="parttwo-child">束盈</div>
+          <div class="parttwo-child">邸倩</div>
         </div>
         <div class="intr-partthree">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div class="partthree-child" v-for="(item, index) in manageData"> {{ item.name }} </div>
         </div>
         
+      </div>
+      <div v-if="active === 2" class="team-introduction-part">
+        <div class="intr-partthree">
+          <div class="partthree-child" v-for="(item, index) in masterData"> {{ item.name }} </div>
+        </div>
+      </div>
+      <div v-if="active === 3" class="team-introduction-part">
+        <div class="intr-partthree">
+          <div class="partthree-child" v-for="(item, index) in techoData"> {{ item.name }} </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      team: [
+        {
+          "id": "34",
+          "name": "刘锋",
+          "title": "创始人",
+          "profile": "中国旅游规划少壮派领军人物，60多个省市旅游发展高级顾问，多所大学客座教授，多次获得国家奖项。",
+          "original_image": "/attachs/team/2017/0105/3falltnpa3kiii9.jpg"
+        },
+        {
+          "id": "94",
+          "name": "束盈",
+          "title": "董事长",
+          "profile": "中欧国际工商学院EMBA、北京邮电大学MBA十大杰出校友、2013年度中国城镇化建设特别贡献人物、中国旅游投资先锋人物。",
+          "original_image": "/attachs/team/2016/1110/5xubo5wcxinumki.jpg"
+        },
+        {
+          "id": "177",
+          "name": "邸倩",
+          "title": "首席运营官/COO",
+          "profile": "清华大学-法国国立路桥大学-法国国立民航大学高级管理人员工商管理硕士学位，中国注册会计师，曾任上市公司董事职务。",
+          "original_image": "/attachs/team/2021/0209/8qhuyct8hioknl8.jpg"
+        },
+        {
+          "id": "93",
+          "name": "刘惠",
+          "title": "执行总裁",
+          "profile": "长江商学院EMBA、国际旅游联合会（中国区）副主席。曾任职于《中国旅游报》、《中国经济导报》、国家发改委新闻办。",
+          "original_image": "/attachs/team/2016/1104/chbckhvxn9x1hut.jpg"
+        },
+        {
+          "id": "89",
+          "name": "李晓东",
+          "title": "副总裁/上海院院长",
+          "profile": "同济大学建筑城规学院建筑学硕士，国家一级注册建筑师。擅长总体规划、控制性详细规划和城市设计，熟悉房地产市场动态。",
+          "original_image": "/attachs/team/2016/1104/yn0myezsatmeqrz.jpg"
+        },
+        {
+          "id": "88",
+          "name": "曹璐",
+          "title": "副总裁/南方大区总经理",
+          "profile": "美国MBA。旅游规划专家、旅游项目投融资分析及运营专家、旅游项目品牌及营销管理专家。",
+          "original_image": "/attachs/team/2021/0209/i9ujkl2shpbhsxb.jpg"
+        },
+        {
+          "id": "178",
+          "name": "冯君",
+          "title": "副总裁/巅峰生态总经理",
+          "profile": "中国矿业大学建筑工程专业，对于大型上市公司经营治理、工程项目全周期统筹管理、上市集团公司人员管理有着丰富的实践经验。",
+          "original_image": "/attachs/team/2021/0209/ikssp2lpmhonzfy.jpg"
+        },
+        {
+          "id": "179",
+          "name": "殷嵘",
+          "title": "首席顾问",
+          "profile": "国内知名地产实操型专家，中欧国际工商学院EMBA，房地产经济师。30年房地产行业经验，擅长以经营视角发现产品价值，挖掘土地最大收益。",
+          "original_image": "/attachs/team/2021/0209/codkrmbgklllure.jpg"
+        },
+        {
+          "id": "150",
+          "name": "钱晓丽",
+          "title": "总裁助理/渠道中心总经理",
+          "profile": "　　拥有景观设计、旅游规划、企业管理等多重专业背景，十年旅游规划与景观设计的研究与实战经验，五年市场营销和管理工作、两年企业项目的运营管理经验。",
+          "original_image": "/attachs/team/2019/1213/o4gpbwacpmnyzpe.jpg"
+        },
+        {
+          "id": "180",
+          "name": "温雅",
+          "title": "总裁助理/华南大区总经理",
+          "profile": "毕业于北京大学，曾就职世界五百强企业美的集团。擅长文旅全产业链项目规划、落地、建设、运营。广东省文旅厅、福建省文旅厅、湖北省文旅厅合",
+          "original_image": "/attachs/team/2021/0209/aj3plhw2svr0gyj.jpg"
+        }
+      ],
+      manageData: [],
+      masterData: [],
+      techoData: [],
+      active: 1
+    }
+  },
+  mounted() {
+    this.manageData = this.team.slice(3);
+    this.masterData = this.team;
+    this.techoData = this.team.slice(1);
+  },
+  methods: {
+    changeTab(index) {
+      this.active = index;
+    }
+  }
+};
 
 </script>
 
@@ -65,7 +155,6 @@ export default {};
 /* 设置巅峰团队的样式 */
 .total-wrapper {
   width: 1920px;
-  height: 3378px;
 }
 .top-wrapper {
   widows: 1920px;
@@ -155,8 +244,7 @@ export default {};
 
 .main-info-wrapper{
   width: 1920px;
-height: 3999px;
-background: #F4F4F4;
+  background: #F4F4F4;
 }
 /* 团队人员介绍块 */
 .main-info-nav{
@@ -244,11 +332,30 @@ background: #F4F4F4;
 .intr-parttwo{
   width: 1448px;
   height: 366px;
-  margin-top: 20px;
-  background-color: #ffffff;
+  background-color: #F4F4F4;
   margin: 20px auto;
-
-
+  display: flex;
+  justify-content: space-between;
 }
-
+.parttwo-child {
+  width: 716px;
+  height: 366px;
+  background-color: #ffffff;
+}
+.intr-partthree {
+  width: 1464px;
+  margin: 0px auto;
+  padding-left: 16px;
+  background-color: #F4F4F4;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+.partthree-child {
+  margin-bottom: 20px;
+  margin-right: 16px;
+  width: 350px;
+  height: 494px;
+  background-color: #ffffff;
+}
 </style>

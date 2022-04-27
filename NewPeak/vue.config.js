@@ -1,3 +1,4 @@
+const path = require('path')
 // 引入等比适配插件
 const px2rem = require("postcss-px2rem")
 
@@ -7,29 +8,34 @@ const postcss = px2rem({
   remUnit: 16
 })
 module.exports = {
-    devServer: {
-      proxy: {  
-        '/api': {
-          target: 'http://ceshi.davost.com', //路径指向本地主机地址及端口号
-          ws: true, 
-          changeOrigin: true,
-          pathRewrite:{
-              '^/api': '' //路径转发代理
-          }
-        }
-      }
-    },
-    configureWebpack: {
-      name: 'abslocker',
-    },
-    lintOnSave: false,
-    css: {
-      loaderOptions: {
-        postcss: {
-          plugins: [
-            postcss
-          ]
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://ceshi.davost.com', //路径指向本地主机地址及端口号
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '' //路径转发代理
         }
       }
     }
+  },
+  configureWebpack: {
+    name: 'abslocker',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src')
+      }
+    }
+  },
+  lintOnSave: false,
+  css: {
+    loaderOptions: {
+      postcss: {
+        plugins: [
+          postcss
+        ]
+      }
+    }
   }
+}
