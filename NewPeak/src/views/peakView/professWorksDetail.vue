@@ -21,8 +21,8 @@
                 <el-col :span="17" >
                     <div class="content-title">{{mesage.title}}</div>
                     <el-row class="content-cont1">
-                        <el-col :span="20">来源：{{mesage.branch}}</el-col>
-                        <el-col :span="4">发布时间：{{mesage.addtime}}</el-col>
+                        <el-col :span="19">来源：{{mesage.branch}}</el-col>
+                        <el-col :span="5">发布时间：{{mesage.addtime}}</el-col>
                     </el-row>
                     <div v-html="textHeml"></div>
                 </el-col>
@@ -100,6 +100,7 @@ export default {
     },
     async specialtydefn() {
       let { data } = await specialtyde({id:this.$route.params.id});
+      document.title = data.data.seo_message.meta_title
       this.mesage = data.data.books_detail
       this.textHeml = data.data.books_detail.description
       this.list1 = data.data.peak_books_hots
@@ -181,6 +182,7 @@ font-size: 2rem;
 .content-title{
     font-size: 2.13rem;
     font-weight: bold;
+    text-align: center;
     color: #231914;
     margin-bottom: 1.75rem;
 }
@@ -241,7 +243,7 @@ font-size: 2rem;
 }
 .lega-content{
     width: 96rem;
-    margin:6.25rem auto 0;
+    margin:3.25rem auto 0;
     /* background: #FFFFFF; */
     padding-bottom: 6.25rem;
 }

@@ -1,9 +1,9 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/mines/Group 388@2x.png"/>
+        <img :src="imgUrl"/>
         <div class="lega-header-cont">
-            <div>联系我们</div>
+            <div>联<span style="marginRight:.8rem"></span>系<span style="marginRight:.8rem"></span>我<span style="marginRight:.8rem"></span>们</div>
             <div>Contact us</div>
             <div></div>
         </div>
@@ -44,12 +44,13 @@
   </div>
 </template>
 <script>
-import { relation } from "@/api/api";
+import { relation,banner } from "@/api/api";
 export default {
   data() {
     return {
       branchOffice:[],
       textHeml:'',
+      imgUrl:'',
       baseUrl:'http://ceshi.davost.com'
     };
   },
@@ -64,6 +65,11 @@ export default {
     },
     async legislationfn() {
         let { data } = await relation();
+        banner({id:this.$route.params.id}).then((res)=>{
+             console.log(res)
+            this.imgUrl = this.baseUrl+res.data.data[0].original_image
+        });
+       
         let lenth1 = data.data.branch_office.length
         let yushu = lenth1%3
         let shang1 = parseInt(lenth1/3)
@@ -83,18 +89,24 @@ export default {
         // 初始化地图,设置中心点坐标和地图级别
         map.centerAndZoom(point, 3);
         // 开启鼠标滚轮缩放
+        // var img_url = 'http://map.baidu.com/image/us_mk_icon.png';
         map.enableScrollWheelZoom(true);
+        var myIcon = new BMapGL.Icon(require("./icong_weizhi@2x.png"), new BMapGL.Size(20, 25), {
+				anchor: new BMapGL.Size(10, 25),
+		});
         // 创建点标记
-        let marker = new BMapGL.Marker(point);
+        let marker = new BMapGL.Marker(point,{icon:myIcon});
+        var setText = '<div style="font-size: 1.5rem;margin-top:.5rem;font-weight: 500;margin-left:1.5rem;width:30rem"><img src="'+require("./icong_weizhi@2x.png")+'" style="width:1.25rem;height:1.5rem"/>'+title
+        +'</div><div style="font-size: 1.13rem;margin-left:3.2rem">'+detailedAddress+'</div>'
         // 在地图上添加点标记
         map.addOverlay(marker);
         // 创建窗口提升信息对象
         let opts = {
-        width: 200,
-        height: 100,
-        title: title
+        width: 350,
+        height: 70,
+        // title: title
         };
-        let infoWindow = new BMapGL.InfoWindow(detailedAddress, opts);
+        let infoWindow = new BMapGL.InfoWindow(setText,opts);
         // 点标记添加点击事件
         marker.addEventListener('click', function () {
         map.openInfoWindow(infoWindow, point); // 开启信息窗口
@@ -111,6 +123,13 @@ export default {
 </script>
 
 <style scoped>
+/deep/ .BMap_bubble_top{
+    position: absolute;
+    top: .3rem;
+}
+/deep/ .BMap_bubble_center{
+    height: 3rem;
+}
 #legalDeclaration{
     width: 100%;
     height: 100%;
@@ -187,7 +206,7 @@ export default {
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     position: absolute;

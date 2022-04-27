@@ -19,8 +19,8 @@
                 <el-col :span="17" >
                     <div class="content-title">{{mesage.title}}</div>
                     <el-row class="content-cont1">
-                        <el-col :span="20">来源：{{mesage.branch}}</el-col>
-                        <el-col :span="4">发布时间：{{mesage.addtime}}</el-col>
+                        <el-col :span="19">来源：{{mesage.branch}}</el-col>
+                        <el-col :span="5">发布时间：{{mesage.addtime}}</el-col>
                     </el-row>
                     <div v-html="textHeml"></div>
                 </el-col>
@@ -99,6 +99,7 @@ export default {
     },
     async viewpointdetailfn() {
       let { data } = await viewpointdetail({id:this.$route.params.id});
+      document.title = data.data.seo_message.meta_title
       this.mesage = data.data.idea_detail
       this.textHeml = data.data.idea_detail.description
       this.list1 = data.data.peak_idea_hots

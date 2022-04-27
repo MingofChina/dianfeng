@@ -1,9 +1,9 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/specialty/Group 505@2x.png"/>
+        <img :src="imgUrl"/>
         <div class="lega-header-cont">
-            <div>巅峰案例</div>
+            <div>巅<span style="marginRight:.8rem"></span>峰<span style="marginRight:.8rem"></span>案<span style="marginRight:.8rem"></span>例</div>
             <div>Top case</div>
             <div></div>
         </div>
@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-import { sexample } from "@/api/api";
+import { sexample,banner } from "@/api/api";
 export default {
   data() {
     return {
@@ -59,6 +59,7 @@ export default {
       isActive1:null,
       total:0,
       id:null,
+      imgUrl:'',
       baseUrl:'http://ceshi.davost.com/',
     };
   },
@@ -68,12 +69,14 @@ export default {
      $route: {
         handler() {
            let that =this;
-           if(that.isActive){
-               return
-           }else{
-               that.colorFn()
-           }
-           
+           this.sexamplefn(1)
+           that.colorFn()
+        //    if(that.isActive){
+        //        return
+        //    }else{
+        //        that.colorFn()
+        //    }
+           this.sexamplefn(1)
         },
         deep: true,
     }
@@ -99,6 +102,10 @@ export default {
          id:that.id
      }
       let { data } = await sexample(params);
+      banner({id:this.$route.params.id}).then((res)=>{
+            this.imgUrl = this.baseUrl+res.data.data[0].original_image
+        });
+      document.title = data.data.seo_message.meta_title
       that.columnsList = data.data.column
       that.dataList = data.data.case
       that.total = data.data.case_pages_number * 10
@@ -183,7 +190,7 @@ color: #FFFFFF;
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     position: absolute;
@@ -196,26 +203,6 @@ color: #FFFFFF;
     width: 1rem;
     margin-right: 1.25rem;
     height: 1rem;
-}
-.lega-header-cont{
-    position: absolute;
-    top: 17.9375rem;
-    left: 50.8125rem;
-    z-index: 999;
-    /* color: #FFFFFF; */
-    text-align: center;
-}
-.lega-header-cont div:nth-child(1){
-    font-size: 3.75rem;
-}
-.lega-header-cont div:nth-child(2){
-    font-size: 1.25rem;
-    margin: .75rem 0 .625rem 0;
-}
-.lega-header-cont div:nth-child(3){
-    width: 5rem;
-    border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
 }
 
 .lega-content{

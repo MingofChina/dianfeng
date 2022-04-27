@@ -21,6 +21,16 @@ module.exports = {
     lintOnSave: false,
     // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
     productionSourceMap: false,
+    pwa: {
+      iconPaths: {
+        favicon32: 'favicon.ico',
+        favicon16: 'favicon.ico',
+        appleTouchIcon: 'favicon.ico',
+        maskIcon: 'favicon.ico',
+        msTileImage: 'favicon.ico'
+      }
+    },
+
     devServer: {
       host: '0.0.0.0',
       proxy: {  

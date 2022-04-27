@@ -4,14 +4,14 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 body{
   width: 100%;
   height: 100%;
    margin: 0 !important;
   padding: 0 !important;
 }
-#app{
+/* #app{
    margin: 0 !important;
   padding: 0 !important;
 }
@@ -29,7 +29,8 @@ body{
   padding: 0 !important;
   margin: 0 !important;
   background: #F4F4F4 !important;
-}
+} */
+
 .el-pagination.is-background .el-pager li:not(.disabled).active{
   color: #ffffff !important;
   background: red !important;

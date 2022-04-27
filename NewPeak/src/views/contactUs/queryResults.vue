@@ -83,6 +83,9 @@ export default {
         deep: true,
     }
   },
+  beforeUpdate(){
+    console.log('1')
+  },  
   methods: {
       homeFn(){
       this.$router.push("/index") ;

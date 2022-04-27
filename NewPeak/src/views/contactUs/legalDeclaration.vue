@@ -1,9 +1,9 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/mines/Group 389@2x.png"/>
+        <img :src="imgUrl"/>
         <div class="lega-header-cont">
-            <div>法律声明</div>
+            <div>法<span style="marginRight:.8rem"></span>律<span style="marginRight:.8rem"></span>声<span style="marginRight:.8rem"></span>明</div>
             <div>Legal notices</div>
             <div></div>
         </div>
@@ -28,12 +28,14 @@
   </div>
 </template>
 <script>
-import { legislation } from "@/api/api";
+import { legislation ,banner} from "@/api/api";
 export default {
   data() {
     return {
       mesage:'',
-      textHeml:''
+      textHeml:'',
+      imgUrl:'',
+      baseUrl:'http://ceshi.davost.com/',
     };
   },
   computed: {
@@ -49,9 +51,9 @@ export default {
       let { data } = await legislation();
       this.mesage = data.data.message.title
       this.textHeml = data.data.message.description
-    //   this.description=data.data.message
-    //   this.descriptionson=data.data.message.description
-      console.log(data.data);
+    banner({id:1}).then((res)=>{
+            this.imgUrl = this.baseUrl+res.data.data[0].original_image
+       });
     },
   },
 };
@@ -92,7 +94,7 @@ export default {
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     position: absolute;

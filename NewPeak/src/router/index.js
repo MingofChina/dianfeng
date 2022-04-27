@@ -157,7 +157,7 @@ export const constantRoutes = [
             },
             //联系我们
             {
-                path:'contactUs',
+                path:'contactUs/:id',
                 name:'contactUs',
                 component:contactUs,
             },
@@ -178,7 +178,6 @@ export const constantRoutes = [
     },
 
 ]
-
 export default new VueRouter({
     mode: 'history', // 去掉url中的#
     scrollBehavior: () => ({ y: 0 }),

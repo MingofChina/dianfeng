@@ -1,9 +1,9 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/mines/Group 389@2x.png"/>
+        <img :src="imgUrl"/>
         <div class="lega-header-cont">
-            <div>行业观点</div>
+            <div>行<span style="marginRight:.8rem"></span>业<span style="marginRight:.8rem"></span>观<span style="marginRight:.8rem"></span>点</div>
             <div>Top view</div>
             <div></div>
         </div>
@@ -19,17 +19,20 @@
         <div class="lega-content-div1">
            <div>
                <el-row class="lega-const" v-for="(item,index) in dataList" :key="index+item.id">
-                   <el-col :span="9" style="margin-right:1rem">
-                       <img :src="baseUrl+item.original_image" style="width:31.88rem;height:20rem"/>
-                   </el-col>
-                   <el-col :span="12">
-                       <div class="textime" >{{item.addtime}}</div>
-                       <div class="textelte" :style="{color:index == 0?'red':''}">{{item.title}}</div>
-                       <div class="textcontent">{{item.summary}}</div>
-                       <div class="textlook" :style="{color:index == 0?'red':''}" @click="detailFn(item)">
-                           <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == 0' style="width:.5rem;height:.88rem;margin-right:.3rem" />
-                           <img src="../../assets/bei/icon_more.png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
-                   </el-col>
+                   <div @click="detailFn(item)" >
+                       <el-col :span="9" style="margin-right:1rem">
+                            <img :src="baseUrl+item.original_image" style="width:31.88rem;height:20rem"/>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="textime" >{{item.addtime}}</div>
+                            <div class="textelte" >{{item.title}}</div>
+                            <div class="textcontent">{{item.summary}}</div>
+                            <div class="textlook" >
+                                <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == 0' style="width:.5rem;height:.88rem;margin-right:.3rem" />
+                                <img src="../../assets/bei/icon_more.png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
+                        </el-col>
+                   </div>
+                   
                </el-row>
            </div>
            <div class="pagination">
@@ -47,13 +50,14 @@
   </div>
 </template>
 <script>
-import { viewpoints } from "@/api/api";
+import { viewpoints,banner } from "@/api/api";
 export default {
   data() {
     return {
       mesage:'',
       textHeml:'',
       dataList:[],
+      imgUrl:'',
       baseUrl:'http://ceshi.davost.com/',
       total:0
     };
@@ -66,9 +70,12 @@ export default {
   methods: {
     async viewpointsfn(val) {
       let { data } = await viewpoints({pages:val,pagesize:10});
+      document.title = data.data.seo_message.meta_title
       this.dataList = data.data.idea
       this.total = data.data.idea_pages_number
-      console.log(data.data);
+       banner({id:this.$route.params.id}).then((res)=>{
+            this.imgUrl = this.baseUrl+res.data.data[0].original_image
+        });
     },
     handleCurrentChange(val) {
        this.viewpointsfn(val)
@@ -153,7 +160,7 @@ export default {
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     position: absolute;

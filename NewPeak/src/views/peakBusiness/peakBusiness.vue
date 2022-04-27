@@ -1,5 +1,5 @@
 <template>
-  <div id="legalDeclaration" >
+  <div id="legalDeclaration"  v-title :data-title="title3">
     <div class="lega-header">
         <div class="lega-header-foot">
             <img  @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
@@ -18,11 +18,11 @@
             <el-row>
                 <el-col  class="content-div1" :span="5" >
                     <div  style="position:fixed;zIndex:0;" :style="{top:top+'rem'}">
-                        <div class="tab1" v-for="(item,index) in list1" :key="index" @click="navFn(item,index)">{{item.title}}</div>
+                        <div class="tab1" :class="{ 'active': isActive == index }" v-for="(item,index) in list1" :key="index" @click="navFn(item,index)">{{item.title}}</div>
                     </div>
                         
                     </el-col>
-                    <el-col :span="19" :offset="5">
+                    <el-col :span="20" :offset="4">
                         <div>
                             <div >
                                 <div class="contCont1" v-for="(item,index) in list1" :key="index">
@@ -30,7 +30,7 @@
                                     <div class="cont-right1-title">{{item.title}}</div>
                                     <div v-html="item.description" class="cont-right1-title1" ref="cont1"></div>
                                     <el-row>
-                                        <el-col  class="lega-content-div21" v-for="(item2,index2) in item.case" :key="index2+item2.id">
+                                        <el-col :span='8'  class="lega-content-div21" v-for="(item2,index2) in item.case" :key="index2+item2.id">
                                             <div class="leag-div21"><img :src='baseUrl+item2.original_image'/></div>
                                             <div class="leag-div22" @click="detailFn(item)">{{item2.title}}</div>
                                             <div class="leag-div23">{{item2.summary}}</div>
@@ -90,6 +90,7 @@ export default {
       mesage:{},
       textHeml:'',
       list1:[],
+      title3:'',
       branchOffice:[],
       list2:[
           {
@@ -104,7 +105,8 @@ export default {
 
       ],
       baseUrl:'http://ceshi.davost.com/',
-      top:13
+      top:13,
+      isActive:0
     };
   },
   computed: {
@@ -119,8 +121,15 @@ export default {
   },
   mounted() {
       
-      this.Businessfn() //调用联系我们接口
+    //   this.Businessfn() //调用联系我们接口
       window.addEventListener("scroll", this.windowScroll, true);
+    
+  },
+  created(){
+      this.Businessfn()
+  },
+  destroyed(){
+      window.removeEventListener("scroll", this.windowScroll, true);
   },
   methods: {
     homeFn(){
@@ -128,6 +137,10 @@ export default {
     },
     async Businessfn() {
       let { data } = await Business({id:this.$route.params.id});
+      if(data.data.length == 0 ){
+          return
+      }
+      document.title = data.data.seo_message.meta_title
       this.list1 = data.data.business_detail
       if(data.data.case.length != 0){
         this.list2[0] = {...this.list2[0],case:data.data.case}
@@ -166,33 +179,74 @@ export default {
       }
     },
     navFn(data,index){
-        var height = document.body.clientHeight * 0.045
+        var height = 116.87
+        this.isActive = index
+        window.removeEventListener("scroll", this.windowScroll, true);
+        clearTimeout(setTimeoutFn)
+        var setTimeoutFn = setTimeout(() => {
+            window.addEventListener("scroll", this.windowScroll, true);
+        }, 1000);
         if(index>0){
             document.documentElement.scrollTop = document.getElementsByClassName('contCont1')[index].offsetTop + height
-            console.log(document.getElementsByClassName('contCont1')[index].offsetTop)
-            console.log(height)
             this.top=1
         }else{
             document.documentElement.scrollTop = 0
             this.top=13
         }
-        
 
-        
-        
+    },
+    //节流函数
+    throttle (fn, gapTime) {
+        let _this = this
+        return function () {
+            let _nowTime = +new Date()
+            if (_nowTime - _this._lastTime > gapTime || !_this._lastTime) {
+            fn(...arguments)// 函数可以带参数
+            _this._lastTime = _nowTime
+            }
+        }
+    },
+    pageUpOrDown (e) {
+        // this.isActive = null
+            let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+            if(scrollTop<200){
+                this.top=13
+            }else{
+                console.log(scrollTop)
+                this.top=1
+            }
+            for(var i=0;i<this.list1.length;i++){
+               if(i< this.list1.length-1){
+                   if(document.getElementsByClassName('contCont1')[i]){
+                            let height = document.getElementsByClassName('contCont1')[i].offsetTop - 200
+                            let height1 = document.getElementsByClassName('contCont1')[i+1].offsetTop -200
+                            if(scrollTop>=height &&scrollTop<= height1){
+                                this.isActive = i
+                                 return
+                            }
+                        }
+               }else{
+                 this.isActive =   this.list1.length-1
+                }
+            }
     },
     windowScroll(e) {
-      let scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-       if(scrollTop<200){
-           this.top=13
-       }
+      
+       e.stopPropagation()
+       this.pageUpOrDown(e)
+    //    this.isActive=null
+       
     },
   },
 };
 </script>
 
 <style scoped>
+.active{
+    background: red !important;
+    color: #ffffff;
+}
 .lega-content-div111{
     width: 100%;
     height: 100%;
@@ -228,7 +282,7 @@ export default {
 } */
 .lega-const{
     padding-bottom: 2rem;
-    border-bottom: 1px solid #C4C4C4;
+    /* border-bottom: 1px solid #C4C4C4; */
     padding-top: 2.5rem;
 }
 .textime{
@@ -433,7 +487,7 @@ font-size: 2rem;
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     padding-top: 2rem;

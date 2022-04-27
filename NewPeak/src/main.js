@@ -14,7 +14,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-
+Vue.directive('title', {//单个修改标题
+    inserted: function (el, binding) {
+        console.log(el)
+      document.title = el.dataset.title
+    }
+})
 //视频
 import Video from 'video.js';
 import 'video.js/dist/video-js.css';

@@ -19,8 +19,8 @@
                 <el-col :span="17" >
                     <div class="content-title">{{mesage.title}}</div>
                     <el-row class="content-cont1">
-                        <el-col :span="20">来源：{{mesage.branch}}</el-col>
-                        <el-col :span="4">发布时间：{{mesage.addtime}}</el-col>
+                        <el-col :span="19">来源：{{mesage.branch}}</el-col>
+                        <el-col :span="5">发布时间：{{mesage.addtime}}</el-col>
                     </el-row>
                     <div v-html="textHeml"></div>
                 </el-col>
@@ -29,26 +29,32 @@
                         <div class="contLine"></div>
                         <div class="cont-right1-title">热点案例</div>
                         <el-row :gutter="30" class="cont-right-cont" v-for="(item,index) in list1" :key="item.id+index">
-                            <el-col :span="15">
-                                <div class="cont-right-cont1">{{item.title}}</div>
-                                <div class="cont-right-cont2">{{item.summary}}</div>
-                            </el-col>
-                            <el-col :span="8">
-                                <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
-                            </el-col>
+                            <div @click="peakCasesDetail(item)">
+                                <el-col :span="15">
+                                    <div class="cont-right-cont1">{{item.title}}</div>
+                                    <div class="cont-right-cont2">{{item.summary}}</div>
+                                </el-col>
+                                <el-col :span="8">
+                                    <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
+                                </el-col>
+                            </div>
+                            
                         </el-row>
                     </div>
                     <div class="cont-right2" >
                         <div class="contLine"></div>
                         <div class="cont-right1-title">相关文章推荐</div>
                         <el-row :gutter="30" class="cont-right-cont" v-for="(item,index) in list2" :key="item.id+index">
-                            <el-col :span="15">
-                                <div class="cont-right-cont1">{{item.title}}</div>
-                                <div class="cont-right-cont2">{{item.summary}}</div>
-                            </el-col>
-                            <el-col :span="8">
-                                <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
-                            </el-col>
+                            <div  @click="peakCasesDetail(item)">
+                                <el-col :span="15">
+                                    <div class="cont-right-cont1">{{item.title}}</div>
+                                    <div class="cont-right-cont2">{{item.summary}}</div>
+                                </el-col>
+                                <el-col :span="8">
+                                    <img class="cont-right-img1" :src='baseUrl+item.original_image'/>
+                                </el-col>
+                            </div>
+                            
                         </el-row>
                     </div>
                 </el-col>
@@ -70,6 +76,14 @@ export default {
       baseUrl:'http://ceshi.davost.com/',
     };
   },
+  watch:{
+     $route: {
+          handler() {
+              this.sexampledetailfn();
+        },
+        deep: true,
+    }
+  },
   computed: {
   },
   mounted() {
@@ -82,8 +96,12 @@ export default {
     dianfeng(){
         this.$router.push(`/peakCases/${sessionStorage.getItem('peakCasesId')}`) ;
     },
+    peakCasesDetail(data){
+        this.$router.push(`/peakCasesDetail/${data.id}`) ;
+    },
     async sexampledetailfn() {
       let { data } = await sexampledetail({id:this.$route.params.id});
+      document.title = data.data.seo_message.meta_title
       this.mesage = data.data.case_detail
       this.textHeml = data.data.case_detail.description.replace(/\"/g, '')
       this.list1 = data.data.peak_case_hots

@@ -8,7 +8,7 @@
         <el-row style="line-height:4.125rem;
         font-size: 18px;font-weight:400"> 
           <el-col :span="4" v-for="(item,index) in navList" class="divhover" :key="index" style="textAlign:center;position:relative">
-            <div @mouseenter="ulNavFn(item,index)"  :style="{color:index == isActive?'red':''}" @click="ulNavFn(item,index,true)">{{item.name}}</div>
+            <div @mouseenter="ulNavFn(item,index,false)"  :style="{color:index == isActive?'red':''}" @click="ulNavFn(item,index,true)">{{item.name}}</div>
             <div v-if="index == isActive" style="width:5.1rem;border-top:2px solid red;position:absolute;top:4.6rem;height:2px;left:3.2rem"></div>
           </el-col>
         </el-row>
@@ -21,7 +21,7 @@
             background:(index == isActive1 && subscript == isActive)?'#CACACA;':''}"  style="text-align: center;line-height: .3rem;"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
             <p class="phover1" style="height:1rem;display:none"></p>{{item.name}}</div></el-col>
           </el-col>
-          <el-col :span="12"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:26.5rem">
+          <el-col :span="12"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:26.5rem;padding-left:1rem">
             <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
           </el-col>
         </el-row>
@@ -69,6 +69,12 @@ export default {
   },
   mounted() {
     this.columnfn(); //头部搜岁页面的接口
+    if(this.$route.path.indexOf('queryResults')>-1){
+      if(!this.input2){
+        this.$router.push("/index") ;
+        return
+      }
+    }
     document.getElementsByClassName('el-input__prefix')[0].click(()=>{
     })
      document.addEventListener("click",e=>{
@@ -94,7 +100,7 @@ export default {
                   item.child_column.forEach((item1,index1)=>{
                     if(item1.url){
                       if(that.$route.path.indexOf(`${item1.url}`)>-1){
-                          // that.isActive = index
+                          that.isActive = index
                           if(index == 0){
                             if(item1.id == that.$route.params.id){
                               that.isActive1 = index1
@@ -142,11 +148,14 @@ export default {
         that.subscript1 = 0
 
       }else if(index == 5){
+        console.log(data)
          if(boolen){
-          this.$router.push(`/${data.url}`) ;
-        that.subscript1 = null
+          this.$router.push(`/${data.url}/${data.id}`) ;
+          that.subscript1 = null
+          that.subscript=null
         }else{
            that.subscript1=null
+           that.subscript=null
         }
         return
       }else{
@@ -200,7 +209,6 @@ export default {
 <style scoped lang="less">
 .divhover:hover{
   color: red;
-  
 }
 .divhover1:hover{
   background: #CACACA;

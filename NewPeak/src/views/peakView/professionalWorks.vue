@@ -1,9 +1,9 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/specialty/Group 505@2x.png"/>
+        <img :src="imgUrl"/>
         <div class="lega-header-cont">
-            <div>专业著作</div>
+            <div>专<span style="marginRight:.8rem"></span>业<span style="marginRight:.8rem"></span>著<span style="marginRight:.8rem"></span>作</div>
             <div>Professional work</div>
             <div></div>
         </div>
@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import { specialty } from "@/api/api";
+import { specialty ,banner } from "@/api/api";
 export default {
   data() {
     return {
@@ -51,6 +51,7 @@ export default {
       textHeml:'',
       dataList:[],
       total:0,
+      imgUrl:'',
       baseUrl:'http://ceshi.davost.com/',
     };
   },
@@ -62,15 +63,17 @@ export default {
   methods: {
     async specialtyfn(val) {
       let { data } = await specialty({pages:val,pagesize:10});
+      document.title = data.data.seo_message.meta_title
      this.dataList = data.data.books
      this.total = data.data.books_pages_number * 10
-    //   this.description=data.data.message
-    //   this.descriptionson=data.data.message.description
-      console.log(data.data);
+    banner({id:this.$route.params.id}).then((res)=>{
+            this.imgUrl = this.baseUrl+res.data.data[0].original_image
+        });
     },
      handleCurrentChange(val) {
        this.specialtyfn(val)
     },
+    
     homeFn(){
       this.$router.push("/index") ;
     },
@@ -166,7 +169,7 @@ export default {
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     position: absolute;

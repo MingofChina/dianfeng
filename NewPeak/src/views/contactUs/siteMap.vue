@@ -1,9 +1,9 @@
 <template>
   <div id="legalDeclaration">
     <div class="lega-header">
-        <img src="../../assets/mines/Group 389@2x.png"/>
+        <img :src="imgUrl"/>
         <div class="lega-header-cont">
-            <div>网站地图</div>
+            <div>网<span style="marginRight:.8rem"></span>站<span style="marginRight:.8rem"></span>地<span style="marginRight:.8rem"></span>图</div>
             <div>Site map</div>
             <div></div>
         </div>
@@ -16,13 +16,13 @@
     <div class="lega-content">
         <div class="lega-content-div1">
             <div class="lega-content-divtext" v-for="(item,index) in navList" :key="item.id+index">
-                <el-row><div class="divtext1" @click="homeFn(item)">{{item.name}}</div></el-row>
+                <el-row><div class="divtext1 divhover" @click="homeFn(item)">{{item.name}}</div></el-row>
                 <el-row>
                     <div class="divtext2" v-if="item.child_column && item.child_column.length!=0">
                         <el-col style="margin-top:1rem" :span="(item1.childcontent&&item1.childcontent.length !=0)?24:3" v-for='(item1,index1) in item.child_column' :key="item1.id+index1">
-                            <el-col :span="24" ><div @click="navFn(item1,index1)">{{item1.name}}</div></el-col>
+                            <el-col :span="24" ><div @click="navFn(item1,index1,index)" class="divhover">{{item1.name}}</div></el-col>
                             <el-col style="margin-top:.63rem" :span="24" v-if='item1.childcontent&&item1.childcontent.length !=0'>
-                                <span @click="navFn1(item1,index1)" class="divtext3" v-for="(item2,index2) in item1.childcontent" :key="item2+index2">{{item2.title}}</span>
+                                <span @click="navFn1(item2,index2)" class="divtext3 divhover" v-for="(item2,index2) in item1.childcontent" :key="item2+index2">{{item2.title}}</span>
                             </el-col>
                         </el-col>
                     </div>
@@ -36,13 +36,15 @@
   </div>
 </template>
 <script>
-import { column } from "@/api/api";
+import { column,banner } from "@/api/api";
 export default {
   data() {
     return {
       mesage:'',
       textHeml:'',
-      navList:[]
+      navList:[],
+      imgUrl:'',
+      baseUrl:'http://ceshi.davost.com/',
     };
   },
   computed: {
@@ -63,6 +65,9 @@ export default {
         });
         }
       })
+      banner({id:2}).then((res)=>{
+            this.imgUrl = this.baseUrl+res.data.data[0].original_image
+       });
       
     },
     homeFn(data){
@@ -70,19 +75,25 @@ export default {
         if(data.name =='巅峰公开课'){
              location.href = data.url
         }else if(data.name =='联系我们'){  
-             this.$router.push(`/${data.url}`) ;
+             this.$router.push(`/${data.url}/${data.id}`) ;
         }else{
             this.$router.push("/index") ;
         }
         
         
     },
-    navFn(item,index){
+    navFn(item,index,number){
         if(item.childcontent&&item.childcontent.length !=0){
             return
         }else{
             if(item.name !='加入巅峰'){
-                this.$router.push(`/${item.url}/${item.id}`) ;
+                console.log(number)
+                if(number == 3){
+                    
+                    this.$router.push(`/peakCases/${item.id}`) ;
+                }else{
+                    this.$router.push(`/${item.url}/${item.id}`) ;
+                }
             }else{
                 location.href = item.url
             }
@@ -90,6 +101,7 @@ export default {
         }
     },
     navFn1(data,index){
+        console.log(data)
         this.$router.push(`/peakBusiness/${data.id}`) ;
     }
   },
@@ -97,6 +109,9 @@ export default {
 </script>
 
 <style scoped>
+.divhover:hover{
+  color: red;
+}
 .divtext1{
     width: 100%;
     font-weight: 500;
@@ -148,7 +163,7 @@ export default {
 .lega-header-cont div:nth-child(3){
     width: 5rem;
     border-top: 3px solid #FFFFFF;
-    margin-left: 5.1rem;
+    margin-left: 6.1rem;
 }
 .lega-header-foot{
     position: absolute;
