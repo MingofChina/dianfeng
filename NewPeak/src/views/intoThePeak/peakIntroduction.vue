@@ -7,79 +7,34 @@
         <div class="introduce-title2">
           THE PEAK IS INTRODUCED
         </div>
-<!--        <div class="to-home">
-        </div>
-        <div class="jiantou1">
-        </div>-->
-        <div class="link1">
+      <div class="introduce-divide"></div>
+      <img class="icon-home"  src = "../../assets/bei/icon_home.png"/>
+      <img class="icon-jiantou1" src = "../../assets/bei/icon.png"/>
+      <div class="link1">
           走进巅峰
-        </div>
-        <div class="link2">
-          巅峰介绍
-        </div>
+      </div>
+      <img class="icon-jiantou2" src = "../../assets/bei/icon.png"/>
+      <div class="link2">巅峰介绍</div>
         <div class="top-card">
-          <div class="chuangli">
-            创立
-          </div>
-          <div class="data1">
-            {{brand_messa.found_years}}
-          </div>
-          <div class="suffix1">
-            年
-          </div>
-          <div class="desc1">
-            文旅行业实践者
-          </div>
-
-          <div class="wanchengxiangmu">
-            完成项目
-          </div>
-          <div class="data2">
-            {{brand_messa.finish_projects}}
-          </div>
-          <div class="suffix2">
-            +
-          </div>
-          <div class="desc2">
-            美丽中国价值经典
-          </div>
-
-          <div class="yunyingjingqu">
-            运营景区
-          </div>
-          <div class="data3">
-            {{brand_messa.scenic_spot_num}}
-          </div>
-          <div class="suffix3">
-            +
-          </div>
-          <div class="desc3">
-            专业运营旅游景区
-          </div>
-
-          <div class="ronghuojiangxiang">
-            荣获奖项
-          </div>
-          <div class="data4">
-            {{brand_messa.member_num}}
-          </div>
-          <div class="suffix4">
-            +
-          </div>
-          <div class="desc4">
-            国内外奖项获得者
-          </div>
-
-          <div class="gugan">
-            骨干员工近
-          </div>
-          <div class="data5">
-            {{brand_messa.peak_introduce}}
-          </div>
-          <div class="desc5">
-            业界骨干创意精英
-          </div>
-
+          <div class="chuangli">创立</div>
+          <div class="data1">{{brand_messa.found_years}}</div>
+          <div class="suffix1">年</div>
+          <div class="desc1">文旅行业实践者</div>
+          <div class="wanchengxiangmu">完成项目</div>
+          <div class="data2">{{brand_messa.finish_projects}}</div>
+          <div class="suffix2">+</div>
+          <div class="desc2">美丽中国价值经典</div>
+          <div class="yunyingjingqu">运营景区</div>
+          <div class="data3">{{brand_messa.scenic_spot_num}}</div>
+          <div class="suffix3">+</div>
+          <div class="desc3">专业运营旅游景区</div>
+          <div class="ronghuojiangxiang">荣获奖项</div>
+          <div class="data4">{{brand_messa.member_num}}</div>
+          <div class="suffix4">+</div>
+          <div class="desc4">国内外奖项获得者</div>
+          <div class="gugan">骨干员工近</div>
+          <div class="data5">{{brand_messa.peak_introduce}}</div>
+          <div class="desc5">业界骨干创意精英</div>
         </div>
       </div>
     <div class="introduce2-background">
@@ -109,16 +64,41 @@
       </div>
       <div class="introduce3-list">
         <div class="introduce3-item" v-for="(item,i) in brand_slogan" >
-          <img src="item.logo" class="introduce3-img"/>
+          <div class="introduce3-item-row">
+            <img class="introduce3-item-logo" src="item.logo" />
+            <div
+                v-if="i == currentBrandIndex? false: true"
+                class="introduce3-item-slogan"
+            >{{item.brand_slogan}}</div>
+            <img
+                v-if="i == currentBrandIndex? true: false"
+                class="introduce3-item-btn1"
+                src="../../assets/mines/icon_shut down@2x.png"
+                v-on:click="closeBrand(i)"
+            />
+            <img
+                v-if="i == currentBrandIndex? false: true"
+                class="introduce3-item-btn2" src="../../assets/presentation/icon_xiala@2x.png"
+                v-on:click="openBrand(i)"
+            />
+          </div>
 
-          <div class="introduce3-brief">
+          <div
+              v-if="i == currentBrandIndex? true: false"
+              class="introduce3-item-brief">
             {{ item.small_descrip }}
           </div>
-          <div class="introduce3-content">
+
+          <div
+              v-if="i == currentBrandIndex? true: false"
+              class="introduce3-item-summary">
             {{ item.summary}}
           </div>
+          <div class="introduce3-divide"></div>
+
         </div>
       </div>
+
     </div>
     <div class="introduce4-background">
       <div class="introduce4-title">
@@ -210,6 +190,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      "currentBrandIndex":0,
       "currentDate":{},
       "currentYear":2020,
       "memorabilia_dates":[],
@@ -1592,7 +1573,12 @@ export default {
       //this.currentTime = e.target.currentTime
     },*/
 
-
+    openBrand(index){
+      this.currentBrandIndex = index;
+    },
+    closeBrand(index){
+      this.currentBrandIndex = -1;
+    },
     changeYear(year){
       let temp = this.memorabilia.filter(item => item.year === year);
       console.log(temp);
@@ -1637,8 +1623,8 @@ export default {
     toLeft5(){
       let number = this.qualification_filter_number;
       if(number === 1){
-        this.qualification_filter_number = Math.ceil(this.certificate_honor.length / 8);
-        number = Math.ceil(this.certificate_honor.length / 8);
+        this.qualification_filter_number = Math.ceil(this.enterprise_qualification.length / 8);
+        number = Math.ceil(this.enterprise_qualification.length / 8);
       }
       else{
         this.qualification_filter_number = this.qualification_filter_number -1;
@@ -1702,6 +1688,7 @@ export default {
     this.filter_dates = this.memorabilia_dates.slice(0,4);
     this.changeYear(this.filter_memorabilia[0].year);
     this.changeDate(this.filter_dates[0].addtime);
+    this.currentBrandIndex = 0;
   }
 
 };
@@ -1719,9 +1706,10 @@ html,body{
   position: relative;
   width: 1920px;
   height: 700px;
-  background: rgba(0, 38, 113, 0.5) url("../../assets/presentation/Group 377.png");
+  background: url("../../assets/presentation/Group 377.png");
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  background-size: 100% 100%;
 }
 .introduce-title{
   position: absolute;
@@ -1753,24 +1741,40 @@ html,body{
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
-.to-home{
+.introduce-divide{
   position: absolute;
-  top: 573px;
-  left: 240px;
-  background: url("../../assets/presentation/icon_home.png");
-  width: auto;
-  height: auto;
+  top: 370px;
+  left: 920px;
+  width: 80px;
+  height: 4px;
+  background: #FFFFFF;
+  border-radius: 0px 0px 0px 0px;
   opacity: 1;
-  border: 2px solid #FFFFFF;
 }
-.jiantou1{
+
+.icon-home{
+  position: absolute;
+  top: 570px;
+  left: 236px;
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+  box-sizing: border-box;
+}
+.icon-jiantou1{
   position: absolute;
   top: 574px;
   left: 272px;
-  background: url("../../assets/storyhead/组 36@2x.png");
-  width: 32px;
-  height: 32px;
-  background: #FFFFFF;
+  width: 16px;
+  height: 16px;
+  opacity: 1;
+}
+.icon-jiantou2{
+  position: absolute;
+  top: 574px;
+  left: 376px;
+  width: 16px;
+  height: 16px;
   opacity: 1;
 }
 .link1{
@@ -1783,7 +1787,7 @@ html,body{
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.8);
-  line-height: 19px;
+  line-height: 24px;
 /*  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
@@ -1797,7 +1801,7 @@ html,body{
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #FFFFFF;
-  line-height: 19px;
+  line-height: 24px;
  /* -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
@@ -1956,7 +1960,7 @@ html,body{
 .suffix3{
   position: absolute;
   top: 70px;
-  left: 775px;
+  left: 765px;
   width: 18px;
   height: 45px;
   font-size: 30px;
@@ -2012,7 +2016,7 @@ html,body{
 .suffix4{
   position: absolute;
   top: 70px;
-  left: 1036px;
+  left: 1056px;
   width: 18px;
   height: 45px;
   font-size: 30px;
@@ -2083,7 +2087,8 @@ html,body{
   position: relative;
   width: 1920px;
   height: 1000px;
-  background: linear-gradient(136deg, #FFFFFF 0%, #FFFFFF 0%, rgba(255, 255, 255, 0.21) 100%);
+  background: url("../../assets/img/beijing.png");
+  background-size: 100% 100%;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
 }
@@ -2184,7 +2189,43 @@ html,body{
 .introduce3-item{
   margin-top: 32px;
 }
-.introduce3-brief{
+.introduce3-item-row{
+  display: flex;
+  justify-content: space-between;
+}
+.introduce3-item-logo{
+  background-color: #808080;
+  width: 240px;
+  height: 104px;
+  border-radius: 0px 0px 0px 0px;
+  background-size: 100% 100%;
+  opacity: 1;
+}
+.introduce3-item-slogan{
+  width: 390px;
+  height: 45px;
+  font-size: 30px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 35px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.introduce3-item-btn1{
+  width: 32px;
+  height: 32px;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
+.introduce3-item-btn2{
+  width: 32px;
+  height: 32px;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
+.introduce3-item-brief{
+  margin-top: 12px;
   width: 1440px;
   height: 48px;
   font-size: 32px;
@@ -2195,7 +2236,8 @@ html,body{
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
-.introduce3-content{
+.introduce3-item-summary{
+  margin-top: 16px;
   width: 1312px;
   height: 100px;
   font-size: 20px;
@@ -2205,6 +2247,14 @@ html,body{
   line-height: 23px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+}
+.introduce3-divide{
+  width: 1448px;
+  height: 1px;
+  background: #CACACA;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+  margin-top: 12px;
 }
 
 

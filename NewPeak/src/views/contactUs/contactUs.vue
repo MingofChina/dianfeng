@@ -119,7 +119,7 @@ export default {
 .lega-content-map{
     width: 100%;
     height: 42.5rem;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .lega-header {
     width: 100%;

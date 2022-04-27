@@ -1,3 +1,4 @@
+const path = require('path')
 // 引入等比适配插件
 const px2rem = require("postcss-px2rem")
 
@@ -33,19 +34,24 @@ module.exports = {
               ['^' + process.env.VUE_APP_BASE_API]: ''
             }
           }
-      }
-    },
-    configureWebpack: {
-      name: 'abslocker',
-    },
-    lintOnSave: false,
-    css: {
-      loaderOptions: {
-        postcss: {
-          plugins: [
-            postcss
-          ]
         }
+      },
+  configureWebpack: {
+    name: 'abslocker',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src')
+      }
+    }
+  },
+  lintOnSave: false,
+  css: {
+    loaderOptions: {
+      postcss: {
+        plugins: [
+          postcss
+        ]
       }
     }
   }
+}

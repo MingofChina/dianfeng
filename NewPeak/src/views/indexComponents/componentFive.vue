@@ -3,38 +3,52 @@
     <div class="five-background">
       <div class="first-row">
         <div class="chuangli">创立</div>
-        <div class="content1">21</div>
+        <div class="content1">{{brand_message.found_years}}</div>
         <div class="suffix1">年</div>
         <div class="desc1">文旅行业实践者</div>
         <img class="img1"/>
+
       </div>
+      <div class="divide-line1"></div>
+
       <div class="second-row">
         <div class="wanchengxiangmu">完成项目</div>
-        <div class="content2">3000</div>
+        <div class="content2">{{brand_message.finish_projects}}</div>
         <div class="suffix2">+</div>
         <div class="desc2">美丽中国价值经典</div>
         <img class="img2"/>
       </div>
+
+      <div class="divide-line2"></div>
+
       <div class="third-row">
         <div class="yunyingjingqu">运营景区</div>
-        <div class="content3">100</div>
+        <div class="content3">{{brand_message.scenic_spot_num}}</div>
         <div class="suffix3">+</div>
         <div class="desc3">专业运营旅游景区</div>
         <img class="img3"/>
       </div>
+
+      <div class="divide-line3"></div>
+
       <div class="forth-row">
         <div class="ronghuojiangxiang">荣获奖项</div>
-        <div class="content4">100</div>
+        <div class="content4">{{brand_message.prize_num}}</div>
         <div class="suffix4">+</div>
         <div class="desc4">国内外奖项获得者</div>
         <img class="img4"/>
       </div>
+
+      <div class="divide-line4"></div>
+
       <div class="fifth-row">
         <div class="gugan">骨干员工近</div>
-        <div class="content5">1000</div>
+        <div class="content5">{{brand_message.member_num}}</div>
         <div class="desc5">业界骨干创意精英</div>
         <img class="img5"/>
       </div>
+
+      <div class="divide-line5"></div>
     </div>
 
     <router-view />
@@ -44,7 +58,13 @@
 export default {
   data() {
     return {
-      a:""
+      "brand_message" : {
+          "found_years":"21",
+          "finish_projects":"3000",
+          "scenic_spot_num":"100",
+          "prize_num":"100",
+          "member_num":"1000"
+      },
     };
   }
 };
@@ -58,6 +78,56 @@ html,body{
   margin: 0;
   padding: 0;
 }
+.divide-line1 {
+  position: relative;
+  top: 228px;
+  left: 1145px;
+  width: 534px;
+  height: 1px;
+  background: #C4C4C4;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
+.divide-line2{
+  position: relative;
+  top: 383px;
+  left: 1145px;
+  width: 534px;
+  height: 1px;
+  background: #C4C4C4;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
+.divide-line3{
+  position: relative;
+  top: 538px;
+  left: 1145px;
+  width: 534px;
+  height: 1px;
+  background: #C4C4C4;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
+.divide-line4{
+  position: relative;
+  top: 693px;
+  left: 1145px;
+  width: 534px;
+  height: 1px;
+  background: #C4C4C4;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
+.divide-line5{
+  position: relative;
+  top: 850px;
+  left: 1145px;
+  width: 534px;
+  height: 1px;
+  background: #C4C4C4;
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+}
 .five-background{
   position: relative;
   background-image: url("../../assets/bei/beijing(1).png");
@@ -65,11 +135,12 @@ html,body{
   height: 1080px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  background-size: 100% 100%;
 }
 .chuangli{
   position: absolute;
   top: 134px;
-  left: 1223px;
+  right: 647px;
   width: 40px;
   height: 30px;
   font-size: 20px;
@@ -112,8 +183,8 @@ html,body{
   position: absolute;
   top: 184px;
   left: 1161px;
-  width: 112px;
-  height: 24px;
+  width: 120px;
+  height: 64px;
   font-size: 16px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
@@ -130,11 +201,13 @@ html,body{
   height: 64px;
   opacity: 1;
   background: url("../../assets/bei/icon_chuangli.png");
+  background-size: 100% 100%;
 }
 .wanchengxiangmu{
   position: absolute;
   top: 289px;
-  left: 1193px;
+  right: 647px;
+
   width: 80px;
   height: 30px;
   font-size: 20px;
@@ -195,11 +268,12 @@ html,body{
   height: 64px;
   opacity: 1;
   background: url("../../assets/bei/icon_wancheng.png");
+  background-size: 100% 100%;
 }
 .yunyingjingqu{
   position: absolute;
   top: 444px;
-  left: 1193px;
+  right: 647px;
   width: 80px;
   height: 30px;
   font-size: 20px;
@@ -260,11 +334,12 @@ html,body{
   height: 64px;
   opacity: 1;
   background: url("../../assets/bei/icon_yunying.png");
+  background-size: 100% 100%;
 }
 .ronghuojiangxiang{
   position: absolute;
   top: 599px;
-  left: 1193px;
+  right: 647px;
   width: 80px;
   height: 30px;
   font-size: 20px;
@@ -325,11 +400,12 @@ html,body{
   height: 64px;
   opacity: 1;
   background: url("../../assets/bei/icon_rongyu.png");
+  background-size: 100% 100%;
 }
 .gugan{
   position: absolute;
   top: 754px;
-  left: 1173px;
+  right: 647px;
   width: 100px;
   height: 30px;
   font-size: 20px;
@@ -377,5 +453,6 @@ html,body{
   height: 64px;
   opacity: 1;
   background: url("../../assets/bei/icon_yuangong.png");
+  background-size: 100% 100%;
 }
 </style>

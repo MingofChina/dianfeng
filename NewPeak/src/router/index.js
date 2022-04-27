@@ -9,6 +9,7 @@ import peakCases from '../views/peakCases/peakCases.vue'
 import peakCasesDetail from '../views/peakCases/peakCasesDetail.vue'
 import peakView from '../views/peakView/peakView.vue'
 import peakTeam from '../views/intoThePeak/peakTeam.vue'
+import peakTeamDetail from '../views/intoThePeak/peakTeamDetail.vue'
 import topNews from '../views/intoThePeak/topNews.vue'
 import peakStyle from '../views/intoThePeak/peakStyle.vue'
 import cooperativePartner from '../views/intoThePeak/cooperativePartner.vue'
@@ -20,7 +21,8 @@ import siteMap from '../views/contactUs/siteMap.vue'
 import peakViewDetail from '../views/peakView/peakViewDetail.vue'
 import professWorksDetail from '../views/peakView/professWorksDetail.vue'
 import queryResults from '../views/contactUs/queryResults.vue'
-
+import newsIndex from '../views/intoThePeak/newsDetails/newsIndex.vue'
+import newsDetail from '../views/intoThePeak/newsDetails/newsDetail.vue'
 Vue.use(VueRouter)
 
 export const constantRoutes = [
@@ -28,61 +30,94 @@ export const constantRoutes = [
         path: '/',
         name: 'home',
         component: home,
-        redirect:'index',
-        children:[
+        redirect: 'index',
+        meta: {
+            title: "首页"
+        },
+        children: [
             // 首页
             {
-                path:'index',
-                name:'index',
-                component:index,
+                path: 'index',
+                name: 'index',
+                component: index,
+                meta: {
+                    title: "首页"
+                }
             },
             // 走进巅峰-巅峰介绍
             {
-                path:'peakIntroduction/:id',
-                name:'peakIntroduction',
-                component:peakIntroduction,
+                path: 'peakIntroduction/:id',
+                name: 'peakIntroduction',
+                component: peakIntroduction,
             },
             // 走进巅峰-巅峰团队
             {
-                path:'peakTeam/:id',
-                name:'peakTeam',
-                component:peakTeam,
+                path: 'peakTeam/:id',
+                name: 'peakTeam',
+                component: peakTeam,
+                meta: {
+                    title: "巅峰团队"
+                },
             },
-             // 走进巅峰-巅峰要闻
-             {
-                path:'topNews/:id',
-                name:'topNews',
-                component:topNews,
+            // 走进巅峰-巅峰团队详情
+            {
+                path: 'peakTeamDetail/:id',
+                name: 'peakTeamDetail',
+                component: peakTeamDetail,
             },
-             // 走进巅峰-巅峰风采
-             {
-                path:'peakStyle/:id',
-                name:'peakStyle',
-                component:peakStyle,
+            // 走进巅峰-巅峰要闻
+            {
+                path: 'topNews/:id',
+                name: 'topNews',
+                component: topNews,
+                meta: {
+                    title: "巅峰要闻"
+                },
+                children: [{
+                    path: '/',
+                    name: 'newsIndex',
+                    component: newsIndex,
+                    meta: {
+                        title: "巅峰要闻"
+                    }
+                }, {
+                    path: 'newsDetail/:id',
+                    name: 'newsDetail',
+                    component: newsDetail,
+                    meta: {
+                        title: "详情"
+                    }
+                }]
             },
-             // 走进巅峰-合作伙伴
-             {
-                path:'cooperativePartner/:id',
-                name:'cooperativePartner',
-                component:cooperativePartner,
+            // 走进巅峰-巅峰风采
+            {
+                path: 'peakStyle/:id',
+                name: 'peakStyle',
+                component: peakStyle,
             },
-             // 走进巅峰-产业联盟
-             {
-                path:'industrialAlliance/:id',
-                name:'industrialAlliance',
-                component:industrialAlliance,
+            // 走进巅峰-合作伙伴
+            {
+                path: 'cooperativePartner/:id',
+                name: 'cooperativePartner',
+                component: cooperativePartner,
+            },
+            // 走进巅峰-产业联盟
+            {
+                path: 'industrialAlliance/:id',
+                name: 'industrialAlliance',
+                component: industrialAlliance,
             },
             // 巅峰业务
             {
-                path:'peakBusiness/:id',
-                name:'peakBusiness',
-                component:peakBusiness,
+                path: 'peakBusiness/:id',
+                name: 'peakBusiness',
+                component: peakBusiness,
             },
             // 巅峰案例
             {
-                path:'peakCases/:id',
-                name:'peakCases',
-                component:peakCases,
+                path: 'peakCases/:id',
+                name: 'peakCases',
+                component: peakCases,
             },
             // 巅峰案例-详情
             {
@@ -92,9 +127,9 @@ export const constantRoutes = [
             },
             // 巅峰观点-行业观点
             {
-                path:'peakView/:id',
-                name:'peakView',
-                component:peakView,
+                path: 'peakView/:id',
+                name: 'peakView',
+                component: peakView,
             },
             // 巅峰观点-行业观点详情
             {
@@ -104,9 +139,9 @@ export const constantRoutes = [
             },
             // 巅峰观点-专业著作
             {
-                path:'professionalWorks/:id',
-                name:'professionalWorks',
-                component:professionalWorks,
+                path: 'professionalWorks/:id',
+                name: 'professionalWorks',
+                component: professionalWorks,
             },
             // 巅峰观点-专业著作详情
             {
@@ -116,9 +151,9 @@ export const constantRoutes = [
             },
             //法律声明
             {
-                path:'legalDeclaration',
-                name:'legalDeclaration',
-                component:legalDeclaration,
+                path: 'legalDeclaration',
+                name: 'legalDeclaration',
+                component: legalDeclaration,
             },
             //联系我们
             {
@@ -141,7 +176,7 @@ export const constantRoutes = [
             
         ]
     },
-    
+
 ]
 
 export default new VueRouter({
