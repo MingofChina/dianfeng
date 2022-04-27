@@ -169,6 +169,8 @@ export default {
         var height = document.body.clientHeight * 0.045
         if(index>0){
             document.documentElement.scrollTop = document.getElementsByClassName('contCont1')[index].offsetTop + height
+            console.log(document.getElementsByClassName('contCont1')[index].offsetTop)
+            console.log(height)
             this.top=1
         }else{
             document.documentElement.scrollTop = 0
