@@ -30,22 +30,31 @@
                                     <div class="cont-right1-title">{{item.title}}</div>
                                     <div v-html="item.description" class="cont-right1-title1" ref="cont1"></div>
                                     <el-row>
-                                        <el-col :span='8'  class="lega-content-div21" v-for="(item2,index2) in item.case" :key="index2+item2.id">
-                                            <div class="leag-div21"><img :src='baseUrl+item2.original_image'/></div>
-                                            <div class="leag-div22" @click="detailFn(item)">{{item2.title}}</div>
-                                            <div class="leag-div23">{{item2.summary}}</div>
-                                        </el-col>
+                                        
+                                            <el-col :span='8'  class="lega-content-div21" v-for="(item2,index2) in item.case" :key="index2+item2.id">
+                                                <div @mouseover="linkFn2(item2,index2)" @mouseleave="linkFn2Leave()" @click="detailFn(1,item2)">
+                                                    <div class="leag-div21"><img :src='baseUrl+item2.original_image'/></div>
+                                                    <div class="leag-div22" :style="{color:index2 == isActiy?'red':''}">{{item2.title}}</div>
+                                                    <div class="leag-div23">{{item2.summary}}</div>
+                                                 </div>  
+                                            </el-col>
+                                       
                                     </el-row>
                                     <el-row class="lega-const" v-for="(item1,index1) in item.news" :key="index1+item1.id">
-                                        <el-col :span="9" style="margin-right:1rem">
-                                            <img :src="baseUrl+item1.original_image" style="width:27.88rem;height:20rem"/>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <div class="textime">{{item1.addtime}}</div>
-                                            <div class="textelte">{{item1.title}}</div>
-                                            <div class="textcontent">{{item1.summary}}</div>
-                                            <div class="textlook" @click="detailFn(item1)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
-                                        </el-col>
+                                        <div @mouseover="linkFn1(item1,index1)"  @mouseleave="linkFn2Leave()" @click="detailFn(2,item1)">
+                                            <el-col :span="9" style="margin-right:1rem">
+                                                <img :src="baseUrl+item1.original_image" style="width:27.88rem;height:20rem"/>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div class="textime">{{item1.addtime}}</div>
+                                                <div class="textelte" :style="{color:index1 == isActiy1?'red':''}">{{item1.title}}</div>
+                                                <div class="textcontent">{{item1.summary}}</div>
+                                                <div class="textlook" :style="{color:index1 == isActiy1?'red':''}">
+                                                    <img src="../../assets/bei/icon_more@2x(1).png" v-if='index1 == isActiy1' style="width:.5rem;height:.88rem;margin-right:.3rem" />
+                                                    <img src="../../assets/bei/icon_more@2x(2).png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
+                                            </el-col>
+                                        </div>
+                                        
                                     </el-row>
                                     <el-row :gutter="20">
                                         <el-col :span='item3.span'  v-for="(item3,index3) in item.branch_office" :key="index3">
@@ -106,7 +115,9 @@ export default {
       ],
       baseUrl:'http://ceshi.davost.com/',
       top:13,
-      isActive:0
+      isActive:0,
+      isActiy:null,
+      isActiy1:null
     };
   },
   computed: {
@@ -132,6 +143,23 @@ export default {
       window.removeEventListener("scroll", this.windowScroll, true);
   },
   methods: {
+    detailFn(number,data){
+        if(number == 1){
+            this.$router.push(`/peakCasesDetail/${data.id}`)
+        }else{
+            this.$router.push(`/topNews/${data.id}/newsDetail/${data.id}`)
+        }
+    },
+    linkFn2(data,index){
+        this.isActiy = index
+    }, 
+    linkFn1(data,index){
+        this.isActiy1 = index
+    }, 
+    linkFn2Leave(){
+        this.isActiy = null
+        this.isActiy1 = null
+    },
     homeFn(){
       this.$router.push("/index") ;
     },
@@ -144,9 +172,13 @@ export default {
       this.list1 = data.data.business_detail
       if(data.data.case.length != 0){
         this.list2[0] = {...this.list2[0],case:data.data.case}
+      }else{
+          this.list2[0] = {...this.list2[0],case:[]}
       }
       if(data.data.news.length != 0){
         this.list2[1] = {...this.list2[1],news:data.data.news}
+      }else{
+          this.list2[1] = {...this.list2[1],news:[]}
       }
       if(data.data.branch_office.length != 0){
           let lenth1 = data.data.branch_office.length
@@ -162,6 +194,8 @@ export default {
             }
             
         })
+      }else{
+          this.list2[2] = {...this.list2[1],branch_office:[]}
       }
       if(data.data.business_detail.length == 0){
           this.list1 = this.list2

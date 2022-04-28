@@ -30,15 +30,20 @@
         </el-row>
         <div v-else>
             <el-row class="lega-const" v-for="(item,index) in dataList" :key="index+item.id">
-                   <el-col :span="8" style="margin-right:1rem">
+                <div @mouseover="linkFn1(item,index)"  @mouseleave="linkFn2Leave()" @click="detailFn(item)">
+                    <el-col :span="8" style="margin-right:1rem">
                        <img :src="baseUrl+item.original_image" style="width:31.88rem;height:20rem"/>
                    </el-col>
                    <el-col :span="15">
                        <div class="textime">{{item.addtime}}</div>
-                       <div class="textelte"  v-html="item.title"></div>
+                       <div class="textelte"  :style="{color:index == isActiy1?'red':''}" v-html="item.title"></div>
                        <div class="textcontent"  v-html="item.summary"></div>
-                       <div class="textlook" @click="detailFn(item)"><img src="../../assets/bei/icon_more.png" style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
+                       <div class="textlook" :style="{color:index == isActiy1?'red':''}">
+                        <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == isActiy1' style="width:.5rem;height:.88rem;margin-right:.3rem" />
+                         <img src="../../assets/bei/icon_more@2x(2).png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
                    </el-col>
+                </div>
+                   
         </el-row>
         </div>
         
@@ -68,6 +73,7 @@ export default {
       total:0,
       id:null,
       baseUrl:'http://ceshi.davost.com/',
+      isActiy1:null
     };
   },
   computed: {
@@ -90,6 +96,12 @@ export default {
       homeFn(){
       this.$router.push("/index") ;
     },
+    linkFn1(data,index){
+        this.isActiy1 = index
+    }, 
+    linkFn2Leave(){
+        this.isActiy1 = null
+    },
     peakCasesDetail(data){
         this.$router.push(`/peakCasesDetail/${data.id}`) ;
     },
@@ -111,7 +123,7 @@ export default {
     },
     detailFn(data){
         if(this.isActive == 1){
-
+            this.$router.push(`/topNews/${data.id}/newsDetail/${data.id}`)
         }else if(this.isActive == 2){
             this.$router.push(`/peakViewDetail/${data.id}`) 
         }

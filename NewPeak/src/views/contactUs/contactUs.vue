@@ -97,12 +97,11 @@ export default {
         // 创建点标记
         let marker = new BMapGL.Marker(point,{icon:myIcon});
         var setText = '<div style="font-size: 1.5rem;margin-top:.5rem;font-weight: 500;margin-left:1.5rem;width:30rem"><img src="'+require("./icong_weizhi@2x.png")+'" style="width:1.25rem;height:1.5rem"/>'+title
-        +'</div><div style="font-size: 1.13rem;margin-left:3.2rem">'+detailedAddress+'</div>'
+        +'</div><div style="font-size: 10px;margin-left:3.2rem">'+detailedAddress+'</div>'
         // 在地图上添加点标记
         map.addOverlay(marker);
         // 创建窗口提升信息对象
         let opts = {
-        width: 350,
         height: 80,
         // title: title
         };

@@ -13,7 +13,7 @@
           </el-col>
         </el-row>
         <el-row v-if="subscript|| subscript==0"  class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',marginTop:'1rem',zIndex:9999,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
-          <div style="width:100%;height:100%" @mouseleave="levalFn()">
+          <div style="width:100%;height:100%" >
              <el-col :span="(subscript == 1)?7:12 ">
                 <img  v-show="navList[subscript].original_image" :src="baseUrl+navList[subscript].original_image" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
               </el-col>
@@ -24,7 +24,7 @@
                 </div>
                 
               </el-col>
-              <el-col :span="13"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:26.5rem;padding-left:1rem">
+              <el-col :span="13"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:29.5rem;padding-left:1rem">
                 <div>
                   <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
                 </div>
@@ -71,6 +71,9 @@ export default {
         handler() {
            let that =this;
            that.colorFn()
+           if(that.$route.path.indexOf('index')>-1){
+             that.isActive = null
+           }
         },
         deep: true,
     }
@@ -239,11 +242,11 @@ export default {
 }
 .grid-img{
   position: absolute;
-  width: 1.5rem;
+  width: 1.3rem;
   z-index: 99;
   // background: #ffffff;
   top: .7rem;
-  left: 1.3rem;
+  left: 3.3rem;
 }
 .grid-input{
   width: 6.13rem;
@@ -255,7 +258,7 @@ export default {
   line-height: 1.25rem;
 }
 .grid-div{
-  margin-left: 1rem;
+  margin-left: 3rem;
   display: flex;
   height: 3.5rem;
   margin-top: .3rem;
