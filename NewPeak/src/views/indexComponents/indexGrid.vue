@@ -5,12 +5,12 @@
         <div class="shadow message info1">
           <div class="info-title1">
             <li />
-            <div class="title-text">规划设计</div>
+            <div class="title-text">{{column_introduce[0].name}}</div>
           </div>
           <div>
             <div
               class="message-list"
-              v-for="(item, index) in messageList"
+              v-for="(item, index) in childcontentTitle[0]"
               :key="index"
             >
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
@@ -25,9 +25,32 @@
     <div class="centre-box">
       <div class="grid2" :style="setBackgroundImage(backgroundImg.grid2)">
         <div class="shadow message info2">
+
+
           <li />
-          <div class="title-text">品牌营销</div>
+          <div class="title-text">{{column_introduce[1].name}}</div>
         </div>
+
+
+
+        <div>
+          <div
+              class="message-list"
+              v-for="(item, index) in childcontentTitle[1]"
+              :key="index"
+          >
+            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+              <li />
+              <div class="list-info">{{ item }}</div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
       </div>
       <div class="grid-group">
         <div
@@ -36,8 +59,28 @@
         >
           <div class="shadow message info3">
             <li />
-            <div class="title-text">文创设计</div>
+            <div class="title-text">{{column_introduce[2].name}}</div>
           </div>
+
+
+          <div>
+            <div
+                class="message-list"
+                v-for="(item, index) in childcontentTitle[2]"
+                :key="index"
+            >
+              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                <li />
+                <div class="list-info">{{ item }}</div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
         </div>
         <div
           class="grid3 left-margin"
@@ -45,8 +88,27 @@
         >
           <div class="shadow message info3">
             <li />
-            <div class="title-text">文旅教育</div>
+            <div class="title-text">{{column_introduce[3].name}}</div>
           </div>
+
+
+          <div>
+            <div
+                class="message-list"
+                v-for="(item, index) in childcontentTitle[3]"
+                :key="index"
+            >
+              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                <li />
+                <div class="list-info">{{ item }}</div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
         </div>
       </div>
     </div>
@@ -57,8 +119,25 @@
       >
         <div class="shadow message info4">
           <li />
-          <div class="title-text">招商运营</div>
+          <div class="title-text">{{column_introduce[4].name}}</div>
         </div>
+
+
+        <div>
+          <div
+              class="message-list"
+              v-for="(item, index) in childcontentTitle[4]"
+              :key="index"
+          >
+            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+              <li />
+              <div class="list-info">{{ item }}</div>
+            </div>
+          </div>
+        </div>
+
+
+
       </div>
       <div
         class="grid4 bottom-margin top-margin"
@@ -66,8 +145,25 @@
       >
         <div class="shadow message info4">
           <li />
-          <div class="title-text">EPC建设</div>
+          <div class="title-text">{{column_introduce[5].name}}</div>
         </div>
+
+
+
+        <div>
+          <div
+              class="message-list"
+              v-for="(item, index) in childcontentTitle[5]"
+              :key="index"
+          >
+            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+              <li />
+              <div class="list-info">{{ item }}</div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
       <div
         class="grid4 top-margin"
@@ -75,8 +171,28 @@
       >
         <div class="shadow message info4">
           <li />
-          <div class="title-text">光影夜游</div>
+          <div class="title-text">{{column_introduce[6].name}}</div>
         </div>
+
+
+
+        <div>
+          <div
+              class="message-list"
+              v-for="(item, index) in childcontentTitle[6]"
+              :key="index"
+          >
+            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+              <li />
+              <div class="list-info">{{ item }}</div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
       </div>
     </div>
   </div>
@@ -84,22 +200,14 @@
 
 <script>
 import { commonMixin } from "../../components/mixin/all.mixin";
+import { firstone } from "@/api/api";
 export default {
   mixins: [commonMixin],
   data() {
     return {
-      messageList: [
-        "文旅发展规划",
-        "全域旅游规划",
-        "详细规划",
-        "景区/度假区策划规划",
-        "5A景区创建辅导",
-        "度假区创建辅导",
-        "乡村振兴计划",
-        "文旅开发策划规划",
-        "建筑与景观设计",
-        "全域旅游创建辅导",
-      ],
+      column_introduce:[],
+      childcontentTitle:[],
+
       backgroundImg: {
         grid1: require("../../assets/img/guihuasheji.png"),
         grid2: require("../../assets/img/pingpaiyingxiao.png"),
@@ -113,8 +221,40 @@ export default {
           require("../../assets/img/guangyingyeyou.png"),
         ],
       },
+      baseUrl:'http://ceshi.davost.com',
     };
   },
+  watch:{
+    $route: {
+      handler() {
+        this.firstone();
+      },
+      deep: true,
+    }
+  },
+  methods: {
+    getImgUrl(imgUrl) {
+      return this.baseUrl + imgUrl;
+    },
+    async getIndexData2() {
+      let {data} = await firstone();
+      this.column_introduce = data.data.column_introduce;
+      this.initData();
+    },
+    initData(){
+      let temp = [];
+      for(let i =0;i<7;++i){
+        temp = [];
+        for(let j =0;j<this.column_introduce[i].childcontent.length;++j) {
+          temp.push(this.column_introduce[i].childcontent[j].title);
+        }
+        this.childcontentTitle.push(temp);
+      }
+    }
+  },
+  mounted() {
+    this.getIndexData2();
+  }
 };
 </script>
 
