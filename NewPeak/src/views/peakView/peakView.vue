@@ -19,17 +19,17 @@
         <div class="lega-content-div1">
            <div>
                <el-row class="lega-const" v-for="(item,index) in dataList" :key="index+item.id">
-                   <div @click="detailFn(item)" >
+                   <div @click="detailFn(item)" @mouseenter="linkFn2(item,index)">
                        <el-col :span="9" style="margin-right:1rem">
                             <img :src="baseUrl+item.original_image" style="width:31.88rem;height:20rem"/>
                         </el-col>
                         <el-col :span="12">
                             <div class="textime" >{{item.addtime}}</div>
-                            <div class="textelte" >{{item.title}}</div>
+                            <div class="textelte" :style="{color:index == isActiy?'red':''}">{{item.title}}</div>
                             <div class="textcontent">{{item.summary}}</div>
-                            <div class="textlook" >
-                                <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == 0' style="width:.5rem;height:.88rem;margin-right:.3rem" />
-                                <img src="../../assets/bei/icon_more.png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
+                            <div class="textlook" :style="{color:index == isActiy?'red':''}">
+                                <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == isActiy' style="width:.5rem;height:.88rem;margin-right:.3rem" />
+                                <img src="../../assets/bei/icon_more@2x(2).png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
                         </el-col>
                    </div>
                    
@@ -56,6 +56,7 @@ export default {
     return {
       mesage:'',
       textHeml:'',
+      isActiy:null,
       dataList:[],
       imgUrl:'',
       baseUrl:'http://ceshi.davost.com/',
@@ -77,6 +78,9 @@ export default {
             this.imgUrl = this.baseUrl+res.data.data[0].original_image
         });
     },
+    linkFn2(data,index){
+        this.isActiy = index
+    }, 
     handleCurrentChange(val) {
        this.viewpointsfn(val)
     },

@@ -18,17 +18,22 @@
     <div class="lega-content">
         <div class="lega-content-div1">
             <el-row :gutter="20">
-                <el-col :span="12" v-for="(item,index) in dataList"  :key="item.id+index">
-                    <div class="lega-cont-div" @click="detailFn(item,index)">
-                        <div class="lega-cont-img">
-                            <img :src='baseUrl+item.original_image'/>
+                
+                    <el-col :span="12" v-for="(item,index) in dataList"  :key="item.id+index">
+                        <div @mouseenter="linkFn2(item,index)">
+                            <div class="lega-cont-div" @click="detailFn(item,index)">
+                                <div class="lega-cont-img">
+                                    <img :src='baseUrl+item.original_image'/>
+                                </div>
+                                <div class="lega-cont-div2">
+                                    <div class="lega-cont-div3"  :class="{active: index === isActive}">{{item.title}}</div>
+                                    <div class="lega-cont-div4">{{item.summary}}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="lega-cont-div2">
-                            <div class="lega-cont-div3"  :class="{active: index === 0}">{{item.title}}</div>
-                            <div class="lega-cont-div4">{{item.summary}}</div>
-                        </div>
-                    </div>
-                </el-col>
+                    </el-col>
+                
+                
             </el-row>
             <div class="pagination">
                 <el-pagination
@@ -53,6 +58,7 @@ export default {
       textHeml:'',
       dataList:[],
       total:0,
+      isActive:null,
       imgUrl:'',
       baseUrl:'http://ceshi.davost.com/',
     };
@@ -72,6 +78,9 @@ export default {
             this.imgUrl = this.baseUrl+res.data.data[0].original_image
         });
     },
+    linkFn2(data,index){
+        this.isActive = index
+    }, 
      handleCurrentChange(val) {
        this.specialtyfn(val)
     },

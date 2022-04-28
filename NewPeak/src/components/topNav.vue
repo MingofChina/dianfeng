@@ -190,10 +190,11 @@ export default {
       this.subscript = null
     },
     linkFn2(data,index){
-      this.isnavList = index
+      
       if(this.subscript != 1){
         return
       }
+      this.isnavList = index
       this.subscript1 = index
       
     },
