@@ -26,22 +26,32 @@
           </div>
           <img class="info-image" :src="showData ? showData.original_image : '' ">
           <div class="zixun">
-            <div class="zixun-link">业务咨询</div>
+            <div class="zixun-link" @click="toZixun()">业务咨询</div>
           </div>
           <div class="join-us">
-            <div class="join-us-link">加入我们</div>
+            <div class="join-us-link" @click="toJoinUs()">加入我们</div>
           </div>
         </div>
         <div class="send-message-title">在线留言</div>
         <div class="form-info">
-          <form @submit.prevent="submit($event)">
-            <input class="form-company" placeholder="请输入您的企业名称" v-model="formData.company" />
+          <form @submit.prevent="submit($event)" class="form-iteam">
+            <div class="company-iteam-wrapper">
+             <div class="company-iteam"></div>
+             <input class="form-company" placeholder="请输入您的企业名称" v-model="formData.company" />
+            </div>
+            <div class="person-iteam-wrapper">
+             <div class="person-iteam"></div>
+             <input class="form-user" placeholder="请输入您的姓名" v-model="formData.name" />
+            </div>
+            <div class="cellphone-iteam-wrapper">
+             <div class="cellphone-iteam"></div>
+             <input class="form-phone" placeholder="请输入您电话" v-model="formData.phone" />
+            </div>
+            <input class="form-submit"
+                   type="submit"
+                   value="确认提交"
+                   @click="sendMessage()"
             />
-            <input class="form-user" placeholder="请输入您的姓名" v-model="formData.name" />
-            />
-            <input class="form-phone" placeholder="请输入您电话" v-model="formData.phone" />
-            />
-            <input class="form-submit" type="submit" value="确认提交" />
           </form>
         </div>
       </div>
@@ -52,6 +62,7 @@
 </template>
 <script>
 import axios from "axios";
+import { formsjie } from "@/api/api";
 export default {
   data() {
     return {
@@ -115,8 +126,18 @@ export default {
       activeBackgroundColor: '#f4f4f4',
       originBackgroundColor: 'NONE',
       activeTextColor: '#C8000A',
-      originTextColor: '#FFFFFF'
+      originTextColor: '#FFFFFF',
+      zixunUrl:"http://wt.zoosnet.net/LR/Chatpre.aspx?id=LRW27398692&lng=cn",
+      joinUsUrl:"https://www.liepin.com/company/7884213"
     };
+  },
+  watch:{
+    $route: {
+      handler() {
+        this.formsjie();
+      },
+      deep: true,
+    }
   },
   mounted() {
     this.lastTabId = this.branch_office[0].id;
@@ -128,15 +149,17 @@ export default {
     }
   },
   methods:{
-    submit(){
-      axios.get('http://mockjs.xiaoyaoji.cn/mock/1nTCRdWBuu9/api/Index/Form_Action',
-          this.formData).then(res => {
-        // success callback
-        console.log(res);
-      }).catch(err => {
-        // error callback
-        console.log(err);
-      });
+    async sendMessage() {
+      let { data } = await formsjie({company:this.formData.company,
+        name:this.formData.name,
+        phone:this.formData.phone});
+      this.formData = {};
+    },
+    toZixun(){
+      window.location.href = this.zixunUrl;
+    },
+    toJoinUs(){
+      window.location.href = this.joinUsUrl;
     },
     changeTab(id) {
       if (this.lastTabId === id) return;
@@ -384,40 +407,95 @@ body {
   position: absolute;
   top: 600px;
   left: 241px;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center; */
+}
+.form-iteam{
+  width: 1438px;
+  height: 54px;
+  position: flex;
+  flex-direction: row;
+}
+.form-iteam > div{
+  width: 340px;
+  height: 54px;
+  display: inline-block;
+  background-color: #f0f0f0;
+  margin-right: 26px;
 }
 .form-company {
-  width: 340px;
-  height: 54px;
+  width: 278px;
+  height: 48px;
   background: #f0f0f0;
   opacity: 1;
   color: #a0a0a0;
+  border: none;
+  outline: none;
+  position: relative;
+  bottom:4px;
+}
+.company-iteam{
+  width: 18px;
+  height: 19px;
+  background: url("./../../assets/bei/icon_qiye.png");
+  background-size: 100% 100%;
+  margin: 17px 16px 0px 16px;
+  display: inline-block;
 }
 .form-user {
-  margin-left: 26px;
-  width: 340px;
+  /* margin-left: 26px; */
+  width: 278px;
   height: 54px;
   background: #f0f0f0;
   opacity: 1;
   color: #a0a0a0;
+  border: none;
+  outline: none;
+  position: relative;
+  bottom:4px;
+}
+.person-iteam{
+  width: 18px;
+  height: 19px;
+  background: url("./../../assets/bei/icon_xingming.png");
+  background-size: 100% 100%;
+  margin: 17px 16px 0px 16px;
+  display: inline-block;
 }
 .form-phone {
-  margin-left: 26px;
-  width: 340px;
+  /* margin-left: 26px; */
+  width: 278px;
   height: 54px;
   background: #f0f0f0;
   opacity: 1;
   color: #a0a0a0;
+  border: none;
+  outline: none;
+  position: relative;
+  bottom:4px;
+}
+.cellphone-iteam{
+  width: 18px;
+  height: 19px;
+  background: url("./../../assets/bei/icon_dianhua.png");
+  background-size: 100% 100%;
+  margin: 17px 16px 0px 16px;
+  display: inline-block;
 }
 .form-submit {
-  margin-left: 26px;
-  width: 340px;
+  /* margin-left: 26px; */
+  width: 294px;
   height: 54px;
   background: #c8000a;
   opacity: 1;
   text-align: center;
   line-height: 54px;
   color: #ffffff;
+  border: none;
+  position: relative;
+  bottom:4px;
 }
+
 </style>

@@ -1,12 +1,26 @@
 <template>
   <div class="box">
-    <div class="banner" :style="setBackgroundImage(banner)"></div>
+    <div class="banner">
+      <div class="top-wrapper-title">
+        <div class="top-title">巅峰要闻</div>
+        <div class="title-translate">NEWS OF THE PEAK</div>
+        <div class="top-title-item"></div>
+      </div>
+      <ul class="current-place">
+        <li class="current-first-item"></li>
+        <li class="current-second-item"></li>
+        <li>走进巅峰</li>
+        <li class="current-third-item"></li>
+        <li class="current-place-child">巅峰要闻</li>
+      </ul>
+    </div>
     <div class="center">
       <div class="center-title">中国文旅产业巅峰大会</div>
       <div class="text">{{ text }}</div>
       <div class="carousel">
         <div class="left-arrow carousel-left" @click="leftMove(messageList)">
-          左
+          <div class="part-one"></div>
+          <div class="part-two"></div>
         </div>
         <div class="message-group">
           <div v-if="carouselList.length > 0" class="message-box">
@@ -23,25 +37,28 @@
           </div>
         </div>
         <div class="right-arrow carousel-right" @click="rightMove(messageList)">
-          右
+          <div class="part-one"></div>
+          <div class="part-two"></div>
         </div>
       </div>
     </div>
     <div class="news-list">
-      <div v-for="(info, index) in newsList" :key="index">
+      <div v-for="(info, index) in peak_news"
+           :key="index"
+           @mouseenter="moveOnTab(index)"
+           @mouseleave="moveAwayTab()">
         <div class="news">
-          <div class="news-image"></div>
+          <img class="news-image" :src="info.original_image | transformImageUrl" />
           <div class="news-info">
-            <div class="create-time">{{ info.createdOn }}</div>
-            <div class="news-title" :class="[{ highlight: index === 0 }]">
+            <div class="create-time">{{ info.addtime }}</div>
+            <div class="news-title" :class="[{ highlight: index === moveOnIndex }]">
               {{ info.title }}
             </div>
-            <div class="news-text">{{ info.text }}</div>
+            <div class="news-text">{{ info.summary }}</div>
             <div
               class="read-more"
-              :class="[{ highlight: index === 0 }]"
-              @click="toDetial(1)"
-            >
+              :class="[{ highlight: index === moveOnIndex }]"
+              @click="toDetial(info.id)">
               > 查看详情
             </div>
           </div>
@@ -52,7 +69,9 @@
         class="pagination"
         background
         layout="prev, pager, next"
-        :total="1000"
+        :total="totalRows"
+        :page-size="pageSize"
+        @current-change="currentPageChange"
       >
       </el-pagination>
     </div>
@@ -60,6 +79,7 @@
 </template>
 <script>
 import { commonMixin } from "@/components/mixin/all.mixin";
+import { Storyhead } from "@/api/api.js";
 export default {
   mixins: [commonMixin],
   computed: {
@@ -91,18 +111,11 @@ export default {
           text: "666",
         },
       ],
-      newsList: [
-        {
-          createdOn: "123",
-          title: "456",
-          text: "789",
-        },
-        {
-          createdOn: "a123",
-          title: "a456",
-          text: "a789",
-        },
-      ],
+      peak_news: [],
+      currentPage: 1,
+      totalRows: 0,
+      pageSize: 5,
+      moveOnIndex: -1
     };
   },
   methods: {
@@ -115,9 +128,32 @@ export default {
       list.unshift(last);
     },
     toDetial(id) {
-      this.$router.push({ name: "newsDetail", query: { id: id } });
+      this.$router.push({ name: "newsDetail", params: { id: id } });
     },
+    currentPageChange(currentPage) {
+      this.currentPage = currentPage;
+      this.getNewsList();
+    },
+    async getNewsList() {
+      const params = {
+        pages: this.currentPage,
+        pagesize: this.pageSize,
+      };
+      const { data } = await Storyhead(params);
+      const queryData = data?.data;
+      this.peak_news = queryData?.peak_news || [];
+      this.totalRows = (queryData?.page_numbers * this.pageSize) || 0;
+    },
+    moveOnTab(index) {
+      this.moveOnIndex = index;
+    },
+    moveAwayTab() {
+      this.moveOnIndex = -1;
+    }
   },
+  mounted() {
+    this.getNewsList();
+  }
 };
 </script>
 <style scoped>
@@ -127,10 +163,89 @@ export default {
   justify-content: center;
 }
 .banner {
+  background-image: url("../../../assets/img/Group 524.png");
+  background-size: 100% 100%;
   width: 100%;
   height: 700px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-
+.top-wrapper-title {
+  height: 126px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+.top-title {
+  width: 295px;
+  height: 62px;
+  font-size: 60px;
+  font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 100%;
+  letter-spacing: 13px;
+}
+.title-translate {
+  width: 243px;
+  height: 32px;
+  font-size: 20px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 32px;
+  letter-spacing: 2px;
+  margin-bottom: 2px;
+}
+.top-title-item {
+  width: 80px;
+  height: 4px;
+  background: #ffffff;
+}
+.current-place {
+  width: 232px;
+  height: 25px;
+  list-style: none;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  left: 236px;
+  bottom: 30px;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  /* line-height: 19px; */
+}
+.current-first-item {
+  height: 30px;
+  width: 30px;
+  background-image: url("../../../assets/img/路径84.png");
+  background-size: 90% 93%;
+  background-color: transparent;
+}
+.current-second-item,
+.current-third-item {
+  height: 20px;
+  background-image: url("../../../assets/img/路径83.png");
+  background-position: 0px 1px;
+  background-size: 100% 100%;
+  background-color: transparent;
+  width: 16px;
+  height: 16px;
+  border: 0px;
+  line-height: 25px;
+}
+.current-place-child {
+  color: #ffffff;
+}
 .center {
   height: 860px;
   width: 100%;
@@ -170,6 +285,25 @@ export default {
   justify-content: space-between;
   width: 1448px;
   height: 430px;
+}
+.carousel-left .part-one {
+  transform: rotate(45deg);
+  margin-right: -10px;
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  border: 2px solid #A0A0A0;
+  border-top: none;
+  border-right: none;
+}
+.carousel-left .part-two {
+  transform: rotate(45deg);
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  border: 2px solid rgba(160, 160, 160, 0.5);
+  border-top: none;
+  border-right: none;
 }
 .message-group .message-box {
   float: left;
@@ -215,13 +349,38 @@ export default {
 .carousel .carousel-left {
   float: left;
   margin-top: 175px;
+  height: 37px;
+  width: 37px;
+  display: flex;
 }
 .carousel .carousel-right {
   float: right;
   margin-top: 175px;
+  height: 37px;
+  width: 37px;
+  display: flex;
 }
-
+.carousel-right .part-one{
+  transform: rotate(225deg);
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  margin-right: -10px;
+  border: 2px solid rgba(200, 0, 10, 0.5);
+  border-top: none;
+  border-right: none;
+}
+.carousel-right .part-two{
+  transform: rotate(225deg);
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  border: 2px solid #C8000A;
+  border-top: none;
+  border-right: none;
+}
 .news-list {
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,7 +399,6 @@ export default {
 .news .news-image {
   width: 510px;
   height: 320px;
-  background: #c4c4c4;
 }
 .news .news-info {
   position: relative;
@@ -248,12 +406,14 @@ export default {
   margin-left: 40px;
 }
 .news-info .create-time {
+  width: 120px;
   height: 40px;
   font-size: 18px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #6e6e6e;
   line-height: 40px;
+  margin-bottom: 20px;
 }
 .news-info .news-title {
   height: 54px;
@@ -262,6 +422,7 @@ export default {
   font-weight: 500;
   color: #231914;
   line-height: 42px;
+  margin-bottom: 16px;
 }
 .news-info .news-text {
   font-size: 18px;
@@ -269,6 +430,11 @@ export default {
   font-weight: 400;
   color: #6e6e6e;
   line-height: 40px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  word-break: break-all;
 }
 .news-info .read-more {
   position: absolute;
@@ -284,7 +450,6 @@ export default {
 .news-list .pagination {
   margin: 0 auto 70px auto;
   height: 50px;
-  width: 540px;
 }
 .pagination >>> .active {
   background-color: #c8000a !important;

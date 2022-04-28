@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /deep/ .el-footer{
   padding: 0 !important;
 }

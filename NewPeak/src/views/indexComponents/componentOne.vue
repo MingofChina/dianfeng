@@ -23,27 +23,27 @@
       <div class="first-part">中国文旅产业和乡村振兴领先的全程服务商</div>
       <div class="second-part">
         <div class="second-part-item">
-          <span class="high-light">20余年</span>
+          <span class="high-light">{{ company_information.wenlv_years_num || '' }}</span>
           <span>文旅行业不辍耕耘</span>
         </div>
         <div class="second-part-item">
           <span>中国</span>
-          <span class="high-light">旅游规划行业头部企业</span>
+          <span class="high-light">{{ company_information.wenlv_head_enterprise || '' }}</span>
         </div>
         <div class="second-part-item">
-          <span class="high-light">3000余个</span>
+          <span class="high-light">{{ company_information.wenlv_industries_num || '' }}</span>
           <span>美丽中国价值经典</span>
         </div>
       </div>
       <div class="third-part"></div>
       <div class="second-part">
         <div class="second-part-item">
-          <span class="high-light">100余家</span>
+          <span class="high-light">{{ company_information.wenlv_scenic_spot || '' }}</span>
           <span>专业运营旅游景区</span>
         </div>
         <div class="second-part-item">
           <span>文旅产业</span>
-          <span class="high-light">创新引领者</span>
+          <span class="high-light">{{ company_information.wenlv_title || '' }}</span>
         </div>
         <div class="second-part-item"></div>
       </div>
@@ -55,6 +55,7 @@
 import { getBanner } from "./service/index.service";
 export default {
   name: "",
+  props: ['company_information'],
   data() {
     return {
       currentDisplay: '',
@@ -112,6 +113,7 @@ export default {
     },
     // 翻页动作 action为true往后翻，否则往前翻
     changePicture(action) {
+      console.log(this.company_information);
       if (action) {
         this.currentIndex =
           this.currentIndex + 1 === this.displayPictureList.length

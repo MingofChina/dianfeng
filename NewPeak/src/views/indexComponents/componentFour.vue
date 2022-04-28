@@ -8,15 +8,6 @@
         <div class="four-title-right">
           巅峰要闻
         </div>
-<!--        <div
-            :class="{'four-title-nav-left-selected':currentId!=-1,'four-title-nav-left':currentId==-1}"
-            v-on:click="getNews(currentId)">
-          巅峰新闻
-        </div>
-        <div :class="{'four-title-nav-right-selected':currentId==-1,'four-title-nav-right':currentId!=-1}"
-             v-on:click="getNews(-1)">
-          媒体新闻
-        </div>-->
       </div>
       <div class="four-trends">
         <div class="four-trends-title">
@@ -30,13 +21,15 @@
       <div class="four-news-title">
         {{currentNews[currentIndex].title}}
       </div>
-      <div class="four-watch-link-top">
+      <div class="to-right-icon"></div>
+      <div class="four-watch-link-top" @click="toNewsDetail(currentNews[currentIndex].id)">
         查看详情
       </div>
 
       <div class="four-news-images">
 
-        <div class="four-news-image1">
+        <div class="four-news-image1"
+             :style="{'background-image:':'url('+getImgUrl(currentNews[currentIndex].original_image)+')'}">
           <div class="four-news-day1">
             {{currentNews[currentIndex].add_date.substr(8,2)}}
           </div>
@@ -52,12 +45,14 @@
           <div class="four-news-content1" v-else>
             {{currentNews[currentIndex].summary}}
           </div>
-          <div class="four-news-link1">
+          <div class="four-news-link1" @click="toNewsDetail(currentNews[currentIndex].id)">
             查看详情
           </div>
         </div>
 
-        <div class="four-news-image2">
+        <div class="four-news-image2"
+          :style="{'background-image:':'url('+getImgUrl(currentNews[currentIndex+1].original_image)+')'}"
+        >
           <div class="four-news-day2">
             {{currentNews[currentIndex+1].add_date.substr(8,2)}}
           </div>
@@ -73,7 +68,7 @@
           <div class="four-news-content2" v-else>
             {{currentNews[currentIndex+1].summary}}
           </div>
-          <div class="four-news-link2">
+          <div class="four-news-link2" @click="toNewsDetail(currentNews[currentIndex].id)">
             查看详情
           </div>
         </div>
@@ -94,13 +89,14 @@
           <div class="four-news-content3" v-else>
             {{currentNews[currentIndex+2].summary}}
           </div>
-          <div class="four-news-link3">
+          <div class="four-news-link3" @click="toNewsDetail(currentNews[currentIndex].id)">
             查看详情
           </div>
         </div>
 
       </div>
-      <div class="four-more-link">
+      <div class="four-more-link"
+        @click="toTopNews(45)">
         MORE<img class="four-more-link-img"/>
       </div>
     </div>
@@ -109,6 +105,7 @@
   </div>
 </template>
 <script>
+import { firstone } from "@/api/api";
 export default {
   data() {
     return {
@@ -116,61 +113,50 @@ export default {
       "currentIndex":0,
       "currentNews":[],
       "currentLength":0,
-      "news":[
-        {
-          "id":"6418",
-          "title":"再折桂冠！巅峰智业上榜2022年度杰出雇主奖 ",
-          "business_ids":"45",
-          "original_image":"/uploads/20220419/342353b3604223f9316679c7dbd62de8.png",
-          "summary":"2021年9月，前程无忧发起的2022人力资源管理杰出奖以“张弛有度 竞合共赢”为主题再度启航，在近日揭晓的榜单中，巅峰智业荣获2022“人力资源管理杰出奖”之“杰出雇主”殊荣，展现了巅峰智业在战略调整、人才吸引、发展、激励、保留、关怀等方面的杰出表现。\r\n\r\n",
-          "add_date":"2022.02.18"
-        },
-        {
-          "id":"6419",
-          "title":"新春贺词｜乘风破浪，共赢未来！",
-          "business_ids":"45",
-          "original_image":"/uploads/20220419/e52a52efb5dac5db6cc7b42afaa2b8b2.png",
-          "summary":"中国文旅产业和乡村振兴领先的全过程服务商",
-          "add_date":"2022.01.31"
-        },
-        {
-          "id":"6414",
-          "title":"新春将至，巅峰智业迎来喜报“四重奏”！",
-          "business_ids":"45",
-          "original_image":"attachs/archive/gallery/2022/0128/4plada4qcdorvl5.jpg",
-          "summary":"作为文旅规划建设运营全程服务商，巅峰智业从“四甲级”实现资质倍增为“八项甲级”再到专业资质破“十”，拥有城乡规划编制甲级，风景园林工程设计专项甲级，城市及道路照明工程专业承包壹级，旅游规划设计甲级，展陈工程设计与施工一体化一级，专业舞台灯光设计、安装及调试甲级，专业舞台设计制作工程甲级，等十余项专业权威资质。",
-          "add_date":"2022.01.28"
-        },
-        {
-          "id":"6415",
-          "title":"官方推荐 | 10条冰雪精品线路、196个冰雪旅游景区等你来！",
-          "business_ids":"45",
-          "original_image":"",
-          "summary":"随着冰雪运动的普及，越来越多的年轻人喜欢上了滑雪。从计划在冬奥会时建立“带动3亿人参加冰雪运动”的目标，到迎接即将到来的冬奥会时，“冷”冰雪已逐渐成为一种“热”时尚。",
-          "add_date":"2022.01.28"
-        },
-        {
-          "id":"6420",
-          "title":"恭祝榜上有名！首批国家级旅游休闲街区名单公示 ",
-          "business_ids":"45",
-          "original_image":"/uploads/20220419/ce167d0e1c4403d767ab095219e4419d.png",
-          "summary":"近日，文化和旅游部办公厅 国家发展改革委办公厅公示了55家国家级旅游休闲街区名单，江西省赣州市章贡区江南宋城旅游休闲街区榜上有名。巅峰智业有幸为其核心区域——郁孤台历史文化街区提供过从前期投资、规划建设、运营管理、营销推广的全面服务。",
-          "add_date":"2022.01.14"
-        }
-      ]
+      "news":[],
+      baseUrl:'http://ceshi.davost.com',
     };
   },
+  watch:{
+    $route: {
+      handler() {
+        this.cooperation();
+      },
+      deep: true,
+    }
+  },
   methods: {
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getIndexNews() {
+      let { data } = await firstone();
+      console.log("获取数据"+data);
+      this.news = data.data.news;
+      this.initData();
+    },
+    initData(){
+      this.currentBId = this.news[0].business_ids;
+      this.getNews(this.currentBId);
+    },
+    toNewsDetail(id){
+      this.$router.push(`topNews/45/newsDetail/${id}`);
+    },
     getNews(currentBId){
       let temp = this.news.filter(item => item.business_ids === currentBId);
       console.log(temp);
       this.currentNews = temp;
       this.currentIndex = 0;
+    },
+    toTopNews(id) {
+      this.$router.push(`/topNews/${id}`);
     }
   },
   created(){
-    this.currentBId = this.news[0].business_ids;
-    this.getNews(this.currentBId);
+
+  },
+  mounted(){
+    this.getIndexNews();
   }
 };
 </script>
@@ -306,7 +292,7 @@ html,body{
   align-items: center;
 }
 .four-trends-title{
-  width: 72px;
+  width: 100px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -349,11 +335,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.to-right-icon{
+  position: absolute;
+  top: 379px;
+  left: 109px;
+  background-image: url("../../assets/bei/icon_more.png");
+  width: 8px;
+  height: 14px;
+  background-size: 100% 100%;
+}
 .four-watch-link-top{
   position: relative;
-  top: 197px;
-  left: 125px;
-  width: 72px;
+  top: 210px;
+  left: 130px;
+  width: 90px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -452,8 +447,8 @@ html,body{
 .four-news-link1{
   position: absolute;
   top: 362px;
-  left: 125px;
-  width: 72px;
+  left: 107px;
+  width: 90px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -523,7 +518,7 @@ html,body{
   position: absolute;
   top: 362px;
   left: 109px;
-  width: 72px;
+  width: 90px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -593,7 +588,7 @@ html,body{
   position: absolute;
   top: 362px;
   left: 109px;
-  width: 72px;
+  width: 90px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;

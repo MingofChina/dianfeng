@@ -16,39 +16,80 @@
       </ul>
     </div>
     <div class="main-info-wrapper">
-      <ul class="main-info-nav">
-        <li :class="{'light': active === 1}" @click="changeTab(1)">管理团队</li>
-        <li :class="{'light': active === 2}" class="nav-middle-item" @click="changeTab(2)">专家团队</li>
-        <li :class="{'light': active === 3}" @click="changeTab(3)">技术团队</li>
-      </ul>
+      <div class="main-info-nav">
+        <div class="tab-item" :class="{ 'light': active === 1 }" @click="changeTab(1)"
+        v-on:click="getTeam('2,10')"
+        >管理团队</div>
+        <div class="tab-item"
+          :class="{ 'light': active === 2 }"
+          @click="changeTab(2)"
+          v-on:click="getTeam('2,11')"
+        >
+          专家团队
+        </div>
+        <div class="tab-item" :class="{ 'light': active === 3 }" @click="changeTab(3)"
+             v-on:click="getTeam('2,23')"
+        >技术团队</div>
+      </div>
       <div v-if="active === 1" class="team-introduction-part">
         <div class="intr-partone">
-          <div class="partone-first-child">图片</div>
-           <div class="partone-inner">
+          <img class="partone-first-child" @click="toTeamDetail(team[0].id)" :src=getImgUrl(team[0].original_image)>
+          <div class="partone-inner">
             <div class="inner-information">
-            <span>刘峰</span>
-            <span class="inner-information-item">创始人</span>
+              <span @click="toTeamDetail(team[0].id)"> {{ team[0].name }} </span>
+              <div class="inner-information-item"> {{ team[0].title }} </div>
             </div>
-           <div class="inner-introduce">中国旅游规划少壮派领军人物，60多个省市旅游发展高级顾问，多所大学客座教授，多次获得国家奖项。</div>
+            <div class="inner-introduce" @click="toTeamDetail(team[0].id)"> {{ team[0].profile }} </div>
           </div>
-          </div>
+        </div>
         <div class="intr-parttwo">
-          <div class="parttwo-child">束盈</div>
-          <div class="parttwo-child">邸倩</div>
+          <div class="parttwo-left">
+            <img class="left-first-child" @click="toTeamDetail(team[0].id)" :src=getImgUrl(team[1].original_image)>
+            <div class="left-inner">
+              <div class="left-information">
+                <span @click="toTeamDetail(team[0].id)"> {{ team[1].name }} </span>
+                <span class="left-information-item">{{ team[1].title }}</span>
+              </div>
+              <div class="left-introduce" @click="toTeamDetail(team[0].id)"> {{ team[1].profile }} </div>
+            </div>
+          </div>
+          <div class="parttwo-right">
+            <img class="right-first-child" @click="toTeamDetail(team[0].id)" :src=getImgUrl(team[2].original_image)>
+            <div class="right-inner">
+              <div class="right-information">
+                <span  @click="toTeamDetail(team[0].id)"> {{ team[2].name }} </span>
+                <span class="right-information-item">{{ team[2].title }}</span>
+              </div>
+              <div class="right-introduce" @click="toTeamDetail(team[0].id)"> {{ team[2].profile }} </div>
+            </div>
+          </div>
         </div>
         <div class="intr-partthree">
-          <div class="partthree-child" v-for="(item, index) in manageData"> {{ item.name }} </div>
+          <div class="partthree-child" v-for="(item, index) in team">
+            <img class="partthree-image" @click="toTeamDetail(team[0].id)" :src=getImgUrl(item.original_image)>
+            <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
+            <div class="partthree-title"  >{{ item.title }}</div>
+          </div>
         </div>
-        
       </div>
-      <div v-if="active === 2" class="team-introduction-part">
+      <div v-if="active === 2" class="master-introduction-part">
         <div class="intr-partthree">
-          <div class="partthree-child" v-for="(item, index) in masterData"> {{ item.name }} </div>
+          <div class="partthree-child" v-for="(item, index) in team">
+            <img class="partthree-image" @click="toTeamDetail(team[0].id)" :src=getImgUrl(item.original_image)>
+            <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
+            <div class="partthree-title">{{ item.title }}</div>
+          </div>
         </div>
       </div>
       <div v-if="active === 3" class="team-introduction-part">
         <div class="intr-partthree">
-          <div class="partthree-child" v-for="(item, index) in techoData"> {{ item.name }} </div>
+          <div class="partthree-child" v-for="(item, index) in team">
+            <img class="partthree-image" @click="toTeamDetail(team[0].id)" :src=getImgUrl(item.original_image)
+                 v-on:click="toTeamDetail(item.id)">
+            <div class="partthree-name">{{ item.name }}</div>
+            <div class="partthree-title"
+                 @click="toTeamDetail(item.id)">{{ item.title }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -56,99 +97,49 @@
 </template>
 
 <script>
+import { team } from "@/api/api";
 export default {
   data() {
     return {
-      team: [
-        {
-          "id": "34",
-          "name": "刘锋",
-          "title": "创始人",
-          "profile": "中国旅游规划少壮派领军人物，60多个省市旅游发展高级顾问，多所大学客座教授，多次获得国家奖项。",
-          "original_image": "/attachs/team/2017/0105/3falltnpa3kiii9.jpg"
-        },
-        {
-          "id": "94",
-          "name": "束盈",
-          "title": "董事长",
-          "profile": "中欧国际工商学院EMBA、北京邮电大学MBA十大杰出校友、2013年度中国城镇化建设特别贡献人物、中国旅游投资先锋人物。",
-          "original_image": "/attachs/team/2016/1110/5xubo5wcxinumki.jpg"
-        },
-        {
-          "id": "177",
-          "name": "邸倩",
-          "title": "首席运营官/COO",
-          "profile": "清华大学-法国国立路桥大学-法国国立民航大学高级管理人员工商管理硕士学位，中国注册会计师，曾任上市公司董事职务。",
-          "original_image": "/attachs/team/2021/0209/8qhuyct8hioknl8.jpg"
-        },
-        {
-          "id": "93",
-          "name": "刘惠",
-          "title": "执行总裁",
-          "profile": "长江商学院EMBA、国际旅游联合会（中国区）副主席。曾任职于《中国旅游报》、《中国经济导报》、国家发改委新闻办。",
-          "original_image": "/attachs/team/2016/1104/chbckhvxn9x1hut.jpg"
-        },
-        {
-          "id": "89",
-          "name": "李晓东",
-          "title": "副总裁/上海院院长",
-          "profile": "同济大学建筑城规学院建筑学硕士，国家一级注册建筑师。擅长总体规划、控制性详细规划和城市设计，熟悉房地产市场动态。",
-          "original_image": "/attachs/team/2016/1104/yn0myezsatmeqrz.jpg"
-        },
-        {
-          "id": "88",
-          "name": "曹璐",
-          "title": "副总裁/南方大区总经理",
-          "profile": "美国MBA。旅游规划专家、旅游项目投融资分析及运营专家、旅游项目品牌及营销管理专家。",
-          "original_image": "/attachs/team/2021/0209/i9ujkl2shpbhsxb.jpg"
-        },
-        {
-          "id": "178",
-          "name": "冯君",
-          "title": "副总裁/巅峰生态总经理",
-          "profile": "中国矿业大学建筑工程专业，对于大型上市公司经营治理、工程项目全周期统筹管理、上市集团公司人员管理有着丰富的实践经验。",
-          "original_image": "/attachs/team/2021/0209/ikssp2lpmhonzfy.jpg"
-        },
-        {
-          "id": "179",
-          "name": "殷嵘",
-          "title": "首席顾问",
-          "profile": "国内知名地产实操型专家，中欧国际工商学院EMBA，房地产经济师。30年房地产行业经验，擅长以经营视角发现产品价值，挖掘土地最大收益。",
-          "original_image": "/attachs/team/2021/0209/codkrmbgklllure.jpg"
-        },
-        {
-          "id": "150",
-          "name": "钱晓丽",
-          "title": "总裁助理/渠道中心总经理",
-          "profile": "　　拥有景观设计、旅游规划、企业管理等多重专业背景，十年旅游规划与景观设计的研究与实战经验，五年市场营销和管理工作、两年企业项目的运营管理经验。",
-          "original_image": "/attachs/team/2019/1213/o4gpbwacpmnyzpe.jpg"
-        },
-        {
-          "id": "180",
-          "name": "温雅",
-          "title": "总裁助理/华南大区总经理",
-          "profile": "毕业于北京大学，曾就职世界五百强企业美的集团。擅长文旅全产业链项目规划、落地、建设、运营。广东省文旅厅、福建省文旅厅、湖北省文旅厅合",
-          "original_image": "/attachs/team/2021/0209/aj3plhw2svr0gyj.jpg"
-        }
-      ],
-      manageData: [],
-      masterData: [],
-      techoData: [],
-      active: 1
+      team: [],
+      active: 1,
+      baseUrl:'http://ceshi.davost.com',
+      cateId: "2,10"
+    };
+  },
+  watch:{
+    $route: {
+      handler() {
+        this.team();
+      },
+      deep: true,
     }
   },
   mounted() {
+    this.getTeam("2,10");
     this.manageData = this.team.slice(3);
-    this.masterData = this.team;
+    this.masterData = this.team.slice(3);
     this.techoData = this.team.slice(1);
   },
   methods: {
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getTeam(cateId) {
+      let {data} = await team({pages:1,
+        pagesize:10,
+        cate_id: cateId});
+      this.team= data.data.team;
+      console.log(data.data);
+    },
     changeTab(index) {
       this.active = index;
-    }
-  }
+    },
+    toTeamDetail(id){
+      this.$router.push(`/peakTeamDetail/${id}`);
+    },
+  },
 };
-
 </script>
 
 <style scoped>
@@ -157,7 +148,7 @@ export default {
   width: 1920px;
 }
 .top-wrapper {
-  widows: 1920px;
+  width: 1920px;
   height: 700px;
   background-image: url("../../assets/img/Group 508.png");
   background-size: 100% 100%;
@@ -220,14 +211,15 @@ export default {
   color: rgba(255, 255, 255, 0.8);
   /* line-height: 19px; */
 }
-.current-first-item{
+.current-first-item {
   height: 30px;
   width: 30px;
   background-image: url("../../assets/img/路径84.png");
   background-size: 90% 93%;
   background-color: transparent;
 }
-.current-second-item, .current-third-item{
+.current-second-item,
+.current-third-item {
   height: 20px;
   background-image: url("../../assets/img/路径83.png");
   background-position: 0px 1px;
@@ -236,44 +228,50 @@ export default {
   width: 16px;
   height: 16px;
   border: 0px;
-  line-height:25px;
+  line-height: 25px;
 }
-.current-place-child{
-  color: #ffffff
+.current-place-child {
+  color: #ffffff;
 }
 
-.main-info-wrapper{
+.main-info-wrapper {
   width: 1920px;
-  background: #F4F4F4;
+  background: #f4f4f4;
+  padding-bottom: 137px;
 }
 /* 团队人员介绍块 */
-.main-info-nav{
+.main-info-nav {
   list-style: none;
   height: 154px;
   width: 1920px;
   display: flex;
   flex-direction: row;
-  align-items:center;
+  align-items: center;
   align-content: space-between;
   padding-left: 236px;
-  padding-right: 1094px;
+  box-sizing: border-box;
 }
-.main-info-nav li{
+.tab-item {
   width: 170px;
   height: 54px;
-  border: 1px solid #CACACA;
+  border: 1px solid #cacaca;
   text-align: center;
   line-height: 54px;
   font-size: 24px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
   color: #231914;
+  margin-right: 40px;
 }
-.nav-middle-item{
+.light {
+  background-color: #C8000A;
+  color: #FFFFFF;
+}
+.nav-middle-item {
   margin: 0px 40px;
 }
 
-.intr-partone{
+.intr-partone {
   width: 1368px;
   height: 446px;
   margin: 0px auto;
@@ -281,14 +279,13 @@ export default {
   display: flex;
   background-color: #ffffff;
 }
-.partone-first-child{
+.partone-first-child {
   width: 364px;
   height: 446px;
-  background-color: yellow;
 }
-.partone-inner{
+.partone-inner {
   width: 870px;
-  height:190px;
+  height: 190px;
   display: flex;
   flex-direction: column;
   align-content: space-between;
@@ -296,8 +293,75 @@ export default {
   padding-top: 68px;
   padding-left: 60px;
 }
-.inner-information{
-  width: 180px;
+.inner-information {
+
+  height: 38px;
+  font-size: 42px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 37px;
+  display: flex;
+}
+.inner-information-item {
+  display: inline-block;
+  margin-left: 20px;
+
+  height: 37px;
+  font-size: 24px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #3c3c3c;
+  line-height: 37px;
+}
+.inner-introduce {
+
+  height: 103px;
+  font-size: 24px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #6e6e6e;
+  line-height: 44px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.intr-parttwo {
+  width: 1448px;
+  height: 366px;
+  background-color: #f4f4f4;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.parttwo-left,
+.parttwo-right {
+  box-sizing: border-box;
+  width: 716px;
+  height: 366px;
+  background-color: #ffffff;
+  padding: 40px 40px;
+  display: flex;
+}
+.left-first-child,
+.right-first-child {
+  width: 238px;
+  height: 286px;
+}
+.left-inner,
+.right-inner {
+  width: 358px;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-left: 32px;
+}
+.left-information,
+.right-information {
+  width: 360px;
   height: 38px;
   font-size: 42px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
@@ -305,48 +369,36 @@ export default {
   color: #231914;
   line-height: 37px;
 }
-.inner-information-item{
+.left-information-item,
+.right-information-item {
   display: inline-block;
   margin-left: 20px;
-  width: 72px;
+  width: 188px;
   height: 37px;
   font-size: 24px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
-  color: #3C3C3C;
+  color: #3c3c3c;
   line-height: 37px;
 }
-.inner-introduce{
-  width: 868px;
- height: 103px;
- font-size: 24px;
- font-family: Source Han Sans CN-Normal, Source Han Sans CN;
- font-weight: 400;
- color: #6E6E6E;
- line-height: 44px;
- display: flex;
- flex-direction: row;
- align-content: space-between;
-}
-
-.intr-parttwo{
-  width: 1448px;
-  height: 366px;
-  background-color: #F4F4F4;
-  margin: 20px auto;
+.left-introduce,
+.right-introduce {
+  width: 357px;
+  height: 137px;
+  font-size: 24px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #6e6e6e;
+  line-height: 36px;
   display: flex;
-  justify-content: space-between;
-}
-.parttwo-child {
-  width: 716px;
-  height: 366px;
-  background-color: #ffffff;
+  flex-direction: row;
+  align-content: space-between;
 }
 .intr-partthree {
   width: 1464px;
   margin: 0px auto;
   padding-left: 16px;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
@@ -357,5 +409,36 @@ export default {
   width: 350px;
   height: 494px;
   background-color: #ffffff;
+  position: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-content:space-between;
+  justify-content: space-between;
+  align-items: ;
+}
+.partthree-image {
+  height: 324px;
+  width: 270px;
+  margin: 32px 40px 24px;
+}
+.partthree-name {
+  width: 320px;
+  height: 37px;
+  font-size: 32px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 37px;
+  text-align: center;
+}
+.partthree-title {
+  width: 320px;
+  height: 37px;
+  font-size: 20px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #3c3c3c;
+  line-height: 37px;
+  text-align: center;
 }
 </style>

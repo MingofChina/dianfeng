@@ -17,13 +17,13 @@
     </div>
     <div class="mission-list" >
       <div class="mission-item" v-for="(item,i) in mission">
-        <img class="mission-item-img" src="item.original_image"/>
+        <img class="mission-item-img" :src=getImgUrl(item.original_image) />
         <div class="mission-item-title">{{item.title}}</div>
         <div class="mission-item-desc">{{ item.description }}</div>
       </div>
     </div>
-    <div class="reveal">
-      <img class="reveal-img" src="reveal.original_image">
+    <div class="reveal" v-for="(item,i) in reveal">
+      <img class="reveal-img" :src=getImgUrl(item.original_image)>
     </div>
 
     <div class="lecture-background">
@@ -41,7 +41,7 @@
 
       <div class="lecture-img-list">
         <img class="lecture-img-item"
-             :src="item.original_image"
+             :src=getImgUrl(item.original_image)
              v-for="(item,i) in filterHallImgs"
              />
       </div>
@@ -71,7 +71,7 @@
 
       <div class="siqing-img-list">
         <img class="siqing-img-item"
-             :src="item.original_image"
+             :src=getImgUrl(item.original_image)
              v-for="(item,i) in filterSiqingImgs"
         />
       </div>
@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import { Mien } from "@/api/api";
 export default {
   data() {
     return {
@@ -101,151 +102,33 @@ export default {
       "currentSiqingImgNum":1,
       "filterSiqingImgs":[],
       "currentSiqing":{},
-      "mission": [
-        {
-          "title": "巅峰使命",
-          "description": "制造美丽中国 缔造美好生活",
-          "original_image": "/uploads/20220329/538d0a05c8ca4f4b982df44642803a3c.jpg"
-        },
-        {
-          "title": "巅峰使命",
-          "description": "制造美丽中国 缔造美好生活",
-          "original_image": "/uploads/20220329/538d0a05c8ca4f4b982df44642803a3c.jpg"
-        },
-        {
-          "title": "巅峰使命",
-          "description": "制造美丽中国 缔造美好生活",
-          "original_image": "/uploads/20220329/538d0a05c8ca4f4b982df44642803a3c.jpg"
-        }
-      ],
-      "reveal": [
-        {
-          "title": "展示图",
-          "original_image": "/uploads/20220329/6c14a9795fb061c01bf141ae950bb8d3.jpg"
-        }
-      ],
-      "lecture_hall": [
-        {
-          "id": "1",
-          "title": "巅峰大讲堂",
-          "description": "资源有限，智慧无穷。",
-          "original_image": [
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            },
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            },
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            },
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            },
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            },
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            },
-            {
-              "title": "747",
-              "original_image": "/uploads/20220329/d1db8ef7c52103c34b14d41041a3ef2c.jpg"
-            }
-          ]
-        },
-        {
-          "id": "2",
-          "title": "巅峰第三空间",
-          "description": "巅峰第三空间",
-          "original_image": [
-            {
-              "title": "图片1",
-              "original_image": null
-            }
-          ]
-        }
-      ],
-      "peak_siqing": [
-        {
-          "id": "3",
-          "title": "巅峰司庆",
-          "description": "巅峰智业",
-          "original_image": [
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            },
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "title": "巅峰司庆1",
-          "description": "巅峰智业11",
-          "original_image": [
-            {
-              "title": "图片1",
-              "original_image": "/uploads/20220329/708ab9ed893e01463b00cd9a3715af56.jpg"
-            }
-          ]
-        },
-      ],
-      "seo_message": {
-        "meta_title": "巅峰风采_北京巅峰智业旅游文化创意股份有限公司官方网站",
-            "meta_keywords": "",
-            "meta_description": "巅峰风采_北京巅峰智业旅游文化创意股份有限公司官方网站",
-            "meta_author": "巅峰智业,davost.com",
-            "meta_copyright": "巅峰智业 Copyright (C), All Rights Reserved."
-      }
+      "mission": [],
+      "reveal": [],
+      "lecture_hall": [],
+      "peak_siqing": [],
+      baseUrl:'http://ceshi.davost.com',
+    }
+  },
+  watch:{
+    $route: {
+      handler() {
+        this.Mien();
+      },
+      deep: true,
     }
   },
   methods:{
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getPeakStyle() {
+      let { data } = await Mien({id:this.$route.params.id});
+      this.mission = data.data.mission;
+      this.reveal = data.data.reveal;
+      this.lecture_hall = data.data.lecture_hall;
+      this.peak_siqing = data.data.peak_siqing;
+      this.initData();
+    },
     toHallLeft(){
       let number = this.currentHallImgNum;
       let nowImgs = this.currentHall.original_image;
@@ -275,13 +158,11 @@ export default {
     changeCurrentHall(index){
       this.currentHallIndex = index;
       this.currentHall = this.lecture_hall[index];
-      console.log(index);
       this.changeCurrentHallImgs();
     },
     changeCurrentHallImgs(){
       let temp = this.currentHall.original_image;
       this.filterHallImgs = temp.slice(0,5);
-      console.log(this.filterHallImgs)
     },
     toSiqingLeft(){
       let number = this.currentSiqingImgNum;
@@ -318,10 +199,15 @@ export default {
       let temp = this.currentSiqing.original_image;
       this.filterSiqingImgs = temp.slice(0,5);
     },
+    initData(){
+      this.changeCurrentHall(0);
+      this.changeCurrentSiqing(0);
+    }
   },
   created: function(){
-    this.changeCurrentHall(0);
-    this.changeCurrentSiqing(0);
+  },
+  mounted() {
+    this.getPeakStyle();
   }
 };
 
@@ -385,7 +271,7 @@ html,body{
 }
 .icon-home{
   position: absolute;
-  top: 649px;
+  top: 646px;
   left: 236px;
   width: 24px;
   height: 24px;
@@ -403,16 +289,16 @@ html,body{
 .icon-jiantou2{
   position: absolute;
   top: 651px;
-  left: 376px;
+  left: 380px;
   width: 16px;
   height: 16px;
   opacity: 1;
 }
 .link1{
   position: absolute;
-  top: 646px;
+  top: 648px;
   left: 300px;
-  width: 64px;
+
   height: 24px;
   font-size: 16px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -424,9 +310,9 @@ html,body{
 }
 .link2{
   position: absolute;
-  top: 646px;
+  top: 648px;
   left: 404px;
-  width: 64px;
+
   height: 24px;
   font-size: 16px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -516,7 +402,7 @@ html,body{
   background-color: #808080;
 }
 .lecture-background{
-  background-image: url("../../assets/mien/Rectangle 381.png");
+  background: #F0F0F0;
   background-size: 100% 100%;
   width: 1920px;
   height: 752px;
@@ -550,17 +436,6 @@ html,body{
   top: -30px;
   left: -26px;
 }
-/*{
-  width: 1448px;
-  height: 90px;
-  font-size: 18px;
-  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
-  font-weight: 400;
-  color: #3C3C3C;
-  line-height: 32px;
-  !*-webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;*!
-}*/
 .lecture-description{
   position: absolute;
   top: 136px;
@@ -586,7 +461,8 @@ html,body{
   height: 414px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
-  background-color: red;
+  background-color: #808080;
+  background-size: 100% 100%;
 }
 .lecture-img-item:nth-child(2){
   position: absolute;
@@ -597,6 +473,7 @@ html,body{
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-color: blue;
+  background-size: 100% 100%;
 }
 .lecture-img-item:nth-child(3){
   position: absolute;
@@ -647,7 +524,7 @@ html,body{
   background-size: 100% 100%;
 }
 .siqing-background{
-  background-image: url("../../assets/mien/Rectangle 381.png");
+  background: #FFFFFF;
   background-size: 100% 100%;
   width: 1920px;
   height: 752px;
@@ -681,17 +558,6 @@ html,body{
   top: -30px;
   left: -26px;
 }
-/*{
-  width: 1448px;
-  height: 90px;
-  font-size: 18px;
-  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
-  font-weight: 400;
-  color: #3C3C3C;
-  line-height: 32px;
-  !*-webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;*!
-}*/
 .siqing-description{
   position: absolute;
   top: 136px;

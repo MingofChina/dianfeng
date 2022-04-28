@@ -30,7 +30,7 @@
           class="partner-display-client"
           v-for="(item, index) in customer_list[0].child"
           :key="index"
-          :src="item.original_image"
+          :src=getImgUrl(item.original_image)
         />
       </div>
     </div>
@@ -42,7 +42,7 @@
           class="partner-display-partner"
           v-for="(item, index) in cooperative_partner"
           :key="index"
-          :src="item.original_image"
+          :src=getImgUrl(item.original_image)
         />
       </div>
     </div>
@@ -50,120 +50,40 @@
 </template>
 
 <script>
+import { cooperation } from "@/api/api";
 export default {
   data() {
     return {
       showClient: true,
       showPartner: true,
-      customer_list: [
-        {
-          id: "2",
-          title: "新闻媒体",
-          child: [
-            {
-              title: "第一个",
-              original_image: require("../../assets/img/banner.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第2个",
-              original_image: require("../../assets/img/guangyingyeyou.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第3个",
-              original_image: require("../../assets/img/guihuasheji.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第4个",
-              original_image: require("../../assets/img/wenchuangshej.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第5个",
-              original_image: require("../../assets/img/guihuasheji.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第6个",
-              original_image: require("../../assets/img/guihuasheji.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第7个",
-              original_image: require("../../assets/img/wenchuangshej.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第7个",
-              original_image: require("../../assets/img/wenchuangshej.png"),
-              linkurl: "baidu.com"
-            },
-            {
-              title: "第7个",
-              original_image: require("../../assets/img/wenchuangshej.png"),
-              linkurl: "baidu.com"
-            }
-          ]
-        },
-        {
-          id: "1",
-          title: "旅游景区",
-          child: []
-        }
-      ],
-      cooperative_partner: [
-        {
-          title: "第一个",
-          original_image: require("../../assets/img/banner.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第2个",
-          original_image: require("../../assets/img/guangyingyeyou.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第3个",
-          original_image: require("../../assets/img/guihuasheji.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第4个",
-          original_image: require("../../assets/img/wenchuangshej.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第5个",
-          original_image: require("../../assets/img/guihuasheji.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第6个",
-          original_image: require("../../assets/img/guihuasheji.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第7个",
-          original_image: require("../../assets/img/wenchuangshej.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第7个",
-          original_image: require("../../assets/img/wenchuangshej.png"),
-          linkurl: "baidu.com"
-        },
-        {
-          title: "第7个",
-          original_image: require("../../assets/img/wenchuangshej.png"),
-          linkurl: "baidu.com"
-        }
-      ]
+      customer_list: [],
+      cooperative_partner: [],
+      baseUrl:'http://ceshi.davost.com',
     };
   },
+  watch:{
+    $route: {
+      handler() {
+        this.cooperation();
+      },
+      deep: true,
+    }
+  },
   created() {},
-  methods: {}
+  mounted() {
+    this.getCooper();
+  },
+  methods: {
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getCooper() {
+      let { data } = await cooperation();
+      console.log("获取数据"+data);
+      this.customer_list = data.data.customer_list;
+      this.cooperative_partner = data.data.cooperative_partner;
+    },
+  }
 };
 </script>
 
