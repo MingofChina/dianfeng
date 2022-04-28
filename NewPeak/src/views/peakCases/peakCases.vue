@@ -36,6 +36,7 @@
         <div class="pagination">
             <el-pagination
             background
+            :current-page.sync='pageNumber'
             @current-change="handleCurrentChange"
             :page-size="10"
             layout="prev, pager, next"
@@ -60,6 +61,7 @@ export default {
       total:0,
       id:null,
       imgUrl:'',
+      pageNumber:1,
       baseUrl:'http://ceshi.davost.com/',
     };
   },
@@ -98,7 +100,7 @@ export default {
     async sexamplefn(val) {
       let that = this;
      let params = {
-         pages:val,
+         pages:this.pageNumber,
          pagesize:8,
          id:that.id?that.id:this.$route.params.id
      }
@@ -131,9 +133,11 @@ export default {
         that.isActive = index
         sessionStorage.setItem('peakCasesId',item.id)
         that.id = item.id
+        this.pageNumber = 1
         that.sexamplefn(1)
     },
      handleCurrentChange(val) {
+         this.pageNumber = val
        this.sexamplefn(val)
     },
     detailFn(data){

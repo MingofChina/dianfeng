@@ -9,7 +9,7 @@
             <div style="color:#231914">详情</div>
             
         </div>
-        <div class="lega-header-foot1">
+        <div class="lega-header-foot1" @click="backFn">
             <img src="../../assets/story-detail/Group 397@2x.png"/>
         </div>
     </div>
@@ -93,7 +93,9 @@ export default {
     homeFn(){
       this.$router.push("/index") ;
     },
-    
+    backFn(){
+        this.$router.go(-1)
+    },
     peakViewDetail(data){
         this.$router.push( `/peakViewDetail/${data.id}`) ;
     },

@@ -12,18 +12,25 @@
             <div v-if="index == isActive" style="width:5.1rem;border-top:2px solid red;position:absolute;top:4.6rem;height:2px;left:3.2rem"></div>
           </el-col>
         </el-row>
-        <el-row v-if="subscript|| subscript==0" class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',marginTop:'1rem',zIndex:9999,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
-          <el-col :span="(subscript == 1)?8:12 ">
-            <img  v-show="navList[subscript].original_image" :src="baseUrl+navList[subscript].original_image" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
-          </el-col>
-          <el-col :span="(subscript==0||subscript==2)?12:4" >
-            <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover"   v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div class="navli1" :style="{color:(index == isActive1 && subscript == isActive)?'red':'',
-            background:(index == isActive1 && subscript == isActive)?'#CACACA;':''}"  style="text-align: center;line-height: .3rem;"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
-            <p class="phover1" style="height:1rem;display:none"></p>{{item.name}}</div></el-col>
-          </el-col>
-          <el-col :span="12"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:26.5rem;padding-left:1rem">
-            <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
-          </el-col>
+        <el-row v-if="subscript|| subscript==0"  class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',marginTop:'1rem',zIndex:9999,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
+          <div style="width:100%;height:100%" @mouseleave="levalFn()">
+             <el-col :span="(subscript == 1)?7:12 ">
+                <img  v-show="navList[subscript].original_image" :src="baseUrl+navList[subscript].original_image" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
+              </el-col>
+              <el-col :span="(subscript==0||subscript==2)?12:4" >
+                <div >
+                  <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover" :class="{navList: isnavList == index}"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div class="navli1"   style="text-align: center;line-height: .3rem;"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
+                  <p class="phover1" style="height:1rem;display:none"></p>{{item.name}}</div></el-col>
+                </div>
+                
+              </el-col>
+              <el-col :span="13"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:26.5rem;padding-left:1rem">
+                <div>
+                  <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
+                </div>
+              </el-col>
+          </div>
+         
         </el-row>
       </el-col>
       <el-col :span="3" style="line-height:4.125rem">
@@ -54,6 +61,7 @@ export default {
       marginLeft:9.625,
       isActive:null,
       isActive1:null,
+      isnavList:null,
       input2:null,
       baseUrl:'http://ceshi.davost.com'
     };
@@ -88,6 +96,9 @@ export default {
     // this.searchfn() //搜索的接口
   },
   methods: {
+    levalFn(){
+      this.subscript = null
+    },
     colorFn(){
       let that =this
       that.navList.forEach((item,index)=>{
@@ -135,6 +146,7 @@ export default {
     ulNavFn(data,index,boolen){
       let that = this;
       that.marginLeft = index*9.625-9.625
+      that.isnavList = null
       if(index == 4){
         if(boolen){
           location.href = data.url
@@ -146,7 +158,7 @@ export default {
         return
       }else if(index == 1){
         that.subscript1 = 0
-
+        that.isnavList = 0
       }else if(index == 5){
          if(boolen){
           this.$router.push(`/${data.url}/${data.id}`) ;
@@ -178,6 +190,7 @@ export default {
       this.subscript = null
     },
     linkFn2(data,index){
+      this.isnavList = index
       if(this.subscript != 1){
         return
       }
@@ -206,6 +219,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+.navList{
+  background: #F2F2F2;
+  color: red;
+}
 .divhover:hover{
   color: red;
 }
@@ -214,7 +231,7 @@ export default {
 }
 .bg-purple{
   height: 1.25rem;
-  border: 2px solid #CACACA;
+  border: 1px solid #CACACA;
   position: absolute;
   top: 1.45rem;
   background: #CACACA;

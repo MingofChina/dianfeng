@@ -10,6 +10,8 @@
         <div class="lega-header-foot">
             <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
+            <div>巅峰观点</div>
+            <img src="../../assets/search-img/icon@2x.png">
             <div>专业著作</div>
         </div>
     </div>

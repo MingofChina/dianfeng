@@ -103,7 +103,7 @@ export default {
         // 创建窗口提升信息对象
         let opts = {
         width: 350,
-        height: 70,
+        height: 80,
         // title: title
         };
         let infoWindow = new BMapGL.InfoWindow(setText,opts);

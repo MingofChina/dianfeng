@@ -9,7 +9,7 @@
             <div style="color:#231914">详情</div>
             
         </div>
-        <div class="lega-header-foot1" @click="dianfeng()">
+        <div class="lega-header-foot1" @click="backFn()">
             <img src="../../assets/story-detail/Group 397@2x.png"/>
         </div>
     </div>
@@ -93,8 +93,8 @@ export default {
     homeFn(){
       this.$router.push("/index") ;
     },
-    dianfeng(){
-        this.$router.push(`/peakCases/${sessionStorage.getItem('peakCasesId')}`) ;
+   backFn(){
+        this.$router.go(-1)
     },
     peakCasesDetail(data){
         this.$router.push(`/peakCasesDetail/${data.id}`) ;

@@ -213,7 +213,6 @@ export default {
             if(scrollTop<200){
                 this.top=13
             }else{
-                console.log(scrollTop)
                 this.top=1
             }
             for(var i=0;i<this.list1.length;i++){
