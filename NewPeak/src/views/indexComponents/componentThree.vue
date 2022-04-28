@@ -69,7 +69,7 @@
       </div>
     </div>
     <div class="bottom-area">
-      <div class="four-more-link">
+      <div class="four-more-link" @click="toPeakCases(37)">
         MORE<img class="four-more-link-img"/>
       </div>
     </div>
@@ -97,6 +97,7 @@
 </template>
 <script>
 export default {
+
   data() {
     return {
       productCate: [
@@ -185,6 +186,9 @@ export default {
     }
   },
   methods: {
+    toPeakCases(id){
+      this.$router.push(`/peakCases/${id}`);
+    },
     changePicture(action) {
       if (action) {
         this.currentIndex =
@@ -227,6 +231,7 @@ body {
   position: relative;
   width: 1920px;
   height: 1080px;
+  overflow: hidden;
 }
 .three-background {
   /* position: relative; */
@@ -271,14 +276,14 @@ body {
   /* position: relative; */
   margin-top: 159px;
   margin-left: 328px;
-  width: 890px;
+  width: 1000px;
   height: 27px;
   display: flex;
   flex-direction: row;
 }
 .three-product-cate-item {
   margin-right: 48px;
-  width: 72px;
+  width: 120px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
@@ -291,7 +296,7 @@ body {
 .component-three-split {
   margin-top: 17px;
   margin-left: 328px;
-  width: 790px;
+  width: 940px;
   height: 1px;
   background: rgba(35, 25, 20, 0.2);
   opacity: 1;

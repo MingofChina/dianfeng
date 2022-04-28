@@ -1,7 +1,7 @@
 <template>
   <div id="homes">
     <el-container>
-        <el-header>
+        <el-header style="margin-bottom: 25px">
             <Header></Header>
         </el-header>
         <el-main>
@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /deep/ .el-footer{
   padding: 0 !important;
 }

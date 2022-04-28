@@ -55,17 +55,33 @@
   </div>
 </template>
 <script>
+import { firstone } from "@/api/api";
 export default {
   data() {
     return {
-      "brand_message" : {
-          "found_years":"21",
-          "finish_projects":"3000",
-          "scenic_spot_num":"100",
-          "prize_num":"100",
-          "member_num":"1000"
-      },
+      "brand_message" : {}
     };
+  },
+  watch:{
+    $route: {
+      handler() {
+        this.firstone();
+      },
+      deep: true,
+    }
+  },
+  mounted() {
+    this.getBrandMessage();
+  },
+  methods: {
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getBrandMessage() {
+      let { data } = await firstone();
+      console.log("获取数据"+data);
+      this.brand_message= data.data.brand_message;
+    },
   }
 };
 </script>
