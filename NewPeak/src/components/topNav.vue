@@ -148,7 +148,6 @@ export default {
         that.subscript1 = 0
 
       }else if(index == 5){
-        console.log(data)
          if(boolen){
           this.$router.push(`/${data.url}/${data.id}`) ;
           that.subscript1 = null

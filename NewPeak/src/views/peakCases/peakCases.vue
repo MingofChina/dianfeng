@@ -71,6 +71,7 @@ export default {
            let that =this;
            this.sexamplefn(1)
            that.colorFn()
+           that.id = null
         //    if(that.isActive){
         //        return
         //    }else{
@@ -99,7 +100,7 @@ export default {
      let params = {
          pages:val,
          pagesize:8,
-         id:that.id
+         id:that.id?that.id:this.$route.params.id
      }
       let { data } = await sexample(params);
       banner({id:this.$route.params.id}).then((res)=>{
@@ -117,7 +118,6 @@ export default {
     colorFn(){
         let that =this;
         that.columnsList.forEach((item,index) => {
-            console.log(item.id == sessionStorage.getItem('peakCasesId'))
             if(item.id == sessionStorage.getItem('peakCasesId')){
                 that.isActive = index
             }
@@ -330,7 +330,7 @@ color: #FFFFFF;
     line-height: 1.93rem;
     text-align: center;
     font-size: 1.5rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     /* color: #FFFFFF;
     background: red; */
     margin-right: 3.13rem;
