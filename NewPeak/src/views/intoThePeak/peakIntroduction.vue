@@ -51,7 +51,9 @@
         作为文旅规划建设运营全程服务商，巅峰智业资质全面, 拥有旅游规划设计甲级、城乡规划编制甲级、风景园林工程设计专项甲级、城市及道路照明工程专业承包壹级、专业舞台灯光设计、安装及调试甲级，专业舞台设计制作工程甲级，专业舞台音视频设计、安装及调试甲级，专业舞台音响设计、安装及调试甲级的“八项甲级”资质；业务覆盖全国，完成3000余项高品质项目，累计运管景区100余家，在1000余项国际、国内项目竞标中拔得头筹。创新推出安庆太湖文博园《天仙配新传》、张家口下花园《西游归来》、济南大石崮《好汉山东》等“巅峰震撼”系列光影剧强势新IP，其中《天仙配新传》还作为安庆文旅新名片，被央视新闻联播重点报道。《顺德华侨城空间秀》等系列夜游目的地新地标，已成为年轻人喜爱的网红打卡地。此外，还推动了松鼠森林、绿心童乡、欢乐星球、峰物文创、旅豆学堂等一系列落地产品。
       </div>
       <div class="introduce2-video">
-        <video ref="videoPlayer" controls :src=videoUrl controlslist="nodownload"
+        <video ref="videoPlayer" controls :src=videoUrl
+               :poster=getImgUrl(brand_messa)
+               controlslist="nodownload"
                :class="['porel','fullwidth','mal','fla','mat','movie-show-video']"
                style="width: 100%; height: 100%; object-fit: fill">
         </video>
@@ -123,15 +125,27 @@
 
       <div class="introduce4-y-time-list">
         <div class="introduce4-y-time-item" v-for="(item,i) in filter_dates" >
-            <div class="introduce4-y-item-date" v-on:click="changeDate(item.addtime)">{{item.addtime}}</div>
+            <div class="introduce4-y-item-date" v-on:click="changeDate(item.addtime)">
+
+              <div class="wrapper-y">
+                <span :class="{'active2' : item.addtime === currentDate.addtime}">{{item.addtime}} </span>
+                <div :class="{'y-dot' : item.addtime === currentDate.addtime}"></div>
+                <div :class="{'y-dot-no' : item.addtime !== currentDate.addtime}"></div>
+              </div>
+
+
+            </div>
         </div>
       </div>
 
       <div class="introduce4-x-time-list">
         <div class="introduce4-x-time" v-for="(item,i) in filter_memorabilia" :key="item.year"
              v-on:click="changeYear(item.year)">
-
-          <a><font>{{item.year}}</font></a>
+          <div class="wrapper-x">
+            <span :class="{'active' : item.year === currentYear}">{{item.year}}</span>
+            <div :class="{'x-dot' : item.year === currentYear}"></div>
+            <div :class="{'x-dot-no' : item.year !== currentYear}"></div>
+          </div>
         </div>
       </div>
 
@@ -139,13 +153,7 @@
       </div>
       <div class="introduce4-to-down" v-on:click="toDown4()">
       </div>
-      <div class="x-dot1"></div>
-      <div class="x-dot2"></div>
-      <div class="x-dot3"></div>
-      <div class="x-dot4"></div>
-      <div class="x-dot5"></div>
-      <div class="x-dot6"></div>
-      <div class="x-dot7"></div>
+
 
       <div class="introduce4-left-and-right">
       <div class="introduce4-to-left" v-on:click="toLeft4()">
@@ -262,6 +270,7 @@ export default {
     changeDate(date){
       let temp = this.filter_dates.filter(item => item.addtime === date);
       this.currentDate = temp[0];
+
     },
     toLeft4(){
       let number = this.memorabilia_filter_number;
@@ -382,8 +391,23 @@ a {
   -moz-user-focus: none;
   -moz-user-select: none;
 }
-a:visited{
+
+.active{
+  width: 100px;
+  height: 35px;
+  font-size: 32px;
+  font-family: D-DIN-DIN-Bold, D-DIN-DIN;
+  font-weight: bold;
   color: #FFFFFF;
+  line-height: 38px;
+
+}
+.active2{
+
+
+  color: #FFFFFF;
+
+
 }
 .introduce-background{
   position: relative;
@@ -977,7 +1001,7 @@ a:visited{
 }
 .introduce4-time{
   position: absolute;
-  top: 354px;
+  top: 300px;
   left: 373px;
   width: 250px;
   height: 65px;
@@ -991,9 +1015,9 @@ a:visited{
 }
 .introduce4-content{
   position: absolute;
-  top: 220px;
-  left: 805px;
-  width: 669px;
+  top: 200px;
+  left: 810px;
+  width: 800px;
   height: 81px;
   font-size: 20px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -1005,14 +1029,15 @@ a:visited{
 }
 .introduce4-img{
   position: absolute;
-  top: 306px;
-  left: 805px;
+  top: 270px;
+  left: 810px;
   background: #808080;
   width: 608px;
   height: 260px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-size: 100% 100%;
+  overflow: hidden;
 }
 .introduce5-background{
   position: relative;
@@ -1188,8 +1213,8 @@ a:visited{
 }
 .introduce4-to-left{
   position: absolute;
-  top: 688px;
-  left: 164px;
+  top: 709px;
+  left: 115px;
   background: url("../../assets/bei/icon_x_left.png");
   background-size: 100% 100%;
   height: 42px;
@@ -1197,8 +1222,8 @@ a:visited{
 }
 .introduce4-to-right{
   position: absolute;
-  top: 688px;
-  left: 1716px;
+  top: 709px;
+  left: 1730px;
   background: url("../../assets/bei/icon_x_right.png");
   background-size: 100% 100%;
   height: 42px;
@@ -1206,9 +1231,9 @@ a:visited{
 }
 .introduce4-divider{
   position: absolute;
-  top: 707px;
-  left: 236px;
-  width: 1448px;
+  top: 730px;
+  left: 200px;
+  width: 1470px;
   height: 2px;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 0px 0px 0px 0px;
@@ -1227,7 +1252,12 @@ a:visited{
 .introduce4-x-time-list > div{
    width: 4%
  }
-
+.wrapper-x{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: -88px;
+}
 .introduce4-x-time{
   width: 60px;
   height: 35px;
@@ -1258,7 +1288,7 @@ a:visited{
 
 }
 .introduce4-y-time-item{
-  margin-top: 44px;
+  margin-top: 30px;
   width: 100px;
   height: 36px;
   font-size: 24px;
@@ -1269,8 +1299,27 @@ a:visited{
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
+.y-dot{
+  position: relative;
+  top: -22px;
+  left: 85px;
+  width: 24px;
+  height: 24px;
+  background-image: url("../../assets/bei/Group 376.png");
+  background-size: 100% 100%;
+  opacity: 1;
+}
+.y-dot-no{
+  position: relative;
+  top: -17px;
+  left: 93px;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
 .introduce4-y-item-date{
-
+  color: rgba(255, 255, 255, 0.6);
 }
 /*.introduce4-x-time-list{
 
@@ -1290,75 +1339,33 @@ a:visited{
 }
 .introduce4-y-line{
   position: absolute;
-  top: 205px;
+  top: 185px;
   left: 763px;
   width: 2px;
-  height: 300px;
+  height: 320px;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2px 2px 2px 2px;
   opacity: 1;
 }
-.x-dot1{
-  background: #fff;
-  position: absolute;
-  top: 692px;
-  left: 328px;
+.x-dot{
+  position: relative;
+  top: 31px;
+  left: 28px;
   width: 16px;
   height: 16px;
   opacity: 1;
+  background-image: url("../../assets/bei/Polygon 6.png");
+  background-size: 100% 100%;
 }
-.x-dot2{
-  position: absolute;
-  top: 705px;
-  left: 555px;
+.x-dot-no{
+  position: relative;
+  top: 40px;
+  left: 34px;
   width: 6px;
   height: 6px;
-  background: rgba(255, 255, 255, 0.5);
   opacity: 1;
+  background: #FFFFFF;
+  background-size: 100% 100%;
 }
-.x-dot3{
-  position: absolute;
-  top: 705px;
-  left: 782px;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-}
-.x-dot4{
-  position: absolute;
-  top: 705px;
-  left: 1007px;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-}
-.x-dot5{
-  position: absolute;
-  top: 705px;
-  left: 1232px;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-}
-.x-dot6{
-  position: absolute;
-  top: 705px;
-  left: 1455px;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-}
-.x-dot7{
-  position: absolute;
-  top: 705px;
-  left: 1678px;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-}
+
 </style>

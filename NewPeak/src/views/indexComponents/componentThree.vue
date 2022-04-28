@@ -96,6 +96,7 @@
   </div>
 </template>
 <script>
+import { firstone } from "@/api/api";
 export default {
 
   data() {
@@ -167,10 +168,20 @@ export default {
         second: true,
         third: true,
         forth: true,
-      }
+      },
+      baseUrl:'http://ceshi.davost.com',
     };
   },
+  watch:{
+    $route: {
+      handler() {
+        this.Mien();
+      },
+      deep: true,
+    }
+  },
   created() {},
+
   computed: {
     firstRotation() {
       return this.product[this.currentIndex];
@@ -186,6 +197,14 @@ export default {
     }
   },
   methods: {
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getIndexThree() {
+      let { data } = await firstone();
+      //this.product = data.data.product;
+      //this.productCate = data.data.product_cate;
+    },
     toPeakCases(id){
       this.$router.push(`/peakCases/${id}`);
     },
@@ -218,6 +237,9 @@ export default {
     moveAwayTab() {
       this.isActiveMap[this.lastStayIndex] = true;
     }
+  },
+  mounted() {
+    this.getIndexThree();
   }
 };
 </script>

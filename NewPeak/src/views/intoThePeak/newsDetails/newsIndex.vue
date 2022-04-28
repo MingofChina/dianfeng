@@ -18,25 +18,25 @@
       <div class="center-title">中国文旅产业巅峰大会</div>
       <div class="text">{{ text }}</div>
       <div class="carousel">
-        <div class="left-arrow carousel-left" @click="leftMove(messageList)">
+        <div class="left-arrow carousel-left" @click="leftMove(wenlv_image)">
           <div class="part-one"></div>
           <div class="part-two"></div>
         </div>
         <div class="message-group">
           <div v-if="carouselList.length > 0" class="message-box">
-            <div class="message-image"></div>
-            <div class="message-text highlight">{{ carouselList[0].text }}</div>
+            <img class="message-image" :src="carouselList[0].original_image | transformImageUrl" />
+            <div class="message-text highlight">{{ carouselList[0].title }}</div>
           </div>
           <div v-if="carouselList.length > 1" class="message-box">
-            <div class="message-image"></div>
-            <div class="message-text">{{ carouselList[1].text }}</div>
+            <img class="message-image" :src="carouselList[1].original_image | transformImageUrl" />
+            <div class="message-text">{{ carouselList[1].title }}</div>
           </div>
           <div v-if="carouselList.length > 2" class="message-box">
-            <div class="message-image"></div>
-            <div class="message-text">{{ carouselList[2].text }}</div>
+            <img class="message-image" :src="carouselList[2].original_image | transformImageUrl" />
+            <div class="message-text">{{ carouselList[2].title }}</div>
           </div>
         </div>
-        <div class="right-arrow carousel-right" @click="rightMove(messageList)">
+        <div class="right-arrow carousel-right" @click="rightMove(wenlv_image)">
           <div class="part-one"></div>
           <div class="part-two"></div>
         </div>
@@ -79,38 +79,19 @@
 </template>
 <script>
 import { commonMixin } from "@/components/mixin/all.mixin";
-import { Storyhead } from "@/api/api.js";
+import { Storyhead, meetingContent } from "@/api/api.js";
 export default {
   mixins: [commonMixin],
   computed: {
     carouselList() {
-      return _.cloneDeep(this.messageList)?.slice(0, 3) || [];
+      return _.cloneDeep(this.wenlv_image)?.slice(0, 3) || [];
     },
   },
   data() {
     return {
       banner: require("@/assets/img/guihuasheji.png"),
       text: "巅峰智业秉承“资源有限 智慧无穷”的理念，信守“人才至上”的价值观，将员工教育作为企业文化建设的突破口和提升企业竞争力的利器。构建了自己的黄埔军校——“巅峰大讲堂”，结合“导师制”、“金鹰特训班”、“项目经典沙龙”、“专家讲座”等多种形式，通过新员工培训、业务技能培训、管理技能培训、通用技能培训等多维度课程体系，为公司发展和员工成长提供学习解决方案。",
-      messageList: [
-        {
-          text: "111",
-        },
-        {
-          text: "222",
-        },
-        {
-          text: "333",
-        },
-        {
-          text: "444",
-        },
-        {
-          text: "555",
-        },
-        {
-          text: "666",
-        },
-      ],
+      wenlv_image: [],
       peak_news: [],
       currentPage: 1,
       totalRows: 0,
@@ -144,6 +125,11 @@ export default {
       this.peak_news = queryData?.peak_news || [];
       this.totalRows = (queryData?.page_numbers * this.pageSize) || 0;
     },
+    async getWenlvImage() {
+      const { data } = await meetingContent();
+      const queryData = data?.data;
+      this.wenlv_image = queryData?.wenlv_image || [];
+    },
     moveOnTab(index) {
       this.moveOnIndex = index;
     },
@@ -153,6 +139,7 @@ export default {
   },
   mounted() {
     this.getNewsList();
+    this.getWenlvImage();
   }
 };
 </script>
@@ -311,7 +298,8 @@ export default {
   height: 430px;
 }
 .message-box .message-image {
-  background: gray;
+  background-size: 100% 100%;
+  margin-bottom: -4px;
   width: 100%;
   height: 338px;
 }

@@ -66,6 +66,15 @@ export function banner(query) {
   })
 }
 
+// 走进巅峰要闻 巅峰大会内容
+export function meetingContent(query) {
+  return request({
+    url: 'api/Intopeak/Peak_News_Top',
+    method: 'post',
+    data:query
+  })
+}
+
 // 走进巅峰要闻
 export function Storyhead(query) {
   return request({
