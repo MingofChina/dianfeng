@@ -8,25 +8,25 @@
         <el-row style="line-height:4.125rem;
         font-size: 18px;font-weight:400"> 
           <el-col :span="4" v-for="(item,index) in navList" class="divhover" :key="index" style="textAlign:center;position:relative">
-            <div @mouseenter="ulNavFn(item,index,false)"  :style="{color:index == isActive?'red':''}" @click="ulNavFn(item,index,true)">{{item.name}}</div>
+            <div @mouseenter="ulNavFn(item,index,false)"  @click="ulNavFn(item,index,true)">{{item.name}}</div>
             <div v-if="index == isActive" style="width:5.1rem;border-top:2px solid red;position:absolute;top:4.6rem;height:2px;left:3.2rem"></div>
           </el-col>
         </el-row>
         <el-row v-if="subscript|| subscript==0"  class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',marginTop:'1rem',zIndex:9999,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
-          <div style="width:100%;height:100%" >
+          <div style="width:100%;height:100%"  @mouseleave="levalFn">
              <el-col :span="(subscript == 1)?7:12 ">
                 <img  v-show="navList[subscript].original_image" :src="baseUrl+navList[subscript].original_image" style="width:11rem;height:8.25rem;margin:4.625rem 2.025rem 2.875rem 1.75rem"/>
               </el-col>
               <el-col :span="(subscript==0||subscript==2)?12:4" >
                 <div >
-                  <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover" :class="{navList: isnavList == index}"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div class="navli1"   style="text-align: center;line-height: .3rem;"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
+                  <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover" :class="{navList: isnavList == index}"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div :style="{color:index == isActive1 && $route.path.indexOf(item.url)>-1?'red':''}" class="navli1"   style="text-align: center;line-height: .3rem;padding-top:.3rem"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
                   <p class="phover1" style="height:1rem;display:none"></p>{{item.name}}</div></el-col>
                 </div>
                 
               </el-col>
-              <el-col :span="13"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:29.5rem;padding-left:1rem">
+              <el-col :span="13"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:31.9rem;padding-left:1rem">
                 <div>
-                  <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)">{{item.title}}</div></el-col>
+                  <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)" style="font-size: 0.88rem;">{{item.title}}</div></el-col>
                 </div>
               </el-col>
           </div>
@@ -104,28 +104,27 @@ export default {
     },
     colorFn(){
       let that =this
-      that.navList.forEach((item,index)=>{
-             if(item.url){
-              if(that.$route.path.indexOf(`${item.url}`)>-1){
-                that.isActive = index
-              }
-             }else{
-                if(item.child_column && item.child_column.length != 0){
-                  item.child_column.forEach((item1,index1)=>{
-                    if(item1.url){
-                      if(that.$route.path.indexOf(`${item1.url}`)>-1){
-                          that.isActive = index
-                          if(index == 0){
-                            if(item1.id == that.$route.params.id){
-                              that.isActive1 = index1
-                            }
-                          }
+      for(var i=0;i<that.navList.length;i++){
+        if(that.navList[i].url){
+          if(that.$route.path.indexOf(`${that.navList[i].url}`)>-1){
+              that.isActive = i
+          }
+        }else{
+          if(that.navList[i].child_column && that.navList[i].child_column.length != 0){
+              for(var j=0;j<that.navList[i].child_column.length;j++){
+                if(that.navList[i].child_column[j].url){
+                  if(that.$route.path.indexOf(`${that.navList[i].child_column[j].url}`)>-1){
+                      that.isActive = i
+                      if(that.navList[i].child_column[j].id == that.$route.params.id){
+                          that.isActive1 = j
                       }
-                    }
-                  })
+                      return
+                  }
                 }
               }
-           })
+          }
+        }
+      }
     },
     homeFn(){
       this.$router.push("/index") ;
@@ -226,9 +225,12 @@ export default {
 .navList{
   background: #F2F2F2;
   color: red;
+  font-weight: bold;
 }
 .divhover:hover{
   color: red;
+  font-weight: bold;
+
 }
 .divhover1:hover{
   background: #CACACA;
@@ -272,9 +274,8 @@ export default {
 }
 .navli1 {
   height: 1.6875rem;
-  font-size: 18px;
+  font-size: 1.13rem;
   margin-top: 32px;
-  font-weight: 500;
 }
 .grid-content{
   display: flex;

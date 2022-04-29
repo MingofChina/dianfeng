@@ -116,6 +116,9 @@ export default {
       if(index1 == 1){
         this.$router.push(`/peakBusiness/${data.childcontent[0].id}`) ;
         return
+      }else if(index1 == 2){
+        sessionStorage.setItem('peakCasesId',data.id)
+        this.$router.push(`/peakCases/${data.id}`) 
       }else if(index1 == 4){
 
       }else{
