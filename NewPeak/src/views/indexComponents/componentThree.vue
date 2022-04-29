@@ -197,7 +197,7 @@ export default {
   mounted() {},
   methods: {
     toPeakCases(id){
-      this.$router.push(`/peakCases/${id}`);
+      this.$router.push(`/peakCasesDetail/${id}`);
     },
     changePicture(action) {
       if (action) {

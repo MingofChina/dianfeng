@@ -209,6 +209,7 @@ export default {
       let { data } = await firstone();
       this.column_introduce = data.data.column_introduce;
       this.backgroundImg = _.map(this.column_introduce, "original_image");
+      console.log(this.backgroundImg)
       this.initData();
     },
     initData() {

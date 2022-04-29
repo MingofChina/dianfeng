@@ -809,7 +809,7 @@ a {
   position: absolute;
   top: 216px;
   left: 236px;
-  width: 176px;
+  /* width: 176px; */
   height: 66px;
   font-size: 44px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
