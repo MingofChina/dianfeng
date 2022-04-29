@@ -172,6 +172,19 @@ export default {
     },
 
     async sendMessage() {
+      if(this.formData.company === ''){
+        alert("请输入企业名称");
+        return ;
+      }
+      if(this.formData.name === ''){
+        alert("请输入您的姓名");
+        return ;
+      }
+      if(this.formData.phone === ''){
+        alert("请输入您的电话");
+        return ;
+      }
+
       let { data } = await formsjie({company:this.formData.company,
         name:this.formData.name,
         phone:this.formData.phone});
