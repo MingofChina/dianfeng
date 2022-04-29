@@ -1,11 +1,11 @@
 <template>
   <div class="box">
     <div class="left-box">
-      <div class="grid1" :style="setBackgroundImage(backgroundImg.grid1)">
+      <div class="grid1" :style="setBackgroundImage(backgroundImg[0])">
         <div class="shadow message info1">
-          <div class="info-title1">
+          <div class="info-title">
             <li />
-            <div class="title-text">{{column_introduce[0].name}}</div>
+            <div class="title-text">{{ column_introduce[0].name }}</div>
           </div>
           <div>
             <div
@@ -15,7 +15,9 @@
             >
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                 <li />
-                <div class="list-info">{{ item }}</div>
+                <div class="list-info" @click="routerPage(routerTo, item)">
+                  {{ item }}
+                </div>
               </div>
             </div>
           </div>
@@ -23,176 +25,156 @@
       </div>
     </div>
     <div class="centre-box">
-      <div class="grid2" :style="setBackgroundImage(backgroundImg.grid2)">
+      <div class="grid2" :style="setBackgroundImage(backgroundImg[1])">
         <div class="shadow message info2">
-
-
-          <li />
-          <div class="title-text">{{column_introduce[1].name}}</div>
-        </div>
-
-
-
-        <div>
-          <div
+          <div class="info-title">
+            <li />
+            <div class="title-text">{{ column_introduce[1].name }}</div>
+          </div>
+          <div>
+            <div
               class="message-list"
               v-for="(item, index) in childcontentTitle[1]"
               :key="index"
-          >
-            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
-              <li />
-              <div class="list-info">{{ item }}</div>
+            >
+              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                <li />
+                <div class="list-info" @click="routerPage(routerTo, item)">
+                  {{ item }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-
       </div>
       <div class="grid-group">
         <div
           class="grid3 right-margin"
-          :style="setBackgroundImage(backgroundImg.grid3[0])"
+          :style="setBackgroundImage(backgroundImg[2])"
         >
           <div class="shadow message info3">
-            <li />
-            <div class="title-text">{{column_introduce[2].name}}</div>
-          </div>
-
-
-          <div>
-            <div
+            <div class="info-title">
+              <li />
+              <div class="title-text">{{ column_introduce[2].name }}</div>
+            </div>
+            <div>
+              <div
                 class="message-list"
                 v-for="(item, index) in childcontentTitle[2]"
                 :key="index"
-            >
-              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
-                <li />
-                <div class="list-info">{{ item }}</div>
+              >
+                <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                  <li />
+                  <div class="list-info" @click="routerPage(routerTo, item)">
+                    {{ item }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-
-
-
-
-
         </div>
         <div
           class="grid3 left-margin"
-          :style="setBackgroundImage(backgroundImg.grid3[1])"
+          :style="setBackgroundImage(backgroundImg[3])"
         >
           <div class="shadow message info3">
-            <li />
-            <div class="title-text">{{column_introduce[3].name}}</div>
-          </div>
-
-
-          <div>
-            <div
+            <div class="info-title">
+              <li />
+              <div class="title-text">{{ column_introduce[3].name }}</div>
+            </div>
+            <div>
+              <div
                 class="message-list"
                 v-for="(item, index) in childcontentTitle[3]"
                 :key="index"
-            >
-              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
-                <li />
-                <div class="list-info">{{ item }}</div>
+              >
+                <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                  <li />
+                  <div class="list-info" @click="routerPage(routerTo, item)">
+                    {{ item }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-
-
-
-
         </div>
       </div>
     </div>
     <div class="right-box">
       <div
         class="grid4 bottom-margin"
-        :style="setBackgroundImage(backgroundImg.grid4[0])"
+        :style="setBackgroundImage(backgroundImg[4])"
       >
         <div class="shadow message info4">
-          <li />
-          <div class="title-text">{{column_introduce[4].name}}</div>
-        </div>
-
-
-        <div>
-          <div
+          <div class="info-title">
+            <li />
+            <div class="title-text">{{ column_introduce[4].name }}</div>
+          </div>
+          <div>
+            <div
               class="message-list"
               v-for="(item, index) in childcontentTitle[4]"
               :key="index"
-          >
-            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
-              <li />
-              <div class="list-info">{{ item }}</div>
+            >
+              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                <li />
+                <div class="list-info" @click="routerPage(routerTo, item)">
+                  {{ item }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
-
       </div>
       <div
         class="grid4 bottom-margin top-margin"
-        :style="setBackgroundImage(backgroundImg.grid4[1])"
+        :style="setBackgroundImage(backgroundImg[5])"
       >
         <div class="shadow message info4">
-          <li />
-          <div class="title-text">{{column_introduce[5].name}}</div>
-        </div>
-
-
-
-        <div>
-          <div
+          <div class="info-title">
+            <li />
+            <div class="title-text">{{ column_introduce[5].name }}</div>
+          </div>
+          <div>
+            <div
               class="message-list"
               v-for="(item, index) in childcontentTitle[5]"
               :key="index"
-          >
-            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
-              <li />
-              <div class="list-info">{{ item }}</div>
+            >
+              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                <li />
+                <div class="list-info" @click="routerPage(routerTo, item)">
+                  {{ item }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
       </div>
       <div
         class="grid4 top-margin"
-        :style="setBackgroundImage(backgroundImg.grid4[2])"
+        :style="setBackgroundImage(backgroundImg[6])"
       >
         <div class="shadow message info4">
-          <li />
-          <div class="title-text">{{column_introduce[6].name}}</div>
-        </div>
-
-
-
-        <div>
-          <div
+          <div class="info-title">
+            <li />
+            <div class="title-text">{{ column_introduce[6].name }}</div>
+          </div>
+          <div>
+            <div
               class="message-list"
               v-for="(item, index) in childcontentTitle[6]"
               :key="index"
-          >
-            <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
-              <li />
-              <div class="list-info">{{ item }}</div>
+            >
+              <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
+                <li />
+                <div class="list-info" @click="routerPage(routerTo, item)">
+                  {{ item }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
-
-
-
       </div>
     </div>
   </div>
@@ -205,56 +187,44 @@ export default {
   mixins: [commonMixin],
   data() {
     return {
-      column_introduce:[],
-      childcontentTitle:[],
-
-      backgroundImg: {
-        grid1: require("../../assets/img/guihuasheji.png"),
-        grid2: require("../../assets/img/pingpaiyingxiao.png"),
-        grid3: [
-          require("../../assets/img/wenchuangshej.png"),
-          require("../../assets/img/wenlvjiaoyu.png"),
-        ],
-        grid4: [
-          require("../../assets/img/yunyimgzhaoshang.png"),
-          require("../../assets/img/epcjianshe.png"),
-          require("../../assets/img/guangyingyeyou.png"),
-        ],
-      },
-      baseUrl:'http://ceshi.davost.com',
+      column_introduce: [],
+      childcontentTitle: [],
+      routerTo: "peakBusiness",
+      backgroundImg: [],
     };
   },
-  watch:{
+  watch: {
     $route: {
       handler() {
         this.firstone();
       },
       deep: true,
-    }
+    },
+  },
+  mounted() {
+    this.getIndexData2();
   },
   methods: {
-    getImgUrl(imgUrl) {
-      return this.baseUrl + imgUrl;
-    },
     async getIndexData2() {
-      let {data} = await firstone();
+      let { data } = await firstone();
       this.column_introduce = data.data.column_introduce;
+      this.backgroundImg = _.map(this.column_introduce, "original_image");
       this.initData();
     },
-    initData(){
+    initData() {
       let temp = [];
-      for(let i =0;i<7;++i){
+      for (let i = 0; i < 7; ++i) {
         temp = [];
-        for(let j =0;j<this.column_introduce[i].childcontent.length;++j) {
+        for (let j = 0; j < this.column_introduce[i].childcontent.length; ++j) {
           temp.push(this.column_introduce[i].childcontent[j].title);
         }
         this.childcontentTitle.push(temp);
       }
-    }
+    },
+    routerPage(path, id) {
+      this.$router.push(`/${path}/${id}`);
+    },
   },
-  mounted() {
-    this.getIndexData2();
-  }
 };
 </script>
 
@@ -284,13 +254,13 @@ export default {
   flex-direction: row;
 }
 .left-box {
+  width: 26.4%;
   display: flex;
   flex-direction: column;
 }
 
 .left-box .grid1 {
   display: flex;
-  width: 500px;
   height: 806px;
 }
 .centre-box {
@@ -300,7 +270,6 @@ export default {
 }
 
 .centre-box .grid2 {
-  background: blue;
   display: flex;
   width: 904px;
   height: 398px;
@@ -310,7 +279,6 @@ export default {
   flex-direction: row;
 }
 .centre-box .grid-group .grid3 {
-  background: yellow;
   display: flex;
   width: 448px;
   height: 400px;
@@ -321,7 +289,6 @@ export default {
   flex-direction: column;
 }
 .right-box .grid4 {
-  background: green;
   display: flex;
   width: 500px;
   height: 263px;
@@ -329,10 +296,10 @@ export default {
 .grid1 .info1 {
   display: flex;
   flex-direction: column;
-  height: 276px;
+  height: 112px;
   padding-left: 50px;
 }
-.info1 .info-title1 {
+.message .info-title {
   display: flex;
   margin-top: 32px;
   margin-bottom: 12px;
@@ -345,48 +312,46 @@ export default {
 }
 .grid2 .info2 {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   height: 112px;
   padding-left: 50px;
-  font-size: 32px;
+  /* font-size: 32px; */
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #ffffff;
-  line-height: 38px;
+  /* line-height: 38px; */
 }
 .grid3 .info3 {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   height: 112px;
   padding-left: 50px;
-  font-size: 32px;
+  /* font-size: 32px; */
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #ffffff;
-  line-height: 38px;
+  /* line-height: 38px; */
 }
 .grid4 .info4 {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   height: 112px;
   padding-left: 50px;
-  font-size: 32px;
+  /* font-size: 32px; */
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #ffffff;
-  line-height: 38px;
+  /* line-height: 38px; */
 }
 .message li::marker {
   font-size: 24px;
   content: "⯁";
 }
-.info1 .info-title1 li::marker {
-  color: red;
-}
 .title-text {
   margin-left: 16px;
 }
 .message-list {
+  display: none;
   margin-left: 34px;
 }
 .message-list li::marker {
@@ -403,21 +368,67 @@ export default {
   width: 164px;
   display: flex;
   flex-direction: row;
-  font-size: 16px;
+  font-size: 16px !important;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #ffffff;
-  line-height: 19px;
+  line-height: 19px !important;
 }
 .message-list .list2 {
   float: left;
   display: flex;
   text-align: left;
   flex-direction: row;
-  font-size: 16px;
+  font-size: 16px !important;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #ffffff;
-  line-height: 19px;
+  line-height: 19px !important;
+}
+.grid1:hover .info1 {
+  /* transition: all 0.2s linear; */
+  height: 276px;
+}
+.grid1:hover .message-list {
+  display: inline;
+}
+.grid1:hover .info1 .info-title li::marker {
+  color: red;
+}
+
+.grid2:hover .info2 {
+  /* transition: all 0.1s linear; */
+  height: auto;
+  padding-bottom: 32px;
+}
+.grid2:hover .message-list {
+  display: inline;
+}
+.grid2:hover .info2 .info-title li::marker {
+  color: red;
+}
+
+.grid3:hover .info3 {
+  /* transition: all 0.1s linear; */
+  height: auto;
+  padding-bottom: 32px;
+}
+.grid3:hover .message-list {
+  display: inline;
+}
+.grid3:hover .info3 .info-title li::marker {
+  color: red;
+}
+
+.grid4:hover .info4 {
+  /* transition: all 0.1s linear; */
+  height: auto;
+  padding-bottom: 32px;
+}
+.grid4:hover .message-list {
+  display: inline;
+}
+.grid4:hover .info4 .info-title li::marker {
+  color: red;
 }
 </style>

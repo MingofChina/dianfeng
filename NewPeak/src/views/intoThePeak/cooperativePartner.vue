@@ -79,7 +79,6 @@ export default {
     },
     async getCooper() {
       let { data } = await cooperation();
-      console.log("获取数据"+data);
       this.customer_list = data.data.customer_list;
       this.cooperative_partner = data.data.cooperative_partner;
     },

@@ -17,6 +17,11 @@ module.exports = {
         pathRewrite: {
           '^/api': '' //路径转发代理
         }
+      },
+      '/uploads': {
+        target: 'http://ceshi.davost.com', // 图片代理
+        ws: true,
+        changeOrigin: true
       }
     }
   },

@@ -15,7 +15,7 @@
             <div>
               <ul>
                 <!-- <li v-for="item in bottom" :key="item.id"> -->
-                <img :src="bottom.applet_url" alt="" class="ones" />
+<!--                <img :src="bottom.applet_url" alt="" class="ones" />-->
                 <!-- </li> -->
               </ul>
               <ul>

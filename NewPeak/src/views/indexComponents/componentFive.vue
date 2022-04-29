@@ -79,7 +79,6 @@ export default {
     },
     async getBrandMessage() {
       let { data } = await firstone();
-      console.log("获取数据"+data);
       this.brand_message= data.data.brand_message;
     },
   }
@@ -147,7 +146,7 @@ html,body{
 .five-background{
   position: relative;
   background-image: url("../../assets/bei/beijing(1).png");
-  width: 1920px;
+  width: 100%;
   height: 1080px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;

@@ -66,9 +66,10 @@ html,body{
 }
 .team-detail-background{
   width: 1920px;
-  height: 2397px;
+  height: 2000px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
+  overflow-x: auto;
 }
 .detail-img{
   position: absolute;

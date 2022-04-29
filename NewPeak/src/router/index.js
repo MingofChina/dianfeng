@@ -19,7 +19,6 @@ import newsIndex from '../views/intoThePeak/newsDetails/newsIndex.vue'
 import newsDetail from '../views/intoThePeak/newsDetails/newsDetail.vue'
 
 Vue.use(VueRouter)
-
 const routes = [{
         path: '/',
         name: 'home',

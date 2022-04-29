@@ -8,7 +8,9 @@
           THE PEAK IS INTRODUCED
         </div>
       <div class="introduce-divide"></div>
-      <img class="icon-home"  src = "../../assets/bei/icon_home.png"/>
+      <img class="icon-home"
+           @click=toIndex()
+           src = "../../assets/bei/icon_home.png"/>
       <img class="icon-jiantou1" src = "../../assets/bei/icon.png"/>
       <div class="link1">
           走进巅峰
@@ -52,10 +54,10 @@
       </div>
       <div class="introduce2-video">
         <video ref="videoPlayer" controls :src=videoUrl
-               :poster=getImgUrl(brand_messa)
+               :poster=getImgUrl(brand_messa.video_cover)
                controlslist="nodownload"
                :class="['porel','fullwidth','mal','fla','mat','movie-show-video']"
-               style="width: 100%; height: 100%; object-fit: fill">
+               style="width: 100%;height: 100%;object-fit: fill">
         </video>
       </div>
     </div>
@@ -243,6 +245,9 @@ export default {
     }
   },
   methods:{
+    toIndex() {
+      this.$router.push({ name: "index"});
+    },
     async getIntroduceInfo() {
       let { data } = await productions({id:this.$route.params.id});
       this.brand_messa = data.data.brand_messa;
@@ -266,6 +271,7 @@ export default {
       this.memorabilia_dates = temp[0].child;
       this.filter_dates = this.memorabilia_dates.slice(0,4);
       this.currentYear = year;
+      this.currentDate = this.filter_dates[0];
     },
     changeDate(date){
       let temp = this.filter_dates.filter(item => item.addtime === date);
@@ -319,7 +325,7 @@ export default {
         number = this.qualification_filter_number;
       }
       this.filter_enterprise_qualification = this.enterprise_qualification.slice((number-1)*8,number*8);
-    },
+      },
     toLeft6(){
       let number = this.honor_filter_number;
       if(number === 1){
@@ -354,6 +360,7 @@ export default {
         number = this.date_filter_number;
       }
       this.filter_dates = this.memorabilia_dates.slice((number-1)*4,number*4);
+      this.currentDate = this.filter_dates[0];
     },
     initData(){
       this.filter_certificate_honor = this.certificate_honor.slice(0,8);
@@ -390,24 +397,6 @@ a {
   -webkit-user-select: none;
   -moz-user-focus: none;
   -moz-user-select: none;
-}
-
-.active{
-  width: 100px;
-  height: 35px;
-  font-size: 32px;
-  font-family: D-DIN-DIN-Bold, D-DIN-DIN;
-  font-weight: bold;
-  color: #FFFFFF;
-  line-height: 38px;
-
-}
-.active2{
-
-
-  color: #FFFFFF;
-
-
 }
 .introduce-background{
   position: relative;
@@ -459,6 +448,23 @@ a {
   opacity: 1;
 }
 
+.active{
+  width: 100px;
+  height: 35px;
+  font-size: 32px;
+  font-family: D-DIN-DIN-Bold, D-DIN-DIN;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 38px;
+
+}
+.active2{
+
+
+  color: #FFFFFF;
+
+
+}
 .icon-home{
   position: absolute;
   top: 570px;
@@ -794,7 +800,7 @@ a {
   position: relative;
   width: 1920px;
   height: 1000px;
-  background: url("../../assets/img/beijing.png");
+  background: url("../../assets/bei/Group 526.png");
   background-size: 100% 100%;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
@@ -868,7 +874,7 @@ a {
 .introduce3-background{
   position: relative;
   width: 1920px;
-  height: 1342px;
+  height: 1420px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
 }
@@ -890,7 +896,7 @@ a {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 226px;
+  top: 210px;
   left:236px;
 }
 .introduce3-item{
@@ -909,8 +915,9 @@ a {
   opacity: 1;
 }
 .introduce3-item-slogan{
+  padding-top: 25px;
   width: 390px;
-  height: 45px;
+  height: 60px;
   font-size: 30px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
@@ -944,7 +951,7 @@ a {
   -webkit-text-fill-color: transparent;*/
 }
 .introduce3-item-summary{
-  margin-top: 16px;
+  margin-top: 40px;
   width: 1312px;
   height: 100px;
   font-size: 20px;
@@ -1078,13 +1085,34 @@ a {
 .introduce5-to-left{
   position: absolute;
   top: 1042px;
-  left: 871px;
+  left: 895px;
   background: url("../../assets/presentation/Group 185.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
 }
+.introduce5-to-left:hover,click{
+  position: absolute;
+  top: 1042px;
+  left: 871px;
+  background: url("../../assets/presentation/Group 185.png");
+  height: 42px;
+  width: 42px;
+  background-size: 100% 100%;
+  background-color: #C8000A;
+}
 .introduce5-to-right{
+  position: absolute;
+  top: 1042px;
+  left: 980px;
+  background: url("../../assets/presentation/Group 321.png");
+  height: 42px;
+  width: 42px;
+  margin-left: 18px;
+  background-size: 100% 100%;
+  /*background-color: #C8000A;*/
+}
+.introduce5-to-right:hover,click{
   position: absolute;
   top: 1042px;
   left: 980px;
@@ -1118,25 +1146,48 @@ a {
 
 .introduce6-to-left{
   position: absolute;
-  top: 850px;
-  left: 871px;
+  top: 930px;
+  left: 880px;
   background: url("../../assets/presentation/Group 185.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
 }
+.introduce6-to-left:hover,click{
+  position: absolute;
+  top: 930px;
+  left: 880px;
+  background: url("../../assets/presentation/Group 185.png");
+  height: 42px;
+  width: 42px;
+  background-size: 100% 100%;
+  background-color: #C8000A;
+}
 .introduce6-to-right{
   position: absolute;
-  top: 850px;
+  top: 930px;
+  left: 980px;
+  background: url("../../assets/presentation/Group 321.png");
+  height: 42px;
+  width: 42px;
+  margin-left: 12px;
+  background-size: 100% 100%;
+}
+
+.introduce6-to-right:hover,click{
+  position: absolute;
+  top: 930px;
   left: 980px;
   background: url("../../assets/presentation/Group 321.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
+  background-color: #C8000A;
 }
 .introduce6-list{
   position: absolute;
   top: 235px;
+  /*left: 170px;*/
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -1152,6 +1203,10 @@ a {
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   margin-right: 19px;
+  margin-bottom: 40px;
+  border: 1px solid #CACACA;
+  text-align: center;
+  padding-top: 34px;
 }
 .introduce6-image{
   background-color: #545454;
@@ -1161,14 +1216,16 @@ a {
 .introduce5-list{
   position: absolute;
   top: 294px;
+  left: 90px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
+  /*justify-content: center;*/
+  padding-top: 20px;
 }
-.introduce5-list > div{
+/*.introduce5-list > div{
   width: 20%
-}
+}*/
 .introduce5-item{
   width: 400px;
   height: 270px;

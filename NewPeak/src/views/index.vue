@@ -1,8 +1,9 @@
 <template>
   <div id="app">
+    <img class="code-url" :src=getImgUrl(this.public_number_url) />
     <componentOne :company_information="company_information"></componentOne>
     <indexGrid></indexGrid>
-    <componentThree></componentThree>
+    <componentThree :product_cate="product_cate" :product="product"></componentThree>
     <componentFour></componentFour>
     <componentFive></componentFive>
     <componentSix></componentSix>
@@ -16,6 +17,7 @@ import componentFour from "./indexComponents/componentFour";
 import componentFive from "./indexComponents/componentFive";
 import componentSix from "./indexComponents/componentSix";
 import { firstone } from "../api/api.js";
+import { BottomMessage } from "../api/api.js";
 export default {
   components: {
     indexGrid,
@@ -27,6 +29,7 @@ export default {
   },
   data() {
     return {
+      public_number_url:"",
       company_information: {},
       column_introduce: [],
       product_cate: [],
@@ -34,13 +37,32 @@ export default {
       news: [],
       brand_message: {},
       branch_office: [],
-      seo_message: {}
+      seo_message: {},
+      baseUrl:'http://ceshi.davost.com'
     };
+  },
+  watch:{
+    $route: {
+      handler() {
+        this.BottomMessage();
+      },
+      deep: true,
+    }
   },
   created() {
     this.getData();
   },
+  mounted() {
+    this.getTanChuang();
+  },
   methods: {
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getTanChuang() {
+      let { data } = await BottomMessage();
+      this.public_number_url = data.data.public_number_url;
+    },
     async getData() {
       const { data } = await firstone();
       const queryData = data?.data;
@@ -58,4 +80,13 @@ export default {
 </script>
 
 <style>
+.code-url{
+  position: fixed;
+  top: 500px;
+  left: 1780px;
+  width: 142px;
+  height: 142px;
+  background-size: 100% 100%;
+  z-index: 100;
+}
 </style>

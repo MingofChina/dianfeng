@@ -1,10 +1,10 @@
 <template>
   <div id="homes">
     <el-container>
-        <el-header style="margin-bottom: 25px">
+        <el-header style="margin-bottom: 45px">
             <Header></Header>
         </el-header>
-        <el-main>
+        <el-main style="padding: 0px">
             <router-view />
         </el-main>
         <el-footer>
