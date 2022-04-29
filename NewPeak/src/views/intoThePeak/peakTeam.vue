@@ -44,29 +44,29 @@
         </div>
         <div class="intr-parttwo">
           <div class="parttwo-left">
-            <img class="left-first-child" @click="toTeamDetail(team[0].id)" :src=getImgUrl(team[1].original_image)>
+            <img class="left-first-child" @click="toTeamDetail(team[1].id)" :src=getImgUrl(team[1].original_image)>
             <div class="left-inner">
               <div class="left-information">
-                <span @click="toTeamDetail(team[0].id)"> {{ team[1].name }} </span>
+                <span @click="toTeamDetail(team[1].id)"> {{ team[1].name }} </span>
                 <span class="left-information-item">{{ team[1].title }}</span>
               </div>
-              <div class="left-introduce" @click="toTeamDetail(team[0].id)"> {{ team[1].profile }} </div>
+              <div class="left-introduce" @click="toTeamDetail(team[1].id)"> {{ team[1].profile }} </div>
             </div>
           </div>
           <div class="parttwo-right">
-            <img class="right-first-child" @click="toTeamDetail(team[0].id)" :src=getImgUrl(team[2].original_image)>
+            <img class="right-first-child" @click="toTeamDetail(team[2].id)" :src=getImgUrl(team[2].original_image)>
             <div class="right-inner">
               <div class="right-information">
-                <span  @click="toTeamDetail(team[0].id)"> {{ team[2].name }} </span>
+                <span  @click="toTeamDetail(team[2].id)"> {{ team[2].name }} </span>
                 <span class="right-information-item">{{ team[2].title }}</span>
               </div>
-              <div class="right-introduce" @click="toTeamDetail(team[0].id)"> {{ team[2].profile }} </div>
+              <div class="right-introduce" @click="toTeamDetail(team[2].id)"> {{ team[2].profile }} </div>
             </div>
           </div>
         </div>
         <div class="intr-partthree">
           <div class="partthree-child" v-for="(item, index) in team">
-            <img class="partthree-image" @click="toTeamDetail(team[0].id)" :src=getImgUrl(item.original_image)>
+            <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
             <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
             <div class="partthree-title"  >{{ item.title }}</div>
           </div>
@@ -75,7 +75,7 @@
       <div v-if="active === 2" class="master-introduction-part">
         <div class="intr-partthree">
           <div class="partthree-child" v-for="(item, index) in team">
-            <img class="partthree-image" @click="toTeamDetail(team[0].id)" :src=getImgUrl(item.original_image)>
+            <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
             <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
             <div class="partthree-title">{{ item.title }}</div>
           </div>
@@ -84,7 +84,7 @@
       <div v-if="active === 3" class="team-introduction-part">
         <div class="intr-partthree">
           <div class="partthree-child" v-for="(item, index) in team">
-            <img class="partthree-image" @click="toTeamDetail(team[0].id)" :src=getImgUrl(item.original_image)
+            <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)
                  v-on:click="toTeamDetail(item.id)">
             <div class="partthree-name">{{ item.name }}</div>
             <div class="partthree-title"
@@ -130,7 +130,6 @@ export default {
         pagesize:10,
         cate_id: cateId});
       this.team= data.data.team;
-      console.log(data.data);
     },
     changeTab(index) {
       this.active = index;

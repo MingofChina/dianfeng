@@ -43,6 +43,11 @@ module.exports = {
             pathRewrite: {
               ['^' + process.env.VUE_APP_BASE_API]: ''
             }
+          },
+          '/uploads': {
+            target: 'http://ceshi.davost.com', // 图片代理
+            ws: true,
+            changeOrigin: true
           }
         }
       },

@@ -5,68 +5,100 @@
         <button class="pre-button" @click="changePicture(true)"></button>
         <button class="next-button" @click="changePicture(false)"></button>
       </div>
-      <div class="rotation-items">
+
+      <div v-if="this.eachProduct.length" class="rotation-items">
         <div class="rotation-item"
              @mouseenter="moveOnTab('first')"
              @mouseleave="moveAwayTab()">
-          <img class="component-three-picture" :src="product[currentIndex].original_image" />
+          <img class="component-three-picture"
+               @click="toPeakCases(firstRotation.id)"
+               :src="firstRotation.original_image | transformImageUrl" />
           <div class="text-area">
             <div :class="{'text-area-hover': isActiveMap.first }">
-              <div class="first-title" :class="{'first-title-hover': isActiveMap.first }"> {{ product[currentIndex].title }} </div>
-              <div class="second-title"> {{ product[currentIndex].summary }} </div>
+              <div class="first-title"
+                   @click="toPeakCases(firstRotation.id)"
+                   :class="{'first-title-hover': isActiveMap.first }"> {{ firstRotation.title }} </div>
+              <div class="second-title"
+              > {{ firstRotation.summary }} </div>
             </div>
             <div v-if="!isActiveMap.first" class="third-part">
               <div class="third-part-icon"></div>
-              <div class="third-part-button">查看详情</div>
+              <div class="third-part-button"
+              @click="toPeakCases(firstRotation.id)"
+              >查看详情</div>
             </div>
           </div>
         </div>
+
+
         <div class="rotation-item"
              @mouseenter="moveOnTab('second')"
              @mouseleave="moveAwayTab()">
-          <img class="component-three-picture" :src="secondRotation.original_image" />
+          <img class="component-three-picture"
+               @click="toPeakCases(secondRotation.id)"
+               :src="secondRotation.original_image | transformImageUrl" />
           <div class="text-area">
             <div :class="{'text-area-hover': isActiveMap.second }">
-              <div class="first-title" :class="{'first-title-hover': isActiveMap.second }"> {{ secondRotation.title }} </div>
+              <div class="first-title"
+                   @click="toPeakCases(secondRotation.id)"
+                   :class="{'first-title-hover': isActiveMap.second }"> {{ secondRotation.title }} </div>
               <div class="second-title"> {{ secondRotation.summary }} </div>
             </div>
             <div v-if="!isActiveMap.second" class="third-part">
               <div class="third-part-icon"></div>
-              <div class="third-part-button">查看详情</div>
+              <div class="third-part-button"
+                   @click="toPeakCases(secondRotation.id)"
+              >查看详情</div>
             </div>
           </div>
         </div>
         <div class="rotation-item"
              @mouseenter="moveOnTab('third')"
              @mouseleave="moveAwayTab()">
-          <img class="component-three-picture" :src="thirdRotation.original_image" />
+          <img class="component-three-picture"
+               @click="toPeakCases(thirdRotation.id)"
+               :src="thirdRotation.original_image | transformImageUrl" />
           <div class="text-area">
             <div :class="{'text-area-hover': isActiveMap.third }">
-              <div class="first-title" :class="{'first-title-hover': isActiveMap.third }"> {{ thirdRotation.title }} </div>
+              <div class="first-title"
+                   @click="toPeakCases(thirdRotation.id)"
+                   :class="{'first-title-hover': isActiveMap.third }"> {{ thirdRotation.title }} </div>
               <div class="second-title"> {{ thirdRotation.summary }} </div>
             </div>
             <div v-if="!isActiveMap.third" class="third-part">
               <div class="third-part-icon"></div>
-              <div class="third-part-button">查看详情</div>
+              <div class="third-part-button"
+                   @click="toPeakCases(thirdRotation.id)"
+              >查看详情</div>
             </div>
           </div>
         </div>
         <div class="rotation-item"
              @mouseenter="moveOnTab('forth')"
              @mouseleave="moveAwayTab()">
-          <img class="component-three-picture" :src="forthRotation.original_image" />
+          <img class="component-three-picture"
+               @click="toPeakCases(forthRotation.id)"
+               :src="forthRotation.original_image | transformImageUrl" />
           <div class="text-area">
             <div :class="{'text-area-hover': isActiveMap.forth }">
-              <div class="first-title" :class="{'first-title-hover': isActiveMap.forth }"> {{ forthRotation.title }} </div>
+              <div class="first-title"
+                   @click="toPeakCases(forthRotation.id)"
+                   :class="{'first-title-hover': isActiveMap.forth }"> {{ forthRotation.title }} </div>
               <div class="second-title"> {{ forthRotation.summary }} </div>
             </div>
             <div v-if="!isActiveMap.forth" class="third-part">
               <div class="third-part-icon"></div>
-              <div class="third-part-button">查看详情</div>
+              <div class="third-part-button"
+                   @click="toPeakCases(forthRotation.id)"
+              >查看详情</div>
             </div>
           </div>
         </div>
       </div>
+
+
+
+      <div v-else class="rotation-items"></div>
     </div>
     <div class="bottom-area">
       <div class="four-more-link" @click="toPeakCases(37)">
@@ -82,8 +114,10 @@
         <div class="three-product-cates">
           <div
             class="three-product-cate-item"
-            v-for="(item ,i) in productCate"
+            :class="[activeTableId === item.id ? 'active-tab' : '']"
+            v-for="(item ,i) in product_cate"
             :key="item.id"
+            @click="activeTableId = item.id"
           >{{item.name}}</div>
         </div>
         <div class="component-three-split"></div>
@@ -97,72 +131,23 @@
 </template>
 <script>
 import { firstone } from "@/api/api";
+import commonMixin from "@/components/mixin/common.mixin";
 export default {
-
+  props: {
+    product_cate: {
+      default: [],
+      type: Array
+    },
+    product: {
+      default: [],
+      type: Array
+    }
+  },
+  mixins: [commonMixin],
   data() {
     return {
-      productCate: [
-        {
-          id: "37",
-          name: "规划设计"
-        },
-        {
-          id: "38",
-          name: "运营招商"
-        },
-        {
-          id: "39",
-          name: "EPC建设"
-        },
-        {
-          id: "40",
-          name: "光影夜游"
-        },
-        {
-          id: "41",
-          name: "文创设计"
-        },
-        {
-          id: "42",
-          name: "品牌营销"
-        },
-        {
-          id: "43",
-          name: "文旅教育"
-        }
-      ],
-      product: [
-        {
-          id: "9991",
-          title: "巅峰测试1",
-          business_ids: "37",
-          original_image:
-            "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          summary: "麻姑山景区位于江西省抚州市南城县，距离南城县城4km，约10分钟车程，距离抚州市70km，距离抚州市70km，距离抚州市70km，距离抚州市70km"
-        },
-        {
-          id: "9992",
-          title: "巅峰测试2",
-          business_ids: "37",
-          original_image: require("../../assets/img/guangyingyeyou.png"),
-          summary: "这是测试2"
-        },
-        {
-          id: "9993",
-          title: "巅峰测试3",
-          business_ids: "37",
-          original_image: require("../../assets/img/guihuasheji.png"),
-          summary: "这是测试3"
-        },
-        {
-          id: "6417",
-          title: "巅峰案例4",
-          business_ids: "37",
-          original_image: require("../../assets/img/banner.png"),
-          summary: "这是测试4"
-        }
-      ],
       currentIndex: 0,
+      activeTableId: 0,
       isActiveMap: {
         first: true,
         second: true,
@@ -178,33 +163,35 @@ export default {
         this.Mien();
       },
       deep: true,
+    },
+    product_cate: {
+      handler(newVal) {
+        this.activeTableId = newVal?.[0]?.id || '';
+      },
+      immediate: true
     }
   },
   created() {},
 
   computed: {
+    eachProduct() {
+      return this.product?.filter(item => item.business_ids === this.activeTableId) || [];
+    },
     firstRotation() {
-      return this.product[this.currentIndex];
+      return this.eachProduct?.[this.currentIndex] || {};
     },
     secondRotation() {
-      return this.product[this.tranferIndex(1)];
+      return this.eachProduct?.[this.tranferIndex(1)] || {};
     },
     thirdRotation() {
-      return this.product[this.tranferIndex(2)];
+      return this.eachProduct?.[this.tranferIndex(2)] || {};
     },
     forthRotation() {
-      return this.product[this.tranferIndex(3)];
+      return this.eachProduct?.[this.tranferIndex(3)] || {};
     }
   },
+  mounted() {},
   methods: {
-    getImgUrl(imgUrl){
-      return this.baseUrl+imgUrl;
-    },
-    async getIndexThree() {
-      let { data } = await firstone();
-      //this.product = data.data.product;
-      //this.productCate = data.data.product_cate;
-    },
     toPeakCases(id){
       this.$router.push(`/peakCases/${id}`);
     },
@@ -237,9 +224,6 @@ export default {
     moveAwayTab() {
       this.isActiveMap[this.lastStayIndex] = true;
     }
-  },
-  mounted() {
-    this.getIndexThree();
   }
 };
 </script>
@@ -251,7 +235,7 @@ body {
 }
 .component-three {
   position: relative;
-  width: 1920px;
+  width: 100%;
   height: 1080px;
   overflow: hidden;
 }
@@ -259,7 +243,7 @@ body {
   /* position: relative; */
   background-image: url("../../assets/bei/beijingtu.png");
   background-size: 100% 100%;
-  width: 1920px;
+  width: 100%;
   height: 622px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
@@ -310,10 +294,24 @@ body {
   font-size: 18px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
   font-weight: bold;
-  color: #c8000a;
+  color: #6C6662;
   line-height: 21px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+}
+.three-product-cate-item:hover{
+  cursor: pointer;
+  color: #c8000a;
+}
+.active-tab {
+  color: #c8000a;
+}
+.active-tab::after{
+  content: "";
+  width:76%;
+  height: 23px;
+  display: block;
+  border-bottom: 1px solid red;
 }
 .component-three-split {
   margin-top: 17px;
@@ -343,7 +341,7 @@ body {
 }
 .three-background2 {
   background-size: 100% 100%;
-  width: 1920px;
+  width: 100%;
   height: 458px;
   background: #f0f0f0;
   border-radius: 0px 0px 0px 0px;

@@ -10,6 +10,9 @@
         <el-footer style="padding:0">
             <Footer></Footer>
         </el-footer>
+        <div class="top1" @click="topFn" v-if="iShow">
+          <img src="../assets/bei/Group 465@2x.png"/>
+        </div>
     </el-container>
 
   </div>
@@ -25,15 +28,29 @@ export default {
   },
   data() {
     return {
-      
+      iShow:false
     };
   },
   computed: {
   },
   mounted() {
+    window.addEventListener("scroll", this.windowScroll, true);
   },
   methods: {
-    
+    topFn(){
+      document.documentElement.scrollTop = 0
+    },
+    windowScroll(e) {  
+       e.stopPropagation()
+       let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+
+        if(scrollTop>800){
+          this.iShow=true
+        }else{
+          this.iShow=false
+        }
+    },
   },
 };
 </script>
@@ -41,5 +58,17 @@ export default {
 <style scoped>
 /deep/ .el-footer{
   padding: 0 !important;
+}
+.top1{
+  position: fixed;
+  bottom: 3rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  z-index: 99999;
+}
+.top1 img{
+  width: 100%;
+  height: 100%;
 }
 </style>

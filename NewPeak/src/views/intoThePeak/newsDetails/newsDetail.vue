@@ -1,4 +1,5 @@
 <template>
+
   <div class="background">
     <div class="box">
       <div class="navbar">
@@ -21,7 +22,12 @@
             <div class="source">来源：{{ peak_news_detail.branch }}</div>
             <div class="create-time">发布时间：{{ peak_news_detail.addtime }}</div>
           </div>
+
+
+
+
           <div v-html="peak_news_detail.description" class="news-text"></div>
+
         </div>
         <div class="side-bar">
           <div class="hot-news">
@@ -37,9 +43,13 @@
               <div class="hot-news-content">
                 <div class="hot-news-text">
                   <div class="hot-title">{{ item.title }}</div>
-                  <div class="hot-text">{{ item.summary }}</div>
+                  <div class="hot-text"
+                       @click="toDetial(item.id)"
+                  >{{ item.summary }}</div>
                 </div>
-                <img class="hot-news-image" :src="item.original_image | transformImageUrl" />
+                <img class="hot-news-image"
+                     @click="toDetial(item.id)"
+                     :src="item.original_image | transformImageUrl" />
               </div>
               <div v-if="index < (peak_news_hots.length - 1)" class="hot-news-split"></div>
             </div>
@@ -57,9 +67,13 @@
               <div class="hot-news-content">
                 <div class="recommend-news-text">
                   <div class="recommend-title">{{ item.title }}</div>
-                  <div class="recommend-text">{{ item.summary }}</div>
+                  <div class="recommend-text"
+                       @click="toDetial(item.id)"
+                  >{{ item.summary }}</div>
                 </div>
-                <img class="recommend-news-image" :src="item.original_image | transformImageUrl" />
+                <img class="recommend-news-image"
+                     @click="toDetial(item.id)"
+                     :src="item.original_image | transformImageUrl" />
               </div>
               <div v-if="index < (peak_news_relevant.length - 1)" class="hot-news-split"></div>
             </div>
@@ -68,6 +82,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -89,6 +104,10 @@ export default {
     };
   },
   methods: {
+    toDetial(id) {
+      this.$router.push({ name: "newsDetail", params: { id: id } });
+      location.reload();
+    },
     close() {
       this.$router.go(-1);
     },
@@ -102,16 +121,15 @@ export default {
   },
   created() {
     this.getDetailData();
-    // console.log("跳转"+this.$route.params.id);
   }
 };
 </script>
 
 <style scoped>
 .background {
-  width: 100%;
+  width: 1920px;
   height: 100%;
-  background: #f4f4f4;
+  background: #F4F4F4;
 }
 .marker {
   width: 4px;
@@ -119,6 +137,7 @@ export default {
   background: #c8000a;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+
 }
 .title-marker {
   margin-right: 12px;
@@ -127,6 +146,7 @@ export default {
   margin: 0 auto 0 auto;
   width: 1448px;
   padding-top: 86px;
+
 }
 .box .navbar {
   display: flex;
@@ -172,13 +192,15 @@ export default {
   width: 14px;
   height: 14px;
   border: 0px;
+
 }
 .current-place-child {
-  width: 32px;
+  /*width: 32px;*/
   font-size: 16px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #231914;
+
 }
 .navbar .close {
   width: 64px;
@@ -188,12 +210,15 @@ export default {
 .main {
   display: flex;
   flex-direction: row;
+
 }
 .news {
   margin-top: 57px;
   margin-bottom: 70px;
   width: 868px;
   height: 1000px;
+
+
 }
 .news .news-title {
   width: 868px;
@@ -202,6 +227,7 @@ export default {
   font-weight: bold;
   color: #231914;
   line-height: 40px;
+
 }
 .news .news-info {
   display: flex;
@@ -210,6 +236,7 @@ export default {
   margin-top: 28px;
   width: 100%;
   height: 32px;
+
 }
 .news .news-text {
   margin-top: 40px;
@@ -219,11 +246,13 @@ export default {
   color: #231914;
   line-height: 32px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+
 }
 .side-bar {
   float: right;
   margin-top: 57px;
   margin-left: 60px;
+
 }
 .hot-news {
   width: 520px;
@@ -250,6 +279,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
 }
 .hot-news-split {
   margin-top: 16px;
@@ -299,6 +329,7 @@ export default {
   width: 520px;
   padding-top: 40px;
   background: #ffffff;
+
 }
 .recommend-news .recommend-news-title {
   display: flex;
@@ -347,6 +378,7 @@ export default {
   font-weight: 300;
   color: #6e6e6e;
   line-height: 24px;
+
 }
 .recommend-news-box .recommend-news-image {
   background: gray;

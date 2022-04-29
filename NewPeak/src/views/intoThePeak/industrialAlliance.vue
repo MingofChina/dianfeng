@@ -21,10 +21,14 @@
         <div class="row1-link-more" v-if="item1.linkurl" @click="toMoreInfo()">
         </div>
       </div>
+
+
+
       <div class="row2-desc" ref="row2Desc">
         {{item1.small_descrip}}
       </div>
       <div class="row3-to-left"
+
           v-on:click="toLeft(i)"
       ></div>
 
@@ -40,10 +44,14 @@
       <div class="row3-document-list">
         <div class="row3-document-item" v-for="(itemDocument,j) in item1.document">
           <div class="document-title-time">
-            <div class="document-title">{{itemDocument.title}}</div>
+            <div class="document-title"
+                 :class="{'document-title-hl': i===0 }"
+            >{{itemDocument.title}}</div>
             <div class="document-time">{{itemDocument.addtime}}</div>
           </div>
-          <div class="document-summary">
+          <div class="document-summary"
+               :class="{'document-summary-hl': i===0 }"
+          >
             {{itemDocument.summary}}
           </div>
           <div class="document-link" v-if="item1.linkurl">
@@ -51,6 +59,9 @@
           </div>
         </div>
       </div>
+
+
+
 
     </div>
 
@@ -151,7 +162,7 @@ html,body{
 }
 .top-title{
   position: absolute;
-  top: 287px;
+  top: 400px;
   left: 813px;
   width: 500px;
   height: 62px;
@@ -166,7 +177,7 @@ html,body{
 }
 .top-desc{
   position: absolute;
-  top: 361px;
+  top: 470px;
   left: 885px;
   width: 300px;
   height: 32px;
@@ -181,7 +192,7 @@ html,body{
 }
 .top-divide{
   position: absolute;
-  top: 409px;
+  top: 520px;
   left: 920px;
   width: 80px;
   height: 4px;
@@ -240,18 +251,23 @@ html,body{
   /* -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;*/
 }
+
+.union-background-list{
+  padding-left: 245px;
+  padding-top: 70px;
+}
 .union-background-list:nth-child(2n){
-  position: relative;
+  /*position: relative;
   width: 1919px;
-  height: 930px;
+  height: 930px;*/
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
 }
 .union-background-list:nth-child(2n+1){
-  position: relative;
+  /*position: relative;
   width: 1920px;
-  height: 930px;
+  height: 930px;*/
   background: #F4F4F4;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
@@ -259,11 +275,14 @@ html,body{
 .row1{
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 }
 .row1-divide{
-  position: absolute;
+  /*position: absolute;
   top: 87px;
-  left: 235px;
+  left: 235px;*/
+  position: relative;
+  top: 10px;
   width: 4px;
   height: 24px;
   background: #C8000A;
@@ -271,9 +290,9 @@ html,body{
   opacity: 1;
 }
 .row1-title{
-  position: absolute;
+  /*position: absolute;
   top: 77px;
-  left: 247px;
+  left: 247px;*/
 
   height: 51px;
   font-size: 34px;
@@ -285,9 +304,10 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .row1-link-more{
-  position: absolute;
+  /*position: absolute;
   top: 85px;
-  left: 1543px;
+  left: 1543px;*/
+  margin-left: 900px;
   background-image: url("../../assets/bei/Group 374.png");
   width: 140px;
   height: 36px;
@@ -301,57 +321,82 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .row2-desc{
-  position: absolute;
+  /*position: absolute;
   top: 160px;
-  left: 235px;
+  left: 235px;*/
   width: 1448px;
-  height: 100px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
   color: #231914;
   line-height: 32px;
+  margin-bottom: 50px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
 
 .row3-to-left{
+  position: relative;
+  top: 160px;
+  left: -50px;
   width: 37px;
   height: 37px;
   background-image: url("../../assets/bei/Maskcy1.png");
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-size: 100% 100%;
-  position: absolute;
-  top: 510px;
-  left: 158px;
 }
-.row3-to-right{
+.row3-to-left:hover,click{
+  position: relative;
+  top: 160px;
+  left: -50px;
   width: 37px;
   height: 37px;
-  background-image: url("../../assets/bei/Maskcy2.png");
+  background-image: url("../../assets/bei/Mask groupzh.png");
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+  background-size: 100% 100%;
+}
+.row3-to-right{
+  position: relative;
+  top: -187px;
+  left: 1435px;
+  width: 37px;
+  height: 37px;
+  background-image: url("../../assets/bei/Mask group111.png");
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-size: 100% 100%;
   margin-left: 23px;
-  position: absolute;
-  top: 510px;
-  right: 159px;
+}
+.row3-to-right:hover,click{
+  position: relative;
+  top: -189px;
+  left: 1435px;
+  width: 37px;
+  height: 37px;
+  background-image: url("../../assets/bei/Mask group222.png");
+  border-radius: 0px 0px 0px 0px;
+  opacity: 1;
+  background-size: 100% 100%;
+  margin-left: 23px;
 }
 .row3-image{
-  position: absolute;
+  /*position: relative;
   top: 400px;
-  left: 236px;
+  left: 236px;*/
   width: 1448px;
   height: 280px;
   background-color: red;
+  margin-bottom: 30px;
 }
 .row3-document-list{
-  position: absolute;
+  /*position: absolute;
   top: 700px;
-  left: 235px;
+  left: 235px;*/
   width: 1448px;
 }
+
 .row3-document-item{
   margin-top: 24px;
   border-bottom: 1px solid #CACACA;
@@ -367,6 +412,26 @@ html,body{
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #231914;
+  line-height: 33px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.document-title-hl{
+  height: 42px;
+  font-size: 28px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: red;
+  line-height: 33px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.document-title:hover,click{
+  height: 42px;
+  font-size: 28px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: red;
   line-height: 33px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
@@ -389,6 +454,28 @@ html,body{
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
   color: #6E6E6E;
+  line-height: 30px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.document-summary-hl{
+  width: 1448px;
+  height: 60px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: red;
+  line-height: 30px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.document-summary:hover,click{
+  width: 1448px;
+  height: 60px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: red;
   line-height: 30px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/

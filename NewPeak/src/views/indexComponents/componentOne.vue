@@ -113,7 +113,6 @@ export default {
     },
     // 翻页动作 action为true往后翻，否则往前翻
     changePicture(action) {
-      console.log(this.company_information);
       if (action) {
         this.currentIndex =
           this.currentIndex + 1 === this.displayPictureList.length
@@ -137,7 +136,7 @@ export default {
 .top-part {
   background-image: url("../../assets/img/banner.png");
   background-size: 100% 100%;
-  width: 1920px;
+  width: 100%;
   height: 969px;
   /* display: flex; */
   justify-content: center;

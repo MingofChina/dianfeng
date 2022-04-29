@@ -29,6 +29,7 @@
     <div class="lecture-background">
       <div class="lecture-title-list">
         <div class="lecture-title-item"
+             :class="{'high-light1' : i === currentIndex1}"
           v-for="(item,i) in lecture_hall"
              v-on:click="changeCurrentHall(i)"
         >{{item.title}}
@@ -46,11 +47,9 @@
              />
       </div>
       <img class="left-btn1"
-           src="../../assets/bei/Maskgroup.png"
            v-on:click="toHallLeft()"
       />
       <img class="right-btn1"
-           src="../../assets/bei/Maskgroup2.png"
            v-on:click="toHallRight()"
       />
 
@@ -59,8 +58,9 @@
     <div class="siqing-background">
       <div class="siqing-title-list">
         <div class="siqing-title-item"
-             v-for="(item,i) in peak_siqing"
-             v-on:click="changeCurrentSiqing(i)"
+             :class="{'high-light2' : k === currentIndex2}"
+             v-for="(item,k) in peak_siqing"
+             v-on:click="changeCurrentSiqing(k)"
         >{{item.title}}
         </div>
       </div>
@@ -94,6 +94,10 @@ import { Mien } from "@/api/api";
 export default {
   data() {
     return {
+      "currentId1":"",
+      "currentId2":"",
+      "currentIndex1": 0,
+      "currentIndex2": 0,
       "currentHallIndex":0,
       "currentHallImgNum":1,
       "filterHallImgs":[],
@@ -118,6 +122,7 @@ export default {
     }
   },
   methods:{
+
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -159,6 +164,14 @@ export default {
       this.currentHallIndex = index;
       this.currentHall = this.lecture_hall[index];
       this.changeCurrentHallImgs();
+      this.currentIndex1 = index;
+    },
+    changeCurrentSiqing(index){
+      this.currentSiqingIndex = index;
+      this.currentSiqing = this.peak_siqing[index];
+      this.changeCurrentSiqingImgs();
+      this.currentIndex2 = index;
+      console.log(this.currentIndex2);
     },
     changeCurrentHallImgs(){
       let temp = this.currentHall.original_image;
@@ -190,11 +203,7 @@ export default {
       }
       this.filterSiqingImgs = nowImgs.slice((number-1)*5,number*5);
     },
-    changeCurrentSiqing(index){
-      this.currentSiqingIndex = index;
-      this.currentSiqing = this.peak_siqing[index];
-      this.changeCurrentSiqingImgs();
-    },
+
     changeCurrentSiqingImgs(){
       let temp = this.currentSiqing.original_image;
       this.filterSiqingImgs = temp.slice(0,5);
@@ -231,7 +240,7 @@ html,body{
 }
 .top-title{
   position: absolute;
-  top: 287px;
+  top: 400px;
   left: 813px;
   width: 500px;
   height: 62px;
@@ -246,7 +255,7 @@ html,body{
 }
 .top-desc{
   position: absolute;
-  top: 361px;
+  top: 470px;
   left: 885px;
   width: 300px;
   height: 32px;
@@ -261,7 +270,7 @@ html,body{
 }
 .top-divide{
   position: absolute;
-  top: 409px;
+  top: 525px;
   left: 920px;
   width: 80px;
   height: 4px;
@@ -415,8 +424,43 @@ html,body{
   top: 70px;
   left: 236px;
 }
+.lecture-high-light{
+  width: auto;
+  height: 42px;
+  font-size: 28px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 33px;
+  margin-right: 60px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.lecture-high-light:nth-child(n+2)::after{
+  content: "";
+  height: 80%;
+  display: block;
+  border-left: 2px solid #CACACA;
+  position: relative;
+  top: -30px;
+  left: -26px;
+}
 .lecture-title-item{
   width: auto;
+  height: 42px;
+  font-size: 28px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 500;
+  color: #6E6E6E;
+  line-height: 33px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  margin-right: 57px;
+}
+.high-light1{
+  /*width: 160px;*/
   height: 42px;
   font-size: 28px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
@@ -425,8 +469,8 @@ html,body{
   line-height: 33px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
-  margin-right: 57px;
 }
+
 .lecture-title-item:nth-child(n+2)::after{
   content: "";
   height: 80%;
@@ -456,55 +500,15 @@ html,body{
   left: 236px;
   height: 414px;
 }
-.lecture-img-item:nth-child(1){
-  width: 625px;
-  height: 414px;
+.lecture-img-item{
+  width: 1440px;
+  height: 450px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-color: #808080;
   background-size: 100% 100%;
 }
-.lecture-img-item:nth-child(2){
-  position: absolute;
-  top: 0px;
-  margin-left: 16px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: blue;
-  background-size: 100% 100%;
-}
-.lecture-img-item:nth-child(3){
-  position: absolute;
-  top: 0px;
-  left: 1055px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: blue;
-}
-.lecture-img-item:nth-child(4){
-  position: absolute;
-  top: 215px;
-  margin-left: 16px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: blue;
-}
-.lecture-img-item:nth-child(5){
-  position: absolute;
-  top: 215px;
-  left: 1055px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: blue;
-}
+
 .left-btn1{
   position: absolute;
   top: 467px;
@@ -512,6 +516,17 @@ html,body{
   width: 37px;
   height: 37px;
   opacity: 1;
+  background-image: url("../../assets/img/jiantou37left1.png");
+  background-size: 100% 100%;
+}
+.left-btn1:hover,click{
+  position: absolute;
+  top: 467px;
+  left: 138px;
+  width: 37px;
+  height: 37px;
+  opacity: 1;
+  background-image: url("../../assets/img/jiantou37left2.png");
   background-size: 100% 100%;
 }
 .right-btn1{
@@ -521,6 +536,17 @@ html,body{
   width: 37px;
   height: 37px;
   opacity: 1;
+  background-image: url("../../assets/img/jiantou37right1.png");
+  background-size: 100% 100%;
+}
+.right-btn1:hover,click{
+  position: absolute;
+  top: 467px;
+  right: 154px;
+  width: 37px;
+  height: 37px;
+  opacity: 1;
+  background-image: url("../../assets/img/jiantou37right2.png");
   background-size: 100% 100%;
 }
 .siqing-background{
@@ -543,11 +569,22 @@ html,body{
   font-size: 28px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
-  color: #231914;
+  color: #6E6E6E;
   line-height: 33px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
   margin-right: 57px;
+}
+.high-light2{
+  /*width: 112px;*/
+  height: 42px;
+  font-size: 28px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 33px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .siqing-title-item:nth-child(n+2)::after{
   content: "";
@@ -578,56 +615,16 @@ html,body{
   left: 236px;
   height: 414px;
 }
-.siqing-img-item:nth-child(1){
+.siqing-img-item{
   position: absolute;
   top: 0px;
-  width: 396px;
-  height: 199px;
+  width: 1440px;
+  height: 450npx;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-color: yellow;
 }
-.siqing-img-item:nth-child(2){
-  position: absolute;
-  top: 0px;
-  left: 392px;
-  margin-left: 16px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: pink;
-}
-.siqing-img-item:nth-child(3){
-  position: absolute;
-  top: 215px;
-  left: 0px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: black;
-}
-.siqing-img-item:nth-child(4){
-  position: absolute;
-  top: 215px;
-  left: 392px;
-  margin-left: 16px;
-  width: 396px;
-  height: 199px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: white;
-}
-.siqing-img-item:nth-child(5){
-  position: relative;
-  left: 830px;
-  width: 625px;
-  height: 414px;
-  border-radius: 0px 0px 0px 0px;
-  opacity: 1;
-  background-color: red;
-}
+
 .left-btn2{
   position: absolute;
   top: 467px;
@@ -635,6 +632,17 @@ html,body{
   width: 37px;
   height: 37px;
   opacity: 1;
+  background-image: url("../../assets/img/jiantou37left1.png");
+  background-size: 100% 100%;
+}
+.left-btn2:hover,click{
+  position: absolute;
+  top: 467px;
+  left: 138px;
+  width: 37px;
+  height: 37px;
+  opacity: 1;
+  background-image: url("../../assets/img/jiantou37left2.png");
   background-size: 100% 100%;
 }
 .right-btn2{
@@ -644,6 +652,17 @@ html,body{
   width: 37px;
   height: 37px;
   opacity: 1;
+  background-image: url("../../assets/img/jiantou37right2.png");
+  background-size: 100% 100%;
+}
+.right-btn2:hover,click{
+  position: absolute;
+  top: 467px;
+  right: 154px;
+  width: 37px;
+  height: 37px;
+  opacity: 1;
+  background-image: url("../../assets/img/jiantou37right2.png");
   background-size: 100% 100%;
 }
 </style>

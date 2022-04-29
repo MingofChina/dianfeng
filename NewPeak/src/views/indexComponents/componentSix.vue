@@ -9,7 +9,9 @@
             @mouseenter="changeTab(item.id)">
             <div class="six-nav-item-name">
               <div :id="'icon'+item.id" class="six-icon-left"></div>
-              <div :id="'text'+item.id" class="six-little-wrapper">{{item.company_name}}</div>
+              <div :id="'text'+item.id" class="six-little-wrapper">
+                {{item.company_name}}
+              </div>
               <div class="six-nsv-depart"></div>
             </div>
           </div>
@@ -17,14 +19,19 @@
         <div class="six-item-info">
           <div class="six-item-info-title"> {{ showData ? showData.company_address : '--' }} </div>
           <div class="six-item-info-phone">
+            <div class="phone-icon"></div>
             <div class="phone-tag">咨询电话：</div>
             <div class="phone-number"> {{ showData ? showData.company_phone : '--' }} </div>
           </div>
           <div class="six-item-info-email">
+            <div class="email-icon"></div>
             <div class="email-tag">业务邮箱：</div>
             <div class="email-number"> {{ showData ? showData.company_email : '--' }} </div>
           </div>
-          <img class="info-image" :src="showData ? showData.original_image : '' ">
+<!--          <img class="info-image" :src=getImgUrl(showData.original_image) />-->
+          <img class="info-image" :src=getImgUrl(showData.original_image)>
+
+
           <div class="zixun">
             <div class="zixun-link" @click="toZixun()">业务咨询</div>
           </div>
@@ -61,7 +68,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import { firstone } from "@/api/api";
 import { formsjie } from "@/api/api";
 export default {
   data() {
@@ -71,7 +78,9 @@ export default {
         name: "",
         phone: ""
       },
-      branch_office: [
+      "currentData":{},
+      /*branch_office: [],*/
+      "branch_office": [
         {
           id: "1",
           company_name: "北京",
@@ -79,7 +88,7 @@ export default {
           company_phone: "400-8130-588",
           company_email: "contact@davost.com",
           original_image:
-            require("../../assets/bei/epcjianshe.png")
+              "/uploads/20220419/7e09ad68fad1a89be9e1444441612ec4.png"
         },
         {
           id: "2",
@@ -88,7 +97,7 @@ export default {
           company_phone: "400 8130 588",
           company_email: "contact@davost.com",
           original_image:
-            require("../../assets/img/guihuasheji.png")
+              "/uploads/20220419/f27776028141841e72f9c936ede13b32.png"
         },
         {
           id: "5",
@@ -97,27 +106,27 @@ export default {
           company_phone: "400 8130 588",
           company_email: "contact@davost.com",
           original_image:
-            "/uploads/20220419/5b63fa43d322714ba8173157eafe755b.png"
+              "/uploads/20220419/5b63fa43d322714ba8173157eafe755b.png"
         },
         {
           id: "3",
           company_name: "成都",
           company_address:
-            "成都市 - 高新区府城大道505号仁和春天国际广场A座1610",
+              "成都市 - 高新区府城大道505号仁和春天国际广场A座1610",
           company_phone: "400 8130 588",
           company_email: "contact@davost.com",
           original_image:
-            "/uploads/20220419/466ef7022799d346ee67ae89b54ba699.png"
+              "/uploads/20220419/466ef7022799d346ee67ae89b54ba699.png"
         },
         {
           id: "4",
           company_name: "西安",
           company_address:
-            "陕西省西安市经济技术开发区凤城七路旭辉中心1幢1单元7层10704号",
+              "陕西省西安市经济技术开发区凤城七路旭辉中心1幢1单元7层10704号",
           company_phone: "400 8130 588",
           company_email: "contact@davost.com",
           original_image:
-            "/uploads/20220419/95e92812bdb565953b20bc34d50ab419.png"
+              "/uploads/20220419/95e92812bdb565953b20bc34d50ab419.png"
         }
       ],
       lastTabId: '',
@@ -128,20 +137,21 @@ export default {
       activeTextColor: '#C8000A',
       originTextColor: '#FFFFFF',
       zixunUrl:"http://wt.zoosnet.net/LR/Chatpre.aspx?id=LRW27398692&lng=cn",
-      joinUsUrl:"https://www.liepin.com/company/7884213"
+      joinUsUrl:"https://www.liepin.com/company/7884213",
+      baseUrl:'http://ceshi.davost.com'
     };
   },
   watch:{
     $route: {
       handler() {
-        this.formsjie();
+        this.firstone();
       },
       deep: true,
     }
   },
   mounted() {
+    //this.getIndexSix();
     this.lastTabId = this.branch_office[0].id;
-    this.changeStyle(this.lastTabId);
   },
   computed: {
     showData() {
@@ -149,6 +159,18 @@ export default {
     }
   },
   methods:{
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    async getIndexSix() {
+      let {data} = await firstone();
+      this.branch_office = data.data.branch_office;
+
+      this.changeTab(this.lastTabId);
+      /*this.changeStyle(this.lastTabId);
+      this.reverseStyle(this.lastTabId)*/
+    },
+
     async sendMessage() {
       let { data } = await formsjie({company:this.formData.company,
         name:this.formData.name,
@@ -166,6 +188,15 @@ export default {
       this.changeStyle(id);
       this.reverseStyle(this.lastTabId);
       this.lastTabId = id;
+      console.log("id为"+this.lastTabId);
+      let temp = {}
+      for(let i = 0;i<this.branch_office.length;++i){
+        if(this.lastTabId === this.branch_office[i].id){
+          temp = {}
+        }
+      }
+      this.currentData = temp;
+
     },
     changeStyle(id) {
       document.getElementById('wrapper'+id).style.background = this.activeBackgroundColor;
@@ -177,7 +208,8 @@ export default {
       document.getElementById('icon'+id).style.backgroundImage = this.whiteIcon;
       document.getElementById('text'+id).style.color = this.originTextColor ;
     }
-  }
+  },
+
 };
 </script>
 <style scoped="scoped">
@@ -192,7 +224,7 @@ body {
 }
 .six-background {
   position: relative;
-  width: 1920px;
+  width: 100%;
   height: 734px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
@@ -202,7 +234,7 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 1920px;
+  width: 100%;
   height: 76px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 0px 0px 0px 0px;
@@ -305,6 +337,24 @@ body {
   line-height: 21px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+}
+.phone-icon{
+  position: absolute;
+  top: 152px;
+  left: 105px;
+  background-image: url("../../assets/img/icom_dianhua.png");
+  width: 16px;
+  height: 16px;
+  background-size: 100% 100%;
+}
+.email-icon{
+  position: absolute;
+  top: 194px;
+  left: 105px;
+  background-image: url("../../assets/img/icom_youxiang.png");
+  width: 16px;
+  height: 16px;
+  background-size: 100% 100%;
 }
 .email-tag {
   position: absolute;

@@ -27,11 +27,6 @@ import 'video.js/dist/video-js.css';
 Vue.prototype.$video = Video;
 
 
-//全局axios
-// import axios from 'axios'
-// Vue.prototype.$http = axios;
-// Vue.use(axios)
-
 export const eventBus = new Vue();
 
 //less

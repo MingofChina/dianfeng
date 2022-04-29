@@ -17,30 +17,56 @@
     <div class="center">
       <div class="center-title">中国文旅产业巅峰大会</div>
       <div class="text">{{ text }}</div>
+
+
       <div class="carousel">
         <div class="left-arrow carousel-left" @click="leftMove(wenlv_image)">
-          <div class="part-one"></div>
-          <div class="part-two"></div>
+<!--          <div class="part-one"></div>
+          <div class="part-two"></div>-->
+          <div class="left-jiantou"></div>
         </div>
         <div class="message-group">
           <div v-if="carouselList.length > 0" class="message-box">
-            <img class="message-image" :src="carouselList[0].original_image | transformImageUrl" />
-            <div class="message-text highlight">{{ carouselList[0].title }}</div>
+            <img class="message-image"
+                 @click="toDetial(carouselList[0].id)"
+                 v-on:mouseover="overImg($event)"
+                 v-on:mouseout="leaveImg($event)"
+                 :src="carouselList[0].original_image | transformImageUrl" />
+            <div class="message-text highlight"
+                 @click="toDetial(carouselList[0].id)"
+            >{{ carouselList[0].title }}</div>
           </div>
           <div v-if="carouselList.length > 1" class="message-box">
-            <img class="message-image" :src="carouselList[1].original_image | transformImageUrl" />
-            <div class="message-text">{{ carouselList[1].title }}</div>
+            <img class="message-image"
+                 v-on:mouseover="overImg($event)"
+                 v-on:mouseout="leaveImg($event)"
+                 @click="toDetial(carouselList[1].id)"
+                 :src="carouselList[1].original_image | transformImageUrl" />
+            <div class="message-text"
+                 @click="toDetial(carouselList[1].id)"
+            >{{ carouselList[1].title }}</div>
           </div>
           <div v-if="carouselList.length > 2" class="message-box">
-            <img class="message-image" :src="carouselList[2].original_image | transformImageUrl" />
-            <div class="message-text">{{ carouselList[2].title }}</div>
+            <img class="message-image"
+                 @click="toDetial(carouselList[2].id)"
+                 v-on:mouseover="overImg($event)"
+                 v-on:mouseout="leaveImg($event)"
+                 :src="carouselList[2].original_image | transformImageUrl" />
+            <div class="message-text"
+                 @click="toDetial(carouselList[2].id)"
+            >{{ carouselList[2].title }}</div>
           </div>
         </div>
         <div class="right-arrow carousel-right" @click="rightMove(wenlv_image)">
-          <div class="part-one"></div>
-          <div class="part-two"></div>
+<!--          <div class="part-one"></div>
+          <div class="part-two"></div>-->
+          <div class="right-jiantou"></div>
         </div>
       </div>
+
+
+
+
     </div>
     <div class="news-list">
       <div v-for="(info, index) in peak_news"
@@ -48,13 +74,19 @@
            @mouseenter="moveOnTab(index)"
            @mouseleave="moveAwayTab()">
         <div class="news">
-          <img class="news-image" :src="info.original_image | transformImageUrl" />
+          <img class="news-image"
+               @click="toDetial(info.id)"
+               :src="info.original_image | transformImageUrl" />
           <div class="news-info">
             <div class="create-time">{{ info.addtime }}</div>
-            <div class="news-title" :class="[{ highlight: index === moveOnIndex }]">
+            <div class="news-title"
+
+                 :class="[{ highlight: index === moveOnIndex }]">
               {{ info.title }}
             </div>
-            <div class="news-text">{{ info.summary }}</div>
+            <div class="news-text"
+                 @click="toDetial(info.id)"
+            >{{ info.summary }}</div>
             <div
               class="read-more"
               :class="[{ highlight: index === moveOnIndex }]"
@@ -100,6 +132,12 @@ export default {
     };
   },
   methods: {
+    overImg($event){
+      $event.currentTarget.nextElementSibling.className = "message-text highlight";
+    },
+    leaveImg($event){
+      $event.currentTarget.nextElementSibling.className = "message-text"
+    },
     leftMove(list) {
       const fitst = list.shift();
       list.push(fitst);
@@ -159,6 +197,30 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+.left-jiantou{
+  background-image: url("../../../assets/img/jiantou37left1.png");
+  width: 37px;
+  height: 37px;
+  background-size: 100% 100%;
+}
+.left-jiantou:hover,click{
+  background-image: url("../../../assets/img/jiantou37left2.png");
+  width: 37px;
+  height: 37px;
+  background-size: 100% 100%;
+}
+.right-jiantou{
+  background-image: url("../../../assets/img/jiantou37right1.png");
+  width: 37px;
+  height: 37px;
+  background-size: 100% 100%;
+}
+.right-jiantou:hover,click{
+  background-image: url("../../../assets/img/jiantou37right2.png");
+  width: 37px;
+  height: 37px;
+  background-size: 100% 100%;
 }
 .top-wrapper-title {
   height: 126px;

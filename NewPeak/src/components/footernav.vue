@@ -62,9 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="top1" @click="topFn">
-      <img src="../assets/bei/Group 465@2x.png"/>
-    </div>
+    
   </div>
 </template>
 
@@ -136,17 +134,7 @@ export default {
 </script>
 
 <style  scoped lang="less">
-.top1{
-  position: absolute;
-  top: 3rem;
-  right: 1rem;
-  width: 3rem;
-  height: 3rem;
-}
-.top1 img{
-  width: 100%;
-  height: 100%;
-}
+
 .divhover:hover{
   color: red;
 }

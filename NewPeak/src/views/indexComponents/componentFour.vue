@@ -131,7 +131,6 @@ export default {
     },
     async getIndexNews() {
       let { data } = await firstone();
-      console.log("获取数据"+data);
       this.news = data.data.news;
       this.initData();
     },
@@ -144,7 +143,6 @@ export default {
     },
     getNews(currentBId){
       let temp = this.news.filter(item => item.business_ids === currentBId);
-      console.log(temp);
       this.currentNews = temp;
       this.currentIndex = 0;
     },
@@ -172,11 +170,12 @@ html,body{
 .four-background{
   position: relative;
   background-image: url("../../assets/bei/beijing@2x(2).png");
-  width: 1920px;
+  width: 100%;
   height: 1080px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
-  background-size: 100% 100%
+  background-size: 100% 100%;
+  overflow: hidden;
 }
 .four-title{
   display: flex;
