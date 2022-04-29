@@ -50,8 +50,10 @@
           </div>
         </div>
 
-        <div class="four-news-image2"
+        <div class="no-back"
           :style="{'background-image:':'url('+getImgUrl(currentNews[currentIndex+1].original_image)+')'}"
+             v-on:mouseover="setBacK($event)"
+             v-on:mouseleave="setBacK2($event)"
         >
           <div class="four-news-day2">
             {{currentNews[currentIndex+1].add_date.substr(8,2)}}
@@ -95,6 +97,9 @@
         </div>
 
       </div>
+
+
+
       <div class="four-more-link"
         @click="toTopNews(45)">
         MORE<img class="four-more-link-img"/>
@@ -114,6 +119,7 @@ export default {
       "currentNews":[],
       "currentLength":0,
       "news":[],
+      "flag" : false,
       baseUrl:'http://ceshi.davost.com',
     };
   },
@@ -126,6 +132,12 @@ export default {
     }
   },
   methods: {
+    setBacK($event){
+      $event.currentTarget.className = "four-news-image2";
+    },
+    setBacK2($event){
+      $event.currentTarget.className = "no-back";
+    },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -166,6 +178,14 @@ html,body{
 *{
   margin: 0;
   padding: 0;
+}
+.no-back{
+  position:relative;
+  width: 640px;
+  height: 444px;
+  background-color: #FFFFFF;
+  border-radius: 0px 0px 0px 0px;
+
 }
 .four-background{
   position: relative;
@@ -466,7 +486,8 @@ html,body{
   font-size: 48px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
   font-weight: bold;
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
+  color: #A0A0A0;
   line-height: 56px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
@@ -480,7 +501,8 @@ html,body{
   font-size: 16px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
+  color: #A0A0A0;
   line-height: 19px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
@@ -494,7 +516,8 @@ html,body{
   font-size: 26px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
+  color: #231914;
   line-height: 30px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
@@ -508,7 +531,8 @@ html,body{
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
+  color: #6E6E6E;
   line-height: 21px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
@@ -522,7 +546,8 @@ html,body{
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
+  color: #A0A0A0;
   line-height: 21px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/

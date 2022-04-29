@@ -8,6 +8,7 @@
 
       <div v-if="this.eachProduct.length" class="rotation-items">
         <div class="rotation-item"
+             v-show="eachProduct.length>1"
              @mouseenter="moveOnTab('first')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -24,7 +25,7 @@
             <div v-if="!isActiveMap.first" class="third-part">
               <div class="third-part-icon"></div>
               <div class="third-part-button"
-              @click="toPeakCases(firstRotation.id)"
+                   @click="toPeakCases(firstRotation.id)"
               >查看详情</div>
             </div>
           </div>
@@ -32,6 +33,7 @@
 
 
         <div class="rotation-item"
+             :v-show="eachProduct.length>2"
              @mouseenter="moveOnTab('second')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -53,6 +55,7 @@
           </div>
         </div>
         <div class="rotation-item"
+             :v-show="eachProduct.length>3"
              @mouseenter="moveOnTab('third')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -74,6 +77,7 @@
           </div>
         </div>
         <div class="rotation-item"
+             :v-show="eachProduct.length>4"
              @mouseenter="moveOnTab('forth')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -113,18 +117,18 @@
       <div>
         <div class="three-product-cates">
           <div
-            class="three-product-cate-item"
-            :class="[activeTableId === item.id ? 'active-tab' : '']"
-            v-for="(item ,i) in product_cate"
-            :key="item.id"
-            @click="activeTableId = item.id"
+              class="three-product-cate-item"
+              :class="[activeTableId === item.id ? 'active-tab' : '']"
+              v-for="(item ,i) in product_cate"
+              :key="item.id"
+              @click="activeTableId = item.id"
           >{{item.name}}</div>
         </div>
         <div class="component-three-split"></div>
       </div>
     </div>
     <div class="three-background2">
-      
+
     </div>
     <router-view />
   </div>
@@ -198,23 +202,23 @@ export default {
     changePicture(action) {
       if (action) {
         this.currentIndex =
-          this.currentIndex + 1 === this.product.length
-            ? 0
-            : this.currentIndex + 1;
+            this.currentIndex + 1 === this.product.length
+                ? 0
+                : this.currentIndex + 1;
       } else {
         this.currentIndex =
-          this.currentIndex - 1 === -1
-            ? this.product.length - 1
-            : this.currentIndex - 1;
+            this.currentIndex - 1 === -1
+                ? this.product.length - 1
+                : this.currentIndex - 1;
       }
     },
 
     // 偏移量转换
     tranferIndex(num) {
       let index =
-        this.currentIndex + num >= this.product.length
-          ? this.currentIndex + num - this.product.length
-          : this.currentIndex + num;
+          this.currentIndex + num >= this.product.length
+              ? this.currentIndex + num - this.product.length
+              : this.currentIndex + num;
       return index;
     },
     moveOnTab(name) {
@@ -394,14 +398,14 @@ body {
   border-color: transparent;
 }
 .text-area {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-left: 20px;
 }
 .text-area-hover {
   transform: translateY(30px);
 }
 .first-title {
-  margin-bottom: 30px;
+  margin-bottom: 58px;
   width: 352px;
   height: 29px;
   font-size: 22px;
@@ -478,7 +482,7 @@ body {
 }
 .four-more-link-img{
   margin-left: 8px;
-  background: url("../../assets/img/icon_more(3).png");
+  background: url("../../assets/img/icon_more66.png");
   width: 8px;
   height: 14px;
   background-size: 100% 100%;

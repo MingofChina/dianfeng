@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <img class="code-url" :src=getImgUrl(this.public_number_url) />
+    <img class="code-bk" v-if="flag"/>
+    <img class="shut-down" v-if="flag"
+      v-on:click="closeBk()"
+    />
+    <img class="index-phone" v-if="flag"/>
+    <div class="phone-text" v-if="flag">联系电话</div>
+    <div class="phone-number1" v-if="flag">400 - 8130 - 588</div>
+    <div class="phone-number2" v-if="flag">138 - 0119 - 5460</div>
+    <img class="code-url" v-if="flag" :src=getImgUrl(this.public_number_url) />
     <componentOne :company_information="company_information"></componentOne>
     <indexGrid></indexGrid>
     <componentThree :product_cate="product_cate" :product="product"></componentThree>
@@ -29,6 +37,7 @@ export default {
   },
   data() {
     return {
+      flag:true,
       public_number_url:"",
       company_information: {},
       column_introduce: [],
@@ -56,6 +65,9 @@ export default {
     this.getTanChuang();
   },
   methods: {
+    closeBk(){
+      this.flag = false;
+    },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -82,11 +94,86 @@ export default {
 <style>
 .code-url{
   position: fixed;
-  top: 500px;
-  left: 1780px;
+  top: 723px;
+  left: 1727px;
   width: 142px;
   height: 142px;
   background-size: 100% 100%;
   z-index: 100;
+}
+.code-bk{
+  position: fixed;
+  top: 510px;
+  left: 1667px;
+  background-image: url("../../src/assets/bei/fixed.png");
+  width: 255px;
+  height: 370px;
+  background-size: 130% 130%;
+  z-index: 90;
+}
+.shut-down{
+  position: fixed;
+  top: 520px;
+  left: 1895px;
+  background-image: url("../../src/assets/img/icon_shut down.png");
+  width: 20px;
+  height: 20px;
+  background-size: 100% 100%;
+  z-index: 100;
+}
+.index-phone{
+  position: fixed;
+  top: 625px;
+  left: 1720px;
+  background-image: url("../../src/assets/bei/indexphone.png");
+  width: 12px;
+  height: 12px;
+  background-size: 100% 100%;
+  z-index: 100;
+}
+.phone-text{
+  position: fixed;
+  top: 622px;
+  left: 1740px;
+/*  width: 56px;*/
+  height: 20px;
+  font-size: 14px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #6E6E6E;
+  line-height: 20px;
+  z-index: 100;
+/*  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.phone-number1{
+  position: fixed;
+  top: 655px;
+  left: 1720px;
+  /*width: 103px;*/
+  height: 20px;
+  font-size: 14px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 20px;
+  z-index: 100;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.phone-number2{
+  position: fixed;
+  top: 690px;
+  left: 1720px;
+  /*width: 111px;*/
+  height: 20px;
+  font-size: 14px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #231914;
+  line-height: 20px;
+  z-index: 100;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 </style>

@@ -144,6 +144,9 @@ export default {
   position: relative;
 }
 .title {
+  position: absolute;
+  top: 270px;
+  left: 530px;
   width: 894px;
   height: 300px;
   background: rgba(10, 10, 10, 0.1);
