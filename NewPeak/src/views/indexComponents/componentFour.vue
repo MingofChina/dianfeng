@@ -102,7 +102,9 @@
 
       <div class="four-more-link"
         @click="toTopNews(45)">
-        MORE<img class="four-more-link-img"/>
+        <img
+            src="../../assets/img/Group 391.png"
+            class="four-more-link-img"/>
       </div>
     </div>
 
@@ -626,17 +628,8 @@ html,body{
   position: relative;
   top: 350px;
   left: 865px;
-  width: 190px;
+  width: 138px;
   height: 52px;
-  border-radius: 0px 12px 0px 12px;
-  opacity: 1;
-  border: 1px solid #A0A0A0;
-  font-size: 18px;
-  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
-  font-weight: 400;
-  color: #231914;
-  line-height: 52px;
-  text-align: center;
 
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
@@ -644,9 +637,9 @@ html,body{
 }
 .four-more-link-img{
   margin-left: 8px;
-  background: url("../../assets/img/icon_more.png");
-  width: 8px;
-  height: 14px;
+  background: url("../../assets/img/Group 391.png");
+  width: 138px;
+  height: 52px;
   background-size: 100% 100%;
 }
 

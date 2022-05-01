@@ -119,8 +119,10 @@
       <div class="introduce4-content">
         {{ currentDate.title}}
       </div>
-      <div class="introduce4-img">
-        <img :src=getImgUrl(currentDate.original_image) />
+      <div class="introduce4-img-wrapper">
+        <div class="introduce4-img">
+          <img :src=getImgUrl(currentDate.original_image) />
+        </div>
       </div>
 
 
@@ -400,7 +402,8 @@ a {
 }
 .introduce-background{
   position: relative;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 700px;
   background: url("../../assets/presentation/Group 377.png");
   border-radius: 0px 0px 0px 0px;
@@ -617,7 +620,7 @@ a {
 .suffix2{
   position: absolute;
   top: 70px;
-  left: 514px;
+  left: 520px;
   width: 18px;
   height: 45px;
   font-size: 30px;
@@ -673,7 +676,7 @@ a {
 .suffix3{
   position: absolute;
   top: 70px;
-  left: 770px;
+  left: 785px;
   width: 18px;
   height: 45px;
   font-size: 30px;
@@ -729,7 +732,7 @@ a {
 .suffix4{
   position: absolute;
   top: 70px;
-  left: 1035px;
+  left: 1045px;
   width: 18px;
   height: 45px;
   font-size: 30px;
@@ -798,7 +801,8 @@ a {
 }
 .introduce2-background{
   position: relative;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 1000px;
   background: url("../../assets/bei/Group 526.png");
   background-size: 100% 100%;
@@ -873,7 +877,8 @@ a {
 }
 .introduce3-background{
   position: relative;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 1420px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
@@ -940,8 +945,9 @@ a {
 }
 .introduce3-item-brief{
   margin-top: 12px;
+  /*margin-bottom: 50px;*/
   width: 1440px;
-  height: 48px;
+  /*height: 48px;*/
   font-size: 32px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
@@ -987,7 +993,8 @@ a {
 .introduce4-background{
   position: relative;
   background: url("../../assets/presentation/Group 390.png");
-  width: 1919px;
+  /*width: 1919px;*/
+  width: 100%;
   height: 773px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
@@ -1034,6 +1041,9 @@ a {
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
+.introduce4-img-wrapper{
+  object-fit: fill;
+}
 .introduce4-img{
   position: absolute;
   top: 270px;
@@ -1044,11 +1054,12 @@ a {
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-size: 100% 100%;
-  overflow: hidden;
+  object-fit: fill;
 }
 .introduce5-background{
   position: relative;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 1136px;
   background: #F4F4F4;
   border-radius: 0px 0px 0px 0px;
@@ -1094,12 +1105,11 @@ a {
 .introduce5-to-left:hover,click{
   position: absolute;
   top: 1042px;
-  left: 871px;
-  background: url("../../assets/presentation/Group 185.png");
+  left: 895px;
+  background: url("../../assets/img/Group 331.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
-  background-color: #C8000A;
 }
 .introduce5-to-right{
   position: absolute;
@@ -1116,15 +1126,15 @@ a {
   position: absolute;
   top: 1042px;
   left: 980px;
-  background: url("../../assets/presentation/Group 321.png");
+  background: url("../../assets/img/Group 184.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
-  background-color: #C8000A;
 }
 .introduce6-background{
   position: relative;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 1000px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
@@ -1157,11 +1167,10 @@ a {
   position: absolute;
   top: 930px;
   left: 880px;
-  background: url("../../assets/presentation/Group 185.png");
+  background: url("../../assets/img/Group 331.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
-  background-color: #C8000A;
 }
 .introduce6-to-right{
   position: absolute;
@@ -1178,11 +1187,10 @@ a {
   position: absolute;
   top: 930px;
   left: 980px;
-  background: url("../../assets/presentation/Group 321.png");
+  background: url("../../assets/img/Group 184.png");
   height: 42px;
   width: 42px;
   background-size: 100% 100%;
-  background-color: #C8000A;
 }
 .introduce6-list{
   position: absolute;

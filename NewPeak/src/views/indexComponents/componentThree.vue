@@ -3,7 +3,7 @@
     <div class="component-three-rotation">
       <div class="click-area">
         <button class="pre-button" @click="changePicture(true)"></button>
-        <button class="next-button" @click="changePicture(false)"></button>
+        <button class="next-button" @click="changePicture(true)"></button>
       </div>
 
       <div v-if="this.eachProduct.length" class="rotation-items">
@@ -32,8 +32,9 @@
         </div>
 
 
-        <div class="rotation-item"
-             :v-show="eachProduct.length>2"
+        <div v-if="this.eachProduct.length>1"
+            class="rotation-item"
+             :v-show="eachProduct.length>1"
              @mouseenter="moveOnTab('second')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -54,8 +55,9 @@
             </div>
           </div>
         </div>
-        <div class="rotation-item"
-             :v-show="eachProduct.length>3"
+        <div v-if="this.eachProduct.length>2"
+            class="rotation-item"
+             :v-show="eachProduct.length>2"
              @mouseenter="moveOnTab('third')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -76,8 +78,10 @@
             </div>
           </div>
         </div>
-        <div class="rotation-item"
-             :v-show="eachProduct.length>4"
+        <div
+            v-if="this.eachProduct.length>3"
+            class="rotation-item"
+             :v-show="eachProduct.length>3"
              @mouseenter="moveOnTab('forth')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -104,11 +108,15 @@
 
       <div v-else class="rotation-items"></div>
     </div>
+
     <div class="bottom-area">
       <div class="four-more-link" @click="toPeakCases(37)">
-        MORE<img class="four-more-link-img"/>
+        <img src="../../assets/img/Group 392.png"
+            class="four-more-link-img"/>
       </div>
     </div>
+
+
     <div class="three-background">
       <div class="three-background-title">
         <div class="three-project">PROJECTS</div>
@@ -462,29 +470,16 @@ body {
 .four-more-link{
   margin-left: 535px;
   margin-top: 30px;
-  background: #C8000A;
-  width: 138px;
-  height: 52px;
-  border-radius: 0px 12px 0px 12px;
-  opacity: 1;
-  border: 1px solid #C8000A;
-  font-size: 18px;
-  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
-  font-weight: 400;
-  color: #FFFFFF;
-  font-weight: 400;
-  line-height: 52px;
-  text-align: center;
 
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 
 }
 .four-more-link-img{
-  margin-left: 8px;
-  background: url("../../assets/img/icon_more66.png");
-  width: 8px;
-  height: 14px;
+  /*margin-left: 8px;*/
+  background: url("../../assets/img/Group 392.png");
+  width: 138px;
+  height: 52px;
   background-size: 100% 100%;
 }
 </style>

@@ -65,13 +65,16 @@
           </div>
         </div>
         <div class="intr-partthree">
-          <div class="partthree-child" v-for="(item, index) in team">
+          <div class="partthree-child" v-if="index>2" v-for="(item, index) in team">
             <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
             <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
             <div class="partthree-title"  >{{ item.title }}</div>
           </div>
         </div>
       </div>
+
+
+
       <div v-if="active === 2" class="master-introduction-part">
         <div class="intr-partthree">
           <div class="partthree-child" v-for="(item, index) in team">
@@ -81,6 +84,8 @@
           </div>
         </div>
       </div>
+
+
       <div v-if="active === 3" class="team-introduction-part">
         <div class="intr-partthree">
           <div class="partthree-child" v-for="(item, index) in team">
@@ -144,10 +149,11 @@ export default {
 <style scoped>
 /* 设置巅峰团队的样式 */
 .total-wrapper {
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
 }
 .top-wrapper {
-  width: 1920px;
+  /*width: 1920px;*/
   height: 700px;
   background-image: url("../../assets/img/Group 508.png");
   background-size: 100% 100%;
@@ -235,6 +241,7 @@ export default {
 
 .main-info-wrapper {
   width: 1920px;
+  /*width: 100%;*/
   background: #f4f4f4;
   padding-bottom: 137px;
 }
@@ -242,7 +249,8 @@ export default {
 .main-info-nav {
   list-style: none;
   height: 154px;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -28,7 +28,7 @@
         {{item1.small_descrip}}
       </div>
       <div class="row3-to-left"
-
+          v-if="item1.original_image.length > 1"
           v-on:click="toLeft(i)"
       ></div>
 
@@ -38,6 +38,7 @@
       />
 
       <div class="row3-to-right"
+           v-if="item1.original_image.length > 1"
            v-on:click="toRight(i)"
       ></div>
 
@@ -155,8 +156,9 @@ html,body{
 }
 .top-background{
   background-image: url("../../assets/bei/Group 507.png");
-  width: 1920px;
+  /*width: 1920px;*/
   height: 700px;
+  width: 100%;
   /*background-size: 100% 100%;*/
 
 }
@@ -263,6 +265,7 @@ html,body{
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  width: 100%;
 }
 .union-background-list:nth-child(2n+1){
   /*position: relative;
@@ -288,6 +291,7 @@ html,body{
   background: #C8000A;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  margin-right: 8px;
 }
 .row1-title{
   /*position: absolute;
@@ -309,6 +313,23 @@ html,body{
   left: 1543px;*/
   margin-left: 900px;
   background-image: url("../../assets/bei/Group 374.png");
+  width: 140px;
+  height: 36px;
+  font-size: 24px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #6E6E6E;
+  line-height: 28px;
+  background-size: 100% 100%;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.row1-link-more:hover{
+  /*position: absolute;
+  top: 85px;
+  left: 1543px;*/
+  margin-left: 900px;
+  background-image: url("../../assets/img/Group 397.png");
   width: 140px;
   height: 36px;
   font-size: 24px;
@@ -493,4 +514,5 @@ html,body{
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
+
 </style>

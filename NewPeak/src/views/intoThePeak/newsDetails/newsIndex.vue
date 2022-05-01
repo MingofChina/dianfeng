@@ -376,8 +376,11 @@ export default {
   font-weight: 400;
   color: #231914;
   line-height: 32px;
-  width: 100%;
+  /*width: 100%;*/
   height: 92px;
+  padding-left: 12px;
+  padding-right: 8px;
+
 }
 .message-box .highlight {
   background: #c8000a !important;

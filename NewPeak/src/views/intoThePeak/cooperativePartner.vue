@@ -88,10 +88,11 @@ export default {
 
 <style scoped>
 .cooperative-partner {
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
 }
 .partner-top-wrapper {
-  widows: 1920px;
+  /*widows: 1920px;*/
   height: 700px;
   background-image: url("../../assets/img/Group 506.png");
   background-size: 100% 100%;
@@ -179,11 +180,12 @@ export default {
 
 .partner-main-info-wrapper {
   width: 1920px;
+  width: 100%;
 }
 .partner-main-title {
   padding-top: 60px;
   padding-left: 236px;
-  width: 176px;
+  /*width: 176px;*/
   height: 66px;
   font-size: 44px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
@@ -206,12 +208,13 @@ export default {
 }
 .partner-main-info-nav {
   list-style: none;
-  width: 1920px;
+  /*width: 1920px;*/
   display: flex;
   align-items: center;
   align-content: space-between;
-  padding-left: 236px;
+  /*padding-left: 236px;*/
   margin-bottom: 30px;
+  margin-left: 236px;
 }
 .partner-main-info-nav div {
   width: 170px;

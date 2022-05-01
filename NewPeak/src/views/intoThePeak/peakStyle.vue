@@ -47,9 +47,13 @@
              />
       </div>
       <img class="left-btn1"
+           v-if="filterHallImgs.length > 1"
+           src="../../assets/bei/Maskgroup.png"
            v-on:click="toHallLeft()"
       />
       <img class="right-btn1"
+           v-if="filterHallImgs.length > 1"
+           src="../../assets/bei/Maskgroup2.png"
            v-on:click="toHallRight()"
       />
 
@@ -76,10 +80,12 @@
         />
       </div>
       <img class="left-btn2"
+           v-if="filterSiqingImgs.length > 1"
            src="../../assets/bei/Maskgroup.png"
            v-on:click="toSiqingLeft()"
       />
       <img class="right-btn2"
+           v-if="filterSiqingImgs.length > 1"
            src="../../assets/bei/Maskgroup2.png"
            v-on:click="toSiqingRight()"
       />
@@ -233,8 +239,9 @@ html,body{
 }
 .top-background{
   background-image: url("../../assets/bei/Group 509.png");
-  width: 1920px;
+  /*width: 1920px;*/
   height: 700px;
+  width: 100%;
   /*background-size: 100% 100%;*/
 
 }
@@ -280,7 +287,7 @@ html,body{
 }
 .icon-home{
   position: absolute;
-  top: 646px;
+  top: 698px;
   left: 236px;
   width: 24px;
   height: 24px;
@@ -289,7 +296,7 @@ html,body{
 }
 .icon-jiantou1{
   position: absolute;
-  top: 651px;
+  top: 701px;
   left: 272px;
   width: 16px;
   height: 16px;
@@ -297,7 +304,7 @@ html,body{
 }
 .icon-jiantou2{
   position: absolute;
-  top: 651px;
+  top: 701px;
   left: 380px;
   width: 16px;
   height: 16px;
@@ -305,9 +312,8 @@ html,body{
 }
 .link1{
   position: absolute;
-  top: 648px;
+  top: 698px;
   left: 300px;
-
   height: 24px;
   font-size: 16px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -319,9 +325,8 @@ html,body{
 }
 .link2{
   position: absolute;
-  top: 648px;
+  top: 698px;
   left: 404px;
-
   height: 24px;
   font-size: 16px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -332,7 +337,8 @@ html,body{
    -webkit-text-fill-color: transparent;*/
 }
 .back-bg{
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 224px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
@@ -405,7 +411,8 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .reveal-img{
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 1134px;
   background-size: 100% 100%;
   background-color: #808080;
@@ -413,7 +420,8 @@ html,body{
 .lecture-background{
   background: #F0F0F0;
   background-size: 100% 100%;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 752px;
   margin-top: -6px;
   position: relative;
@@ -448,7 +456,7 @@ html,body{
 .lecture-title-item{
   width: auto;
   height: 42px;
-  font-size: 28px;
+  font-size: 24px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 500;
   color: #6E6E6E;
@@ -552,7 +560,8 @@ html,body{
 .siqing-background{
   background: #FFFFFF;
   background-size: 100% 100%;
-  width: 1920px;
+  /*width: 1920px;*/
+  width: 100%;
   height: 752px;
   margin-top: -6px;
   position: relative;
@@ -566,7 +575,7 @@ html,body{
 .siqing-title-item{
   width: auto;
   height: 42px;
-  font-size: 28px;
+  font-size: 24px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #6E6E6E;
@@ -619,7 +628,7 @@ html,body{
   position: absolute;
   top: 0px;
   width: 1440px;
-  height: 450npx;
+  height: 450px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-color: yellow;
@@ -652,7 +661,7 @@ html,body{
   width: 37px;
   height: 37px;
   opacity: 1;
-  background-image: url("../../assets/img/jiantou37right2.png");
+  background-image: url("../../assets/img/jiantou37right1.png");
   background-size: 100% 100%;
 }
 .right-btn2:hover,click{

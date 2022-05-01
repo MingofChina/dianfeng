@@ -191,6 +191,8 @@ export default {
       childcontentTitle: [],
       routerTo: "peakBusiness",
       backgroundImg: [],
+      baseUrl:'http://ceshi.davost.com/',
+
     };
   },
   watch: {

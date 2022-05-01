@@ -16,6 +16,9 @@
             </div>
           </div>
         </div>
+
+
+
         <div class="six-item-info">
           <div class="six-item-info-title"> {{ showData ? showData.company_address : '--' }} </div>
           <div class="six-item-info-phone">
@@ -152,6 +155,11 @@ export default {
   mounted() {
     //this.getIndexSix();
     this.lastTabId = this.branch_office[0].id;
+    console.log("mounted："+this.lastTabId);
+    this.changeTab(this.lastTabId);
+
+  },
+  created() {
   },
   computed: {
     showData() {
@@ -159,6 +167,33 @@ export default {
     }
   },
   methods:{
+    changeTab(id) {
+
+      if (this.lastTabId === id) return;
+      this.changeStyle(id);
+      if(id !== this.lastTabId) {
+        this.reverseStyle(this.lastTabId);
+      }
+      this.lastTabId = id;
+      //console.log("id为"+this.lastTabId);
+      /*let temp = {}
+      for(let i = 0;i<this.branch_office.length;++i){
+        if(this.lastTabId === this.branch_office[i].id){
+          temp = {}
+        }
+      }
+      this.currentData = temp;*/
+    },
+    changeStyle(id) {
+      document.getElementById('wrapper'+id).style.background = this.activeBackgroundColor;
+      document.getElementById('icon'+id).style.backgroundImage = this.redIcon;
+      document.getElementById('text'+id).style.color = this.activeTextColor;
+    },
+    reverseStyle(id) {
+      document.getElementById('wrapper'+id).style.background = this.originBackgroundColor;
+      document.getElementById('icon'+id).style.backgroundImage = this.whiteIcon;
+      document.getElementById('text'+id).style.color = this.originTextColor ;
+    },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -184,7 +219,6 @@ export default {
         alert("请输入您的电话");
         return ;
       }
-
       let { data } = await formsjie({company:this.formData.company,
         name:this.formData.name,
         phone:this.formData.phone});
@@ -196,31 +230,7 @@ export default {
     toJoinUs(){
       window.location.href = this.joinUsUrl;
     },
-    changeTab(id) {
-      if (this.lastTabId === id) return;
-      this.changeStyle(id);
-      this.reverseStyle(this.lastTabId);
-      this.lastTabId = id;
-      console.log("id为"+this.lastTabId);
-      let temp = {}
-      for(let i = 0;i<this.branch_office.length;++i){
-        if(this.lastTabId === this.branch_office[i].id){
-          temp = {}
-        }
-      }
-      this.currentData = temp;
 
-    },
-    changeStyle(id) {
-      document.getElementById('wrapper'+id).style.background = this.activeBackgroundColor;
-      document.getElementById('icon'+id).style.backgroundImage = this.redIcon;
-      document.getElementById('text'+id).style.color = this.activeTextColor;
-    },
-    reverseStyle(id) {
-      document.getElementById('wrapper'+id).style.background = this.originBackgroundColor;
-      document.getElementById('icon'+id).style.backgroundImage = this.whiteIcon;
-      document.getElementById('text'+id).style.color = this.originTextColor ;
-    }
   },
 
 };
@@ -255,6 +265,7 @@ body {
 }
 .six-top-nav {
   position: relative;
+  /*left: 79px;*/
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -301,9 +312,9 @@ body {
 }
 
 .six-item-info {
-  position: absolute;
+  position: relative;
   left: 241px;
-  width: 1438px;
+  width: 1435px;
   height: 400px;
   background: #f4f4f4;
   border-radius: 0px 0px 0px 0px;
