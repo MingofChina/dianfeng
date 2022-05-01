@@ -1,8 +1,9 @@
 export default {
     methods: {
         setBackgroundImage(url) {
+            let bashUrl =  'http://ceshi.davost.com';
             return {
-                background: "url(" + url + ")"
+                background: "url("+ bashUrl+ url + ")"
             };
         },
     },

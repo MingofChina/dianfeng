@@ -5,9 +5,9 @@
         <div class="finish-1">
           <div class="arrlist-1">
             <div v-for="(itemd,index1) in top" :key="itemd.id" class="zuoce">
-              <h2 v-if="itemd.name!='联系我们'" class="divhover">{{ itemd.name }}</h2>
-              <h2 v-else @click="tositeMap" class="divhover">网站地图</h2>
-              <li v-show='index1 != top.length -1' v-for="(itemds,index) in itemd.child_column" :key="itemds.id" @click="footNavfn(itemds,index,index1)" class="divhover" style="white-space:nowrap;">
+              <h2 v-if="itemd.name!='联系我们'" class="divhover" style="font-size:1.5rem">{{ itemd.name }}</h2>
+              <h2 v-else @click="tositeMap" class="divhover" style="font-size:1.5rem">网站地图</h2>
+              <li v-show='index1 != top.length -1' v-for="(itemds,index) in itemd.child_column" :key="itemds.id" @click="footNavfn(itemds,index,index1)" class="divhover" style="white-space:nowrap">
                 {{ itemds.name }}
               </li>
             </div>
@@ -58,7 +58,7 @@
             <li class=" divhover" @click="ulrHref(1)">{{ bottom.icp_number }}</li>
             <li class=" divhover" @click="ulrHref(2)">{{ bottom.legal_counsel }}</li>
           </div>
-          <div class="fin-2-right divhover" @click="routerFn()">法律声明</div>
+          <div class="fin-2-right divhover" @click="routerFn()" style="color: #ffffff;">法律声明</div>
         </div>
       </div>
     </div>
@@ -164,7 +164,7 @@ export default {
 .arrlist-1 div {
   box-sizing: border-box;
   margin-right: 4rem;
-  text-align: center;
+  text-align: left;
   color: #676767;
 }
 .arrlist-1 div h2 {
@@ -231,11 +231,12 @@ export default {
 }
 .finish-2 {
   display: flex;
+  font-size: 0.75rem;
   margin-top: 2.5rem;
-  color: #FFFFFF;
+  color: rgba(255, 255, 255, 0.3);
   line-height: 6.875rem;
-  border-top: 1px solid #FFFFFF;
-  padding-left:7.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-left:9.9rem;
 }
 .fin-2-left {
   display: flex;
