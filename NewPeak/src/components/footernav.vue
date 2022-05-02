@@ -58,7 +58,7 @@
             <li class=" divhover" @click="ulrHref(1)">{{ bottom.icp_number }}</li>
             <li class=" divhover" @click="ulrHref(2)">{{ bottom.legal_counsel }}</li>
           </div>
-          <div class="fin-2-right divhover" @click="routerFn()" style="color: #ffffff;">法律声明</div>
+          <div class="fin-2-right divhover" @click="routerFn()" >法律声明</div>
         </div>
       </div>
     </div>
@@ -249,5 +249,6 @@ export default {
 }
 .fin-2-right {
   text-align: center;
+  color: #ffffff;
 }
 </style>
