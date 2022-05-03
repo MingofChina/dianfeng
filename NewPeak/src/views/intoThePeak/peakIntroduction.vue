@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="bk" id="app">
     <div class="introduce-background">
         <div class="introduce-title">
           巅峰介绍
@@ -400,6 +400,10 @@ a {
   -moz-user-focus: none;
   -moz-user-select: none;
 }
+.bk{
+  width: 100%;
+  overflow: hidden;
+}
 .introduce-background{
   position: relative;
   /*width: 1920px;*/
@@ -462,11 +466,7 @@ a {
 
 }
 .active2{
-
-
   color: #FFFFFF;
-
-
 }
 .icon-home{
   position: absolute;
@@ -808,12 +808,13 @@ a {
   background-size: 100% 100%;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  overflow-x: hidden;
 }
 .introduce2-title{
   position: absolute;
   top: 216px;
   left: 236px;
-  /* width: 176px; */
+  width: 176px;
   height: 66px;
   font-size: 44px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
@@ -882,6 +883,7 @@ a {
   height: 1420px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
+  overflow-x: hidden;
 }
 .introduce3-title{
   position: absolute;
@@ -998,6 +1000,7 @@ a {
   height: 773px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  overflow-x: hidden;
 }
 .introduce4-title{
   position: absolute;
@@ -1064,6 +1067,7 @@ a {
   background: #F4F4F4;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  overflow-x: hidden;
 }
 .introduce5-title{
   position: absolute;
@@ -1138,6 +1142,7 @@ a {
   height: 1000px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
+  overflow-x: hidden;
 }
 .introduce6-title{
   position: absolute;

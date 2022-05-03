@@ -26,7 +26,7 @@
               </el-col>
               <el-col :span="13"  v-if="(subscript1 || subscript1 == 0) &&navList[subscript].child_column[subscript1].childcontent" style="background:#F2F2F2;height:31.9rem;padding-left:1rem">
                 <div>
-                  <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)" style="font-size: 1rem;">{{item.title}}</div></el-col>
+                  <el-col  :span="12" class="navli1 divhover" v-for="(item,index) in navList[subscript].child_column[subscript1].childcontent" :key="item.id"><div @click="linkFn1(item)" style="font-size: 0.88rem;">{{item.title}}</div></el-col>
                 </div>
               </el-col>
           </div>

@@ -6,7 +6,9 @@
         <div class="content1">{{brand_message.found_years}}</div>
         <div class="suffix1">年</div>
         <div class="desc1">文旅行业实践者</div>
-        <img class="img1"/>
+        <img
+            src="../../assets/bei/icon_chuangli.png"
+            class="img1"/>
 
       </div>
       <div class="divide-line1"></div>
@@ -16,7 +18,9 @@
         <div class="content2">{{brand_message.finish_projects}}</div>
         <div class="suffix2">+</div>
         <div class="desc2">美丽中国价值经典</div>
-        <img class="img2"/>
+        <img
+            src="../../assets/bei/icon_wancheng.png"
+            class="img2"/>
       </div>
 
       <div class="divide-line2"></div>
@@ -26,7 +30,9 @@
         <div class="content3">{{brand_message.scenic_spot_num}}</div>
         <div class="suffix3">+</div>
         <div class="desc3">专业运营旅游景区</div>
-        <img class="img3"/>
+        <img
+            src="../../assets/bei/icon_yunying.png"
+            class="img3"/>
       </div>
 
       <div class="divide-line3"></div>
@@ -36,7 +42,9 @@
         <div class="content4">{{brand_message.prize_num}}</div>
         <div class="suffix4">+</div>
         <div class="desc4">国内外奖项获得者</div>
-        <img class="img4"/>
+        <img
+            src="../../assets/bei/icon_rongyu.png"
+            class="img4"/>
       </div>
 
       <div class="divide-line4"></div>
@@ -45,7 +53,9 @@
         <div class="gugan">骨干员工近</div>
         <div class="content5">{{brand_message.member_num}}</div>
         <div class="desc5">业界骨干创意精英</div>
-        <img class="img5"/>
+        <img
+            src="../../assets/bei/icon_yuangong.png"
+            class="img5"/>
       </div>
 
       <div class="divide-line5"></div>

@@ -6,7 +6,7 @@
         <button class="next-button" @click="changePicture(true)"></button>
       </div>
 
-      <div v-if="this.eachProduct.length" class="rotation-items">
+      <div v-if="this.eachProduct.length>1" class="rotation-items">
         <div class="rotation-item"
              v-show="eachProduct.length>1"
              @mouseenter="moveOnTab('first')"
@@ -32,9 +32,9 @@
         </div>
 
 
-        <div v-if="this.eachProduct.length>1"
+        <div v-if="this.eachProduct.length>2"
             class="rotation-item"
-             :v-show="eachProduct.length>1"
+             :v-show="eachProduct.length>2"
              @mouseenter="moveOnTab('second')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -55,9 +55,9 @@
             </div>
           </div>
         </div>
-        <div v-if="this.eachProduct.length>2"
+        <div v-if="this.eachProduct.length>3"
             class="rotation-item"
-             :v-show="eachProduct.length>2"
+             :v-show="eachProduct.length>3"
              @mouseenter="moveOnTab('third')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -79,9 +79,9 @@
           </div>
         </div>
         <div
-            v-if="this.eachProduct.length>3"
+            v-if="this.eachProduct.length>4"
             class="rotation-item"
-             :v-show="eachProduct.length>3"
+             :v-show="eachProduct.length>4"
              @mouseenter="moveOnTab('forth')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -103,6 +103,10 @@
           </div>
         </div>
       </div>
+
+
+
+
 
 
 
@@ -204,8 +208,13 @@ export default {
   },
   mounted() {},
   methods: {
+    async getData() {
+      const { data } = await firstone();
+      const queryData = data?.data;
+      this.product = queryData?.product || [];
+    },
     toPeakCases(id){
-      this.$router.push(`/peakCasesDetail/${id}`);
+      this.$router.push(`/peakCases/${id}`);
     },
     changePicture(action) {
       if (action) {

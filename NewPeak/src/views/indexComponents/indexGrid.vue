@@ -211,7 +211,6 @@ export default {
       let { data } = await firstone();
       this.column_introduce = data.data.column_introduce;
       this.backgroundImg = _.map(this.column_introduce, "original_image");
-      console.log(this.backgroundImg)
       this.initData();
     },
     initData() {
@@ -357,6 +356,7 @@ export default {
   display: none;
   margin-left: 34px;
 }
+
 .message-list li::marker {
   font-size: 24px;
   content: "-";
@@ -374,7 +374,8 @@ export default {
   font-size: 16px !important;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
-  color: #ffffff;
+  /*color: #ffffff;*/
+  color: red;
   line-height: 19px !important;
 }
 .message-list .list2 {
@@ -385,7 +386,8 @@ export default {
   font-size: 16px !important;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
-  color: #ffffff;
+  /*color: #ffffff;*/
+  color: red;
   line-height: 19px !important;
 }
 .grid1:hover .info1 {

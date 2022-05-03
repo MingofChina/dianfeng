@@ -26,77 +26,141 @@
         查看详情
       </div>
 
+
+
+
+
       <div class="four-news-images">
 
+
         <div class="four-news-image1"
+             v-on:mouseover="setBacK($event,0)"
+             v-on:mouseleave="setBacK2($event,0)"
              :style="{'background-image:':'url('+getImgUrl(currentNews[currentIndex].original_image)+')'}">
-          <div class="four-news-day1">
+          <div class="four-news-day1"
+               :class="[{'four-news-day1-hl':currentFlag === 0}]"
+          >
             {{currentNews[currentIndex].add_date.substr(8,2)}}
           </div>
-          <div class="four-news-year-month1">
+          <div class="four-news-year-month1"
+               :class="[{'four-news-year-month1-hl':currentFlag === 0}]"
+          >
             {{currentNews[currentIndex].add_date.substr(0,7)}}
           </div>
-          <div class="four-news-title1">
+          <div class="four-news-title1"
+               :class="[{'four-news-title1-hl':currentFlag === 0}]"
+          >
             {{currentNews[currentIndex].title}}
           </div>
-          <div class="four-news-content1" v-if="currentNews[currentIndex].summary.length>43">
+          <div class="four-news-content1"
+               :class="[{'four-news-content1-hl':currentFlag === 0}]"
+               v-if="currentNews[currentIndex].summary.length>43">
             {{currentNews[currentIndex].summary.slice(0,43)}}...
           </div>
-          <div class="four-news-content1" v-else>
+          <div class="four-news-content1"
+               :class="[{'four-news-content1-hl':currentFlag === 0}]"
+               v-else>
             {{currentNews[currentIndex].summary}}
           </div>
-          <div class="four-news-link1" @click="toNewsDetail(currentNews[currentIndex].id)">
+          <div class="four-news-link1"
+               :class="[{'four-news-link1-hl':currentFlag === 0}]"
+               @click="toNewsDetail(currentNews[currentIndex].id)">
+            <img class="icon-more111" src="../../assets/img/icon_more111.png" />
             查看详情
           </div>
         </div>
 
         <div class="no-back"
-          :style="{'background-image:':'url('+getImgUrl(currentNews[currentIndex+1].original_image)+')'}"
-             v-on:mouseover="setBacK($event)"
-             v-on:mouseleave="setBacK2($event)"
+             v-on:mouseover="setBacK($event,1)"
+             v-on:mouseleave="setBacK2($event,1)"
         >
-          <div class="four-news-day2">
+          <div class="four-news-day2"
+            :class="[{'four-news-day2-hl':currentFlag === 1}]"
+          >
             {{currentNews[currentIndex+1].add_date.substr(8,2)}}
           </div>
-          <div class="four-news-year-month2">
+          <div class="four-news-year-month2"
+               :class="[{'four-news-year-month2-hl':currentFlag === 1}]"
+          >
             {{currentNews[currentIndex+1].add_date.substr(0,7)}}
           </div>
-          <div class="four-news-title2">
+          <div class="four-news-title2"
+               :class="[{'four-news-title2-hl':currentFlag === 1}]"
+          >
             {{currentNews[currentIndex+1].title}}
           </div>
           <div class="four-news-content2" v-if="currentNews[currentIndex+1].summary.length>43">
+            :class="[{'four-news-title2-hl':currentFlag === 1}]"
             {{currentNews[currentIndex+1].summary.slice(0,43)}}...
           </div>
-          <div class="four-news-content2" v-else>
+          <div class="four-news-content2"
+               :class="[{'four-news-content2-hl':currentFlag === 1}]"
+               v-else>
             {{currentNews[currentIndex+1].summary}}
           </div>
-          <div class="four-news-link2" @click="toNewsDetail(currentNews[currentIndex].id)">
+          <div class="four-news-link2"
+               :class="[{'four-news-link2-hl':currentFlag === 1}]"
+               @click="toNewsDetail(currentNews[currentIndex].id)">
+            <img class="icon-more111" src="../../assets/img/icon_more111.png" />
             查看详情
           </div>
         </div>
 
-        <div class="four-news-image3">
-          <div class="four-news-day3">
+
+
+
+
+
+        <div class="four-news-image3"
+             v-on:mouseover="setBacK($event,2)"
+             v-on:mouseleave="setBacK2($event,2)"
+        >
+          <div class="four-news-day3"
+               :class="[{'four-news-day3-hl':currentFlag === 2}]"
+          >
             {{currentNews[currentIndex+2].add_date.substr(8,2)}}
           </div>
-          <div class="four-news-year-month3">
+          <div class="four-news-year-month3"
+               :class="[{'four-news-year-month3-hl':currentFlag === 2}]"
+          >
             {{currentNews[currentIndex+2].add_date.substr(0,7)}}
           </div>
-          <div class="four-news-title3">
+          <div class="four-news-title3"
+               :class="[{'four-news-title3-hl':currentFlag === 2}]"
+          >
             {{currentNews[currentIndex+2].title}}
           </div>
-          <div class="four-news-content3" v-if="currentNews[currentIndex+2].summary.length>43">
+          <div class="four-news-content3"
+               :class="[{'four-news-content3-hl':currentFlag === 2}]"
+               v-if="currentNews[currentIndex+2].summary.length>43">
             {{currentNews[currentIndex+2].summary.slice(0,43)}}...
           </div>
-          <div class="four-news-content3" v-else>
+          <div class="four-news-content3"
+               :class="[{'four-news-content3-hl':currentFlag === 2}]"
+               v-else>
             {{currentNews[currentIndex+2].summary}}
           </div>
-          <div class="four-news-link3" @click="toNewsDetail(currentNews[currentIndex].id)">
+          <div class="four-news-link3"
+               :class="[{'four-news-link3-hl':currentFlag === 2}]"
+               @click="toNewsDetail(currentNews[currentIndex].id)">
+            <img class="icon-more111" src="../../assets/img/icon_more111.png" />
             查看详情
           </div>
         </div>
 
+
+
+
+
+
       </div>
+
+
+
+
+
+
+
 
 
 
@@ -122,6 +186,7 @@ export default {
       "currentLength":0,
       "news":[],
       "flag" : false,
+      currentFlag: -1,
       baseUrl:'http://ceshi.davost.com',
     };
   },
@@ -134,11 +199,22 @@ export default {
     }
   },
   methods: {
-    setBacK($event){
-      $event.currentTarget.className = "four-news-image2";
+    setBacK($event,flag){
+      if(flag === 0){
+        $event.currentTarget.className = "four-news-image1";
+      }
+      else if(flag === 1){
+        $event.currentTarget.className = "four-news-image2";
+      }
+      else if(flag === 2){
+        $event.currentTarget.className = "four-news-image3";
+      }
+
+      this.currentFlag = flag;
     },
-    setBacK2($event){
+    setBacK2($event,flag){
       $event.currentTarget.className = "no-back";
+      this.currentFlag = -1;
     },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
@@ -388,7 +464,7 @@ html,body{
   position:relative;
   width: 640px;
   height: 444px;
-  background: #FFFFFF;
+  background: url("../../assets/img/111.png");
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
 }
@@ -396,7 +472,7 @@ html,body{
   position:relative;
   width: 640px;
   height: 444px;
-  background: url("../../assets/img/wenlvjiaoyu.png");
+  background: url("../../assets/img/222.png");
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
   background-size: 100% 100%;
@@ -405,7 +481,7 @@ html,body{
   position:relative;
   width: 640px;
   height: 444px;
-  background: #FFFFFF;
+  background: url("../../assets/img/333.jpeg");
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
 }
@@ -423,6 +499,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-day1-hl{
+  position: absolute;
+  top: 50px;
+  left: 109px;
+  width: 57px;
+  height: 72px;
+  font-size: 48px;
+  font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 56px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-year-month1{
   position: absolute;
   top: 122px;
@@ -436,6 +526,20 @@ html,body{
   line-height: 19px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
+}
+.four-news-year-month1-hl{
+  position: absolute;
+  top: 122px;
+  left: 109px;
+  width: 58px;
+  height: 24px;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 19px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .four-news-title1{
   position: absolute;
@@ -451,6 +555,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-title1-hl{
+  position: absolute;
+  top: 178px;
+  left: 109px;
+  width: 465px;
+  height: 76px;
+  font-size: 26px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 30px;
+ /* -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-content1{
   position: absolute;
   top: 278px;
@@ -465,6 +583,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-content1-hl{
+  position: absolute;
+  top: 278px;
+  left: 109px;
+  width: 409px;
+  height: 60px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 21px;
+ /* -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-link1{
   position: absolute;
   top: 362px;
@@ -478,6 +610,20 @@ html,body{
   line-height: 21px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
+}
+.four-news-link1-hl{
+  position: absolute;
+  top: 362px;
+  left: 107px;
+  width: 90px;
+  height: 27px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 21px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .four-news-day2{
   position: absolute;
@@ -494,6 +640,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-day2-hl{
+  position: absolute;
+  top: 50px;
+  left: 109px;
+  width: 57px;
+  height: 72px;
+  font-size: 48px;
+  font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 56px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-year-month2{
   position: absolute;
   top: 122px;
@@ -508,6 +668,20 @@ html,body{
   line-height: 19px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
+}
+.four-news-year-month2-hl{
+  position: absolute;
+  top: 122px;
+  left: 109px;
+  width: 58px;
+  height: 24px;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 19px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .four-news-title2{
   position: absolute;
@@ -524,6 +698,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-title2-hl{
+  position: absolute;
+  top: 178px;
+  left: 109px;
+  width: 465px;
+  height: 76px;
+  font-size: 26px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 30px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-content2{
   position: absolute;
   top: 278px;
@@ -538,6 +726,25 @@ html,body{
   line-height: 21px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
+}
+.four-news-content2-hl{
+  position: absolute;
+  top: 278px;
+  left: 109px;
+  width: 409px;
+  height: 60px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 21px;
+ /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.icon-more111{
+  width: 8px;
+  height: 14px;
+  background-size: 100% 100%;
 }
 .four-news-link2{
   position: absolute;
@@ -554,6 +761,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-link2-hl{
+  position: absolute;
+  top: 362px;
+  left: 109px;
+  width: 90px;
+  height: 27px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 21px;
+ /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-day3{
   position: absolute;
   top: 50px;
@@ -567,6 +788,20 @@ html,body{
   line-height: 56px;
   /* -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;*/
+}
+.four-news-day3-hl{
+  position: absolute;
+  top: 50px;
+  left: 109px;
+  width: 57px;
+  height: 72px;
+  font-size: 48px;
+  font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 56px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .four-news-year-month3{
   position: absolute;
@@ -582,6 +817,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-year-month3-hl{
+  position: absolute;
+  top: 122px;
+  left: 109px;
+  width: 58px;
+  height: 24px;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 19px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-title3{
   position: absolute;
   top: 178px;
@@ -595,6 +844,20 @@ html,body{
   line-height: 30px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
+}
+.four-news-title3-hl{
+  position: absolute;
+  top: 178px;
+  left: 109px;
+  width: 465px;
+  height: 76px;
+  font-size: 26px;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 30px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .four-news-content3{
   position: absolute;
@@ -610,6 +873,20 @@ html,body{
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
 }
+.four-news-content3-hl{
+  position: absolute;
+  top: 278px;
+  left: 109px;
+  width: 409px;
+  height: 60px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 21px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
 .four-news-link3{
   position: absolute;
   top: 362px;
@@ -623,6 +900,20 @@ html,body{
   line-height: 21px;
   /*  -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;*/
+}
+.four-news-link3-hl{
+  position: absolute;
+  top: 362px;
+  left: 109px;
+  width: 72px;
+  height: 27px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 21px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
 }
 .four-more-link{
   position: relative;
