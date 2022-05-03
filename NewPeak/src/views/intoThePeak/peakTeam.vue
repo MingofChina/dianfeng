@@ -151,6 +151,7 @@ export default {
 .total-wrapper {
   /*width: 1920px;*/
   width: 100%;
+  overflow: hidden;
 }
 .top-wrapper {
   /*width: 1920px;*/

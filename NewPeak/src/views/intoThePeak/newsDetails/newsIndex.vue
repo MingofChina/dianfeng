@@ -20,39 +20,48 @@
 
 
       <div class="carousel">
+
         <div class="left-arrow carousel-left" @click="leftMove(wenlv_image)">
 <!--          <div class="part-one"></div>
           <div class="part-two"></div>-->
           <div class="left-jiantou"></div>
         </div>
+
         <div class="message-group">
           <div v-if="carouselList.length > 0" class="message-box">
             <img class="message-image"
                  @click="toDetial(carouselList[0].id)"
-                 v-on:mouseover="overImg($event)"
-                 v-on:mouseout="leaveImg($event)"
+                 v-on:mouseover="overImg($event,0)"
+                 v-on:mouseout="leaveImg($event,0)"
                  :src="carouselList[0].original_image | transformImageUrl" />
-            <div class="message-text highlight"
+            <div class="message-text "
+                 :class="[{highlight:currentIndex===0}]"
+                 v-on:mouseover="overTitle($event,0)"
+                 v-on:mouseout="leaveTitle($event,0)"
                  @click="toDetial(carouselList[0].id)"
             >{{ carouselList[0].title }}</div>
           </div>
           <div v-if="carouselList.length > 1" class="message-box">
             <img class="message-image"
-                 v-on:mouseover="overImg($event)"
-                 v-on:mouseout="leaveImg($event)"
+                 v-on:mouseover="overImg($event,index)"
+                 v-on:mouseout="leaveImg($event,index)"
                  @click="toDetial(carouselList[1].id)"
                  :src="carouselList[1].original_image | transformImageUrl" />
             <div class="message-text"
+                 v-on:mouseover="overTitle($event,index)"
+                 v-on:mouseout="leaveTitle($event,index)"
                  @click="toDetial(carouselList[1].id)"
             >{{ carouselList[1].title }}</div>
           </div>
           <div v-if="carouselList.length > 2" class="message-box">
             <img class="message-image"
                  @click="toDetial(carouselList[2].id)"
-                 v-on:mouseover="overImg($event)"
-                 v-on:mouseout="leaveImg($event)"
+                 v-on:mouseover="overImg($event,index)"
+                 v-on:mouseout="leaveImg($event,index)"
                  :src="carouselList[2].original_image | transformImageUrl" />
             <div class="message-text"
+                 v-on:mouseover="overTitle($event,index)"
+                 v-on:mouseout="leaveTitle($event,index)"
                  @click="toDetial(carouselList[2].id)"
             >{{ carouselList[2].title }}</div>
           </div>
@@ -80,7 +89,6 @@
           <div class="news-info">
             <div class="create-time">{{ info.addtime }}</div>
             <div class="news-title"
-
                  :class="[{ highlight: index === moveOnIndex }]">
               {{ info.title }}
             </div>
@@ -128,15 +136,30 @@ export default {
       currentPage: 1,
       totalRows: 0,
       pageSize: 5,
-      moveOnIndex: -1
+      moveOnIndex: -1,
+      currentIndex: 0,
     };
   },
   methods: {
-    overImg($event){
+    overImg($event,index){
       $event.currentTarget.nextElementSibling.className = "message-text highlight";
+      console.log(index);
+      this.currentIndex = index;
     },
-    leaveImg($event){
+    leaveImg($event,index){
       $event.currentTarget.nextElementSibling.className = "message-text"
+      console.log(index);
+      this.currentIndex = index;
+    },
+    overTitle($event,index){
+      $event.currentTarget.className = "message-text highlight";
+      console.log(index);
+      this.currentIndex = index;
+    },
+    leaveTitle($event,index){
+      $event.currentTarget.className = "message-text"
+      console.log(index);
+      this.currentIndex = index;
     },
     leftMove(list) {
       const fitst = list.shift();
@@ -475,7 +498,7 @@ export default {
   font-weight: 500;
   color: #231914;
   line-height: 42px;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
 }
 .news-info .news-text {
   font-size: 18px;

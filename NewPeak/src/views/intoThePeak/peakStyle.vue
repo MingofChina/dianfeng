@@ -4,7 +4,9 @@
         <div class="top-title">巅峰风采</div>
         <div class="top-desc">TOP TALENT</div>
         <div class="top-divide"></div>
-        <img class="icon-home"  src = "../../assets/bei/icon_home.png"/>
+        <img class="icon-home"
+             @click="toIndex()"
+             src = "../../assets/bei/icon_home.png"/>
         <img class="icon-jiantou1" src = "../../assets/bei/icon.png"/>
         <div class="link1">走进巅峰</div>
         <img class="icon-jiantou2" src = "../../assets/bei/icon.png"/>
@@ -44,6 +46,7 @@
         <img class="lecture-img-item"
              :src=getImgUrl(item.original_image)
              v-for="(item,i) in filterHallImgs"
+             alt="没有图片"
              />
       </div>
       <img class="left-btn1"
@@ -77,6 +80,7 @@
         <img class="siqing-img-item"
              :src=getImgUrl(item.original_image)
              v-for="(item,i) in filterSiqingImgs"
+             alt="没有图片"
         />
       </div>
       <img class="left-btn2"
@@ -128,7 +132,9 @@ export default {
     }
   },
   methods:{
-
+    toIndex(id){
+      this.$router.push(`/index`);
+    },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -287,7 +293,7 @@ html,body{
 }
 .icon-home{
   position: absolute;
-  top: 698px;
+  top: 744px;
   left: 236px;
   width: 24px;
   height: 24px;
@@ -296,7 +302,7 @@ html,body{
 }
 .icon-jiantou1{
   position: absolute;
-  top: 701px;
+  top: 748px;
   left: 272px;
   width: 16px;
   height: 16px;
@@ -304,7 +310,7 @@ html,body{
 }
 .icon-jiantou2{
   position: absolute;
-  top: 701px;
+  top: 748px;
   left: 380px;
   width: 16px;
   height: 16px;
@@ -312,7 +318,7 @@ html,body{
 }
 .link1{
   position: absolute;
-  top: 698px;
+  top: 745px;
   left: 300px;
   height: 24px;
   font-size: 16px;
@@ -325,7 +331,7 @@ html,body{
 }
 .link2{
   position: absolute;
-  top: 698px;
+  top: 745px;
   left: 404px;
   height: 24px;
   font-size: 16px;
@@ -513,7 +519,6 @@ html,body{
   height: 450px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
-  background-color: #808080;
   background-size: 100% 100%;
 }
 
@@ -631,7 +636,6 @@ html,body{
   height: 450px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
-  background-color: yellow;
 }
 
 .left-btn2{

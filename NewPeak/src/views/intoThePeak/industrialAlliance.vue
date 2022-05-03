@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bk">
     <div class="top-background">
       <div class="top-title">产业联盟</div>
       <div class="top-desc">TOP TALENT</div>
@@ -153,6 +153,10 @@ html,body{
 *{
   margin: 0;
   padding: 0;
+}
+.bk{
+  width: 100%;
+  overflow: hidden;
 }
 .top-background{
   background-image: url("../../assets/bei/Group 507.png");
@@ -312,7 +316,7 @@ html,body{
   top: 85px;
   left: 1543px;*/
   margin-left: 900px;
-  background-image: url("../../assets/bei/Group 374.png");
+  background-image: url("../../assets/mien/Group 374more.png");
   width: 140px;
   height: 36px;
   font-size: 24px;
@@ -329,7 +333,7 @@ html,body{
   top: 85px;
   left: 1543px;*/
   margin-left: 900px;
-  background-image: url("../../assets/img/Group 397.png");
+  background-image: url("../../assets/mien/Group 397more.png");
   width: 140px;
   height: 36px;
   font-size: 24px;
