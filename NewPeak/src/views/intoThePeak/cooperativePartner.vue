@@ -20,7 +20,7 @@
       <div class="partner-main-titletrans">CLIENT LIST</div>
       <div class="partner-main-info-nav">
         <div
-          class="partner-nav-middle-item"
+          :class="[item.title==='政府机构' || item.title==='知名景区' ? 'partner-nav-middle-item-hl':'partner-nav-middle-item']"
           v-for="(item) in customer_list"
           :key="item.id"
         >{{ item.title }}</div>
@@ -31,6 +31,7 @@
           v-for="(item, index) in customer_list[0].child"
           :key="index"
           :src=getImgUrl(item.original_image)
+          @click="toLinkFun(item.linkurl)"
         />
       </div>
     </div>
@@ -43,6 +44,7 @@
           v-for="(item, index) in cooperative_partner"
           :key="index"
           :src=getImgUrl(item.original_image)
+          @click="toLinkFun(item.linkurl)"
         />
       </div>
     </div>
@@ -74,6 +76,9 @@ export default {
     this.getCooper();
   },
   methods: {
+    toLinkFun(toUrl){
+      location.href = toUrl;
+    },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -225,10 +230,22 @@ export default {
   font-size: 24px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
-  color: #231914;
+
 }
+
 .partner-nav-middle-item {
   margin-right: 40px;
+  color: #231914;
+}
+.partner-nav-middle-item:hover{
+  margin-right: 40px;
+  background-color: #C8000A;
+  color: #FFFFFF;
+}
+.partner-nav-middle-item-hl{
+  margin-right: 40px;
+  background-color: #C8000A;
+  color: #FFFFFF;
 }
 .partner-display-part {
   margin-left: 236px;

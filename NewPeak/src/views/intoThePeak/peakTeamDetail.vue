@@ -1,14 +1,16 @@
 <template>
   <!-- 巅峰团队尝试版区块 -->
   <div class="team-detail-background">
+
     <img class="detail-img" :src=getImgUrl(team_detail.original_image) />
+
     <div class="detail-name">{{team_detail.name}}</div>
     <div class="detail-title">{{team_detail.title}}</div>
     <img class="detail-back"
          src="../../assets/story-detail/Group 397@2x.png"
          v-on:click="toPeakTeam(11)"/>
     <img class="detail-divider" src="../../assets/mien/Rectangle 381@2x.png">
-    <div class="info-wrapper">
+
       <div class="detail-brief-title">个人简介</div>
       <div class="detail-summary" v-html="team_detail.summary"></div>
       <div class="detail-awards-title">获奖经历</div>
@@ -16,7 +18,7 @@
       <div class="detail-projects-title">项目经验</div>
       <div class="detail-projects-title-little">参与项目</div>
       <div class="detail-projects-list" v-html="team_detail.projects"></div>
-    </div>
+
   </div>
 </template>
 
@@ -58,25 +60,27 @@ export default {
 
 <style scoped>
 /* 设置巅峰团队的样式 */
-html,body{
-  width: 100%;
-  height: 100%;
-}
-*{
-  margin: 0;
-  padding: 0;
-}
+
 .team-detail-background{
-  height: 2000px;
-  width: 100%;
+  /*width: ;*/
+  height: 100%;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
   overflow-x: hidden;
+  /*overflow-y: auto;*/
+  display: flex;
+  flex-direction: column;
+  padding-top: 105px;
+  padding-left: 741px;
+  overflow-y: auto;
 }
+
 .detail-img{
   position: absolute;
   top: 211px;
   left: 237px;
+  /*margin-top: 211px;
+  margin-left: 237px;*/
   width: 398px;
   height: 488px;
   border-radius: 0px 0px 0px 0px;
@@ -84,22 +88,23 @@ html,body{
   background-color: #808080;
 }
 .detail-name{
-  position: absolute;
+  /*position: absolute;
   top: 211px;
-  left: 741px;
+  left: 741px;*/
   height: 37px;
   font-size: 42px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #231914;
   line-height: 37px;
+  margin-bottom: 20px;
 /*  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
 .detail-title{
-  position: absolute;
+  /*position: absolute;
   top: 264px;
-  left: 741px;
+  left: 741px;*/
   height: 24px;
   font-size: 20px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -110,9 +115,12 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .detail-back{
-  position: absolute;
+  /*position: absolute;
   top: 211px;
-  left: 1657px;
+  left: 1657px;*/
+  position: relative;
+  top: -79px;
+  left: 915px;
   width: 64px;
   height: 37px;
   font-size: 20px;
@@ -125,23 +133,25 @@ html,body{
 
 }
 .detail-divider{
-  position: absolute;
+  /*position: absolute;
   top: 312px;
-  left: 741px;
+  left: 741px;*/
   width: 980px;
   height: 1px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  margin-bottom: 20px;
 }
-.info-wrapper{
+.info-wrapper1{
   display: flex;
   flex-direction: column;
-  position: absolute;
-  position: absolute;
+  margin-top: 105px;
+  margin-left: 741px;
+  /*position: absolute;
   top: 345px;
-  left: 741px;
-  overflow-y: auto;
-  height: 1500px;
+  left: 741px;*/
+
+
 }
 .detail-brief-title{
   /*position: relative;*/
@@ -152,6 +162,7 @@ html,body{
   font-weight: 500;
   color: #231914;
   line-height: 37px;
+  margin-bottom: 15px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }

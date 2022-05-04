@@ -144,22 +144,22 @@ export default {
   methods: {
     overImg($event,index){
       $event.currentTarget.nextElementSibling.className = "message-text highlight";
-      console.log(index);
+      //console.log(index);
       this.currentIndex = index;
     },
     leaveImg($event,index){
       $event.currentTarget.nextElementSibling.className = "message-text"
-      console.log(index);
+      //console.log(index);
       this.currentIndex = index;
     },
     overTitle($event,index){
       $event.currentTarget.className = "message-text highlight";
-      console.log(index);
+      //console.log(index);
       this.currentIndex = index;
     },
     leaveTitle($event,index){
       $event.currentTarget.className = "message-text"
-      console.log(index);
+      //console.log(index);
       this.currentIndex = index;
     },
     leftMove(list) {

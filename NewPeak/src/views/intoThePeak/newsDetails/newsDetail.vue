@@ -127,10 +127,11 @@ export default {
 
 <style scoped>
 .background {
-  width: 1920px;
+  width: 100%;
   height: 100%;
   background: #F4F4F4;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .marker {
   width: 4px;

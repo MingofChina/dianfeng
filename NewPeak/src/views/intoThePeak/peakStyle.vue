@@ -183,7 +183,7 @@ export default {
       this.currentSiqing = this.peak_siqing[index];
       this.changeCurrentSiqingImgs();
       this.currentIndex2 = index;
-      console.log(this.currentIndex2);
+      //console.log(this.currentIndex2);
     },
     changeCurrentHallImgs(){
       let temp = this.currentHall.original_image;

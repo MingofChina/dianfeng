@@ -225,7 +225,7 @@ export default {
       }
     },
     routerPage(path, item) {
-      console.log("path是"+path+"id是"+item);
+      //console.log("path是"+path+"id是"+item);
       let id = item.id;
       this.$router.push(`/${path}/${id}`);
     },
@@ -367,6 +367,7 @@ export default {
 .message-list .list-info {
   margin-left: 8px;
   margin-bottom: 8px;
+
 }
 .list-info:hover{
   color: red;
@@ -384,6 +385,19 @@ export default {
   line-height: 19px !important;
 }
 .message-list .list2 {
+
+  float: left;
+  display: flex;
+  text-align: left;
+  flex-direction: row;
+  font-size: 16px !important;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 19px !important;
+}
+.message-list .list2{
+  margin-left: 35px;
   float: left;
   display: flex;
   text-align: left;

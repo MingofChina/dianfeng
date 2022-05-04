@@ -3,7 +3,7 @@
     <div class="component-three-rotation">
       <div class="click-area">
         <button class="pre-button" @click="changePicture(true)"></button>
-        <button class="next-button" @click="changePicture(true)"></button>
+        <button class="next-button" @click="changePicture(false)"></button>
       </div>
 
       <div v-if="firstRotation"
@@ -33,7 +33,7 @@
 
 
         <div v-if="secondRotation"
-            class="rotation-item"
+             class="rotation-item"
              @mouseenter="moveOnTab('second')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -57,7 +57,7 @@
 
 
         <div v-if="thirdRotation"
-            class="rotation-item"
+             class="rotation-item"
              @mouseenter="moveOnTab('third')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -81,7 +81,7 @@
 
 
         <div v-if="forthRotation"
-            class="rotation-item"
+             class="rotation-item"
              @mouseenter="moveOnTab('forth')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -116,7 +116,7 @@
     <div class="bottom-area">
       <div class="four-more-link" @click="toPeakCases(37)">
         <img src="../../assets/img/Group 392.png"
-            class="four-more-link-img"/>
+             class="four-more-link-img"/>
       </div>
     </div>
 
@@ -216,8 +216,15 @@ export default {
   methods: {
     changeTitle(id){
       this.activeTableId = id;
+      this.currentIndex = 0;
       this.getData();
       this.eachProduct  = this.product?.filter(item => item.business_ids === this.activeTableId) || [];
+      //alert(JSON.stringify(this.eachProduct));
+      this.firstRotation = this.eachProduct?.[this.currentIndex] || {};
+      //alert(JSON.stringify(this.firstRotation));
+      this.secondRotation = this.eachProduct?.[this.tranferIndex(1)] || {};;
+      this.thirdRotation = this.eachProduct?.[this.tranferIndex(2)] || {};;
+      this.forthRotation = this.eachProduct?.[this.tranferIndex(3)] || {};
     },
     async getData() {
       const { data } = await firstone();

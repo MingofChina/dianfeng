@@ -43,17 +43,27 @@
       ></div>
 
       <div class="row3-document-list">
-        <div class="row3-document-item" v-for="(itemDocument,j) in item1.document">
+        <div class="row3-document-item"
+             @mouseover="intoDocument(i,j)"
+             @mouseleave="leaveDocument()"
+             v-for="(itemDocument,j) in item1.document">
           <div class="document-title-time">
             <div class="document-title"
+                 :class="[currentDocumentI===i && currentDocumentJ===j ? 'document-title-hl' : 'document-title']"
+                 @click="toDocumentLink(itemDocument.id)"
             >{{itemDocument.title}}</div>
             <div class="document-time">{{itemDocument.addtime}}</div>
           </div>
           <div class="document-summary"
+               :class="[currentDocumentI===i && currentDocumentJ===j ? 'document-summary-hl' : 'document-summary']"
+               @click="toDocumentLink(itemDocument.id)"
           >
             {{itemDocument.summary}}
           </div>
-          <div class="document-link" v-if="item1.linkurl">
+          <div class="document-link"
+               :class="[currentDocumentI===i && currentDocumentJ===j ? 'document-link-hl' : 'document-link']"
+               @click="toDocumentLink(itemDocument.id)"
+               v-if="itemDocument.id">
             <img class="icon-more-document"  src="../../assets/img/Group40.png"/>
             查看详情
           </div>
@@ -77,6 +87,8 @@ export default {
 
   data() {
     return {
+      currentDocumentI:"",
+      currentDocumentJ:"",
       "unionLength":0,
       "currentImgIndex":[],
       "union": [],
@@ -93,6 +105,16 @@ export default {
     }
   },
   methods:{
+    intoDocument(i, j){
+      //console.log("进入div:i"+i+"j:"+j);
+      this.currentDocumentI = i;
+      this.currentDocumentJ = j;
+    },
+    leaveDocument(){
+      //console.log("进入div:i"+i+"j:"+j);
+      this.currentDocumentI = -1;
+      this.currentDocumentJ = -1;
+    },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -101,6 +123,9 @@ export default {
       this.union = data.data.union;
 
       this.initData();
+    },
+    toDocumentLink(dId){
+      this.$router.push(`/topNews/${dId}/newsDetail/${dId}`)
     },
     toMoreInfo(){
         window.location.href = this.moreInfoUrl;
@@ -517,6 +542,33 @@ html,body{
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
   color: #A0A0A0;
+  line-height: 21px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+.document-link-hl{
+  margin-top: 16px;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 27px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: red;
+  line-height: 21px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+}
+
+.document-link:hover{
+  margin-top: 16px;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 27px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: red;
   line-height: 21px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/

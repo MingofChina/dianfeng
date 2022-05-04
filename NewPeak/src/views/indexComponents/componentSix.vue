@@ -7,9 +7,9 @@
           <div class="six-top-nav-item"
                :class="[index===0 && flagOnce === true ? 'first-hl': '']"
                :id="'wrapper'+item.id"
-            v-for="(item, index) in branch_office"
-            :key="index"
-            @mouseenter="changeTab(item.id)">
+               v-for="(item, index) in branch_office"
+               :key="index"
+               @mouseenter="changeTab(item.id)">
             <div class="six-nav-item-name">
               <div :id="'icon'+item.id"
                    class="six-icon-left"
@@ -44,7 +44,7 @@
             <div class="email-tag">业务邮箱：</div>
             <div class="email-number"> {{ showData ? showData.company_email : '--' }} </div>
           </div>
-<!--          <img class="info-image" :src=getImgUrl(showData.original_image) />-->
+          <!--          <img class="info-image" :src=getImgUrl(showData.original_image) />-->
           <img class="info-image" :src=getImgUrl(showData.original_image)>
 
 
@@ -59,16 +59,16 @@
         <div class="form-info">
           <form @submit.prevent="submit($event)" class="form-iteam">
             <div class="company-iteam-wrapper">
-             <div class="company-iteam"></div>
-             <input class="form-company" placeholder="请输入您的企业名称" v-model="formData.company" />
+              <div class="company-iteam"></div>
+              <input class="form-company" placeholder="请输入您的企业名称" v-model="formData.company" />
             </div>
             <div class="person-iteam-wrapper">
-             <div class="person-iteam"></div>
-             <input class="form-user" placeholder="请输入您的姓名" v-model="formData.name" />
+              <div class="person-iteam"></div>
+              <input class="form-user" placeholder="请输入您的姓名" v-model="formData.name" />
             </div>
             <div class="cellphone-iteam-wrapper">
-             <div class="cellphone-iteam"></div>
-             <input class="form-phone" placeholder="请输入您的电话" v-model="formData.phone" />
+              <div class="cellphone-iteam"></div>
+              <input class="form-phone" placeholder="请输入您的电话" v-model="formData.phone" />
             </div>
             <input class="form-submit"
                    type="submit"
@@ -96,56 +96,7 @@ export default {
       },
       flagOnce:true,
       "currentData":{},
-      /*branch_office: [],*/
-      "branch_office": [
-        {
-          id: "1",
-          company_name: "北京",
-          company_address: "北京市 - 朝阳区三元桥左家庄1号国门大厦B座6F",
-          company_phone: "400-8130-588",
-          company_email: "contact@davost.com",
-          original_image:
-              "/uploads/20220419/7e09ad68fad1a89be9e1444441612ec4.png"
-        },
-        {
-          id: "2",
-          company_name: "上海",
-          company_address: "上海市－闵行区申虹路666弄正荣中心6号楼602",
-          company_phone: "400 8130 588",
-          company_email: "contact@davost.com",
-          original_image:
-              "/uploads/20220419/f27776028141841e72f9c936ede13b32.png"
-        },
-        {
-          id: "5",
-          company_name: "深圳",
-          company_address: "深圳市-福田区侨香路3085号 岭南大厦 9C-1",
-          company_phone: "400 8130 588",
-          company_email: "contact@davost.com",
-          original_image:
-              "/uploads/20220419/5b63fa43d322714ba8173157eafe755b.png"
-        },
-        {
-          id: "3",
-          company_name: "成都",
-          company_address:
-              "成都市 - 高新区府城大道505号仁和春天国际广场A座1610",
-          company_phone: "400 8130 588",
-          company_email: "contact@davost.com",
-          original_image:
-              "/uploads/20220419/466ef7022799d346ee67ae89b54ba699.png"
-        },
-        {
-          id: "4",
-          company_name: "西安",
-          company_address:
-              "陕西省西安市经济技术开发区凤城七路旭辉中心1幢1单元7层10704号",
-          company_phone: "400 8130 588",
-          company_email: "contact@davost.com",
-          original_image:
-              "/uploads/20220419/95e92812bdb565953b20bc34d50ab419.png"
-        }
-      ],
+      "branch_office": [],
       lastTabId: '',
       redIcon:  "url("+require("./../../assets/img/icong_weizhi@2x.png")+")",
       whiteIcon: "url("+require("./../../assets/img/icong_weizhi(1).png")+")",
@@ -167,13 +118,11 @@ export default {
     }
   },
   mounted() {
-    //this.getIndexSix();
-    this.lastTabId = this.branch_office[0].id;
-    console.log("mounted："+this.lastTabId);
-    this.changeTab(this.lastTabId);
+    this.getIndexSix();
 
   },
   created() {
+
   },
   computed: {
     showData() {
@@ -182,7 +131,6 @@ export default {
   },
   methods:{
     changeTab(id) {
-
       if (this.lastTabId === id) return;
       this.flagOnce = false;
       this.changeStyle(id);
@@ -207,10 +155,9 @@ export default {
     async getIndexSix() {
       let {data} = await firstone();
       this.branch_office = data.data.branch_office;
-
       this.changeTab(this.lastTabId);
-      /*this.changeStyle(this.lastTabId);
-      this.reverseStyle(this.lastTabId)*/
+      this.lastTabId = this.branch_office[0].id;
+      this.changeTab(this.lastTabId);
     },
 
     async sendMessage() {
@@ -282,8 +229,8 @@ body {
 }
 .first-hl{
   background: #f4f4f4;
- /* background-image: url("../../assets/img/icong_weizhi@2x.png");
-*/
+  /* background-image: url("../../assets/img/icong_weizhi@2x.png");
+ */
 }
 .first-icon-hl{
   float: left;
@@ -298,14 +245,17 @@ body {
 .first-title-hl{
   color: #C8000A;
 }
+.six-nav-item-name{
+  align-items: center;
+}
 .six-icon-left {
   float: left;
-  width: 23px;
+  width: 22px;
   height: 28.8px;
   /*background: url("./../../assets/img/icong_weizhi(1).png");*/
   background-blend-mode: lighten;
   background-size: contain;
-  margin-left: 100px;
+  margin-left: 85px;
   margin-top: 24px;
 }
 .six-little-wrapper {
@@ -321,7 +271,7 @@ body {
   margin-top: 22px;
 }
 .six-top-nav-item {
-  overflow: hidden;
+
   width: 287px;
   height: 76px;
   border-radius: 0px 0px 0px 0px;
@@ -331,9 +281,6 @@ body {
   font-weight: 400;
   color: #ffffff;
   /* background: rgba(0, 0, 0, 0.2); */
-}
-.six-top-nav-item:nth-child(-n + 4) {
-  /* border-right: 1px solid #FFFFFF; */
 }
 
 .six-item-info {
@@ -446,7 +393,7 @@ body {
   position: absolute;
   top: 10px;
   left: 39px;
-  width: 72px;
+  /*width: 72px;*/
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -469,7 +416,7 @@ body {
   position: absolute;
   top: 10px;
   left: 39px;
-  width: 72px;
+  /*width: 72px;*/
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;

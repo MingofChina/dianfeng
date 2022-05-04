@@ -33,10 +33,16 @@
       <div class="four-news-images">
 
 
-        <div class="four-news-image1"
+        <div class="no-back"
              v-on:mouseover="setBacK($event,0)"
              v-on:mouseleave="setBacK2($event,0)"
-             :style="{'background-image:':'url('+getImgUrl(currentNews[currentIndex].original_image)+')'}">
+             >
+             
+          <img class="four-news-img1"
+              :src=getImgUrl(currentNews[currentIndex].original_image)
+            v-show="currentImgIndex === 0"
+          />
+          <div v-if="currentFlag == 0"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <div class="four-news-day1"
                :class="[{'four-news-day1-hl':currentFlag === 0}]"
           >
@@ -74,6 +80,11 @@
              v-on:mouseover="setBacK($event,1)"
              v-on:mouseleave="setBacK2($event,1)"
         >
+          <img class="four-news-img2"
+               :src=getImgUrl(currentNews[currentIndex+1].original_image)
+               v-show="currentImgIndex === 1"
+          />
+           <div v-if="currentFlag == 1"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <div class="four-news-day2"
             :class="[{'four-news-day2-hl':currentFlag === 1}]"
           >
@@ -108,13 +119,15 @@
 
 
 
-
-
-
-        <div class="four-news-image3"
+        <div class="no-back"
              v-on:mouseover="setBacK($event,2)"
              v-on:mouseleave="setBacK2($event,2)"
         >
+          <img class="four-news-img3"
+               :src=getImgUrl(currentNews[currentIndex+2].original_image)
+               v-show="currentImgIndex === 2"
+          />
+           <div v-if="currentFlag == 2"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <div class="four-news-day3"
                :class="[{'four-news-day3-hl':currentFlag === 2}]"
           >
@@ -182,12 +195,13 @@ export default {
     return {
       "currentBId":0,
       "currentIndex":0,
+      "currentImgIndex": -1,
       "currentNews":[],
       "currentLength":0,
       "news":[],
       "flag" : false,
       currentFlag: -1,
-      baseUrl:'http://ceshi.davost.com',
+      baseUrl:'http://ceshi.davost.com/',
     };
   },
   watch:{
@@ -202,12 +216,17 @@ export default {
     setBacK($event,flag){
       if(flag === 0){
         $event.currentTarget.className = "four-news-image1";
+        /*$event.currentTarget.style.background = ""+this.baseUrl + this.news[1].original_image;
+        */
+        this.currentImgIndex = 0;
       }
       else if(flag === 1){
         $event.currentTarget.className = "four-news-image2";
+        this.currentImgIndex = 1;
       }
       else if(flag === 2){
         $event.currentTarget.className = "four-news-image3";
+        this.currentImgIndex = 2;
       }
 
       this.currentFlag = flag;
@@ -215,6 +234,7 @@ export default {
     setBacK2($event,flag){
       $event.currentTarget.className = "no-back";
       this.currentFlag = -1;
+      this.currentImgIndex = -1;
     },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
@@ -464,26 +484,41 @@ html,body{
   position:relative;
   width: 640px;
   height: 444px;
-  background: url("../../assets/img/111.png");
+  /*background: url("../../assets/img/111.png");*/
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+}
+.four-news-img1{
+  width: 640px;
+  height: 444px;
+  background-size: 100% 100%;
 }
 .four-news-image2{
   position:relative;
   width: 640px;
   height: 444px;
-  background: url("../../assets/img/222.png");
+  /*background: url("../../assets/img/222.png");*/
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  background-size: 100% 100%;
+}
+.four-news-img2{
+  width: 640px;
+  height: 444px;
   background-size: 100% 100%;
 }
 .four-news-image3{
   position:relative;
   width: 640px;
   height: 444px;
-  background: url("../../assets/img/333.jpeg");
+  /*background: url("../../assets/img/333.jpeg");*/
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+}
+.four-news-img3{
+  width: 640px;
+  height: 444px;
+  background-size: 100% 100%;
 }
 .four-news-day1{
   position: absolute;

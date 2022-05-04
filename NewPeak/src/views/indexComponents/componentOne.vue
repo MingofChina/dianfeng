@@ -1,6 +1,7 @@
 <template>
   <div id="componentOne">
     <div id="topPart" class="top-part">
+      <img class="top-part-img" :src="currentDisplay" />
       <div class="title">
         <div class="title-content">
           <span class="title-item-one">巅峰智业</span>
@@ -19,6 +20,7 @@
         <img class="display-area" :src="currentDisplay" />
       </div>
     </div>
+
     <div class="bottom-part">
       <div class="first-part">中国文旅产业和乡村振兴领先的全程服务商</div>
       <div class="second-part">
@@ -52,10 +54,8 @@
 </template>
 
 <script>
-import { getBanner } from "./service/index.service";
 
 import { banner } from "@/api/api";
-import {firstone} from "../../api/api";
 
 export default {
   name: "",
@@ -64,16 +64,14 @@ export default {
     return {
       currentDisplay: '',
       currentIndex: 0,
+      bannerList:[],
       displayPictureList: [
-        {
-          url: require("../../assets/img/banner.png"),
-          staticUrl: "url("+require("../../assets/img/banner.png")+")"
-        }
       ],
       baseUrl: 'http://ceshi.davost.com'
     };
   },
   computed: {
+
     currentPage() {
       let currentPageTmp = this.currentIndex + 1;
       if (currentPageTmp < 10) {
@@ -90,20 +88,26 @@ export default {
     }
   },
   created() {
-    this.initBanner;
+
   },
   mounted() {
+    this.getBanner();
     document.getElementById("topPart").style.backgroundImage = this.displayPictureList[0].staticUrl;
-    this.currentDisplay = require("../../assets/img/banner.png");
-    
+    this.currentDisplay = this.baseUrl + this.bannerList[0].original_image;
+
   },
   methods: {
-    initBanner() {
-      getBanner()
-        .then(result => {
-          // this.displayPictureList=result
-        })
-        .catch();
+    async getBanner() {
+      let {data} = await banner();
+      this.bannerList = data.data;
+      for(let i =0;i<this.bannerList.length;++i){
+        var temp = {
+              url: this.baseUrl + this.bannerList[i].original_image,
+              staticUrl: this.baseUrl + this.bannerList[i].original_image
+            }
+        this.displayPictureList.push(temp);
+      }
+      this.changePicture(true);
     },
     // 翻页动作 action为true往后翻，否则往前翻
     changePicture(action) {
@@ -117,7 +121,7 @@ export default {
           this.currentIndex - 1 === -1
             ? this.displayPictureList.length - 1
             : this.currentIndex - 1;
-        
+
       }
       this.currentDisplay = this.displayPictureList[this.currentIndex].url;
       document.getElementById("topPart").style.backgroundImage = this.displayPictureList[this.currentIndex].staticUrl;
@@ -128,15 +132,20 @@ export default {
 
 <style scoped>
 .top-part {
-  width: 101%;
-  background-image: url("../../assets/img/banner.png");
+  width: 100%;
+  /*background-image: url("../../assets/img/banner.png");*/
   background-size: 100% 100%;
   height: 969px;
   /* display: flex; */
   justify-content: center;
   align-items: center;
-  position: relative;
-  left: -5px;
+  overflow: hidden;
+}
+.top-part-img{
+  background-size: 100% 100%;
+  height: 969px;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 .title {
