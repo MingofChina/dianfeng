@@ -46,16 +46,15 @@
         <div class="row3-document-item" v-for="(itemDocument,j) in item1.document">
           <div class="document-title-time">
             <div class="document-title"
-                 :class="{'document-title-hl': i===0 }"
             >{{itemDocument.title}}</div>
             <div class="document-time">{{itemDocument.addtime}}</div>
           </div>
           <div class="document-summary"
-               :class="{'document-summary-hl': i===0 }"
           >
             {{itemDocument.summary}}
           </div>
           <div class="document-link" v-if="item1.linkurl">
+            <img class="icon-more-document"  src="../../assets/img/Group40.png"/>
             查看详情
           </div>
         </div>
@@ -257,7 +256,11 @@ html,body{
   /* -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;*/
 }
-
+.icon-more-document{
+  width: 8px;
+  height: 8px;
+  background-size: 100% 100%;
+}
 .union-background-list{
   padding-left: 245px;
   padding-top: 70px;
@@ -508,7 +511,7 @@ html,body{
 .document-link{
   margin-top: 16px;
   margin-bottom: 20px;
-  width: 72px;
+  width: 100px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;

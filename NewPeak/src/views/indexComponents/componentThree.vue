@@ -6,9 +6,9 @@
         <button class="next-button" @click="changePicture(true)"></button>
       </div>
 
-      <div v-if="this.eachProduct.length>1" class="rotation-items">
+      <div v-if="firstRotation"
+           class="rotation-items">
         <div class="rotation-item"
-             v-show="eachProduct.length>1"
              @mouseenter="moveOnTab('first')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -32,9 +32,8 @@
         </div>
 
 
-        <div v-if="this.eachProduct.length>2"
+        <div v-if="secondRotation"
             class="rotation-item"
-             :v-show="eachProduct.length>2"
              @mouseenter="moveOnTab('second')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -55,9 +54,10 @@
             </div>
           </div>
         </div>
-        <div v-if="this.eachProduct.length>3"
+
+
+        <div v-if="thirdRotation"
             class="rotation-item"
-             :v-show="eachProduct.length>3"
              @mouseenter="moveOnTab('third')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -78,10 +78,10 @@
             </div>
           </div>
         </div>
-        <div
-            v-if="this.eachProduct.length>4"
+
+
+        <div v-if="forthRotation"
             class="rotation-item"
-             :v-show="eachProduct.length>4"
              @mouseenter="moveOnTab('forth')"
              @mouseleave="moveAwayTab()">
           <img class="component-three-picture"
@@ -107,10 +107,10 @@
 
 
 
-
-
-
       <div v-else class="rotation-items"></div>
+
+
+
     </div>
 
     <div class="bottom-area">
@@ -133,12 +133,18 @@
               :class="[activeTableId === item.id ? 'active-tab' : '']"
               v-for="(item ,i) in product_cate"
               :key="item.id"
-              @click="activeTableId = item.id"
+              @click="changeTitle(item.id)"
           >{{item.name}}</div>
         </div>
         <div class="component-three-split"></div>
       </div>
     </div>
+
+
+
+
+
+
     <div class="three-background2">
 
     </div>
@@ -208,24 +214,29 @@ export default {
   },
   mounted() {},
   methods: {
+    changeTitle(id){
+      this.activeTableId = id;
+      this.getData();
+      this.eachProduct  = this.product?.filter(item => item.business_ids === this.activeTableId) || [];
+    },
     async getData() {
       const { data } = await firstone();
       const queryData = data?.data;
       this.product = queryData?.product || [];
     },
     toPeakCases(id){
-      this.$router.push(`/peakCases/${id}`);
+      this.$router.push(`/peakCasesDetail/${id}`);
     },
     changePicture(action) {
       if (action) {
         this.currentIndex =
-            this.currentIndex + 1 === this.product.length
+            this.currentIndex + 1 === this.eachProduct.length
                 ? 0
                 : this.currentIndex + 1;
       } else {
         this.currentIndex =
             this.currentIndex - 1 === -1
-                ? this.product.length - 1
+                ? this.eachProduct.length - 1
                 : this.currentIndex - 1;
       }
     },
@@ -233,8 +244,8 @@ export default {
     // 偏移量转换
     tranferIndex(num) {
       let index =
-          this.currentIndex + num >= this.product.length
-              ? this.currentIndex + num - this.product.length
+          this.currentIndex + num >= this.eachProduct.length
+              ? this.currentIndex + num - this.eachProduct.length
               : this.currentIndex + num;
       return index;
     },

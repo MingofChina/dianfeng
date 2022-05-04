@@ -16,7 +16,7 @@
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                 <li />
                 <div class="list-info" @click="routerPage(routerTo, item)">
-                  {{ item }}
+                  {{ item.title }}
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                 <li />
                 <div class="list-info" @click="routerPage(routerTo, item)">
-                  {{ item }}
+                  {{ item.title }}
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@
                 <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                   <li />
                   <div class="list-info" @click="routerPage(routerTo, item)">
-                    {{ item }}
+                    {{ item.title }}
                   </div>
                 </div>
               </div>
@@ -91,7 +91,7 @@
                 <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                   <li />
                   <div class="list-info" @click="routerPage(routerTo, item)">
-                    {{ item }}
+                    {{ item.title }}
                   </div>
                 </div>
               </div>
@@ -119,7 +119,7 @@
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                 <li />
                 <div class="list-info" @click="routerPage(routerTo, item)">
-                  {{ item }}
+                  {{ item.title }}
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                 <li />
                 <div class="list-info" @click="routerPage(routerTo, item)">
-                  {{ item }}
+                  {{ item.title }}
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@
               <div :class="[index % 2 === 0 ? 'list1' : 'list2']">
                 <li />
                 <div class="list-info" @click="routerPage(routerTo, item)">
-                  {{ item }}
+                  {{ item.title }}
                 </div>
               </div>
             </div>
@@ -218,12 +218,15 @@ export default {
       for (let i = 0; i < 7; ++i) {
         temp = [];
         for (let j = 0; j < this.column_introduce[i].childcontent.length; ++j) {
-          temp.push(this.column_introduce[i].childcontent[j].title);
+          /*temp.push(this.column_introduce[i].childcontent[j].title);*/
+          temp.push(this.column_introduce[i].childcontent[j]);
         }
         this.childcontentTitle.push(temp);
       }
     },
-    routerPage(path, id) {
+    routerPage(path, item) {
+      console.log("path是"+path+"id是"+item);
+      let id = item.id;
       this.$router.push(`/${path}/${id}`);
     },
   },
@@ -365,6 +368,9 @@ export default {
   margin-left: 8px;
   margin-bottom: 8px;
 }
+.list-info:hover{
+  color: red;
+}
 .message-list .list1 {
   clear: both;
   float: left;
@@ -374,8 +380,7 @@ export default {
   font-size: 16px !important;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
-  /*color: #ffffff;*/
-  color: red;
+  color: #ffffff;
   line-height: 19px !important;
 }
 .message-list .list2 {
@@ -386,8 +391,7 @@ export default {
   font-size: 16px !important;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
   font-weight: 400;
-  /*color: #ffffff;*/
-  color: red;
+  color: #ffffff;
   line-height: 19px !important;
 }
 .grid1:hover .info1 {

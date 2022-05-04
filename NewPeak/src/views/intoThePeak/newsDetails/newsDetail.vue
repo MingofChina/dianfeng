@@ -130,6 +130,7 @@ export default {
   width: 1920px;
   height: 100%;
   background: #F4F4F4;
+  overflow-y: auto;
 }
 .marker {
   width: 4px;

@@ -89,6 +89,7 @@
           <div class="news-info">
             <div class="create-time">{{ info.addtime }}</div>
             <div class="news-title"
+                 @click="toDetial(info.id)"
                  :class="[{ highlight: index === moveOnIndex }]">
               {{ info.title }}
             </div>

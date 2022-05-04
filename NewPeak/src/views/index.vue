@@ -106,7 +106,7 @@ export default {
   width: 142px;
   height: 142px;
   background-size: 100% 100%;
-  z-index: 100;
+  z-index: 10000;
 }
 .code-bk{
   position: fixed;
@@ -116,7 +116,7 @@ export default {
   width: 340px;
   height: 530px;
   background-size: 100% 100%;
-  z-index: 90;
+  z-index: 9000;
 }
 .shut-down{
   position: fixed;
@@ -126,7 +126,7 @@ export default {
   width: 32px;
   height: 32px;
   background-size: 100% 100%;
-  z-index: 100;
+  z-index: 10000;
 }
 .index-phone{
   position: fixed;
@@ -136,7 +136,7 @@ export default {
   width: 24px;
   height: 24px;
   background-size: 100% 100%;
-  z-index: 100;
+  z-index: 10000;
 }
 .phone-text{
   position: fixed;
@@ -148,14 +148,14 @@ export default {
   font-weight: 400;
   color: #6E6E6E;
   line-height: 28px;
-  z-index: 100;
+  z-index: 10000;
 /*  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
 .phone-number1{
   position: fixed;
   top: 600px;
-  right: 111px;
+  right: 114px;
   /*width: 103px;*/
   height: 28px;
   font-size: 26px;
@@ -163,14 +163,14 @@ export default {
   font-weight: 500;
   color: #231914;
   line-height: 28px;
-  z-index: 100;
+  z-index: 10000;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
 .phone-number2{
   position: fixed;
   top: 650px;
-  right: 115px;
+  right: 119px;
   /*width: 111px;*/
   height: 28px;
   font-size: 26px;
@@ -178,7 +178,7 @@ export default {
   font-weight: 500;
   color: #231914;
   line-height: 28px;
-  z-index: 100;
+  z-index: 10000;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }

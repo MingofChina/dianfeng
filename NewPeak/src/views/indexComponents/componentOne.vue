@@ -53,6 +53,10 @@
 
 <script>
 import { getBanner } from "./service/index.service";
+
+import { banner } from "@/api/api";
+import {firstone} from "../../api/api";
+
 export default {
   name: "",
   props: ['company_information'],
@@ -64,20 +68,9 @@ export default {
         {
           url: require("../../assets/img/banner.png"),
           staticUrl: "url("+require("../../assets/img/banner.png")+")"
-        },
-        {
-          url: require("../../assets/img/guangyingyeyou.png"),
-          staticUrl: "url("+require("../../assets/img/guangyingyeyou.png")+")"
-        },
-        {
-          url: require("../../assets/img/guihuasheji.png"),
-          staticUrl: "url("+require("../../assets/img/guihuasheji.png")+")"
-        },
-        {
-          url: require("../../assets/img/wenchuangshej.png"),
-          staticUrl: "url("+require("../../assets/img/wenchuangshej.png")+")"
         }
-      ]
+      ],
+      baseUrl: 'http://ceshi.davost.com'
     };
   },
   computed: {
@@ -102,6 +95,7 @@ export default {
   mounted() {
     document.getElementById("topPart").style.backgroundImage = this.displayPictureList[0].staticUrl;
     this.currentDisplay = require("../../assets/img/banner.png");
+    
   },
   methods: {
     initBanner() {
@@ -134,14 +128,16 @@ export default {
 
 <style scoped>
 .top-part {
+  width: 101%;
   background-image: url("../../assets/img/banner.png");
   background-size: 100% 100%;
-  width: 100%;
   height: 969px;
   /* display: flex; */
   justify-content: center;
   align-items: center;
   position: relative;
+  left: -5px;
+  overflow: hidden;
 }
 .title {
   position: absolute;

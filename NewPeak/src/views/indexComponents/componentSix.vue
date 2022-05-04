@@ -3,18 +3,31 @@
     <div class="six-background">
       <div class="six-top">
         <div class="six-top-nav">
-          <div class="six-top-nav-item" :id="'wrapper'+item.id"
+
+          <div class="six-top-nav-item"
+               :class="[index===0 && flagOnce === true ? 'first-hl': '']"
+               :id="'wrapper'+item.id"
             v-for="(item, index) in branch_office"
             :key="index"
             @mouseenter="changeTab(item.id)">
             <div class="six-nav-item-name">
-              <div :id="'icon'+item.id" class="six-icon-left"></div>
-              <div :id="'text'+item.id" class="six-little-wrapper">
+              <div :id="'icon'+item.id"
+                   class="six-icon-left"
+                   :class="[index===0 && flagOnce === true ? 'first-icon-hl': '']"
+              >
+
+              </div>
+              <div :id="'text'+item.id"
+                   class="six-little-wrapper"
+                   :class="[index===0 && flagOnce === true ? 'first-title-hl': '']"
+              >
                 {{item.company_name}}
               </div>
               <div class="six-nsv-depart"></div>
             </div>
           </div>
+
+
         </div>
 
 
@@ -55,7 +68,7 @@
             </div>
             <div class="cellphone-iteam-wrapper">
              <div class="cellphone-iteam"></div>
-             <input class="form-phone" placeholder="请输入您电话" v-model="formData.phone" />
+             <input class="form-phone" placeholder="请输入您的电话" v-model="formData.phone" />
             </div>
             <input class="form-submit"
                    type="submit"
@@ -81,6 +94,7 @@ export default {
         name: "",
         phone: ""
       },
+      flagOnce:true,
       "currentData":{},
       /*branch_office: [],*/
       "branch_office": [
@@ -170,19 +184,12 @@ export default {
     changeTab(id) {
 
       if (this.lastTabId === id) return;
+      this.flagOnce = false;
       this.changeStyle(id);
       if(id !== this.lastTabId) {
         this.reverseStyle(this.lastTabId);
       }
       this.lastTabId = id;
-      //console.log("id为"+this.lastTabId);
-      /*let temp = {}
-      for(let i = 0;i<this.branch_office.length;++i){
-        if(this.lastTabId === this.branch_office[i].id){
-          temp = {}
-        }
-      }
-      this.currentData = temp;*/
     },
     changeStyle(id) {
       document.getElementById('wrapper'+id).style.background = this.activeBackgroundColor;
@@ -273,11 +280,29 @@ body {
   text-align: center;
   line-height: 76px;
 }
+.first-hl{
+  background: #f4f4f4;
+ /* background-image: url("../../assets/img/icong_weizhi@2x.png");
+*/
+}
+.first-icon-hl{
+  float: left;
+  width: 23px;
+  height: 28.8px;
+  background: url("./../../assets/img/icong_weizhi@2x.png");
+  background-blend-mode: lighten;
+  background-size: contain;
+  margin-left: 100px;
+  margin-top: 24px;
+}
+.first-title-hl{
+  color: #C8000A;
+}
 .six-icon-left {
   float: left;
   width: 23px;
   height: 28.8px;
-  background: url("./../../assets/img/icong_weizhi(1).png");
+  /*background: url("./../../assets/img/icong_weizhi(1).png");*/
   background-blend-mode: lighten;
   background-size: contain;
   margin-left: 100px;

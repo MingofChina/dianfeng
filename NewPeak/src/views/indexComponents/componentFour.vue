@@ -891,7 +891,7 @@ html,body{
   position: absolute;
   top: 362px;
   left: 109px;
-  width: 90px;
+  width: 100px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -905,7 +905,7 @@ html,body{
   position: absolute;
   top: 362px;
   left: 109px;
-  width: 72px;
+  width: 100px;
   height: 27px;
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;

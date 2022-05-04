@@ -8,13 +8,15 @@
          src="../../assets/story-detail/Group 397@2x.png"
          v-on:click="toPeakTeam(11)"/>
     <img class="detail-divider" src="../../assets/mien/Rectangle 381@2x.png">
-    <div class="detail-brief-title">个人简介</div>
-    <div class="detail-summary" v-html="team_detail.summary"></div>
-    <div class="detail-awards-title">获奖经历</div>
-    <div class="detail-awards-list" v-html="team_detail.awards"></div>
-    <div class="detail-projects-title">项目经验</div>
-    <div class="detail-projects-title-little">参与项目</div>
-    <div class="detail-projects-list" v-html="team_detail.projects"></div>
+    <div class="info-wrapper">
+      <div class="detail-brief-title">个人简介</div>
+      <div class="detail-summary" v-html="team_detail.summary"></div>
+      <div class="detail-awards-title">获奖经历</div>
+      <div class="detail-awards-list" v-html="team_detail.awards"></div>
+      <div class="detail-projects-title">项目经验</div>
+      <div class="detail-projects-title-little">参与项目</div>
+      <div class="detail-projects-list" v-html="team_detail.projects"></div>
+    </div>
   </div>
 </template>
 
@@ -65,11 +67,11 @@ html,body{
   padding: 0;
 }
 .team-detail-background{
-  width: 1920px;
   height: 2000px;
+  width: 100%;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 .detail-img{
   position: absolute;
@@ -131,12 +133,20 @@ html,body{
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
 }
-.detail-brief-title{
+.info-wrapper{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
   position: absolute;
   top: 345px;
   left: 741px;
+  overflow-y: auto;
+  height: 1500px;
+}
+.detail-brief-title{
+  /*position: relative;*/
   width: 80px;
-  height: 37px;
+  /*height: 37px;*/
   font-size: 20px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
@@ -146,11 +156,10 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .detail-summary{
-  position: absolute;
+  /*position: absolute;
   top: 394px;
-  left: 741px;
+  left: 741px;*/
   width: 940px;
-
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
@@ -160,24 +169,25 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .detail-awards-title{
-  position: absolute;
+  /*position: absolute;
   top: 699px;
-  left: 741px;
+  left: 741px;*/
   width: 80px;
-  height: 37px;
+  /*height: 37px;*/
   font-size: 20px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #231914;
   line-height: 37px;
+  margin-top: 10px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
 .detail-awards-list{
-  position: absolute;
+  /*position: absolute;
   top: 758px;
-  left: 741px;
-  height: 32px;
+  left: 741px;*/
+  /*height: 32px;*/
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
@@ -187,9 +197,10 @@ html,body{
   -webkit-text-fill-color: transparent;*/
   float: left;
   display: block;
+  margin-bottom: 10px;
 }
 .detail-awards-list li{
-  height: 32px;
+  /*height: 32px;*/
   font-size: 18px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
@@ -201,25 +212,26 @@ html,body{
 
 }
 .detail-projects-title{
-  position: absolute;
+  /*position: absolute;
   top: 896px;
-  left: 741px;
+  left: 741px;*/
   width: 80px;
-  height: 37px;
+  /*height: 37px;*/
   font-size: 20px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
   color: #231914;
   line-height: 37px;
+  margin-bottom: 10px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
 .detail-projects-title-little{
-  position: absolute;
+  /*position: absolute;
   top: 953px;
-  left: 741px;
+  left: 741px;*/
   width: 72px;
-  height: 24px;
+  /*height: 24px;*/
   font-size: 18px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
   font-weight: 500;
@@ -229,9 +241,9 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .detail-projects-list{
-  position: absolute;
+  /*position: absolute;
   top: 989px;
-  left: 744px;
+  left: 744px;*/
   width: 900px;
   font-size: 16px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -240,5 +252,6 @@ html,body{
   line-height: 32px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+
 }
 </style>

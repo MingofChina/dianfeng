@@ -120,9 +120,7 @@
         {{ currentDate.title}}
       </div>
       <div class="introduce4-img-wrapper">
-        <div class="introduce4-img">
-          <img :src=getImgUrl(currentDate.original_image) />
-        </div>
+          <img class="introduce4-img"  :src=getImgUrl(currentDate.original_image) />
       </div>
 
 
@@ -1043,13 +1041,15 @@ a {
   line-height: 23px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+  /*margin-bottom: 50px;*/
 }
 .introduce4-img-wrapper{
-  object-fit: fill;
+  /*object-fit: fill;*/
+  /*margin-top: 50px;*/
 }
 .introduce4-img{
   position: absolute;
-  top: 270px;
+  top: 295px;
   left: 810px;
   background: #808080;
   width: 608px;
