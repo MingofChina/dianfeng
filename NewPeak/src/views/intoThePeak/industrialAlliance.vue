@@ -33,8 +33,7 @@
       ></div>
 
       <img class="row3-image"
-           :src=getImgUrl(itemImg.original_image)
-            v-for="(itemImg,j) in item1.original_image"
+           :src=getImgUrl(item1.original_image[currentImgIndex[i]].original_image)
       />
 
       <div class="row3-to-right"
@@ -64,8 +63,8 @@
                :class="[currentDocumentI===i && currentDocumentJ===j ? 'document-link-hl' : 'document-link']"
                @click="toDocumentLink(itemDocument.id)"
                v-if="itemDocument.id">
-            <img class="icon-more-document"  src="../../assets/img/Group40.png"/>
-            查看详情
+            <div class="icon-more-document">
+            </div>
           </div>
         </div>
       </div>
@@ -133,12 +132,14 @@ export default {
     toLeft(i){
       let number = this.currentImgIndex[i];
       if(number === 0){
-        number = this.union[i].original_image.length;
+        number = this.union[i].original_image.length-1;
       }
       else{
         number = number - 1;
       }
       this.currentImgIndex[i] = number;
+      console.log("left:"+this.currentImgIndex[i]);
+      this.$forceUpdate();
     },
     toRight(i){
       let number = this.currentImgIndex[i];
@@ -149,6 +150,8 @@ export default {
         number = number + 1;
       }
       this.currentImgIndex[i] = number;
+      console.log("right:"+this.currentImgIndex[i]);
+      this.$forceUpdate();
     },
     initData() {
       this.unionLength = this.union.length;
@@ -282,8 +285,15 @@ html,body{
    -webkit-text-fill-color: transparent;*/
 }
 .icon-more-document{
-  width: 8px;
-  height: 8px;
+  width: 88px;
+  height: 27px;
+  background: url("../../assets/images/Group 108.png");
+  background-size: 100% 100%;
+}
+.icon-more-document:hover{
+  width: 88px;
+  height: 27px;
+  background: url("../../assets/images/Group 107.png");
   background-size: 100% 100%;
 }
 .union-background-list{

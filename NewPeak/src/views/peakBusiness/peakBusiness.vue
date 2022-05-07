@@ -145,9 +145,17 @@ export default {
   methods: {
     detailFn(number,data){
         if(number == 1){
-            this.$router.push(`/peakCasesDetail/${data.id}`)
+            // this.$router.push(`/peakCasesDetail/${data.id}`)
+            let routeUrl = this.$router.resolve({
+                path: `/peakCasesDetail/${data.id}`
+            });
+            window.open(routeUrl.href, '_blank');
         }else{
-            this.$router.push(`/topNews/${data.id}/newsDetail/${data.id}`)
+            // this.$router.push(`/topNews/${data.id}/newsDetail/${data.id}`)
+            let routeUrl = this.$router.resolve({
+                path: `/topNews/${data.id}/newsDetail/${data.id}`
+            });
+            window.open(routeUrl.href, '_blank');
         }
     },
     linkFn2(data,index){
@@ -161,7 +169,11 @@ export default {
         this.isActiy1 = null
     },
     homeFn(){
-      this.$router.push("/index") ;
+    //   this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+        path: `/index`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     async Businessfn() {
       let { data } = await Business({id:this.$route.params.id});

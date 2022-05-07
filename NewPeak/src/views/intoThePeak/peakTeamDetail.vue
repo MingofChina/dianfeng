@@ -6,18 +6,25 @@
 
     <div class="detail-name">{{team_detail.name}}</div>
     <div class="detail-title">{{team_detail.title}}</div>
-    <img class="detail-back"
-         src="../../assets/story-detail/Group 397@2x.png"
-         v-on:click="toPeakTeam(11)"/>
+    <div class="detail-back"
+         src="../../assets/story-detail/Group 397.png"
+         v-on:click="toPeakTeam(11)">
+    </div>
     <img class="detail-divider" src="../../assets/mien/Rectangle 381@2x.png">
 
       <div class="detail-brief-title">个人简介</div>
       <div class="detail-summary" v-html="team_detail.summary"></div>
       <div class="detail-awards-title">获奖经历</div>
       <div class="detail-awards-list" v-html="team_detail.awards"></div>
-      <div class="detail-projects-title">项目经验</div>
-      <div class="detail-projects-title-little">参与项目</div>
-      <div class="detail-projects-list" v-html="team_detail.projects"></div>
+      <div class="detail-projects-title"
+        v-if="team_detail.projects"
+      >项目经验</div>
+      <div class="detail-projects-list"
+           v-if="team_detail.projects"
+           v-html="team_detail.projects"></div>
+    <div class="detail-projects-none"
+         v-else></div>
+
 
   </div>
 </template>
@@ -42,7 +49,9 @@ export default {
   methods: {
     async getTeamDetail() {
       let {data} = await teamdetail({id: this.$route.params.id});
-      this.team_detail = data.data.team_detail
+      this.team_detail = data.data.team_detail;
+      //alert(JSON.stringify(this.team_detail))
+      console.log(JSON.stringify(this.team_detail));
     },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
@@ -121,8 +130,10 @@ export default {
   position: relative;
   top: -79px;
   left: 915px;
+  background-image: url("../../assets/story-detail/Group 397.png");
   width: 64px;
   height: 37px;
+  background-size: 100% 100%;
   font-size: 20px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
   font-weight: 400;
@@ -131,6 +142,20 @@ export default {
 /*  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 
+}
+.detail-back:hover{
+  position: relative;
+  top: -79px;
+  left: 915px;
+  background-image: url("../../assets/images/back2.png");
+  width: 64px;
+  height: 37px;
+  background-size: 100% 100%;
+  font-size: 20px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #3C3C3C;
+  line-height: 37px;
 }
 .detail-divider{
   /*position: absolute;
@@ -237,20 +262,7 @@ export default {
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
 }
-.detail-projects-title-little{
-  /*position: absolute;
-  top: 953px;
-  left: 741px;*/
-  width: 72px;
-  /*height: 24px;*/
-  font-size: 18px;
-  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-  font-weight: 500;
-  color: #3C3C3C;
-  line-height: 24px;
- /* -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;*/
-}
+
 .detail-projects-list{
   /*position: absolute;
   top: 989px;
@@ -263,6 +275,20 @@ export default {
   line-height: 32px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
-
+  margin-bottom: 100px;
+}
+.detail-projects-none{
+  /*position: absolute;
+  top: 989px;
+  left: 744px;*/
+  width: 900px;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+  font-weight: 400;
+  color: #3C3C3C;
+  line-height: 32px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  margin-bottom: 200px;
 }
 </style>

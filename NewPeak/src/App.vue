@@ -33,6 +33,6 @@ body{
 
 .el-pagination.is-background .el-pager li:not(.disabled).active{
   color: #ffffff !important;
-  background: red !important;
+  background: #C8000A !important;
 }
 </style>

@@ -119,7 +119,6 @@ export default {
   },
   mounted() {
     this.getIndexSix();
-
   },
   created() {
 
@@ -134,9 +133,9 @@ export default {
       if (this.lastTabId === id) return;
       this.flagOnce = false;
       this.changeStyle(id);
-      if(id !== this.lastTabId) {
-        this.reverseStyle(this.lastTabId);
-      }
+
+      this.reverseStyle(this.lastTabId);
+
       this.lastTabId = id;
     },
     changeStyle(id) {

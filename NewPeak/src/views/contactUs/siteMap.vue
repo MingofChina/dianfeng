@@ -67,6 +67,7 @@ export default {
       })
       banner({id:2}).then((res)=>{
             this.imgUrl = this.baseUrl+res.data.data[0].original_image
+            document.title = '网站地图'
        });
       
     },

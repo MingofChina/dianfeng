@@ -20,15 +20,16 @@
       <div class="partner-main-titletrans">CLIENT LIST</div>
       <div class="partner-main-info-nav">
         <div
-          :class="[item.title==='政府机构' || item.title==='知名景区' ? 'partner-nav-middle-item-hl':'partner-nav-middle-item']"
-          v-for="(item) in customer_list"
+          :class="[item.id===currentTitleId? 'partner-nav-middle-item-hl':'partner-nav-middle-item']"
+          v-for="(item,index) in customer_list"
           :key="item.id"
+          @click="changeTitleId(index,item.id)"
         >{{ item.title }}</div>
       </div>
       <div class="partner-display-part">
         <img
           class="partner-display-client"
-          v-for="(item, index) in customer_list[0].child"
+          v-for="(item, index) in customer_list[currentTitleIndex].child"
           :key="index"
           :src=getImgUrl(item.original_image)
           @click="toLinkFun(item.linkurl)"
@@ -58,6 +59,8 @@ export default {
     return {
       showClient: true,
       showPartner: true,
+      currentTitleIndex:0,
+      currentTitleId: 0,
       customer_list: [],
       cooperative_partner: [],
       baseUrl:'http://ceshi.davost.com',
@@ -76,6 +79,10 @@ export default {
     this.getCooper();
   },
   methods: {
+    changeTitleId(titleIndex,titleId){
+      this.currentTitleId = titleId;
+      this.currentTitleIndex = titleIndex;
+    },
     toLinkFun(toUrl){
       location.href = toUrl;
     },
@@ -86,6 +93,7 @@ export default {
       let { data } = await cooperation();
       this.customer_list = data.data.customer_list;
       this.cooperative_partner = data.data.cooperative_partner;
+      this.currentTitleId = this.customer_list[0].id;
     },
   }
 };
@@ -257,14 +265,38 @@ export default {
   width: 178px;
   height: 130px;
   margin-right: 34px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
   box-sizing: border-box;
+  background-size: 100% 100%;
+}
+.partner-display-client:hover{
+  position: relative;
+  left: -15px;
+  top: -11px;
+  width: 208px;
+  height: 152px;
+  margin-right: 4px;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  box-shadow: 4px 3px #B6CFF5;
 }
 .partner-display-partner {
   width: 178px;
   height: 82px;
   margin-right: 34px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
   box-sizing: border-box;
+  background-size: 100% 100%;
+}
+.partner-display-partner:hover {
+  position: relative;
+  left: -15px;
+  top: -10px;
+  width: 208px;
+  height: 102px;
+  margin-right: 4px;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  box-shadow: 4px 3px #B6CFF5;
 }
 </style>

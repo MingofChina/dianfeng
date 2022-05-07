@@ -86,10 +86,17 @@ export default {
     },
     
     homeFn(){
-      this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+            path: `/index`
+          });
+        window.open(routeUrl.href, '_blank');
     },
     detailFn(data){
-        this.$router.push(`/professWorksDetail/${data.id}`);
+        // this.$router.push(`/professWorksDetail/${data.id}`);
+        let routeUrl = this.$router.resolve({
+            path: `/professWorksDetail/${data.id}`
+          });
+        window.open(routeUrl.href, '_blank');
     }
   },
 };
@@ -101,7 +108,7 @@ export default {
     text-align: center;
 }
 .active{
-    color: red !important;
+    color: #C8000A !important;
 }
 .lega-cont-div{
     display: flex;
@@ -221,7 +228,7 @@ export default {
 .content-div1-title{
     font-size: 1.5rem;
     font-weight: 500;
-    border-left: 4px solid red;
+    border-left: 4px solid #C8000A;
     padding-left: .625rem;
     margin-bottom: 1rem;
 }

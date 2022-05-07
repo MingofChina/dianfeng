@@ -99,10 +99,18 @@ export default {
       }
     },
     tositeMap(){
-      this.$router.push("/siteMap") ;
+      // this.$router.push("/siteMap") ;
+      let routeUrl = this.$router.resolve({
+        path: `/siteMap`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     routerFn(){
-      this.$router.push("/legalDeclaration") ;
+      // this.$router.push("/legalDeclaration") ;
+      let routeUrl = this.$router.resolve({
+        path: `/legalDeclaration`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     // 底部导航信息
     async columnfn() {
@@ -112,18 +120,30 @@ export default {
     },
     footNavfn(data,index,index1){
       if(index1 == 1){
-        this.$router.push(`/peakBusiness/${data.childcontent[0].id}`) ;
+        // this.$router.push(`/peakBusiness/${data.childcontent[0].id}`) ;
+        let routeUrl = this.$router.resolve({
+          path: `/peakBusiness/${data.childcontent[0].id}`
+        });
+        window.open(routeUrl.href, '_blank');
         return
       }else if(index1 == 2){
         sessionStorage.setItem('peakCasesId',data.id)
-        this.$router.push(`/peakCases/${data.id}`) 
+        // this.$router.push(`/peakCases/${data.id}`) 
+        let routeUrl = this.$router.resolve({
+          path: `/peakCases/${data.id}`
+        });
+        window.open(routeUrl.href, '_blank');
       }else if(index1 == 4){
 
       }else{
         if(index1 == 0 && index == 5){
           location.href = data.url
         }else{
-          this.$router.push(`/${data.url}/${data.id}`) ;
+          // this.$router.push(`/${data.url}/${data.id}`) ;
+          let routeUrl = this.$router.resolve({
+            path: `/${data.url}/${data.id}`
+          });
+          window.open(routeUrl.href, '_blank');
         }
         
       }
@@ -136,7 +156,10 @@ export default {
 <style  scoped lang="less">
 
 .divhover:hover{
-  color: red;
+  color: #C8000A;
+}
+.zuoce{
+  font-size: .9rem;
 }
 .containerNAv{
   width: 100%;
@@ -164,7 +187,7 @@ export default {
 .arrlist-1 div {
   box-sizing: border-box;
   margin-right: 4rem;
-  text-align: center;
+  text-align: left;
   color: #676767;
 }
 .arrlist-1 div h2 {
@@ -188,7 +211,7 @@ export default {
 }
 .arrlist-2 div ul li {
   list-style: none;
-  text-align: center;
+  text-align: left;
   font-size: 20px;
   color: #fff;
   margin-right: 1.875rem;
@@ -235,7 +258,7 @@ export default {
   color: #FFFFFF;
   line-height: 6.875rem;
   border-top: 1px solid #FFFFFF;
-  padding-left:7.5rem;
+  padding-left:10rem;
 }
 .fin-2-left {
   display: flex;

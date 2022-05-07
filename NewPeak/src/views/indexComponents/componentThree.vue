@@ -114,9 +114,9 @@
     </div>
 
     <div class="bottom-area">
-      <div class="four-more-link" @click="toPeakCases(37)">
-        <img src="../../assets/img/Group 392.png"
-             class="four-more-link-img"/>
+      <div class="four-more-link" @click="toPeakCases(activeTableId)">
+        <div src="../../assets/img/Group 391.png"
+             class="four-more-link-img"></div>
       </div>
     </div>
 
@@ -232,7 +232,7 @@ export default {
       this.product = queryData?.product || [];
     },
     toPeakCases(id){
-      this.$router.push(`/peakCasesDetail/${id}`);
+      this.$router.push(`/peakCases/${id}`);
     },
     changePicture(action) {
       if (action) {
@@ -503,6 +503,13 @@ body {
 
 }
 .four-more-link-img{
+  /*margin-left: 8px;*/
+  background: url("../../assets/img/Group 391.png");
+  width: 138px;
+  height: 52px;
+  background-size: 100% 100%;
+}
+.four-more-link-img:hover{
   /*margin-left: 8px;*/
   background: url("../../assets/img/Group 392.png");
   width: 138px;

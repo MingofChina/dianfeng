@@ -27,7 +27,7 @@
 
 
           <div v-html="peak_news_detail.description" class="news-text"></div>
-
+          <div class="news-margin-wrapper"></div>
         </div>
         <div class="side-bar">
           <div class="hot-news">
@@ -130,8 +130,11 @@ export default {
   width: 100%;
   height: 100%;
   background: #F4F4F4;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0;
 }
 .marker {
   width: 4px;
@@ -139,7 +142,6 @@ export default {
   background: #c8000a;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
-
 }
 .title-marker {
   margin-right: 12px;
@@ -222,6 +224,7 @@ export default {
 
 
 }
+
 .news .news-title {
   width: 868px;
   font-size: 34px;
@@ -231,6 +234,7 @@ export default {
   line-height: 40px;
 
 }
+
 .news .news-info {
   display: flex;
   flex-direction: row;
@@ -249,6 +253,10 @@ export default {
   line-height: 32px;
   font-family: Source Han Sans CN-Normal, Source Han Sans CN;
 
+}
+
+.news-margin-wrapper{
+  height: 50px;
 }
 .side-bar {
   float: right;

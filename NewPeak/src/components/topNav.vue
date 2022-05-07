@@ -9,7 +9,7 @@
         font-size: 18px;font-weight:400"> 
           <el-col :span="4" v-for="(item,index) in navList" class="divhover" :key="index" style="textAlign:center;position:relative">
             <div @mouseenter="ulNavFn(item,index,false)"  @click="ulNavFn(item,index,true)">{{item.name}}</div>
-            <div v-if="index == isActive" style="width:5.1rem;border-top:2px solid red;position:absolute;top:4.6rem;height:2px;left:3.2rem"></div>
+            <div v-if="index == isActive" style="width:5.1rem;border-top:2px solid #C8000A;position:absolute;top:4.6rem;height:2px;left:3.2rem"></div>
           </el-col>
         </el-row>
         <el-row v-if="subscript|| subscript==0"  class="navLIST" :style="{width:(subscript1||subscript1==0)?'44.625rem':'33.25rem',marginTop:'1rem',zIndex:9999,marginLeft:marginLeft+'rem',background:'#FFFFFF'}"> 
@@ -19,7 +19,7 @@
               </el-col>
               <el-col :span="(subscript==0||subscript==2)?12:4" >
                 <div >
-                  <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover" :class="{navList: isnavList == index}"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div :style="{color:index == isActive1 && $route.path.indexOf(item.url)>-1?'red':''}" class="navli1"   style="text-align: center;line-height: .3rem;padding-top:.3rem"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
+                  <el-col :span="(subscript==0||subscript==2)?12:24" class="divhover" :class="{navList: isnavList == index}"  v-for="(item,index) in navList[subscript].child_column" :key="item.id"><div :style="{color:index == isActive1 && $route.path.indexOf(item.url)>-1?'#C8000A':''}" class="navli1"   style="text-align: center;line-height: .3rem;padding-top:.3rem"  @click="linkFn(item,index)" @mouseenter="linkFn2(item,index)">
                   <p class="phover1" style="height:1rem;display:none"></p>{{item.name}}</div></el-col>
                 </div>
                 
@@ -81,10 +81,7 @@ export default {
   mounted() {
     this.columnfn(); //头部搜岁页面的接口
     if(this.$route.path.indexOf('queryResults')>-1){
-      if(!this.input2){
-        this.$router.push("/index") ;
-        return
-      }
+      this.input2 = this.$route.params.id
     }
     document.getElementsByClassName('el-input__prefix')[0].click(()=>{
     })
@@ -127,7 +124,11 @@ export default {
       }
     },
     homeFn(){
-      this.$router.push("/index") ;
+      // this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+        path: `/index`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     async columnfn() {
       let that = this;
@@ -143,7 +144,11 @@ export default {
       if(!this.input2){
         return
       }
-      this.$router.push(`/queryResults/${this.input2}`) ;
+      let routeUrl = this.$router.resolve({
+        path: `/queryResults/${this.input2}`
+      });
+      window.open(routeUrl.href, '_blank');
+      // this.$router.push(`/queryResults/${this.input2}`) ;
     },
     ulNavFn(data,index,boolen){
       let that = this;
@@ -163,7 +168,11 @@ export default {
         that.isnavList = 0
       }else if(index == 5){
          if(boolen){
-          this.$router.push(`/${data.url}/${data.id}`) ;
+          // this.$router.push(`/${data.url}/${data.id}`) ;
+          let routeUrl = this.$router.resolve({
+            path: `/${data.url}/${data.id}`
+          });
+          window.open(routeUrl.href, '_blank');
           that.subscript1 = null
           that.subscript=null
         }else{
@@ -188,7 +197,11 @@ export default {
       that.subscript = index;
     },
     linkFn1(data){
-      this.$router.push(`/peakBusiness/${data.id}`) ;
+      // this.$router.push(`/peakBusiness/${data.id}`) ;
+      let routeUrl = this.$router.resolve({
+        path: `/peakBusiness/${data.id}`
+      });
+      window.open(routeUrl.href, '_blank');
       this.subscript = null
     },
     linkFn2(data,index){
@@ -206,10 +219,17 @@ export default {
         location.href = data.url
         }else if(this.subscript == 2){
           sessionStorage.setItem('peakCasesId',data.id)
-          this.$router.push(`/peakCases/${data.id}`) ;
+          // this.$router.push(`/peakCases/${data.id}`) ;
+          let routeUrl = this.$router.resolve({
+            path: `/peakCases/${data.id}`
+          });
+          window.open(routeUrl.href, '_blank');
         }else{
-
-          this.$router.push(`/${data.url}/${data.id}`) ;
+          let routeUrl = this.$router.resolve({
+            path: `/${data.url}/${data.id}`
+          });
+          window.open(routeUrl.href, '_blank');
+          // this.$router.push(`/${data.url}/${data.id}`) ;
         }
          this.subscript = null
       }else{
@@ -224,11 +244,11 @@ export default {
 <style scoped lang="less">
 .navList{
   background: #F2F2F2;
-  color: red;
+  color: #C8000A;
   font-weight: bold;
 }
 .divhover:hover{
-  color: red;
+  color: #C8000A;
   font-weight: bold;
 
 }

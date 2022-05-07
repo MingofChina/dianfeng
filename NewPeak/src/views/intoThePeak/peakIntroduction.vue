@@ -53,12 +53,15 @@
         作为文旅规划建设运营全程服务商，巅峰智业资质全面, 拥有旅游规划设计甲级、城乡规划编制甲级、风景园林工程设计专项甲级、城市及道路照明工程专业承包壹级、专业舞台灯光设计、安装及调试甲级，专业舞台设计制作工程甲级，专业舞台音视频设计、安装及调试甲级，专业舞台音响设计、安装及调试甲级的“八项甲级”资质；业务覆盖全国，完成3000余项高品质项目，累计运管景区100余家，在1000余项国际、国内项目竞标中拔得头筹。创新推出安庆太湖文博园《天仙配新传》、张家口下花园《西游归来》、济南大石崮《好汉山东》等“巅峰震撼”系列光影剧强势新IP，其中《天仙配新传》还作为安庆文旅新名片，被央视新闻联播重点报道。《顺德华侨城空间秀》等系列夜游目的地新地标，已成为年轻人喜爱的网红打卡地。此外，还推动了松鼠森林、绿心童乡、欢乐星球、峰物文创、旅豆学堂等一系列落地产品。
       </div>
       <div class="introduce2-video">
-        <video ref="videoPlayer" controls :src=videoUrl
+        <video ref="videoPlayer"
+               :src=videoUrl
                :poster=getImgUrl(brand_messa.video_cover)
                controlslist="nodownload"
                :class="['porel','fullwidth','mal','fla','mat','movie-show-video']"
                style="width: 100%;height: 100%;object-fit: fill">
         </video>
+        <div v-if="isPlay" class="video-play" @click="handlePlay"></div>
+<!--        <div v-if="!isPlay" class="video-pause" @click="handlePause"></div>-->
       </div>
     </div>
     <div class="introduce3-background">
@@ -233,6 +236,7 @@ export default {
       "enterprise_qualification": [],
       "certificate_honor": [],
       "seo_message": {},
+      "isPlay": true,
       baseUrl:'http://ceshi.davost.com',
     }
   },
@@ -245,6 +249,14 @@ export default {
     }
   },
   methods:{
+    handlePlay(){
+      this.$refs.videoPlayer.play();
+      this.isPlay = false;
+    },
+    handlePause(){
+      this.$refs.videoPlayer.pause();
+      this.isPlay = true;
+    },
     toIndex() {
       this.$router.push({ name: "index"});
     },
@@ -379,6 +391,8 @@ export default {
   },
   mounted() {
     this.getIntroduceInfo();
+    this.$refs.videoPlayer.addEventListener('play',this.handlePlay);
+    this.$refs.videoPlayer.addEventListener('pause',this.handlePause);
   }
 
 };
@@ -1437,5 +1451,18 @@ a {
   background: #FFFFFF;
   background-size: 100% 100%;
 }
+.video-play{
+  position: relative;
+  /*left: 382px;
+  top: -235px;*/
+  left: 356px;
+  top: -267px;
+  background: url("../../assets/images/icon_bofang.png");
+  width: 64px;
+  height: 64px;
+  background-size: 100% 100%;
+}
+.video-pause{
 
+}
 </style>

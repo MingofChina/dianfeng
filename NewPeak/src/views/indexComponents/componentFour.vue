@@ -37,12 +37,11 @@
              v-on:mouseover="setBacK($event,0)"
              v-on:mouseleave="setBacK2($event,0)"
              >
-             
+             <div v-if="currentFlag == 0"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <img class="four-news-img1"
               :src=getImgUrl(currentNews[currentIndex].original_image)
             v-show="currentImgIndex === 0"
           />
-          <div v-if="currentFlag == 0"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <div class="four-news-day1"
                :class="[{'four-news-day1-hl':currentFlag === 0}]"
           >
@@ -80,11 +79,11 @@
              v-on:mouseover="setBacK($event,1)"
              v-on:mouseleave="setBacK2($event,1)"
         >
+        <div v-if="currentFlag == 1"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <img class="four-news-img2"
                :src=getImgUrl(currentNews[currentIndex+1].original_image)
                v-show="currentImgIndex === 1"
           />
-           <div v-if="currentFlag == 1"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <div class="four-news-day2"
             :class="[{'four-news-day2-hl':currentFlag === 1}]"
           >
@@ -123,11 +122,11 @@
              v-on:mouseover="setBacK($event,2)"
              v-on:mouseleave="setBacK2($event,2)"
         >
+        <div v-if="currentFlag == 3"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <img class="four-news-img3"
                :src=getImgUrl(currentNews[currentIndex+2].original_image)
                v-show="currentImgIndex === 2"
           />
-           <div v-if="currentFlag == 2"  style="width: 40rem;height: 27.75rem; background: #000000;opacity:.4;position:absolute;top:0"></div>
           <div class="four-news-day3"
                :class="[{'four-news-day3-hl':currentFlag === 2}]"
           >
@@ -179,9 +178,9 @@
 
       <div class="four-more-link"
         @click="toTopNews(45)">
-        <img
+        <div
             src="../../assets/img/Group 391.png"
-            class="four-more-link-img"/>
+            class="four-more-link-img"></div>
       </div>
     </div>
 
@@ -964,6 +963,13 @@ html,body{
 .four-more-link-img{
   margin-left: 8px;
   background: url("../../assets/img/Group 391.png");
+  width: 138px;
+  height: 52px;
+  background-size: 100% 100%;
+}
+.four-more-link-img:hover{
+  margin-left: 8px;
+  background: url("../../assets/img/Group 392.png");
   width: 138px;
   height: 52px;
   background-size: 100% 100%;

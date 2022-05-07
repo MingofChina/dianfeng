@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="top-background">
-        <div class="top-title">巅峰风采</div>
-        <div class="top-desc">TOP TALENT</div>
-        <div class="top-divide"></div>
+        <div class="title-wrapper">
+          <div class="top-title">巅峰风采</div>
+          <div class="top-desc">TOP TALENT</div>
+          <div class="top-divide"></div>
+        </div>
         <img class="icon-home"
              @click="toIndex()"
              src = "../../assets/bei/icon_home.png"/>
@@ -20,8 +22,10 @@
     <div class="mission-list" >
       <div class="mission-item" v-for="(item,i) in mission">
         <img class="mission-item-img" :src=getImgUrl(item.original_image) />
+      <div class="mission-wrapper">
         <div class="mission-item-title">{{item.title}}</div>
         <div class="mission-item-desc">{{ item.description }}</div>
+      </div>
       </div>
     </div>
     <div class="reveal" v-for="(item,i) in reveal">
@@ -49,16 +53,16 @@
              alt="没有图片"
              />
       </div>
-      <img class="left-btn1"
+      <div class="left-btn1"
            v-if="filterHallImgs.length > 1"
            src="../../assets/bei/Maskgroup.png"
            v-on:click="toHallLeft()"
-      />
-      <img class="right-btn1"
+      ></div>
+      <div class="right-btn1"
            v-if="filterHallImgs.length > 1"
            src="../../assets/bei/Maskgroup2.png"
            v-on:click="toHallRight()"
-      />
+      ></div>
 
     </div>
 
@@ -83,16 +87,16 @@
              alt="没有图片"
         />
       </div>
-      <img class="left-btn2"
+      <div class="left-btn2"
            v-if="filterSiqingImgs.length > 1"
            src="../../assets/bei/Maskgroup.png"
            v-on:click="toSiqingLeft()"
-      />
-      <img class="right-btn2"
+      ></div>
+      <div class="right-btn2"
            v-if="filterSiqingImgs.length > 1"
            src="../../assets/bei/Maskgroup2.png"
            v-on:click="toSiqingRight()"
-      />
+      ></div>
 
     </div>
   </div>
@@ -235,10 +239,10 @@ export default {
 </script>
 
 <style scoped>
-html,body{
+/*html,body{
   width: 100%;
   height: 100%;
-}
+}*/
 *{
   margin: 0;
   padding: 0;
@@ -249,13 +253,19 @@ html,body{
   height: 700px;
   width: 100%;
   /*background-size: 100% 100%;*/
-
+  overflow-x: hidden;
+}
+.title-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 270px 0;
 }
 .top-title{
-  position: absolute;
+  /*position: absolute;
   top: 400px;
-  left: 813px;
-  width: 500px;
+  left: 813px;*/
+  /*width: 500px;*/
   height: 62px;
   font-size: 60px;
   font-family: Source Han Sans CN-Bold, Source Han Sans CN;
@@ -267,10 +277,10 @@ html,body{
   -webkit-text-fill-color: transparent;*/
 }
 .top-desc{
-  position: absolute;
+  /*position: absolute;
   top: 470px;
-  left: 885px;
-  width: 300px;
+  left: 885px;*/
+  /*width: 300px;*/
   height: 32px;
   font-size: 20px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -280,16 +290,18 @@ html,body{
   letter-spacing: 4px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+  margin-top: 10px;
 }
 .top-divide{
-  position: absolute;
+  /*position: absolute;
   top: 525px;
-  left: 920px;
+  left: 920px;*/
   width: 80px;
   height: 4px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
+  margin-top: 20px;
 }
 .icon-home{
   position: absolute;
@@ -380,18 +392,29 @@ html,body{
 .mission-list{
   display: flex;
   flex-direction: row;
+  /*justify-content: center;*/
+  /*width: 100%;*/
+  /*background-color: yellow;*/
 }
 .mission-item-img{
-  width: 630px;
+  /*width: 630px;*/
   height: 527px;
   background-size: 100% 100%;
   background-color: #808080;
 }
-.mission-item-title{
+.mission-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
+  top: -330px;
+  padding-bottom: 50px;
+}
+.mission-item-title{
+  /*position: relative;
   top: -283px;
-  left: 244px;
-  width: 152px;
+  left: 244px;*/
+  /*width: 152px;*/
   height: 57px;
   font-size: 38px;
   font-family: Source Han Sans CN-Medium, Source Han Sans CN;
@@ -400,12 +423,14 @@ html,body{
   line-height: 45px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+  z-index: 100;
+  margin-bottom: 20px;
 }
 .mission-item-desc{
-  position: relative;
+  /*position: relative;
   top: -252px;
-  left: 196px;
-  width: 249px;
+  left: 196px;*/
+  /*width: 249px;*/
   height: 30px;
   font-size: 20px;
   font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -415,6 +440,7 @@ html,body{
   margin-bottom: -92px;
   /*-webkit-background-clip: text;
   -webkit-text-fill-color: transparent;*/
+  z-index: 100;
 }
 .reveal-img{
   /*width: 1920px;*/

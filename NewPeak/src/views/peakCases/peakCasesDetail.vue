@@ -91,13 +91,21 @@ export default {
   },
   methods: {
     homeFn(){
-      this.$router.push("/index") ;
+    //   this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+            path: `/index`
+          });
+      window.open(routeUrl.href, '_blank');
     },
    backFn(){
         this.$router.go(-1)
     },
     peakCasesDetail(data){
-        this.$router.push(`/peakCasesDetail/${data.id}`) ;
+        // this.$router.push(`/peakCasesDetail/${data.id}`) ;
+        let routeUrl = this.$router.resolve({
+            path: `/peakCasesDetail/${data.id}`
+          });
+      window.open(routeUrl.href, '_blank');
     },
     async sexampledetailfn() {
       let { data } = await sexampledetail({id:this.$route.params.id});
@@ -265,7 +273,7 @@ font-size: 2rem;
 .content-div1-title{
     font-size: 1.5rem;
     font-weight: 500;
-    border-left: 4px solid red;
+    border-left: 4px solid #C8000A;
     padding-left: .625rem;
     margin-bottom: 1rem;
 }

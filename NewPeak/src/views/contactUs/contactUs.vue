@@ -66,8 +66,8 @@ export default {
     async legislationfn() {
         let { data } = await relation();
         banner({id:this.$route.params.id}).then((res)=>{
-             console.log(res)
             this.imgUrl = this.baseUrl+res.data.data[0].original_image
+            document.title = data.data.seo_message.meta_title
         });
        
         let lenth1 = data.data.branch_office.length

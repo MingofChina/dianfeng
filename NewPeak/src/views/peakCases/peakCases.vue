@@ -23,7 +23,7 @@
             <el-col  class="lega-content-div21"  v-for="(item,index) in dataList" :key="index+item.id">
                 <div @mouseenter="colorFn1(item,index)" @mouseleave="leave" @click="detailFn(item)">
                     <div class="leag-div21"><img :src='baseUrl+item.original_image'/></div>
-                <div class="leag-div22" :style="{color:isActive1 == index?'red':''}" @click="detailFn(item)">{{item.title}}</div>
+                <div class="leag-div22" :style="{color:isActive1 == index?'#C8000A':''}" @click="detailFn(item)">{{item.title}}</div>
                 <div class="leag-div23">{{item.summary}}</div>
                 <div class="leag-div24" v-if="isActive1 == index">
                     <img src="../../assets/bei/icon_more@2x(1).png" style="width:.5rem;height:.88rem;margin-right:.3rem" />
@@ -74,11 +74,6 @@ export default {
            this.sexamplefn(1)
            that.colorFn()
            that.id = null
-        //    if(that.isActive){
-        //        return
-        //    }else{
-        //        that.colorFn()
-        //    }
            this.sexamplefn(1)
         },
         deep: true,
@@ -126,7 +121,11 @@ export default {
       });
     },
     homeFn(){
-      this.$router.push("/index") ;
+    //   this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+        path: `/index`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     navFn(item,index){
         let that =this
@@ -136,12 +135,16 @@ export default {
         this.pageNumber = 1
         that.sexamplefn(1)
     },
-     handleCurrentChange(val) {
+    handleCurrentChange(val) {
          this.pageNumber = val
        this.sexamplefn(val)
     },
     detailFn(data){
-        this.$router.push(`/peakCasesDetail/${data.id}`);
+        // this.$router.push(`/peakCasesDetail/${data.id}`);
+        let routeUrl = this.$router.resolve({
+            path: `/peakCasesDetail/${data.id}`
+          });
+          window.open(routeUrl.href, '_blank');
     }
   },
 };
@@ -153,11 +156,11 @@ export default {
     text-align: center;
 }
 .active{
-background: red;
+background: #C8000A;
 color: #FFFFFF;
 }
 .leag-div24{
-    color:red;
+    color:#C8000A;
     margin-left: 1.25rem;
 }
 #legalDeclaration{
@@ -236,7 +239,7 @@ color: #FFFFFF;
 .content-div1-title{
     font-size: 1.5rem;
     font-weight: 500;
-    border-left: 4px solid red;
+    border-left: 4px solid #C8000A;
     padding-left: .625rem;
     margin-bottom: 1rem;
 }
@@ -336,7 +339,7 @@ color: #FFFFFF;
     font-size: 1.5rem;
     /* font-weight: bold; */
     /* color: #FFFFFF;
-    background: red; */
+    background: #C8000A; */
     margin-right: 3.13rem;
     margin-bottom: 3.13rem;
 }

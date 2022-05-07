@@ -25,9 +25,9 @@
                         </el-col>
                         <el-col :span="12">
                             <div class="textime" >{{item.addtime}}</div>
-                            <div class="textelte" :style="{color:index == isActiy?'red':''}">{{item.title}}</div>
+                            <div class="textelte" :style="{color:index == isActiy?'#C8000A':''}">{{item.title}}</div>
                             <div class="textcontent">{{item.summary}}</div>
-                            <div class="textlook" :style="{color:index == isActiy?'red':''}">
+                            <div class="textlook" :style="{color:index == isActiy?'#C8000A':''}">
                                 <img src="../../assets/bei/icon_more@2x(1).png" v-if='index == isActiy' style="width:.5rem;height:.88rem;margin-right:.3rem" />
                                 <img src="../../assets/bei/icon_more@2x(2).png" v-else style="width:.5rem;height:.88rem;margin-right:.3rem" /> 查看详情</div>
                         </el-col>
@@ -85,7 +85,11 @@ export default {
        this.viewpointsfn(val)
     },
     detailFn(data){
-        this.$router.push(`/peakViewDetail/${data.id}`);
+        // this.$router.push(`/peakViewDetail/${data.id}`);
+        let routeUrl = this.$router.resolve({
+            path: `/peakViewDetail/${data.id}`
+          });
+        window.open(routeUrl.href, '_blank');
     }
   },
 };
@@ -211,7 +215,7 @@ export default {
 .content-div1-title{
     font-size: 1.5rem;
     font-weight: 500;
-    border-left: 4px solid red;
+    border-left: 4px solid #C8000A;
     padding-left: .625rem;
     margin-bottom: 1rem;
 }

@@ -1,7 +1,10 @@
 <template>
   <div id="componentOne">
     <div id="topPart" class="top-part">
-      <img class="top-part-img" :src="currentDisplay" />
+      <img class="top-part-img"
+           :src="currentDisplay"
+           @click="toLink()"
+      />
       <div class="title">
         <div class="title-content">
           <span class="title-item-one">巅峰智业</span>
@@ -63,6 +66,7 @@ export default {
   data() {
     return {
       currentDisplay: '',
+      currentLink: '',
       currentIndex: 0,
       bannerList:[],
       displayPictureList: [
@@ -94,9 +98,12 @@ export default {
     this.getBanner();
     document.getElementById("topPart").style.backgroundImage = this.displayPictureList[0].staticUrl;
     this.currentDisplay = this.baseUrl + this.bannerList[0].original_image;
-
+    this.currentLink = this.bannerList[0].linkurl;
   },
   methods: {
+    toLink(){
+      window.location.href = this.currentLink;
+    },
     async getBanner() {
       let {data} = await banner();
       this.bannerList = data.data;
@@ -107,6 +114,7 @@ export default {
             }
         this.displayPictureList.push(temp);
       }
+      this.changePicture(false);
       this.changePicture(true);
     },
     // 翻页动作 action为true往后翻，否则往前翻
