@@ -8,10 +8,10 @@
             <div></div>
         </div>
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div>巅峰观点</div>
-            <img src="../../assets/search-img/icon@2x.png">
+            <!-- <div>巅峰观点</div>
+            <img src="../../assets/search-img/icon@2x.png"> -->
             <div>行业观点</div>
         </div>
     </div>
@@ -38,6 +38,7 @@
            <div class="pagination">
                <el-pagination
                 background
+                :current-page.sync='pageNumber'
                 @current-change="handleCurrentChange"
                 :page-size="10"
                 layout="prev, pager, next"
@@ -58,6 +59,7 @@ export default {
       textHeml:'',
       isActiy:null,
       dataList:[],
+      pageNumber:1,
       imgUrl:'',
       baseUrl:'http://ceshi.davost.com/',
       total:0
@@ -65,12 +67,22 @@ export default {
   },
   computed: {
   },
+  created(){
+       let that = this
+        if(sessionStorage.getItem('peakviewPage')){
+            that.sexamplefn(sessionStorage.getItem('peakviewPage'))
+            this.pageNumber =Number(sessionStorage.getItem('peakviewPage'))
+            sessionStorage.removeItem('peakviewPage')
+        }else{
+            that.viewpointsfn(1)
+        }
+  },
   mounted() {
       this.viewpointsfn(1) //调用联系我们接口
   },
   methods: {
     async viewpointsfn(val) {
-      let { data } = await viewpoints({pages:val,pagesize:10});
+      let { data } = await viewpoints({pages:this.pageNumber,pagesize:10});
       document.title = data.data.seo_message.meta_title
       this.dataList = data.data.idea
       this.total = data.data.idea_pages_number
@@ -78,14 +90,23 @@ export default {
             this.imgUrl = this.baseUrl+res.data.data[0].original_image
         });
     },
+     homeFn(){
+    //   this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+        path: `/index`
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     linkFn2(data,index){
         this.isActiy = index
     }, 
     handleCurrentChange(val) {
+        this.pageNumber = val
        this.viewpointsfn(val)
     },
     detailFn(data){
         // this.$router.push(`/peakViewDetail/${data.id}`);
+        sessionStorage.setItem('peakviewPage',this.pageNumber)
         let routeUrl = this.$router.resolve({
             path: `/peakViewDetail/${data.id}`
           });

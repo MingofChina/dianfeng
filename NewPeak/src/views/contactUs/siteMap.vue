@@ -8,7 +8,7 @@
             <div></div>
         </div>
         <div class="lega-header-foot">
-            <img src="../../assets/search-img/icon_home@2x.png">
+            <img @click='homeFn()'  src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
             <div>网站地图</div>
         </div>
@@ -53,6 +53,13 @@ export default {
       this.columnfn() //调用联系我们接口
   },
   methods: {
+    homeFn(){
+    //   this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+        path: `/index`
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     async columnfn() {
       let that= this;
       // let { data } = await column({ id: 14 });

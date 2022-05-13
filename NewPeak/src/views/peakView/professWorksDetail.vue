@@ -4,9 +4,9 @@
         <div class="lega-header-foot">
             <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div style="color:#231914">巅峰观点</div>
-            <img src="../../assets/search-img/icon@2x.png">
-            <div style="color:#231914">专业著作</div>
+            <!-- <div style="color:#231914">巅峰观点</div>
+            <img src="../../assets/search-img/icon@2x.png"> -->
+            <div style="color:#231914" @click='backFn'>专业著作</div>
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">详情</div>
             
@@ -93,7 +93,10 @@ export default {
   },
   methods: {
     backFn(){
-        this.$router.go(-1)
+        let routeUrl = this.$router.resolve({
+            path: `/professionalWorks/57`
+        });
+      window.open(routeUrl.href, '_blank');
     },
     homeFn(){
     //   this.$router.push("/index") ;

@@ -4,7 +4,7 @@
         <div class="lega-header-foot">
             <img  @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div @click="dianfeng()" style="color:#231914">巅峰案例</div>
+            <div @click="backFn()" style="color:#231914">巅峰案例</div>
             <img src="../../assets/search-img/icon@2x.png">
             <div style="color:#231914">详情</div>
             
@@ -98,7 +98,10 @@ export default {
       window.open(routeUrl.href, '_blank');
     },
    backFn(){
-        this.$router.go(-1)
+        let routeUrl = this.$router.resolve({
+        path: `/peakCases/${sessionStorage.getItem('peakCasesId')}`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     peakCasesDetail(data){
         // this.$router.push(`/peakCasesDetail/${data.id}`) ;

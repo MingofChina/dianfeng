@@ -167,7 +167,7 @@ export default {
     font-weight: 400;
     color: #6E6E6E;
     line-height: 14px;
-    margin-left: 15px;
+    margin-left: 9px;
     /*  -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;*/
   }
@@ -265,7 +265,7 @@ export default {
     font-weight: 400;
     color: #6E6E6E;
     line-height: 28px;
-    margin-left: 27px;
+    margin-left: 12px;
     /*  -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;*/
   }
@@ -300,5 +300,15 @@ export default {
     -webkit-text-fill-color: transparent;*/
   }
 }
-
+@media screen and (max-width: 1366px){
+  .index-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 465px;
+    right: 27px;
+    z-index: 10000;
+  }
+  
+}
 </style>

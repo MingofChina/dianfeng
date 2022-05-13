@@ -56,14 +56,12 @@ export default {
       let {data} = await teamdetail({id: this.$route.params.id});
       document.title = data.data.seo_message.meta_title;
       this.team_detail = data.data.team_detail;
-      //alert(JSON.stringify(this.team_detail))
-      console.log(JSON.stringify(this.team_detail));
     },
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
     toPeakTeam(id) {
-      this.$router.push({path:`/PeakTeam/${id}`,query: {cateId: this.cateId, teamList:this.teamList, cateActive:this.cateActive}});
+      this.$router.push({path:`/peakTeam/${id}`,query: {cateId: this.cateId, teamList:this.teamList, cateActive:this.cateActive}});
     },
   },
   mounted() {
@@ -103,7 +101,7 @@ export default {
   height: 488px;
   border-radius: 0px 0px 0px 0px;
   opacity: 1;
-  background-color: #808080;
+  /*background-color: #808080;*/
 }
 .detail-name{
   /*position: absolute;

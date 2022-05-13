@@ -394,7 +394,7 @@ export default {
   width: 100%;
   /*height: 527px;*/
   background-size: 100% 100%;
-  background-color: #808080;
+  /*background-color: #808080;*/
 }
 .mission-wrapper{
   display: flex;
@@ -447,7 +447,7 @@ export default {
   width: 1592px;
   height: 752px;
   background-size: 100% 100%;
-  background-color: #808080;
+  /*background-color: #808080;*/
   margin-bottom: 70px;
 }
 .lecture-background{

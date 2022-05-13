@@ -458,7 +458,6 @@ html,body{
   left: 236px;*/
   width: 1448px;
   height: 280px;
-  background-color: red;
   margin-bottom: 30px;
 }
 .row3-document-list{

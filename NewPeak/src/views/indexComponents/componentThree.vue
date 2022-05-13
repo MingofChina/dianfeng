@@ -114,7 +114,7 @@
     </div>
 
     <div class="bottom-area">
-      <div class="four-more-link" @click="toPeakCasesDetail(activeTableId)">
+      <div class="four-more-link" @click="toPeakCases(activeTableId)">
         <div src="../../assets/img/Group 391.png"
              class="four-more-link-img"></div>
       </div>
@@ -232,6 +232,10 @@ export default {
       const { data } = await firstone();
       const queryData = data?.data;
       this.product = queryData?.product || [];
+    },
+    toPeakCases(id){
+      console.log(id)
+      // this.$router.push(`/peakCases/${id}`);
     },
     toPeakCasesDetail(id){
       this.$router.push(`/peakCasesDetail/${id}`);
