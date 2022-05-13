@@ -36,7 +36,6 @@
         >技术团队</div>
       </div>
       <div v-if="active === 1" class="team-introduction-part"
-
       >
         <div class="intr-partone">
           <img class="partone-first-child" @click="toTeamDetail(team[0].id)" :src=getImgUrl(team[0].original_image)>
@@ -71,33 +70,53 @@
           </div>
         </div>
         <div class="intr-partthree">
-          <div class="partthree-child" v-if="index>2" v-for="(item, index) in team">
-            <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
-            <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
-            <div class="partthree-title"  >{{ item.title }}</div>
+          <div class="partthree-wrapper">
+            <div class="partthree-child" v-if="index>2" v-for="(item, index) in team">
+              <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
+              <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
+              <div class="partthree-title"  >{{ item.title }}</div>
+            </div>
+          </div>
+          <div class="load-more"
+               v-if="!loadDoneFirst"
+               @click="loadMore">
+            加载更多...
           </div>
         </div>
       </div>
 
       <div v-if="active === 2" class="master-introduction-part">
         <div class="intr-partthree">
-          <div class="partthree-child" v-for="(item, index) in team">
-            <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
-            <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
-            <div class="partthree-title">{{ item.title }}</div>
+          <div class="partthree-wrapper">
+            <div class="partthree-child" v-for="(item, index) in team">
+              <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)>
+              <div class="partthree-name"  @click="toTeamDetail(item.id)">{{ item.name }}</div>
+              <div class="partthree-title">{{ item.title }}</div>
+            </div>
+          </div>
+          <div class="load-more"
+               v-if="!loadDoneSecond"
+               @click="loadMore">
+            加载更多...
           </div>
         </div>
       </div>
 
-
       <div v-if="active === 3" class="team-introduction-part">
         <div class="intr-partthree">
-          <div class="partthree-child" v-for="(item, index) in team">
-            <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)
-                 v-on:click="toTeamDetail(item.id)">
-            <div class="partthree-name">{{ item.name }}</div>
-            <div class="partthree-title"
-                 @click="toTeamDetail(item.id)">{{ item.title }}</div>
+          <div class="partthree-wrapper">
+              <div class="partthree-child" v-for="(item, index) in team">
+                <img class="partthree-image" @click="toTeamDetail(item.id)" :src=getImgUrl(item.original_image)
+                  v-on:click="toTeamDetail(item.id)">
+                <div class="partthree-name">{{ item.name }}</div>
+                <div class="partthree-title"
+                  @click="toTeamDetail(item.id)">{{ item.title }}</div>
+              </div>
+          </div>
+          <div class="load-more"
+               v-if="!loadDoneThird"
+               @click="loadMore">
+            加载更多...
           </div>
         </div>
       </div>
@@ -115,7 +134,13 @@ export default {
       baseUrl:'http://ceshi.davost.com',
       currentCateId: "2,10",
       pages: 0,
-      pageSize: 10
+      pageSize: 10,
+      firstRequest: true,
+      secondRequest: true,
+      thirdRequest: true,
+      loadDoneFirst: false,
+      loadDoneSecond: false,
+      loadDoneThird: false
     };
   },
   watch:{
@@ -124,28 +149,29 @@ export default {
         this.team();
       },
       deep: true,
-    }
+    },
   },
   mounted() {
     var dataFlag = false;
     if(this.$route.query.cateId){
       this.currentCateId = this.$route.query.cateId;
     }
-
-    if(this.$route.query.teamList){
+    if(this.currentCateId === "2,10"){
+      this.active = 1;
+    }
+    else if(this.currentCateId === "2,11"){
+      this.active = 2;
+    }
+    else if(this.currentCateId === "2,23"){
+      this.active = 3;
+    }
+    if(this.$route.query.teamList) {
       this.team = this.$route.query.teamList;
       dataFlag = true;
     }
-
-    if(!dataFlag)
-    {
+    if(!dataFlag){
       this.getTeam(this.currentCateId,true);
     }
-    /*this.manageData = this.team.slice(3);
-    this.masterData = this.team.slice(3);
-    this.techoData = this.team.slice(1);*/
-    window.addEventListener("scroll", this.windowScroll, true);
-
   },
   methods: {
     toIndex() {
@@ -154,18 +180,9 @@ export default {
     toIntroduction() {
       this.$router.push({ name: "peakIntroduction"});
     },
-    windowScroll(e) {
-      e.stopPropagation()
-      let scrollTop =
-          document.documentElement.scrollTop || document.body.scrollTop;
-      const clientHeight = document.documentElement.clientHeight;
-      const scrollHeight = document.documentElement.scrollHeight;
-      if(scrollTop+clientHeight>=scrollHeight-150){
+    loadMore() {
         this.getTeam(this.currentCateId,false);
-
-      }
     },
-
     getImgUrl(imgUrl){
       return this.baseUrl+imgUrl;
     },
@@ -176,6 +193,19 @@ export default {
       }
       this.pages++;
       this.currentCateId = cateId;
+      this.pageSize = 8;
+      if(this.active === 1 && this.firstRequest){
+        this.pageSize = 11;
+        this.firstRequest = false;
+      }
+      else if(this.active === 2 && this.secondRequest){
+        this.pageSize = 12;
+        this.secondRequest = false;
+      }
+      else if(this.active === 3 && this.thireRequest){
+        this.pageSize = 12;
+        this.thirdRequest = false;
+      }
       let {data} = await team({pages:this.pages,
         pagesize: this.pageSize,
         cate_id: this.currentCateId});
@@ -187,6 +217,15 @@ export default {
         for(let i = 0;i<data.data.team.length;++i){
           this.team.push(data.data.team[i]);
         }
+      }
+      if(this.active === 1 && data.data.team.length <this.pageSize){
+        this.loadDoneFirst = true;
+      }
+      else if(this.active === 2 && data.data.team.length <this.pageSize){
+        this.loadDoneSecond = true;
+      }
+      else if(this.active === 3 && data.data.team.length <this.pageSize){
+        this.loadDoneThird = true;
       }
     },
     changeTab(index) {
@@ -470,6 +509,11 @@ export default {
   background-color: #f4f4f4;
   display: flex;
   justify-content: start;
+  display: flex;
+  flex-direction: column;
+}
+.partthree-wrapper{
+  display: flex;
   flex-wrap: wrap;
 }
 .partthree-child {
@@ -509,6 +553,19 @@ export default {
   color: #3c3c3c;
   line-height: 37px;
   text-align: center;
+}
+.load-more{
+  width: 100px;
+  height: 27px;
+  font-size: 18px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #A0A0A0;
+  line-height: 21px;
+  margin-left: 685px;
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+
 }
 </style>
 

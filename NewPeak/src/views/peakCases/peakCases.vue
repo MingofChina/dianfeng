@@ -13,6 +13,24 @@
             <div>巅峰案例</div>
         </div>
     </div>
+     <div>
+        <img class="code-bk" v-if="flag"/>
+        <img class="shut-down" v-if="flag"
+            src="../../assets/img/icon_shut down@2x.png"
+            v-on:click="closeBk()"
+        />
+        <div class="index-info-wrapper">
+        <div class="phone-wrapper">
+            <img class="index-phone"
+            src="../../assets/bei/icon_the phone@2x.png"
+            v-if="flag"/>
+            <div class="phone-text" v-if="flag">联系电话</div>
+        </div>
+        <div class="phone-number1" v-if="flag">{{free_phone}}</div>
+        <div class="phone-number2" v-if="flag">{{company_phone}}</div>
+        <img class="code-url" v-if="flag" :src=getImgUrl(this.public_number_url) />
+        </div>
+    </div>
     <div class="lega-content">
         <div class="lega-content-div1">
             <div style="display:flex">
@@ -47,7 +65,7 @@
   </div>
 </template>
 <script>
-import { sexample,banner } from "@/api/api";
+import { sexample,banner,BottomMessage } from "@/api/api";
 export default {
   data() {
     return {
@@ -61,6 +79,10 @@ export default {
       total:0,
       id:null,
       imgUrl:'',
+      free_phone: "",
+      company_phone: "",
+      public_number_url:"",
+      flag: true,
       pageNumber:1,
       baseUrl:'http://ceshi.davost.com/',
     };
@@ -71,31 +93,63 @@ export default {
      $route: {
         handler() {
            let that =this;
-           this.sexamplefn(1)
            that.colorFn()
            that.id = null
            this.sexamplefn(1)
         },
         deep: true,
+        
     }
   },
+  created(){
+       let that = this
+      if(sessionStorage.getItem('peakCasesPage')){
+          that.sexamplefn(sessionStorage.getItem('peakCasesPage'))
+          this.pageNumber =Number(sessionStorage.getItem('peakCasesPage'))
+          sessionStorage.removeItem('peakCasesPage')
+      }else{
+          that.sexamplefn(1)
+      }
+  },
   mounted() {
-      this.sexamplefn(1) //调用联系我们接口
+      let that = this
+      if(sessionStorage.getItem('peakCasesPage')){
+          that.sexamplefn(sessionStorage.getItem('peakCasesPage'))
+          
+          sessionStorage.removeItem('peakCasesPage')
+      }else{
+          that.sexamplefn(1)
+      }
+       //调用联系我们接口
     //   this.colorFn()
+    this.getTanChuang();
   },
   methods: {
     colorFn1(data,index){
         let that = this
         that.isActive1 = index
     },
+    async getTanChuang() {
+      let { data } = await BottomMessage();
+      this.public_number_url = data.data.public_number_url;
+      this.free_phone = data.data.free_phone;
+      this.company_phone = data.data.company_phone;
+    },
     leave(){
         let that =this
         that.isActive1=null
     },
+    getImgUrl(imgUrl){
+      return this.baseUrl+imgUrl;
+    },
+    closeBk(){
+      this.flag = false;
+    },
     async sexamplefn(val) {
       let that = this;
+      
      let params = {
-         pages:this.pageNumber,
+         pages:that.pageNumber,
          pagesize:8,
          id:that.id?that.id:this.$route.params.id
      }
@@ -140,7 +194,8 @@ export default {
        this.sexamplefn(val)
     },
     detailFn(data){
-        // this.$router.push(`/peakCasesDetail/${data.id}`);
+        // this.$router.push(`/peakCasesDetail/${data.idumber}`);
+        sessionStorage.setItem('peakCasesPage',this.pageNumber)
         let routeUrl = this.$router.resolve({
             path: `/peakCasesDetail/${data.id}`
           });
@@ -151,6 +206,180 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (min-width: 1921px) {
+  .code-bk {
+    position: fixed;
+    top: 400px;
+    right: 0px;
+    background-image: url("../../assets/bei/fixed.png");
+    width: 340px;
+    height: 530px;
+    background-size: 100% 100%;
+    z-index: 9000;
+  }
+  .code-url{
+    position: fixed;
+    top: 740px;
+    right: 100px;
+    width: 142px;
+    height: 142px;
+    background-size: 100% 100%;
+    z-index: 10000;
+  }
+  .shut-down{
+    position: fixed;
+    top: 436px;
+    right: 31px;
+    background-image: url("../../assets/img/icon_shut down@2x.png");
+    width: 32px;
+    height: 32px;
+    background-size: 100% 100%;
+    z-index: 10000;
+  }
+  .index-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 530px;
+    right: 120px;
+    z-index: 10000;
+  }
+  .phone-wrapper{
+    display: flex;
+    flex-direction: row;
+    margin-top: 7px;
+  }
+  .index-phone{
+    /*position: fixed;
+    top: 530px;
+    right: 270px;*/
+    background-image: url("../../assets/bei/icon_the phone@2x.png");
+    width: 24px;
+    height: 24px;
+    background-size: 100% 100%;
+  }
+  .phone-text{
+    /*position: fixed;
+    top: 530px;
+    right: 155px;*/
+    height: 28px;
+    font-size: 26px;
+    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+    font-weight: 400;
+    color: #6E6E6E;
+    line-height: 28px;
+    margin-left: 27px;
+    /*  -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;*/
+  }
+  .phone-number1{
+    /*position: fixed;
+    top: 600px;
+    right: 114px;*/
+    /*width: 103px;*/
+    height: 28px;
+    font-size: 26px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 500;
+    color: #231914;
+    line-height: 28px;
+    margin-top: 25px;
+    /*-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+  }
+  .phone-number2{
+    /*position: fixed;
+    top: 650px;
+    right: 119px;*/
+    /*width: 111px;*/
+    height: 28px;
+    font-size: 26px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 500;
+    color: #231914;
+    line-height: 28px;
+    margin-top: 25px;
+    /*-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+  }
+}
+.index-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 465px;
+    right: 36px;
+    z-index: 10000;
+  }
+  .phone-wrapper{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+  }
+.active{
+    background: red !important;
+    color: #ffffff;
+}
+.lega-content-div111{
+    width: 100%;
+    height: 100%;
+    background:#f0eeee;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.index-phone{
+    /*position: fixed;
+    top: 530px;
+    right: 270px;*/
+    background-image: url("../../assets/bei/icon_the phone@2x.png");
+    width: 12px;
+    height: 12px;
+    background-size: 100% 100%;
+  }
+  .phone-text{
+    /*position: fixed;
+    top: 530px;
+    right: 155px;*/
+    height: 14px;
+    font-size: 13px;
+    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+    font-weight: 400;
+    color: #6E6E6E;
+    line-height: 14px;
+    margin-left: 15px;
+    /*  -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;*/
+  }
+  .phone-number1{
+    /*position: fixed;
+    top: 600px;
+    right: 114px;*/
+    /*width: 103px;*/
+    height: 14px;
+    font-size: 13px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 500;
+    color: #231914;
+    line-height: 14px;
+    margin-top: 15px;
+    /*-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+  }
+  .phone-number2{
+    /*position: fixed;
+    top: 650px;
+    right: 119px;*/
+    /*width: 111px;*/
+    height: 14px;
+    font-size: 13px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 500;
+    color: #231914;
+    line-height: 14px;
+    margin-top: 15px;
+    /*-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+  }
 .pagination{
     margin-top: 3.13rem;
     text-align: center;

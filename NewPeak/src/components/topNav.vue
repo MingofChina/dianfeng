@@ -266,7 +266,7 @@ export default {
   width: 1.3rem;
   z-index: 99;
   // background: #ffffff;
-  top: .7rem;
+  top: .55rem;
   left: 3.3rem;
 }
 .grid-input{

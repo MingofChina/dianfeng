@@ -933,7 +933,7 @@ a {
   justify-content: space-between;
 }
 .introduce3-item-logo{
-  background-color: #808080;
+  /*background-color: #808080;*/
   width: 240px;
   height: 104px;
   border-radius: 0px 0px 0px 0px;
@@ -1072,7 +1072,7 @@ a {
   position: absolute;
   top: 295px;
   left: 810px;
-  background: #808080;
+  /*background: #808080;*/
   width: 608px;
   height: 260px;
   border-radius: 0px 0px 0px 0px;
@@ -1243,7 +1243,7 @@ a {
   padding-top: 34px;
 }
 .introduce6-image{
-  background-color: #545454;
+  /*background-color: #545454;*/
   width: 358px;
   height: 230px;
 }
@@ -1279,7 +1279,7 @@ a {
   margin-top: 40px;
 }
 .introduce5-image{
-  background-color: #545454;
+  /*background-color: #545454;*/
   width: 358px;
   height: 230px;
   display: block;

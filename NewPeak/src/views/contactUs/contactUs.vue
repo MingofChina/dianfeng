@@ -61,7 +61,11 @@ export default {
   },
   methods: {
     homeFn(){
-      this.$router.push("/index") ;
+    //   this.$router.push("/index") ;
+      let routeUrl = this.$router.resolve({
+        path: `/index`
+      });
+      window.open(routeUrl.href, '_blank');
     },
     async legislationfn() {
         let { data } = await relation();

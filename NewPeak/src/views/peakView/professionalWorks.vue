@@ -10,8 +10,8 @@
         <div class="lega-header-foot">
             <img @click='homeFn()' src="../../assets/search-img/icon_home@2x.png">
             <img src="../../assets/search-img/icon@2x.png">
-            <div>巅峰观点</div>
-            <img src="../../assets/search-img/icon@2x.png">
+            <!-- <div>巅峰观点</div>
+            <img src="../../assets/search-img/icon@2x.png"> -->
             <div>专业著作</div>
         </div>
     </div>
@@ -38,6 +38,7 @@
             <div class="pagination">
                 <el-pagination
                 background
+                :current-page.sync='pageNumber'
                 @current-change="handleCurrentChange"
                 :page-size="10"
                 layout="prev, pager, next"
@@ -55,6 +56,7 @@ export default {
   data() {
     return {
       mesage:'',
+      pageNumber:1,
       textHeml:'',
       dataList:[],
       total:0,
@@ -66,11 +68,21 @@ export default {
   computed: {
   },
   mounted() {
-      this.specialtyfn(1) //调用联系我们接口
+    //   this.specialtyfn(1) //调用联系我们接口
+  },
+   created(){
+       let that = this
+        if(sessionStorage.getItem('professionalWorksPage')){
+            that.specialtyfn(sessionStorage.getItem('professionalWorksPage'))
+            that.pageNumber =Number(sessionStorage.getItem('professionalWorksPage'))
+            sessionStorage.removeItem('professionalWorksPage')
+        }else{
+            that.specialtyfn(1)
+        }
   },
   methods: {
     async specialtyfn(val) {
-      let { data } = await specialty({pages:val,pagesize:10});
+      let { data } = await specialty({pages:this.pageNumber,pagesize:10});
       document.title = data.data.seo_message.meta_title
      this.dataList = data.data.books
      this.total = data.data.books_pages_number * 10
@@ -82,6 +94,7 @@ export default {
         this.isActive = index
     }, 
      handleCurrentChange(val) {
+         this.pageNumber= val
        this.specialtyfn(val)
     },
     
@@ -93,6 +106,7 @@ export default {
     },
     detailFn(data){
         // this.$router.push(`/professWorksDetail/${data.id}`);
+         sessionStorage.setItem('professionalWorksPage',this.pageNumber)
         let routeUrl = this.$router.resolve({
             path: `/professWorksDetail/${data.id}`
           });
