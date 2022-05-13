@@ -30,7 +30,6 @@
                 </div>
               </el-col>
           </div>
-         
         </el-row>
       </el-col>
       <el-col :span="3" style="line-height:4.125rem">

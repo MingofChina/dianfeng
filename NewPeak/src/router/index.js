@@ -23,10 +23,21 @@ import professWorksDetail from '../views/peakView/professWorksDetail.vue'
 import queryResults from '../views/contactUs/queryResults.vue'
 import newsIndex from '../views/intoThePeak/newsDetails/newsIndex.vue'
 import newsDetail from '../views/intoThePeak/newsDetails/newsDetail.vue'
+import index_h5 from '../views/page/hIndex'
+import us_h5 from '../views/page/us/us.vue'
+import law_h5 from "../views/page/us/law.vue";
+import introduce_h5 from "../views/page/goCompany/introduce.vue";
+import team_h5 from "../views/page/team/team.vue"
+import teamDetail_h5 from "../views/page/team/teamDetail.vue"
+import demeanor_h5 from "../views/page/demeanor/demeanor.vue";
+import focus_5 from "../views/page/focus/focus.vue";
+import partner_h5 from "../views/page/partner/partner.vue";
+import viewpoint_h5 from "../views/page/viewpoint/viewpoint.vue"
+import pointDetail_h5 from "../views/page/pointDetail/pointDetail.vue";
+import caseDetail_h5 from "../views/page/caseDetail/caseDetail.vue";
 Vue.use(VueRouter)
 
-export const constantRoutes = [
-    {
+export const constantRoutes = [{
         path: '/',
         name: 'home',
         component: home,
@@ -35,7 +46,7 @@ export const constantRoutes = [
             title: "首页"
         },
         children: [
-            // 首页
+
             {
                 path: 'index',
                 name: 'index',
@@ -44,12 +55,112 @@ export const constantRoutes = [
                     title: "首页"
                 }
             },
+            {
+                path: 'index_h5',
+                name: 'index_h5',
+                component: index_h5,
+                meta: {
+                    title: "首页"
+                }
+            },
+            {
+                path: 'introduce_h5/0/0',
+                name: 'introduce_h5',
+                component: introduce_h5,
+                meta: {
+                    title: '巅峰介绍'
+                }
+            },
+            {
+                path: 'introduce_h5/0/1',
+                name: 'team_h5',
+                component: team_h5,
+                meta: {
+                    title: '巅峰团队'
+                }
+            },
+            // teamDetail_h5
+            {
+                path: 'teamDetail_h5',
+                name: 'teamDetail_h5',
+                component: teamDetail_h5,
+                meta: {
+                    title: '团队详情'
+                }
+            },
+            {
+                path: 'introduce_h5/0/2',
+                name: 'demeanor_h5',
+                component: demeanor_h5,
+                meta: {
+                    title: '巅峰风采'
+                }
+            },
+            {
+                path: 'introduce_h5/0/3',
+                name: 'focus_5',
+                component: focus_5,
+                meta: {
+                    title: '巅峰要闻'
+                }
+            },
+            {
+                path: 'introduce_h5/0/6',
+                name: 'partner_h5',
+                component: partner_h5,
+                meta: {
+                    title: '合作伙伴'
+                }
+            },
+            {
+                path: 'introduce_h5/2/0',
+                name: 'caseDetail_h5',
+                component: caseDetail_h5,
+                meta: {
+                    title: '巅峰案例详情'
+                }
+            },
+            {
+                path: 'introduce_h5/3/0',
+                name: 'viewpoint_h5',
+                component: viewpoint_h5,
+                meta: {
+                    title: '巅峰著作'
+                }
+            },
+            {
+                path: 'introduce_h5/3/1',
+                name: 'pointDetail_h5',
+                component: pointDetail_h5,
+                meta: {
+                    title: '详情'
+                }
+            },
+            {
+                path: 'introduce_h5/5/0',
+                name: 'us_h5',
+                component: us_h5,
+                meta: {
+                    title: '关于我们'
+                }
+            },
+            {
+                path: 'introduce_h5/5/1',
+                name: 'law_h5',
+                component: law_h5,
+                meta: {
+                    title: '关于我们'
+                }
+            },
+
+
             // 走进巅峰-巅峰介绍
             {
                 path: 'peakIntroduction/:id',
                 name: 'peakIntroduction',
                 component: peakIntroduction,
             },
+
             // 走进巅峰-巅峰团队
             {
                 path: 'peakTeam/:id',
@@ -121,9 +232,9 @@ export const constantRoutes = [
             },
             // 巅峰案例-详情
             {
-                path:'peakCasesDetail/:id',
-                name:'peakCasesDetail',
-                component:peakCasesDetail,
+                path: 'peakCasesDetail/:id',
+                name: 'peakCasesDetail',
+                component: peakCasesDetail,
             },
             // 巅峰观点-行业观点
             {
@@ -133,9 +244,9 @@ export const constantRoutes = [
             },
             // 巅峰观点-行业观点详情
             {
-                path:'peakViewDetail/:id',
-                name:'peakViewDetail',
-                component:peakViewDetail,
+                path: 'peakViewDetail/:id',
+                name: 'peakViewDetail',
+                component: peakViewDetail,
             },
             // 巅峰观点-专业著作
             {
@@ -145,9 +256,9 @@ export const constantRoutes = [
             },
             // 巅峰观点-专业著作详情
             {
-                path:'professWorksDetail/:id',
-                name:'professWorksDetail',
-                component:professWorksDetail,
+                path: 'professWorksDetail/:id',
+                name: 'professWorksDetail',
+                component: professWorksDetail,
             },
             //法律声明
             {
@@ -157,37 +268,41 @@ export const constantRoutes = [
             },
             //联系我们
             {
-                path:'contactUs/:id',
-                name:'contactUs',
-                component:contactUs,
+                path: 'contactUs/:id',
+                name: 'contactUs',
+                component: contactUs,
             },
             //网站地图
             {
-                path:'siteMap',
-                name:'siteMap',
-                component:siteMap,
+                path: 'siteMap',
+                name: 'siteMap',
+                component: siteMap,
             },
             //搜索
             {
-                path:'queryResults/:id',
-                name:'queryResults',
-                component:queryResults,
+                path: 'queryResults/:id',
+                name: 'queryResults',
+                component: queryResults,
             },
-            
-        ]
+            // {
+            //
+            // }
+
+        ],
+
     },
 
 ]
 export default new VueRouter({
-    mode: 'history', // 去掉url中的#
-    scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes
-  })
-// const router = new VueRouter({
-//     mode: 'history',
-//     base: process.env.BASE_URL,
-//     routes
-// })
+        mode: 'history', // 去掉url中的#
+        scrollBehavior: () => ({ y: 0 }),
+        routes: constantRoutes
+    })
+    // const router = new VueRouter({
+    //     mode: 'history',
+    //     base: process.env.BASE_URL,
+    //     routes
+    // })
 
 // router.beforeEach((to,from,next)=>{
 
