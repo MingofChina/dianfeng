@@ -11,82 +11,103 @@
     <div class="focMain">
       <div class="title">中国文旅产业巅峰大会</div>
       <div class="mes">{{focMes}}</div>
-      <ul class="banner">
-        <li class="show">
-          <img src="../../../assets/imgs/banner.png"
-               alt="">
-          <div class="btn">
-            <img class="first"
-                 src="../../../assets/imgs/focLeft.png"
+      <div class="bannerNums">
+        <ul class="banner">
+          <li class="show"
+              v-for="(item,i) in bannerList"
+              :key="i">
+            <img :src=getImgUrl(item.original_image)
                  alt="">
-            <img class="second"
-                 src="../../../assets/imgs/focRight.png"
-                 alt="">
-          </div>
-          <div class="bgMes">第七届中国文旅产业巅峰大会</div>
-        </li>
-      </ul>
+            <div class="btn">
+              <img class="first"
+                   src="../../../assets/imgs/focLeft.png"
+                   alt=""
+                   @click="leftBanner(i)">
+              <img class="second"
+                   src="../../../assets/imgs/focRight.png"
+                   alt=""
+                   @click="rightBanner(i)">
+            </div>
+            <div class="bgMes">{{item.title}}</div>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="focFoot"
          v-for="(item,i) in econInfo"
          :key="i">
-      <img :src="require(`../../../assets/bei/${item.img}.png`)"
+      <img :src=getImgUrl(item.original_image)
            alt="">
       <div class="right">
         <div class="footTitle">{{item.title}}</div>
-        <div class="footMes">{{item.mes}}</div>
+        <div class="footMes">{{item.summary}}</div>
+        <span v-show="item.summary.length<40?false:true">...</span>
         <div class="mark">
           <div class="markCon">
-            <!-- <div class="markInfo">{{item.detail}}</div> -->
             <img src="../../../assets/bei/icon_more(2).png"
                  alt="">
-            <div class="markInfo">{{item.detail}}</div>
+            <div class="markInfo"
+                 @click="details(item.id)">查看详情</div>
           </div>
-          <div class="date">{{item.date}}</div>
+          <div class="date">{{item.addtime}}</div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { top_h5, bottom_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
-      focMes: '巅峰智业秉承“资源有限 智慧无穷”的理念，信守“人才至上”的价值观，将员工教育作为企业文化建设的突破口和提升企业竞争力的利器。构建了自己的黄埔军校——“巅峰大讲堂”，结合“导师制”、“金鹰特训班”、“项目经典沙龙”、“专家讲座”等多种形式，通过新员工培训、业务技能培训、管理技能培训、通用技能培训等多维度课程体系，为公司发展和员工成长提供学习解决方案。',
-      econInfo: [
-        {
-          img: 'epcjianshe',
-          title: '掘金夜间经济：夜景醉游人遇见...',
-          mes: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其...',
-          detail: '查看详情',
-          date: '2020-02-22'
-        },
-        {
-          img: 'epcjianshe',
-          title: '掘金夜间经济：夜景醉游人遇见...',
-          mes: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其...',
-          detail: '查看详情',
-          date: '2020-02-22'
-        },
-        {
-          img: 'epcjianshe',
-          title: '掘金夜间经济：夜景醉游人遇见...',
-          mes: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其...',
-          detail: '查看详情',
-          date: '2020-02-22'
-        },
-        {
-          img: 'epcjianshe',
-          title: '掘金夜间经济：夜景醉游人遇见...',
-          mes: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其...',
-          detail: '查看详情',
-          date: '2020-02-22'
-        },
-      ],
+      focMes: '',
+      bannerList: '',
+      baseUrl: 'http://ceshi.davost.com',
+      econInfo: '',
+      pages: 1,
+      pagesize: 10
     }
   },
+  created () {
+    this.getList()
+    this.getInfo()
+  },
   methods: {
-
+    getList () {
+      top_h5().then((res) => {
+        console.log(res);
+        this.focMes = res.data.data.wenlv_description
+        this.bannerList = res.data.data.wenlv_image
+      })
+    },
+    getInfo () {
+      const data = {
+        pages: this.pages,
+        pagesize: this.pagesize
+      }
+      bottom_h5(data).then((res) => {
+        this.econInfo = res.data.data.peak_news
+        console.log(res, '瞅你那逼样');
+      })
+    },
+    details (info) {
+      this.$router.push({
+        path: '/focusDetail_h5',
+        query: {
+          id: info
+        }
+      })
+      console.log('跳转go', info);
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
+    },
+    leftBanner (i) {
+      console.log(i);
+    },
+    rightBanner (i) {
+      console.log(i);
+    }
   }
 }
 </script>
@@ -120,6 +141,8 @@ export default {
   }
 }
 .focMain {
+  width: 100%;
+  overflow: hidden;
   padding-top: 2.33rem;
   // margin-bottom: 1rem;
   background: #f4f4f4;
@@ -139,51 +162,56 @@ export default {
     color: #000000;
     line-height: 1.67rem;
   }
-  .banner {
+  .bannerNums {
     position: relative;
-    list-style: none;
-    padding: 0;
     margin-top: 1rem;
-    margin-left: 1.33rem;
-    margin-right: 1.33rem;
-    .show {
-      width: 34.8rem;
-      height: 20.67rem;
-      img {
-        width: 34.8rem;
+    // margin-left: 1.33rem;
+    // padding-right: 1.33rem;
+    .banner {
+      min-width: 600%;
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin-right: 1.33rem;
+      .show {
+        padding-left: 1.33rem;
+        padding-right: 1.33rem;
+        width: 100%;
         height: 20.67rem;
-      }
-      .btn {
         img {
-          width: 2rem;
-          height: 2rem;
+          width: 100%;
+          height: 20.67rem;
         }
-        .first {
-          position: absolute;
-          top: 50%;
-          text-align: left;
-        }
-        .second {
-          position: absolute;
-          top: 50%;
-          right: 0;
-          text-align: right;
+        .btn {
+          img {
+            width: 2rem;
+            height: 2rem;
+          }
+          .first {
+            position: absolute;
+            top: 48%;
+          }
+          .second {
+            position: absolute;
+            top: 48%;
+            margin-left: 87%;
+          }
         }
       }
-    }
-    .bgMes {
-      position: absolute;
-      bottom: 0;
-      width: 34.8rem;
-      height: 4rem;
-      text-align: center;
-      background: #c8000a;
-      font-size: 1.17rem;
-      font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-      font-weight: 500;
-      color: #ffffff;
-      line-height: 4rem;
-      letter-spacing: 1px;
+      .bgMes {
+        position: absolute;
+        bottom: 0;
+        width: 93%;
+        height: 4rem;
+        text-align: center;
+        background: #c8000a;
+        font-size: 1.17rem;
+        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+        font-weight: 500;
+        color: #ffffff;
+        line-height: 4rem;
+        letter-spacing: 1px;
+      }
     }
   }
 }
@@ -198,6 +226,13 @@ export default {
     margin-top: 0.66rem;
     margin-left: 1rem;
     .footTitle {
+      margin-top: -0.3rem;
+      height: 1.37rem;
+      display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+      -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+      overflow: hidden; /*超出的文本隐藏*/
+      text-overflow: ellipsis; /* 溢出用省略号*/
+      -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
       font-size: 1.17rem;
       font-family: Source Han Sans CN-Regular, Source Han Sans CN;
       font-weight: 400;
@@ -205,7 +240,9 @@ export default {
       line-height: 1.37rem;
     }
     .footMes {
-      margin-top: 0.66rem;
+      height: 3.2rem;
+      overflow: hidden;
+      margin-top: 0.3rem;
       font-size: 1rem;
       font-family: Source Han Sans CN-Regular, Source Han Sans CN;
       font-weight: 400;
@@ -226,6 +263,7 @@ export default {
           height: 0.88rem;
         }
         .markInfo {
+          margin-left: 0.3rem;
           // margin-top: -0.4rem;
           font-size: 0.83rem;
           font-family: Source Han Sans CN-Normal, Source Han Sans CN;

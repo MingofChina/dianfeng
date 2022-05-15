@@ -1,19 +1,9 @@
 <template>
   <div id="app">
     <div class="head">
-      <div class="viewTitle">{{headTitle}}</div>
+      <div class="viewTitle">{{detailsInfo.title}}</div>
       <div class="article"
-           v-for="(item,i) in articleArr"
-           :key="i">
-        {{item.name}}
-      </div>
-      <div>
-        <img src="../../../assets/imgs/bgNum1.png"
-             alt="">
-      </div>
-      <div style="margin-top:1rem"
-           class="article">
-        {{articleLast}}
+           v-html="detailsInfo.description">
       </div>
     </div>
     <div class="viewMain">
@@ -22,13 +12,14 @@
         <div class="title">著作推荐</div>
       </div>
       <div class="info"
-           v-for="(item,i) in recommend"
+           v-for="(item,i) in books"
            :key="i">
         <div class="infoCon">
           <div class="title">{{item.title}}</div>
-          <div class="mes">{{item.mes}}</div>
+          <div class="mes">{{item.summary}}</div>
+          <span v-show="item.summary.length<40?false:true">...</span>
         </div>
-        <img :src="require(`../../../assets/bei/${item.img}.png`)"
+        <img :src=getImgUrl(item.original_image)
              alt="">
       </div>
     </div>
@@ -40,11 +31,12 @@
       <div class="info"
            v-for="(item,i) in recommend"
            :key="i">
-        <img :src="require(`../../../assets/bei/${item.img}.png`)"
+        <img :src=getImgUrl(item.original_image)
              alt="">
         <div class="infoCon">
           <div class="title">{{item.title}}</div>
-          <div class="mes">{{item.mes}}</div>
+          <div class="mes">{{item.summary}}</div>
+          <span v-show="item.summary.length<40?false:true">...</span>
         </div>
         <!-- <img :src="require(`../../../assets/bei/${item.img}.png`)"
              alt=""> -->
@@ -53,6 +45,7 @@
   </div>
 </template>
 <script>
+import { pointDetail_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
@@ -74,16 +67,30 @@ export default {
           img: 'guangyingyeyou'
         }
       ],
-      articleArr: [
-        { name: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长时间多维度地满足了游客需求。夜景也是夜游经济发展的基础，是不可或缺的组成部分，在地化场景的夜景该如何打造，是夜景项目最核心的问题。' },
-        { name: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其有机地组合成一个和谐优美、富有特色的夜景图画，以此来表现一个城市或地区的夜间形象，从而满足旅游者对文化氛围和艺术展现的视觉追求。在灯光照明技术的发展和应用推动下，景观照明工程开启了我国夜景塑造的发展历程，随着社会经济发展和人们生活方式的转变，夜景塑造在景观照明基础上衍生出以美化为特色的夜景亮化和以灯光秀为代表的夜景光影新阶段。' },
-        { name: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长时间多维度地满足了游客需求。夜景也是夜游经济发展的基础，是不可或缺的组成部分，在地化场景的夜景该如何打造，是夜景项目最核心的问题。' },
-      ],
-      articleLast: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其有机地组合成一个和谐优美、富有特色的夜景图画，以此来表现一个城市或地区的夜间形象，从而满足旅游者对文化氛围和艺术展现的视觉追求。在灯光照明技术的发展和应用推动下，景观照明工程开启了我国夜景塑造的发展历程，随着社会经济发展和人们生活方式的转变，夜景塑造在景观照明基础上衍生出以美化为特色的夜景亮化和以灯光秀为代表的夜景光影新阶段。'
+      detailsInfo: '',
+      books: '',
+      baseUrl: 'http://ceshi.davost.com',
     }
   },
+  created () {
+    console.log(this.$route.query.id, '7777');
+    this.getList()
+  },
   methods: {
-
+    getList () {
+      const data = {
+        id: this.$route.query.id
+      }
+      pointDetail_h5(data).then((res) => {
+        console.log(res, '详情');
+        this.detailsInfo = res.data.data.idea_detail
+        this.books = res.data.data.peak_idea_hots
+        this.recommend = res.data.data.peak_idea_relevant
+      })
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
+    },
   }
 }
 </script>
@@ -113,6 +120,7 @@ export default {
   }
 }
 .viewMain {
+  // width: 100%;
   margin: 1.67rem 1.33rem 0 1.33rem;
   .viTitle {
     display: flex;
@@ -131,9 +139,18 @@ export default {
     }
   }
   .info {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     .infoCon {
+      width: 57%;
+      // margin-right: 1.33rem;
       .title {
+        display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+        -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+        overflow: hidden; /*超出的文本隐藏*/
+        text-overflow: ellipsis; /* 溢出用省略号*/
+        -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
         margin-top: 0.55rem;
         font-size: 1.17rem;
         font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -143,6 +160,8 @@ export default {
         margin-bottom: 0.67rem;
       }
       .mes {
+        height: 3.2rem;
+        overflow: hidden;
         font-size: 1rem;
         font-family: Source Han Sans CN-Light, Source Han Sans CN;
         font-weight: 300;
@@ -151,7 +170,7 @@ export default {
       }
     }
     img {
-      width: 10.83rem;
+      width: 35%;
       height: 7.75rem;
       margin-bottom: 1rem;
     }
@@ -181,6 +200,11 @@ export default {
     .infoCon {
       margin-left: 1rem;
       .title {
+        display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+        -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+        overflow: hidden; /*超出的文本隐藏*/
+        text-overflow: ellipsis; /* 溢出用省略号*/
+        -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
         margin-top: 0.55rem;
         font-size: 1.17rem;
         font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -190,6 +214,8 @@ export default {
         margin-bottom: 0.67rem;
       }
       .mes {
+        height: 3.2rem;
+        overflow: hidden;
         font-size: 1rem;
         font-family: Source Han Sans CN-Light, Source Han Sans CN;
         font-weight: 300;

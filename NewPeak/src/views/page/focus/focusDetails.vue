@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="head">
-      <div class="viewTitle">{{booksDetail.title}}</div>
+      <div class="viewTitle">{{details.title}}</div>
       <div class="article"
-           v-html="booksDetail.description">
+           v-html="details.description">
       </div>
     </div>
     <div class="viewMain">
@@ -12,7 +12,7 @@
         <div class="title">著作推荐</div>
       </div>
       <div class="info"
-           v-for="(item,i) in bookInfo"
+           v-for="(item,i) in detailsRecommend"
            :key="i">
         <div class="infoCon">
           <div class="title">{{item.title}}</div>
@@ -31,8 +31,7 @@
       <div class="info"
            v-for="(item,i) in recommend"
            :key="i">
-        <img :src=getImgUrl(item.original_image)
-             alt="">
+        <img :src=getImgUrl(item.original_image)>
         <div class="infoCon">
           <div class="title">{{item.title}}</div>
           <div class="mes">{{item.summary}}</div>
@@ -43,42 +42,21 @@
   </div>
 </template>
 <script>
-import { bookDetail_h5 } from "../../../api/api.js";
+import { newsDetail_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
-      bookInfo: '',
-      booksDetail: '',
-      baseUrl: 'http://ceshi.davost.com',
+      detailsRecommend: '',
       headTitle: '掘金夜间经济：夜景“醉”游人，遇见“夜” 来香',
-      recommend: [
-        {
-          title: '掘金夜间经济：夜景“醉”游...',
-          mes: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长...',
-          img: 'guangyingyeyou'
-        },
-        {
-          title: '掘金夜间经济：夜景“醉”游...',
-          mes: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长...',
-          img: 'guangyingyeyou'
-        },
-        {
-          title: '掘金夜间经济：夜景“醉”游...',
-          mes: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长...',
-          img: 'guangyingyeyou'
-        }
-      ],
-      articleArr: [
-        { name: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长时间多维度地满足了游客需求。夜景也是夜游经济发展的基础，是不可或缺的组成部分，在地化场景的夜景该如何打造，是夜景项目最核心的问题。' },
-        { name: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其有机地组合成一个和谐优美、富有特色的夜景图画，以此来表现一个城市或地区的夜间形象，从而满足旅游者对文化氛围和艺术展现的视觉追求。在灯光照明技术的发展和应用推动下，景观照明工程开启了我国夜景塑造的发展历程，随着社会经济发展和人们生活方式的转变，夜景塑造在景观照明基础上衍生出以美化为特色的夜景亮化和以灯光秀为代表的夜景光影新阶段。' },
-        { name: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长时间多维度地满足了游客需求。夜景也是夜游经济发展的基础，是不可或缺的组成部分，在地化场景的夜景该如何打造，是夜景项目最核心的问题。' },
-      ],
-      articleLast: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其有机地组合成一个和谐优美、富有特色的夜景图画，以此来表现一个城市或地区的夜间形象，从而满足旅游者对文化氛围和艺术展现的视觉追求。在灯光照明技术的发展和应用推动下，景观照明工程开启了我国夜景塑造的发展历程，随着社会经济发展和人们生活方式的转变，夜景塑造在景观照明基础上衍生出以美化为特色的夜景亮化和以灯光秀为代表的夜景光影新阶段。'
+      recommend: '',
+      baseUrl: 'http://ceshi.davost.com',
+      details: '',
+      articleArr: '',
     }
   },
   created () {
-    console.log(this.$route.query.id, 'yy');
-
+    console.log('要闻进来的，要闻详情');
+    console.log(this.$route.query.id, 'ttt');
     this.getList()
   },
   methods: {
@@ -86,11 +64,10 @@ export default {
       const data = {
         id: this.$route.query.id
       }
-      bookDetail_h5(data).then((res) => {
-        this.booksDetail = res.data.data.books_detail
-        this.bookInfo = res.data.data.peak_books_hots
-        this.recommend = res.data.data.peak_books_relevant
-        console.log(res, '著作详情');
+      newsDetail_h5(data).then((res) => {
+        this.details = res.data.data.peak_news_detail
+        this.detailsRecommend = res.data.data.peak_news_hots
+        this.recommend = res.data.data.peak_news_relevant
       })
     },
     getImgUrl (imgUrl) {
@@ -123,6 +100,11 @@ export default {
     color: #000000;
     line-height: 1.67rem;
   }
+  .imgCon {
+    img {
+      width: 100%;
+    }
+  }
 }
 .viewMain {
   margin: 1.67rem 1.33rem 0 1.33rem;
@@ -143,11 +125,12 @@ export default {
     }
   }
   .info {
-    width: 100%;
     display: flex;
+    width: 100%;
     justify-content: space-between;
     .infoCon {
-      width: 70%;
+      width: 60%;
+      margin-right: 1.33rem;
       .title {
         display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
         -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
@@ -171,9 +154,12 @@ export default {
         color: #6e6e6e;
         line-height: 1.5rem;
       }
+      span {
+        color: #6e6e6e;
+      }
     }
     img {
-      width: 20%;
+      width: 35%;
       height: 7.75rem;
       margin-bottom: 1rem;
     }
@@ -199,11 +185,10 @@ export default {
     }
   }
   .info {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
     .infoCon {
-      width: 70%;
+      width: 60%;
       margin-left: 1rem;
       .title {
         display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
@@ -228,9 +213,13 @@ export default {
         color: #6e6e6e;
         line-height: 1.5rem;
       }
+      span {
+        color: #6e6e6e;
+      }
     }
     img {
-      width: 20%;
+      margin-right: 1.33rem;
+      width: 35%;
       height: 7.75rem;
       margin-bottom: 1rem;
     }

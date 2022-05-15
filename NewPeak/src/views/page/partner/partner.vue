@@ -13,15 +13,19 @@
       <div class="custEng">Client list</div>
     </div>
     <div class="teamBtn">
-      <button class="btn active">管理团队</button>
-      <button class="btn">专家团队</button>
-      <button class="btn">技术团队</button>
+      <div class="circle"
+           v-for="(it,idx) in company"
+           :key="idx"
+           @click="jump(idx)">
+        <button class="btn"
+                :class="changeColor == idx?'active':''">{{it.title}}</button>
+      </div>
     </div>
     <ul class="content">
       <li class="child"
-          v-for="(item,i) in companyInfo"
+          v-for="(item,i) in company[chooseInfo].child"
           :key="i">
-        <img :src="require(`../../../assets/imgs/${item.img}.png`)"
+        <img :src=getImgUrl(item.original_image)
              alt="">
       </li>
     </ul>
@@ -33,16 +37,18 @@
       <li class="child"
           v-for="(item,i) in BdInfo"
           :key="i">
-        <img :src="require(`../../../assets/imgs/${item.img}.png`)"
+        <img :src=getImgUrl(item.original_image)
              alt="">
       </li>
     </ul>
   </div>
 </template>
 <script>
+import { partner_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
+      company: '',
       companyInfo: [
         { img: 'company' },
         { img: 'company' },
@@ -65,31 +71,33 @@ export default {
         { img: 'company' },
         { img: 'company' },
       ],
-      BdInfo: [
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-        { img: 'bd' },
-      ],
+      chooseInfo: 0,
+      changBtn: true,
+      changeColor: 0,
+      BdInfo: '',
+      baseUrl: 'http://ceshi.davost.com',
     }
   },
+  created () {
+    this.getList()
+  },
   methods: {
+    getList () {
+      partner_h5().then((res) => {
+        console.log(res);
+        this.BdInfo = res.data.data.cooperative_partner
+        this.company = res.data.data.customer_list
+      })
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
+    },
+    jump (i) {
+      this.chooseInfo = i
+      this.changBtn = false
+      this.changeColor = i
+      console.log(i, 'nnn');
+    }
 
   }
 }
@@ -145,23 +153,26 @@ export default {
 }
 .teamBtn {
   margin: 1rem 0 1rem 1.33rem;
-  .btn {
-    width: 8rem;
-    height: 2.67rem;
-    background: #cacaca;
-    border: 0;
-    // margin-left: 2rem;
-    margin-right: 2rem;
-    font-size: 1.17rem;
-    font-weight: 500;
-    line-height: 2.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    letter-spacing: 2px;
-  }
-  .active {
-    background: #c8000a;
-    color: #ffffff;
+  .circle {
+    display: inline-block;
+    .btn {
+      width: 8rem;
+      height: 2.67rem;
+      background: #fff;
+      border: 0.08rem solid #cacaca;
+
+      margin-right: 2rem;
+      font-size: 1.17rem;
+      font-weight: 500;
+      line-height: 2.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      letter-spacing: 2px;
+    }
+    .active {
+      background: #c8000a;
+      color: #ffffff;
+    }
   }
 }
 .content {

@@ -1,110 +1,148 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="background: #F4F4F4;">
     <div class="showImg">
-      <img src="../../../assets/imgs/team.png"
-           alt=""
-           @click="jump()">
+      <img src="../../../assets/imgs/team.png">
       <div>
         <div class="cha">巅峰团队</div>
         <div class="eng">Top team</div>
       </div>
     </div>
-    <div class="teamBtn">
-      <button class="btn active">管理团队</button>
-      <button class="btn">专家团队</button>
-      <button class="btn">技术团队</button>
-    </div>
-    <div class="people">
-      <div class="info"
-           v-for="(item,i) in peopleInfo"
-           :key="i">
-        <img :src="require(`../../../assets/bei/${item.img}.png`)"
-             alt="">
-        <div class="describe">
-          <div class="peoTitle">
-            <div class="name">{{item.name}}</div>
-            <div class="position">{{item.position}}</div>
-          </div>
-          <div class="mes">{{item.message}}</div>
+    <div>
+      <div style="display: flex;margin-top: 20px;">
+        <div v-for="(item1,index111) in  list"
+             :key="index111"
+             style="display: flex;margin-left: 20px; ">
+          <div style="width: 7rem;  height: 2.67rem;border: 0.08rem solid #CACACA;background-color: #FFFFFF;  line-height: 2.67rem; text-align: center;border-radius: 0rem 0rem 0rem 0rem;opacity: 1;font-size: 1.17rem;font-weight:600">{{item1.name}}</div>
         </div>
       </div>
     </div>
-    <ul class="staff">
-      <li v-for="(item,i) in staffInfo"
-          :key="i">
-        <img :src="require(`../../../assets/bei/${item.img}.png`)"
-             alt="">
-        <div class="name">{{item.name}}</div>
-        <div class="mes">{{item.mes}}</div>
-      </li>
-    </ul>
+    <div>
+      <div class="people">
+        <div class="info"
+             style="margin-top: 15px;background-color: #FFFFFF;margin: 0 auto;"
+             v-for="(item,i11) in peopleInfo"
+             :key="i11"
+             @click="jump(item)">
+          <img :src="item.original_image"
+               style="width: 9rem;height: 11rem;border-radius: 0rem 0rem 0rem 0rem;opacity: 1;margin-top: 10px;">
+          <div style="display: flex;flex-direction: column;margin-left: 10px;margin-top: 1.6rem">
+            <div style="display: flex;align-items: center;">
+              <div style="color: #231914;font-size: 1.5rem;font-weight: 600;">{{item.name}}</div>
+              <div style="margin-left: 10px;font-size: 1.17rem;">{{item.title}}</div>
+            </div>
+            <div style="margin-top: 10px;font-size: 1rem;font-family: Source Han Sans CN-Normal, Source Han Sans CN;font-weight: 400;color: #6E6E6E;">{{item.profile}}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div>
+      <ul class="staff">
+        <li v-for="(items,index22) in staffInfo"
+            :key="index22"
+            @click="jump(items)">
+          <img :src="items.original_image">
+          <div class="name">{{items.name}}</div>
+          <div class="mes">{{items.title}}</div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
+
+
+import { dianfengh5team } from "@/api/api";
+
 export default {
   data () {
     return {
       staffInfo: [
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          mes: '束盈'
-        },
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          mes: '束盈'
-        },
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          mes: '束盈'
-        },
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          mes: '束盈'
-        },
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          mes: '束盈'
-        },
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          mes: '束盈'
-        }
+
       ],
+      datalist: [],
+      list: [],
       peopleInfo: [
-        {
-          img: 'guihuasheji',
-          name: '刘锋',
-          position: '创始人',
-          message: '中国旅游规划少壮派领军人物，60多个省市旅游发展高级顾问，多所大学客座教授，多次获得国家奖项。'
-        },
-        {
-          img: 'guihuasheji',
-          name: '束盈',
-          position: '董事长',
-          message: '中欧国际工商学院EMBA、北京邮电大学MBA十大杰出校友、2013年度中国城镇化建设特别贡献人物、中国旅游投资先锋人物。'
-        },
-        {
-          img: 'guihuasheji',
-          name: '邸倩',
-          position: '首席运营官/COO',
-          message: '清华大学-法国国立路桥大学-法国国立民航大学高级管理人员工商管理硕士学位，中国注册会计师，曾任上市公司董事职务。'
-        },
-      ]
+      ],
+      pages: 1,
+      pagesize: 10
     }
   },
   methods: {
-    jump () {
-      // console.log('let us go');
-      this.$router.replace('/teamDetail_h5')
-      console.log('let us go');
-    }
-  }
+    jump (e) {
+      this.$router.push({ path: '/teamDetail_h5', query: { 'name': e } })
+    },
+    jump (e) {
+
+      this.$router.push({ path: '/teamDetail_h5', query: { 'name': e } })
+    },
+    async getdianfengteamdat () {
+
+      let data = {
+        pages: this.pages,
+        pagesize: this.pagesize,
+        cate_id: ""
+
+      }
+
+      const res = await dianfengh5team(data)
+      console.log(res, 99999999)
+      if (res.data.code === 0) {
+        this.list = []
+        this.list = res.data.data.team_cate
+        this.peopleInfo = res.data.data.team.slice(0, 3)
+        this.staffInfo = []
+        this.datalist = res.data.data.team
+        this.datalist.shift()
+        this.datalist.shift()
+        this.datalist.shift()
+        this.staffInfo = this.datalist
+
+      }
+
+
+
+
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+  },
+  mounted () {
+    this.getdianfengteamdat()
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 </script>
 <style scoped lang="less">
@@ -118,7 +156,7 @@ export default {
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
-    color: #ffffff;
+    // color: #ffffff;
     line-height: 1.95rem;
     letter-spacing: 4px;
     z-index: 2;
@@ -132,7 +170,7 @@ export default {
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
-    color: #ffffff;
+    // color: #ffffff;
     line-height: 0.98rem;
   }
 }
@@ -157,15 +195,15 @@ export default {
   }
   .active {
     background: #c8000a;
-    color: #ffffff;
+    // color: #ffffff;
   }
 }
 .people {
   margin-top: 1.58rem;
-  background: #f4f4f4;
-  padding-left: 1.33rem;
+  // background: #f4f4f4;
+
   .info {
-    width: 28.58rem;
+    width: 31.25rem;
     height: 12.33rem;
     display: flex;
     img {

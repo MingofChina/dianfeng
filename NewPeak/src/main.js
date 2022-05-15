@@ -16,13 +16,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Meta)
 Vue.use(ElementUI);
 
-Vue.directive('title', {//单个修改标题
-    inserted: function (el, binding) {
-        console.log(el)
-      document.title = el.dataset.title
-    }
-})
-//视频
+Vue.directive('title', { //单个修改标题
+        inserted: function(el, binding) {
+            console.log(el)
+            document.title = el.dataset.title
+        }
+    })
+    //视频
 import Video from 'video.js';
 import 'video.js/dist/video-js.css';
 
@@ -38,6 +38,13 @@ Vue.use(less)
 // 全局lodash
 import _ from 'lodash'
 Vue.prototype._ = _
+import VueAMap from 'vue-amap'
+Vue.use(VueAMap)
+VueAMap.initAMapApiLoader({
+    key: '35df7fe10d67c109d06d13c4a5861cdc', // 个人
+    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+    v: '1.4.4'
+})
 
 
 // 路由进入前(进度条)
@@ -46,9 +53,9 @@ router.beforeEach((to, from, next) => {
     next()
 })
 router.afterEach(() => {
-    nprogress.done() // 路由进入后关闭进度条
-})
-//
+        nprogress.done() // 路由进入后关闭进度条
+    })
+    //
 new Vue({
     router,
     store,

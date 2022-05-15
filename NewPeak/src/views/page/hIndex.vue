@@ -1,21 +1,25 @@
 <template>
   <div id="app">
-    <img src="../../assets/imgs/bg1.png"
-         alt="">
+    <div class="content">
+      <img src="../../assets/imgs/bg1.png"
+           alt="">
+    </div>
     <div class="title">中国文旅产业</div>
     <div class="describe">乡村振兴领先的全过程服务商</div>
+
     <div class="info">
-      <div class="left">中国<span style="color: #C8000A">旅游规划行业头部企业</span></div>
-      <div class="right"><span style="color: #C8000A">100余家</span>专业运营旅游景区</div>
+      <div class="left">中国<span style="color: #C8000A">{{info.wenlv_head_enterprise}}</span></div>
+      <div class="right"><span style="color: #C8000A">{{info.wenlv_scenic_spot}}</span>专业运营旅游景区</div>
     </div>
     <div class="info">
-      <div class="left"><span style="color: #C8000A">3000余个</span>美丽中国价值经典</div>
-      <div class="right">文旅产业<span style="color: #C8000A">创新引领者</span></div>
+      <div class="left"><span style="color: #C8000A">{{info.wenlv_industries_num}}</span>美丽中国价值经典</div>
+      <div class="right">文旅产业<span style="color: #C8000A">{{info.wenlv_title}}</span></div>
     </div>
     <div class="info">
-      <div class="left"><span style="color: #C8000A">20余年</span>文旅行业不辍耕耘</div>
-      <div class="right"></div>
+      <div class="left"><span style="color: #C8000A">{{info.wenlv_years_num}}</span>文旅行业不辍耕耘</div>
+      <!-- <div class="right"></div> -->
     </div>
+
     <div class="view">
       <img src="../../assets/imgs/bgNum1.png"
            alt="">
@@ -165,6 +169,7 @@
       <div class="messageSecond">
         <div class="company">
           <input class="posInp"
+                 v-model="company"
                  placeholder="请输入您的企业名称" />
           <img class="inpIcon"
                src="../../assets/bei/icon_qiye.png"
@@ -172,6 +177,7 @@
         </div>
         <div class="company">
           <input class="posInp"
+                 v-model='name'
                  placeholder="请输入您的姓名" />
           <img class="inpIcon"
                src="../../assets/bei/icon_xingming.png"
@@ -179,13 +185,15 @@
         </div>
         <div class="company">
           <input class="posInp"
+                 v-model="phone"
                  placeholder="请输入您的电话号码" />
           <img class="inpIcon"
                src="../../assets/bei/icon_dianhua.png"
                alt="">
         </div>
         <div class="btn">
-          <button class="btnSub">确认提交</button>
+          <button class="btnSub"
+                  @click="sendForm">确认提交</button>
         </div>
         <!-- <el-input placeholder=""></el-input> -->
       </div>
@@ -194,9 +202,14 @@
   </div>
 </template>
 <script>
+import { subForm, index_h5 } from "../../api/api.js";
 export default {
   data () {
     return {
+      company: '',
+      name: '',
+      phone: '',
+      info: '',
       barInfo: [
         { name: '规划设计' },
         { name: '运营招商' },
@@ -287,12 +300,47 @@ export default {
       ]
     }
   },
+  created () {
+    this.getList()
+  },
   methods: {
-
+    getList () {
+      index_h5().then((res) => {
+        console.log(res, 'tt');
+        this.info = res.data.data.company_information
+      })
+    },
+    sendForm () {
+      console.log('提交');
+      const data = {
+        company: this.company,
+        name: this.name,
+        phone: this.phone
+      }
+      console.log(data, 'yy');
+      subForm(data).then((res) => {
+        console.log(res);
+        this.$message.success('提交成功')
+        this.clearInfo()
+      })
+    },
+    // 提交后清空数据
+    clearInfo () {
+      this.company = ''
+      this.name = ''
+      this.phone = ''
+    },
   },
 }
 </script>
 <style scoped lang="less">
+  .content{
+    img{
+      width: 100%;
+      /*height: 30vh;*/
+    }
+  }
+
 .title {
   /*width: 7.5rem;*/
   margin-top: 1.5rem;
@@ -358,12 +406,12 @@ export default {
       opacity: 0.9;
     }
     .megLotImg {
-      display: flex;
+      // display: flex;
       .lot {
+        margin-left: 1rem;
         color: #ffffff;
         font-size: 0.75rem;
         font-weight: 400;
-        margin-left: 1rem;
         opacity: 0.7;
       }
       img {
@@ -377,19 +425,19 @@ export default {
 .views {
   width: 100%;
   /*margin: 0 auto;*/
-  /*position: relative;*/
+  // position: relative;
   text-align: center;
-  img {
-    width: 95%;
-  }
   .zero {
     position: relative;
     margin-bottom: 0.33rem;
+    img {
+      width: 95%;
+    }
     .meg {
       position: absolute;
       bottom: 0.3rem;
       text-align: left;
-      width: 95%;
+      width: 94.8%;
       height: 4.375rem;
       margin-left: 1rem;
       /*margin: 0 auto;*/
@@ -430,14 +478,16 @@ export default {
     .first {
       /*width: 50%;*/
       img {
-        width: 14.17rem;
-        height: 13.83rem;
+        /*width: 17rem;*/
+        width: 97%;
+        height: 18.83rem;
       }
       .meg {
+        margin-left: 0.3rem;
         position: absolute;
         bottom: 0.3rem;
         text-align: left;
-        width: 14.17rem;
+        width: 48.5%;
         height: 4.375rem;
         /*margin-left: 1rem;*/
         /*margin: 0 auto;*/
@@ -471,14 +521,16 @@ export default {
     .second {
       /*width: 50%;*/
       img {
-        width: 14.17rem;
-        height: 13.83rem;
+        width: 97%;
+        /*width: 17rem;*/
+        height: 18.83rem;
       }
       .meg {
+        margin-left: 0.3rem;
         position: absolute;
         bottom: 0.3rem;
         text-align: left;
-        width: 14.17rem;
+        width: 48.5%;
         height: 4.375rem;
         /*margin-left: 1rem;*/
         /*margin: 0 auto;*/
@@ -512,7 +564,7 @@ export default {
   }
 }
 .project {
-  height: 53.83rem;
+  // height: 53.83rem;
   background-color: #f4f4f4;
   .proTitle {
     display: flex;
@@ -540,14 +592,17 @@ export default {
     }
     .imgInfo {
       margin-top: 3.25rem;
+      margin-right: 1rem;
       /*float: right;*/
       img {
-        width: 2.83rem;
+        width: 98%;
         height: 1.5rem;
       }
     }
   }
   .bar {
+    width: 95%;
+    overflow-x: scroll;
     margin-top: 1.33rem;
     margin-left: 1.33rem;
     display: flex;
@@ -557,6 +612,8 @@ export default {
       /*justify-content: space-between;*/
       .barTitle {
         width: 5rem;
+        /*width: 10%;*/
+        overflow-x: scroll;
         height: 1.75rem;
         font-size: 1.17rem;
         font-weight: bold;
@@ -579,15 +636,16 @@ export default {
     justify-content: space-between;
     /*margin-bottom: 1rem;*/
     .imgs {
-      width: 13.83rem;
-      height: 19.83rem;
+      width: 48%;
+      height: 24.83rem;
       margin-bottom: 1rem;
       background-color: #fff;
       border-radius: 3px;
       /*border:1px solid black;*/
       img {
-        width: 13.83rem;
-        height: 11.42rem;
+        width: 100%;
+        /*width: 17rem;*/
+        height: 15.42rem;
       }
       .title {
         margin-left: 0.67rem;
@@ -613,6 +671,8 @@ export default {
   }
 }
 .news {
+  margin-right: 1.33rem;
+  // padding-top: 14rem;
   .newsTitle {
     display: flex;
     justify-content: space-between;
@@ -641,7 +701,7 @@ export default {
       img {
         margin-top: 2.2rem;
         margin-right: 1.33rem;
-        width: 3.67rem;
+        width: 70%;
         height: 1.5rem;
       }
     }
@@ -675,7 +735,7 @@ export default {
     }
     .imgInfo {
       margin-top: 0.67rem;
-      width: 34rem;
+      /*width: 34rem;*/
       height: 3rem;
       font-size: 1rem;
       font-family: Source Han Sans CN-Normal, Source Han Sans CN;
@@ -685,34 +745,30 @@ export default {
     }
     .first {
       display: flex;
-      /*margin: 1rem auto;*/
-      /*margin-left: 1rem;*/
       margin-top: 1rem;
-      width: 34.83rem;
       height: 18rem;
-      /*margin-right: 1rem;*/
       img {
-        /*margin-right: 1rem;*/
-        width: 34.83rem;
+        width: 100%;
       }
-      /*text-align: center;*/
     }
     .second {
-      margin: 0 auto;
+      /*margin: 0 auto;*/
       display: flex;
-      width: 5.67rem;
+      /*width: 100%;*/
       height: 1.5rem;
-      text-align: center;
-      margin-bottom: 1.33rem;
+      margin-left: 44%;
+      /*margin: 0 auto 1.33rem;*/
+      /*text-align: center;*/
+      /*margin-bottom: 1.33rem;*/
     }
   }
 }
 .brand {
-  width: 37.5rem;
-  height: 35.5rem;
+  /*width: 37.5rem;*/
+  /*height: 35.5rem;*/
   /*overflow: hidden;*/
   background: url("../../assets/bei/beijing(1).png") no-repeat;
-  background-size: 69.25rem 41.5rem;
+  background-size: 100% 100%;
   .brandTitle {
     /*margin-top: 2rem;*/
     padding-top: 2rem;
@@ -736,7 +792,8 @@ export default {
     .brandNum {
       margin-left: 2rem;
       margin-right: 2rem;
-      width: 14rem;
+      /*width: 14rem;*/
+      width: 37%;
       height: 9rem;
       .img {
         width: 2rem;
@@ -766,7 +823,8 @@ export default {
     }
   }
   .brandFooter {
-    width: 37.5rem;
+    width: 100%;
+    overflow-x: scroll;
     height: 3.33rem;
     background: rgba(240, 240, 240, 0.7);
     display: flex;
@@ -825,7 +883,7 @@ export default {
       margin-bottom: 0.67rem;
       position: relative;
       .posInp {
-        width: 31.7rem;
+        width: 90%;
         height: 3.5rem;
         border: 0px;
         background-color: #f0f0f0;

@@ -36,145 +36,504 @@
     </div>
     <div class="article">
       <div class="chaTitle">巅峰介绍</div>
-      <div class="engTitle">ABOUT US</div>
-      <div class="paragraph">{{message}}</div>
-      <div class="paragraphOne">{{info}}</div>
+      <div class="engTitle" style="margin-top:1rem">ABOUT US</div>
+      <div class="paragraph" v-html="message"  style="text-indent: 2.8em"></div>
     </div>
-    <div class="radio">
-      <img src="../../../assets/bei/1.png" alt="" class="city">
-      <img src="../../../assets/imgs/suspend.png" alt="" class="suspend">
+    <div class="radio" style="display: flex;justify-content: center;">
+       <video  height="200"  controls autoplay :src="srcs" type="video/mp4"  >
+    <!-- <source >
+    <source :src="srcs" type="video/ogg"> -->
+</video>
     </div>
     <div class="brand">
-      <div class="title">巅峰旗下品牌</div>
-      <div class="cancelNum">
+      <div class="title" style="margin-top: 1.67rem;">巅峰旗下品牌</div>
+      <!-- <div class="cancelNum">
         <img class="cancelImg" src="../../../assets/img/logo.png" alt="">
         <img class="cancel" src="../../../assets/imgs/cancel.png" alt="">
-      </div>
-      <div class="selectNum" v-for="(item,i) in selectArr" :key="i">
-        <img class="selectImg" :src="require(`../../../assets/img/${item.img}.png`)" alt="">
-        <div class="selectInfo">{{item.message}}</div>
-        <img class="select" :src="require(`../../../assets/imgs/${item.select}.png`)" alt="">
+      </div> -->
+      <div class="selectNum" v-for="(item,index) in selectArr" :key="index">
+        <div style="display:flex;justify-content: space-between;align-items: center">
+        <img class="selectImg" :src="item.logo" alt="">
+        <div class="selectInfo">{{item.brand_slogan}}</div>
+        <img class="select" :src="index===indexs?showdetail===true?require(`../../../assets/imgs/cancel.png`):require(`../../../assets/imgs/select.png`):require(`../../../assets/imgs/select.png`)"  @click="chosepicture(item,index)">
+        </div>
+        <div v-show="index===indexs?showdetail===true?true:false:false" style="display:flex;flex-direction: column;">
+          <div style="color:#c8000a;font-size: 1.6rem;">{{item.small_descrip}}</div>
+          <div style="text-indent:2.4em;margin-top: 5px;">{{item.summary}}</div>
+        </div>
       </div>
     </div>
+	<div  class="backgroun-styles">
+		 <div style="width: 100%;text-align: center;margin-top: 20px;font-size: 1.67rem;color: #FFFFFF;padding-left: 1px;padding-top: 20px;font-weight: 500;letter-spacing: 0.125rem;">大事记</div>
+	      <div style="display: flex;">
+			<div style="position: relative;">
+		
+			<div style="border-right: 1px  solid #FFFFFF;height: 174px;width: 64px;margin-left: 30px;position: relative;margin-top: 20px;">
+			<div   v-for="(item,index) in  datelist"  :key="index">
+			<div class="datalist-style"  :style="{opacity:(idindex===index?'100%':'60%')}"     @click="timerinfo(item,index)">{{item.addtime}}
+			
+			<img  v-if="idindex===index?true:false"    src="../../../assets/imgs/whitedot.png" style="width: 10px;height: 10px;position: absolute;right: -6px;" />
+			<div  v-else  style="width: 7px;height: 7px;border-radius: 100%;background-color: #FFFFFF;position: absolute;right: -4px;"></div>
+			</div>
+			</div>
+			</div>
+			</div>
+		    <div style="display: flex;flex-flow: column;">
+				<!-- overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical; -->
+				<div class="message-info" style="" >{{infos}}</div>
+				<img  :src="scrs"  style="margin-top: 1rem;margin-left: 1.25rem;width: 80%;height: 80px;"/>
+			</div>
+		</div>
+	   <div style="position: relative;width: 100%;margin-top: 10px;height: 20px;width: 100%;">
+			<img  src="../../../assets/imgs/downarrow.png"  style="position: absolute;left: 8.6rem;"  @click="arrowsgetdata"/>	
+	   </div>
+			
+		 <div  style="display: flex;justify-content: center;margin-top: 1rem;">
+		<div style="width: 90%; display: flex;justify-content: space-between;">
+			<div style="display: flex;flex-flow: column-reverse;margin-bottom: 5px;">
+			<img src="../../../assets/imgs/leftarrows.png" style="width: 2.22rem;height: 2.22rem;"  @click="leftyears"  />
+			</div>
+			<div style="border-bottom: 1px  solid #FFFFFF;width: 100%;display: flex;justify-content: space-around;">
+		   <div style="position: relative;display: flex;align-items: center;"  v-for="(items,indexs) in yeardate" :key="indexs">
+		   <div class="year-style"  :style="{fontSize:(indexxx===indexs?numberlist.length!=0?'2rem':'1rem':'1rem'),opacity:(indexxx===indexs?numberlist.length!=0?'100%':'60%':'60%'),}" @click="choseyear(items.year,indexs,items)">{{items.year}}
+		  
+		<div  v-if="indexxx===indexs?numberlist.length!=0?true:false:false"       style="width: 0;height: 0;position: absolute;left:40%;top:1.6rem;	border:6px solid transparent;border-bottom-color: #FFFFFF;"></div>
+		<div  v-else   style="width: 7px;height: 7px;border-radius: 100%;background-color: #FFFFFF;position: absolute;left:40%;top:2.4rem;"></div> 
+
+		   </div>
+		   </div>		
+		   </div>
+			<div style="display: flex;flex-flow: column-reverse;margin-bottom: 5px;">
+			<img src="../../../assets/imgs/rightarrows.png" style="width: 2.22rem;height: 2.22rem;"  @click="rightyear"    />
+			</div>
+		</div>		
+	   </div>
+	 </div>
     <div class="honor">
-      <div class="title">资质荣誉</div>
-      <div class="label">企业资质</div>
+      <div class="title" style="font-size: 1.67rem;font-weight: 600;color: #231914;">资质荣誉</div>
+      <div class="label"  style="font-size: 1.17rem;font-family: Source Han Sans CN-Medium, Source Han Sans CN;font-weight: 600;color: #231914;margin-top: 20px;">荣誉证书</div>
       <ul class="certificate">
         <li class="certificateNums" v-for="(item,i) in certificateArr" :key="i">
           <div class="imgCon">
-            <img :src="require(`../../../assets/imgs/${item.img}.png`)" alt="">
+           <img :src="item.original_image" >
           </div>
-          <div class="reson">{{item.info}}</div>
+          <div class="reson">{{item.title}}</div>
         </li>
       </ul>
       <div class="direction">
-        <img style="width: 2.22rem;height: 2.22rem" src="../../../assets/imgs/left.png" alt="">
-        <img style="margin-left: 3.33rem;width: 2.22rem;height: 2.22rem" src="../../../assets/imgs/right.png" alt="">
+        <img style="width: 2.22rem;height: 2.22rem"    :src="datacolor==1?require(`../../../assets/imgs/leftselect.png`):require(`../../../assets/imgs/left.png`)"  @click="leftclick(1)">
+        <img style="margin-left: 3.33rem;width: 2.22rem;height: 2.22rem" :src="datacolors==2?require(`../../../assets/imgs/right.png`):require(`../../../assets/imgs/rightselect.png`)"   @click="rightclick(2)">
       </div>
     </div>
     <div class="qualifications">
-      <div class="title">企业资质</div>
+      <div class="title"  style="font-size: 1.17rem;font-family: Source Han Sans CN-Medium, Source Han Sans CN;font-weight: 600;color: #231914;margin-top: 20px;">企业资质</div>
       <ul class="qua">
-        <li class="quaNums" v-for="(item,i) in quaArr">
+        <li class="quaNums" v-for="(items,index1) in quaArr" :key="index1">
           <div class="quaImg">
-            <img :src="require(`../../../assets/imgs/${item.img}.png`)" alt="">
+            <img :src="items.original_image" >
           </div>
+		  <div>{{items.title}}</div>
         </li>
       </ul>
       <div class="direction">
-        <img style="width: 2.22rem;height: 2.22rem" src="../../../assets/imgs/left.png" alt="">
-        <img style="margin-left: 3.33rem;width: 2.22rem;height: 2.22rem" src="../../../assets/imgs/right.png" alt="">
+        <img style="width: 2.22rem;height: 2.22rem"  :src="datacolor3==3?require(`../../../assets/imgs/leftselect.png`):require(`../../../assets/imgs/left.png`)"  @click="left(3)">
+        <img style="margin-left: 3.33rem;width: 2.22rem;height: 2.22rem"  :src="datacolor4==4?require(`../../../assets/imgs/right.png`):require(`../../../assets/imgs/rightselect.png`)"  @click="right(4)">
       </div>
     </div>
   </div>
+  
 </template>
 <script>
+
+
+ import {dianfengintroduce} from "@/api/api";
+import viewpoint from '../viewpoint/viewpoint.vue';
+
+
 export default {
+  components: { viewpoint },
   data () {
     return {
-      message: '北京巅峰智业旅游文化创意股份有限公司始创于2001年，目前已发展成为中国旅游规划行业的头部企业、文旅产业的创新引领者和开拓者，提出了 “规划设计、落地建设、产品打造、运营管理”四位一体全链服务战略，为客户提供文旅产业创新发展线上线下一站式解决方案。',
-      info: '作为文旅规划建设运营全程服务商，巅峰智业资质全面, 拥有旅游规划设计甲级、城乡规划编制甲级、风景园林工程设计专项甲级、城市及道路照明工程专业承包壹级、专业舞台灯光设计、安装及调试甲级，专业舞台设计制作工程甲级，专业舞台音视频设计、安装及调试甲级，专业舞台音响设计、安装及调试甲级的“八项甲级”资质；业务覆盖全国，完成3000余项高品质项目，累计运管景区100余家，在1000余项国际、国内项目竞标中拔得头筹。创新推出安庆太湖文博园《天仙配新传》、张家口下花园《西游归来》、济南大石崮《好汉山东》等“巅峰震撼”系列光影剧强势新IP，其中《天仙配新传》还作为安庆文旅新名片，被央视新闻联播重点报道。《顺德华侨城空间秀》等系列夜游目的地新地标，已成为年轻人喜爱的网红打卡地。此外，还推动了松鼠森林、绿心童乡、欢乐星球、峰物文创、旅豆学堂等一系列落地产品。',
-      selectArr:[
-        {
-          img:'logo',
-          message: '智慧光影 缔造传奇',
-          select: 'select'
-        },
-        {
-          img:'logo',
-          message: '峰物文创，创意巅峰',
-          select: 'select'
-        },
-        {
-          img:'logo',
-          message: '智慧光影 缔造传奇',
-          select: 'select'
-        },
-        {
-          img:'logo',
-          message: '学文旅 上旅豆',
-          select: 'select'
-        },
-        {
-          img:'logo',
-          message: '赋能中国文旅产业高质量发展',
-          select: 'select'
-        }
-      ],
-      certificateArr:[
-        {
-          img:'introduce',
-          info:'旅游规划甲级资质'
-        },
-        {
-          img:'introduce',
-          info:'旅游规划甲级资质'
-        },
-        {
-          img:'introduce',
-          info:'旅游规划甲级资质'
-        },
-        {
-          img:'introduce',
-          info:'旅游规划甲级资质'
-        },
-        {
-          img:'introduce',
-          info:'旅游规划甲级资质'
-        },
-        {
-          img:'introduce',
-          info:'旅游规划甲级资质'
-        }
-      ],
-      quaArr:[
-        {
-          img:'introduce',
-        },
-        {
-          img:'introduce',
-        },
-        {
-          img:'introduce',
-        },
-        {
-          img:'introduce',
-        },
-        {
-          img:'introduce',
-        },
-        {
-          img:'introduce',
-        }
-      ],
+		yeardate:[],
+		datelist:[],
+		scrs:"",
+		quaArr:[],
+		infos:"",
+		datacolor3:"",
+		datacolor4:"",
+      message:'',
+	  lists:[],
+	  showdetail:true,
+      srcs:"",
+	  indexs:0,
+      selectArr:[],
+      certificateArr:[],
+	   datalist:[],
+	   pageone:0,
+	   pagetwo:1,
+	   flag:false,
+	   switch:"",
+	   zizhilist:[],
+	   pageones:0,
+	   pagetwos:1,
+	    datacolor:"",
+	   datacolors:"",
+	   Ddate:[],
+	   childrendata:[],
+	   pagenumber1:0,
+	   pagenumber2:1,
+	   indexxx:0,
+	   yesrs:"",
+	   numberlist:[],
+	   riqilist:[],
+	   yearlist:[],
+	   pages:0,
+	   pages2:1,
+	   nowtimer:"",
+	   idindex:0,
     }
   },
   methods: {
+	  timerinfo(e,indexs){
+	   this.infos=""
+	   this.infos=e.title
+	   this.scrs=e.original_image
+	   this.nowtimer=""
+	   this.nowtimer=e.addtime
+	   this.idindex=indexs
+	  },
+	 //箭头循环数据  
+	arrowsgetdata(){
 
-  }
+	this.pages=this.pages+1
+	this.pages2=this.pages2+1
+	let a = (4*this.pages)
+	let b = (4*this.pages2)
+
+	this.datelist=[]
+	this.datelist=this.yearlist.slice(a,b)
+	 if(this.datelist.length===0){
+	   this.datelist=this.yearlist.slice(0,4)
+		 this.pages=0
+		 this.pages2=1
+	 }
+     this.infos=this.datelist[0].title
+     this.scrs=this.datelist[0].original_image
+
+
+
+	},
+	 //选择年份 
+	 choseyear(e,indexsss,items){
+		 
+		 this.pages=0
+		 this.pages2=1
+		 this.years=""
+		 this.years=e
+		 this.indexxx=indexsss
+		 this.numberlist=[]
+		 this.numberlist.push(items)
+		   this.yearlist= []
+		   this.yearlist=items.child
+		 this.datelist=this.yearlist.slice(0,4)
+		
+	 },
+	  //获取走进巅峰介绍列表
+          async getdianfengintroduce(){
+           const  res  =await  dianfengintroduce()   
+           console.log(res,777777777777)
+          if(res.data.code===0){
+             this.message= res.data.data.brand_messa.peak_introduce
+             this.srcs= res.data.data.brand_messa.peak_video
+             this.selectArr=res.data.data.brand_slogan
+			 this.datalist=res.data.data.certificate_honor
+			 this.certificateArr=this.datalist.slice(0,8)
+			 this.zizhilist=res.data.data.enterprise_qualification
+			 this.quaArr=this.zizhilist.slice(0,8)
+			 
+			 this.Ddate=res.data.data.memorabilia
+			 this.years=res.data.data.memorabilia[0].year
+			 this.yeardate= this.Ddate.slice(0,4)
+			 this.childrendata=this.yeardate[0].child
+			 this.datelist= this.childrendata.slice(0,4)
+			 this.scrs= this.datelist[0].original_image
+	         this.infos=this.datelist[0].title
+
+ 	     this.numberlist=[]
+ 	    this.numberlist =this.yeardate.filter((el)=>{
+ 	   return  el.year==this.years?true:false
+ 	 })
+          }	  
+  },
+   //左边时间增加
+    leftyears(){
+		this.idindex=0
+		this.pages=0
+		this.pages2=1
+		this.pagenumber1= this.pagenumber1-1
+		this.pagenumber2= this.pagenumber2-1
+		let a = (4*this.pagenumber1)
+		let b = (4*this.pagenumber2)
+
+		if(b===0){
+						   this.yeardate=[]
+					   this.yeardate=this.Ddate.slice(-4)
+		}else{
+					  if(this.yeardate.length!=0){
+						  this.yeardate=this.Ddate.slice(a,b)  
+						  if( this.yeardate.length===0){
+								 this.yeardate=[]
+							   this.yeardate=this.Ddate.slice(-4)
+							   this.pagenumber1=0
+							   this.pagenumber2=1
+							     this.leftyears()
+						  }
+					  }else {
+							  this.yeardate=[]
+						   this.yeardate=this.Ddate.slice(-4)
+		           this.pagenumber1=0,
+		           this.pagenumber2=1,
+						     this.leftyears()
+					  }
+		}
+		
+		this.numberlist=[]
+		 this.numberlist =this.yeardate.filter((el)=>{
+		  return  el.year==this.years?true:false
+		})
+	
+		
+	},
+    //右边时间增加
+   rightyear(){
+	   this.pages=0
+	   this.pages2=1
+	   this.idindex=0
+	   this.pagenumber1= this.pagenumber1+1
+	   this.pagenumber2= this.pagenumber2+1
+	   let a = (4*this.pagenumber1)
+	   let b = (4*this.pagenumber2)
+	   this.yeardate=[]
+	   this.yeardate=this.Ddate.slice(a,b)
+	   if(this.yeardate.length===0){
+	   	 this.yeardate=[]
+	   	 this.pagenumber1=0
+	   	 this.pagenumber2=1
+	   	 this.yeardate=this.Ddate.slice(0,4)	
+	   }
+	   this.numberlist=[]
+	    this.numberlist =this.yeardate.filter((el)=>{
+	     return  el.year==this.years?true:false
+	   })
+	  
+	   
+   },
+  left(e){
+	  this.datacolor4=""
+	  this.datacolor3=e
+	  this.pageones= this.pageones-1
+	  this.pagetwos= this.pagetwos-1
+	  let a = (8*this.pageones)
+	  let b = (8*this.pagetwos)
+	  
+	  
+	 
+	  if(b===0){
+	  			 
+				   this.quaArr=[]
+	  			   this.quaArr=this.zizhilist.slice(-8)
+	  }else{
+	  			  if(this.quaArr.length!=0){
+					 
+	  				  this.quaArr=this.zizhilist.slice(a,b)  
+	  				  
+	  				  if( this.quaArr.length===0){
+	  					  
+						 this.quaArr=[]
+	  					   this.quaArr=this.zizhilist.slice(-8)
+	  					   this.pageones=0
+	  					   this.pagetwos=1
+	  					     this.left()
+	  				  }
+	  			  }else {
+					  this.quaArr=[]
+	  				   this.quaArr=this.zizhilist.slice(-8)
+	             this.pageones=0,
+	             this.pagetwos=1,
+	  				     this.left()
+	  			  }
+	  }
+	  
+	  
+  },
+  right(e){
+	  this.datacolor3=""
+	  this.datacolor4=e
+	  this.pageones= this.pageones+1
+	  this.pagetwos= this.pagetwos+1
+	  let a = (8*this.pageones)
+	  let b = (8*this.pagetwos)
+	  this.quaArr=[]
+	  this.quaArr=this.zizhilist.slice(a,b)
+	  if(this.quaArr.length===0){
+	  	 this.quaArr=[]
+	  	 this.pageones=0
+	  	 this.pagetwos=1
+	  	 this.quaArr=this.zizhilist.slice(0,8)	
+	  }
+	  
+  },
+  leftclick(e){
+	  this.datacolors=""
+	    this.datacolor=e
+		  this.pageone= this.pageone-1
+		  this.pagetwo= this.pagetwo-1
+		  let a = (8*this.pageone)
+		  let b = (8*this.pagetwo)
+		  if(b===0){
+			  
+			   this.certificateArr=this.datalist.slice(-8)
+		  }else{
+			  if(this.certificateArr.length!=0){
+				  this.certificateArr=this.datalist.slice(a,b)  
+				  
+				  if( this.certificateArr.length===0){
+					  
+					   this.certificateArr=this.datalist.slice(-8)
+					   this.pageone=0
+					   this.pagetwo=1
+					     this.leftclick()
+				  }
+			  }else {
+				   this.certificateArr=this.datalist.slice(-8)
+                     this.pageone=0,
+	                 this.pagetwo=1,
+				     this.leftclick()
+			  }
+		  }
+	  
+  },
+    rightclick(e){
+		this.datacolor=""
+		this.datacolors=e
+	
+    this.pageone= this.pageone+1
+	this.pagetwo= this.pagetwo+1
+	let a = (8*this.pageone)
+    let b = (8*this.pagetwo)
+	this.certificateArr=[]
+	this.certificateArr=this.datalist.slice(a,b)
+	if(this.certificateArr.length===0){
+		 this.certificateArr=[]
+		 this.pageone=0
+		 this.pagetwo=1
+		 this.certificateArr=this.datalist.slice(0,8)	
+	}
+	
+	
+  },
+     //选中巅峰旗下产品时
+     chosepicture(item,index){
+		 this.indexs=index
+		 this.showdetail=!this.showdetail
+		 
+	 }, 
+   },
+ created(){
+
+    this.getdianfengintroduce()
+
+
+
+
+   },
+   mounted(){
+
+
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 </script>
 <style scoped lang="less">
+.datalist-style{
+font-size: 2rem;
+color:#FFFFFF;
+opacity:60%;
+padding-top: 12px;
+display: flex;
+align-items: center;
+
+}		
+.year-style{
+font-size: 1rem;
+ color:#FFFFFF;
+ opacity:60%;
+ line-height: 0px;
+     height: 20px;
+}	
+.backgroun-styles{
+	background-image: url(../../../assets/imgs/background.png);
+	  background-size:300px;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+      height: 35.25rem;
+	  width: 100%;
+	  margin-top: 30px;
+	
+}
+	
+.message-info{
+padding-top: 2.625rem;
+padding-left: 1.25rem;
+font-size: 0.83rem;
+font-weight: 400;
+color: #FFFFFF;
+letter-spacing: 1px;
+display: flex;
+flex-wrap: wrap;
+	width: 92%;
+}
+
+
+
+
+
+	
+	
 .showImg {
   position: relative;
   .cha {
@@ -374,20 +733,7 @@ export default {
 .radio{
   background-color: #f4f4f4;
   padding-top: 2rem;
-  position: relative;
-  width: 37.58rem;
-  height: 17.58rem;
   margin-bottom: 1.67rem;
-  .city{
-    margin-left: 1rem;
-    width: 35.58rem;
-    height: 17.58rem;
-  }
-  .suspend{
-    position: absolute;
-    top:50%;
-    left: 48%;
-  }
 }
 .brand{
   margin-top: 1.67rem;
@@ -415,12 +761,12 @@ export default {
   }
   .selectNum{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     /*width: 100%;*/
     margin: 1.33rem 1rem 0.67rem 1rem;
     .selectImg{
-      width: 10rem;
-      height: 2.76rem;
+      // width: 10rem;
+       height:4.76rem;
     }
     .selectInfo{
       /*margin-left: 2.92rem;*/

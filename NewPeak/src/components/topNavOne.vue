@@ -84,19 +84,28 @@ export default {
         {
           name: '巅峰案例',
           second: [
+            // {
+            //   secondTitle: '业务详情',
+            // },
             {
-              secondTitle: '详情',
+              secondTitle: '巅峰案例',
             },
           ]
         },
         {
           name: '巅峰观点',
           second: [
+            // {
+            //   secondTitle: '巅峰著作',
+            // },
+            // {
+            //   secondTitle: '详情',
+            // },
             {
-              secondTitle: '巅峰著作',
+              secondTitle: '巅峰观点',
             },
             {
-              secondTitle: '详情',
+              secondTitle: '专业著作',
             }
           ]
         },
@@ -131,12 +140,20 @@ export default {
     jump (index) {
       console.log(index, 'ff');
       this.idx = this.idx == index ? -1 : index
+      if (index == 4) {
+        window.location.href = 'https://www.douschool.com/'
+      }
     },
     jumpSecond (i, idx) {
       console.log(i, 'yyy', idx);
-      this.$router.replace(`/introduce_h5/${i}/${idx}`)
+      //https://www.liepin.com/company/7884213
+      if (`/introduce_h5/${i}/${idx}` == '/introduce_h5/0/5') {
+        console.log('4774');
+        window.location.href = 'https://www.liepin.com/company/7884213'
+      } else {
+        this.$router.replace(`/introduce_h5/${i}/${idx}`)
+      }
       this.closeMenu()
-      // console.log('11');
     }
   }
 }

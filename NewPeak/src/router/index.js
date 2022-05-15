@@ -35,6 +35,12 @@ import partner_h5 from "../views/page/partner/partner.vue";
 import viewpoint_h5 from "../views/page/viewpoint/viewpoint.vue"
 import pointDetail_h5 from "../views/page/pointDetail/pointDetail.vue";
 import caseDetail_h5 from "../views/page/caseDetail/caseDetail.vue";
+import business_h5 from "../views/page/caseDetail/business.vue"
+import union_h5 from "../views/page/goCompany/union.vue";
+import point_h5 from "../views/page/pointDetail/point.vue";
+import case_h5 from "../views/page/caseDetail/case.vue";
+import work_h5 from "../views/page/pointDetail/work.vue";
+import focusDetail_h5 from "../views/page/focus/focusDetails.vue"
 Vue.use(VueRouter)
 
 export const constantRoutes = [{
@@ -105,6 +111,23 @@ export const constantRoutes = [{
                 }
             },
             {
+                path: 'focusDetail_h5',
+                name: 'focusDetail_h5',
+                component: focusDetail_h5,
+                meta: {
+                    title: '巅峰要闻详情'
+                }
+            },
+            {
+                path: 'introduce_h5/0/4',
+                name: 'union_h5',
+                component: union_h5,
+                meta: {
+                    title: '产业联盟'
+                }
+            },
+
+            {
                 path: 'introduce_h5/0/6',
                 name: 'partner_h5',
                 component: partner_h5,
@@ -113,7 +136,7 @@ export const constantRoutes = [{
                 }
             },
             {
-                path: 'introduce_h5/2/0',
+                path: 'caseDetail_h5',
                 name: 'caseDetail_h5',
                 component: caseDetail_h5,
                 meta: {
@@ -121,7 +144,23 @@ export const constantRoutes = [{
                 }
             },
             {
-                path: 'introduce_h5/3/0',
+                path: 'introduce_h5/2/0',
+                name: 'case_h5',
+                component: case_h5,
+                meta: {
+                    title: '巅峰案例'
+                }
+            },
+            {
+                path: 'business_h5',
+                name: 'business_h5',
+                component: business_h5,
+                meta: {
+                    title: '业务详情'
+                }
+            },
+            {
+                path: 'viewpoint_h5',
                 name: 'viewpoint_h5',
                 component: viewpoint_h5,
                 meta: {
@@ -129,11 +168,27 @@ export const constantRoutes = [{
                 }
             },
             {
-                path: 'introduce_h5/3/1',
+                path: 'pointDetail_h5',
                 name: 'pointDetail_h5',
                 component: pointDetail_h5,
                 meta: {
                     title: '详情'
+                }
+            },
+            {
+                path: 'introduce_h5/3/0',
+                name: 'point_h5',
+                component: point_h5,
+                meta: {
+                    title: '巅峰观点'
+                }
+            },
+            {
+                path: 'introduce_h5/3/1',
+                name: 'work_h5',
+                component: work_h5,
+                meta: {
+                    title: '专业著作'
                 }
             },
             {
