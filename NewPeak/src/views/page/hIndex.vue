@@ -8,37 +8,42 @@
     <div class="describe">乡村振兴领先的全过程服务商</div>
 
     <div class="info">
-      <div class="left">中国<span style="color: #C8000A">{{info.wenlv_head_enterprise}}</span></div>
-      <div class="right"><span style="color: #C8000A">{{info.wenlv_scenic_spot}}</span>专业运营旅游景区</div>
-    </div>
-    <div class="info">
-      <div class="left"><span style="color: #C8000A">{{info.wenlv_industries_num}}</span>美丽中国价值经典</div>
-      <div class="right">文旅产业<span style="color: #C8000A">{{info.wenlv_title}}</span></div>
-    </div>
-    <div class="info">
-      <div class="left"><span style="color: #C8000A">{{info.wenlv_years_num}}</span>文旅行业不辍耕耘</div>
-      <!-- <div class="right"></div> -->
-    </div>
-
-    <div class="view">
-      <img src="../../assets/imgs/bgNum1.png"
-           alt="">
-      <div class="meg">
-        <div class="megTitle">规划设计</div>
-        <div class="meglotImg">
-          <div class="lot">查看更多</div>
-          <img style="color: #FFF"
-               src="../../assets/imgs/mark.png"
-               alt="">
-        </div>
+      <div class="left">
+        <div class="left">中国<span style="color: #C8000A;font-weight: 800;">{{info.wenlv_head_enterprise}}</span></div>
+        <div class="left"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_industries_num}}</span>美丽中国价值经典</div>
+        <div class="left"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_years_num}}</span>文旅行业不辍耕耘</div>
+      </div>
+      <div class="line"></div>
+      <div class="right">
+        <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_scenic_spot}}</span>专业运营旅游景区</div>
+        <div class="right">文旅产业<span style="color: #C8000A;font-weight: 800;">{{info.wenlv_title}}</span></div>
+        <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_description}}</span></div>
       </div>
     </div>
-    <div class="views">
+
+
+    <!--第一个图片-->
+<!--    <div class="view">-->
+<!--      <img src="../../assets/imgs/bgNum1.png"-->
+<!--           alt="">-->
+<!--      <div class="meg">-->
+<!--        <div class="megTitle">规划设计</div>-->
+<!--        <div class="meglotImg">-->
+<!--          <div class="lot">查看更多</div>-->
+<!--          <img-->
+<!--               src="../../assets/imgs/mark.png"-->
+<!--               alt="">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <!--second-->
+    <div class="views" v-for="(item,idx) in views" :key="idx">
       <div class="zero">
-        <img src="../../assets/imgs/bgNum2.png"
+        <img :src=getImgUrl(item.original_image)
              alt="">
         <div class="meg">
-          <div class="megTitle">规划设计</div>
+          <div class="megTitle">{{item.name}}</div>
           <div class="megLotImg">
             <div class="lot">查看更多</div>
             <img style="color: #FFF"
@@ -49,10 +54,10 @@
       </div>
       <div class="son">
         <div class="first">
-          <img src="../../assets/imgs/bgNum3.png"
+          <img :src=getImgUrl(item.original_image)
                alt="">
           <div class="meg">
-            <div class="megTitle">规划设计</div>
+            <div class="megTitle">{{item.name}}</div>
             <div class="megLotImg">
               <div class="lot">查看更多</div>
               <img style="color: #FFF"
@@ -62,10 +67,10 @@
           </div>
         </div>
         <div class="second">
-          <img src="../../assets/imgs/bgNum4.png"
+          <img :src=getImgUrl(item.original_image)
                alt="">
           <div class="meg">
-            <div class="megTitle">规划设计</div>
+            <div class="megTitle">{{item.name}}</div>
             <div class="megLotImg">
               <div class="lot">查看更多</div>
               <img style="color: #FFF"
@@ -76,6 +81,10 @@
         </div>
       </div>
     </div>
+
+
+
+    <!--案例-->
     <div class="project">
       <div class="proTitle">
         <div class="title">
@@ -89,9 +98,11 @@
       </div>
       <div class="bar">
         <div class="barNums"
-             v-for="(item,i) in barInfo"
-             :key="i">
-          <div class="barTitle">{{item.name}}</div>
+             v-for="(item,i) in introduce"
+             :key="i"
+             @click="jump(i)">
+          <div class="barTitle"
+               :class="changeColor == i?'active':''">{{item.name}}</div>
           <div class="stick">|</div>
         </div>
       </div>
@@ -106,6 +117,9 @@
         </li>
       </ul>
     </div>
+
+
+    <!--news-->
     <div class="news">
       <div class="newsTitle">
         <div class="newsBar">
@@ -206,7 +220,10 @@ import { subForm, index_h5 } from "../../api/api.js";
 export default {
   data () {
     return {
+      introduce:'',
       company: '',
+      baseUrl: 'http://ceshi.davost.com',
+      views:'',
       name: '',
       phone: '',
       info: '',
@@ -276,6 +293,9 @@ export default {
           img: 'banner.png',
         }
       ],
+      openTitle:0,
+      changBtn: true,
+      changeColor: 0,
       imgGroup: [
         {
           img: 'bgNum3',
@@ -307,8 +327,19 @@ export default {
     getList () {
       index_h5().then((res) => {
         console.log(res, 'tt');
+        this.views = res.data.data.column_introduce
         this.info = res.data.data.company_information
+        this.introduce = res.data.data.column_introduce
       })
+    },
+    jump (i) {
+      this.openTitle = i
+      this.changBtn = false
+      this.changeColor = i
+      console.log(i, 'nnn');
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
     },
     sendForm () {
       console.log('提交');
@@ -359,10 +390,16 @@ export default {
   margin-bottom: 0.75rem;
 }
 .info {
-  /*display: flex;*/
+  display: flex;
   /*justify-content: space-around;*/
   /*white-space: nowrap;*/
   .left {
+    width: 100%;
+    display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+    -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+    overflow: hidden; /*超出的文本隐藏*/
+    text-overflow: ellipsis; /* 溢出用省略号*/
+    -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
     color: #231914;
     font-weight: bold;
     font-size: 0.8675rem;
@@ -370,13 +407,26 @@ export default {
     margin-bottom: 0.5rem;
     float: left;
   }
+  .line{
+    margin-left: 0.68rem;
+    width: 2px;
+    height: 5.58rem;
+    border-left: 0.08rem solid #f4f4f4;
+  }
   .right {
+    display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+    -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+    overflow: hidden; /*超出的文本隐藏*/
+    text-overflow: ellipsis; /* 溢出用省略号*/
+    -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
+    width: 96%;
     color: #231914;
     font-weight: bold;
     font-size: 0.8675rem;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
-    float: right;
+    /*float: right;*/
+    text-align: right;
   }
 }
 .view {
@@ -405,8 +455,8 @@ export default {
       margin-left: 1rem;
       opacity: 0.9;
     }
-    .megLotImg {
-      // display: flex;
+    .meglotImg {
+      display: flex;
       .lot {
         margin-left: 1rem;
         color: #ffffff;
@@ -415,7 +465,8 @@ export default {
         opacity: 0.7;
       }
       img {
-        margin-top: 0.2rem;
+        color: #fff;
+        /*margin-top: 0.2rem;*/
         width: 1.33rem;
         height: 1.33rem;
       }
@@ -428,10 +479,14 @@ export default {
   // position: relative;
   text-align: center;
   .zero {
+    margin-left: 0.5rem;
     position: relative;
     margin-bottom: 0.33rem;
     img {
+      /*margin-left: 1rem;*/
+      /*margin-right: 1rem;*/
       width: 95%;
+      height: 15.82rem;
     }
     .meg {
       position: absolute;
@@ -476,18 +531,19 @@ export default {
     justify-content: space-between;
     /*margin: 0 auto;*/
     .first {
-      /*width: 50%;*/
+      width: 50%;
       img {
+        /*margin-left: 0.2rem;*/
         /*width: 17rem;*/
-        width: 97%;
+        width: 95%;
         height: 18.83rem;
       }
       .meg {
-        margin-left: 0.3rem;
+        margin-left: 0.32rem;
         position: absolute;
         bottom: 0.3rem;
         text-align: left;
-        width: 48.5%;
+        width: 48%;
         height: 4.375rem;
         /*margin-left: 1rem;*/
         /*margin: 0 auto;*/
@@ -519,18 +575,18 @@ export default {
       }
     }
     .second {
-      /*width: 50%;*/
+      width: 50%;
       img {
-        width: 97%;
+        width: 100%;
         /*width: 17rem;*/
         height: 18.83rem;
       }
       .meg {
-        margin-left: 0.3rem;
+        /*margin-left: 0.3rem;*/
         position: absolute;
         bottom: 0.3rem;
         text-align: left;
-        width: 48.5%;
+        width: 50%;
         height: 4.375rem;
         /*margin-left: 1rem;*/
         /*margin: 0 auto;*/
@@ -619,6 +675,13 @@ export default {
         font-weight: bold;
         color: #6c6662;
         line-height: 1.37rem;
+      }
+      .active {
+        width: 9rem;
+        font-size: 1.5rem;
+        text-align: center;
+        color: #c8000a;
+        font-weight: bold;
       }
       .stick {
         color: #231914;

@@ -211,9 +211,10 @@ export default {
           color: #c8000a;
           line-height: 1.37rem;
           .secondMeg {
-            padding-left: 1.7rem;
-            width: 6.3rem;
-            padding-right: 1.33rem;
+            text-align: center;
+            padding-left: 1rem;
+            width: 7.3rem;
+            padding-right: 1rem;
           }
         }
       }
