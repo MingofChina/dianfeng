@@ -1,3 +1,4 @@
+
 <template>
   <div id="app">
     <div class="showImg">
@@ -557,3 +558,6 @@ export default {
   }
 }
 </style>
+
+
+
