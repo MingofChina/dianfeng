@@ -8,12 +8,14 @@
         <div class="eng">Top team</div>
       </div>
     </div>
-    <div>
+    <div class="team">
       <div style="display: flex;margin-top: 20px;">
         <div v-for="(item1,index111) in  list"
              :key="index111"
+             @click="jumpTeam(index111)"
              style="display: flex;margin-left: 20px; ">
-          <div style="width: 7rem;  height: 2.67rem;border: 0.08rem solid #CACACA;background-color: #FFFFFF;  line-height: 2.67rem; text-align: center;border-radius: 0rem 0rem 0rem 0rem;opacity: 1;font-size: 1.17rem;font-weight:600">{{item1.name}}</div>
+          <div class="btnCon"
+               :class="changeColor == index111?'active':''">{{item1.name}}</div>
         </div>
       </div>
     </div>
@@ -45,6 +47,7 @@
           <img :src="items.original_image">
           <div class="name">{{items.name}}</div>
           <div class="mes">{{items.title}}</div>
+
         </li>
       </ul>
     </div>
@@ -65,27 +68,26 @@ export default {
       list: [],
       peopleInfo: [
       ],
+      changBtn: true,
+      changeColor: 0,
       pages: 1,
       pagesize: 10
     }
+  },
+  mounted () {
+    this.getdianfengteamdat()
   },
   methods: {
     jump (e) {
       this.$router.push({ path: '/teamDetail_h5', query: { 'name': e } })
     },
-    jump (e) {
-
-      this.$router.push({ path: '/teamDetail_h5', query: { 'name': e } })
-    },
     async getdianfengteamdat () {
-
       let data = {
         pages: this.pages,
         pagesize: this.pagesize,
         cate_id: ""
 
       }
-
       const res = await dianfengh5team(data)
       console.log(res, 99999999)
       if (res.data.code === 0) {
@@ -98,80 +100,66 @@ export default {
         this.datalist.shift()
         this.datalist.shift()
         this.staffInfo = this.datalist
-
       }
-
-
-
-
     },
-
-
-
-
-
-
-
-
-
-
-
-
+    jumpTeam (info) {
+      this.changBtn = false
+      this.changeColor = info
+    }
   },
-  mounted () {
-    this.getdianfengteamdat()
-  },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 </script>
 <style scoped lang="less">
 .showImg {
   position: relative;
+  img {
+    width: 100%;
+  }
   .cha {
     position: absolute;
-    top: 7.8rem;
-    left: 15.25rem;
-    width: 7.83rem;
+    top: 40%;
+    // left: 15.25rem;
+    width: 100%;
+    text-align: center;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
-    // color: #ffffff;
+    color: #ffffff;
     line-height: 1.95rem;
     letter-spacing: 4px;
     z-index: 2;
   }
   .eng {
+    width: 100%;
     margin-top: 0.33rem;
     position: absolute;
-    top: 9.8rem;
-    left: 16.25rem;
+    top: 51%;
+    text-align: center;
+    // left: 16.25rem;
     height: 1.25rem;
     font-size: 0.83rem;
+    text-transform: uppercase;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
-    // color: #ffffff;
+    color: #ffffff;
     line-height: 0.98rem;
+  }
+}
+.team {
+  .btnCon {
+    width: 7rem;
+    height: 2.67rem;
+    border: 0.08rem solid #cacaca;
+    background-color: #ffffff;
+    line-height: 2.67rem;
+    text-align: center;
+    opacity: 1;
+    font-size: 1.17rem;
+    font-weight: 600;
+  }
+  .active {
+    background: #c8000a;
+    color: #ffffff;
   }
 }
 .teamBtn {
@@ -244,20 +232,24 @@ export default {
   /*padding-top: 0;*/
   background: #f4f4f4;
   padding-left: 1.33rem;
+  padding-right: 1.33rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   li {
     margin-top: 1rem;
-    width: 16.83rem;
-    height: 22.17rem;
+    width: 40%;
+    // height: 22.17rem;
     background: #ffffff;
+    padding-left: 1rem;
+    padding-right: 1rem;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     img {
       margin-top: 1rem;
-      margin-left: 1.42rem;
-      width: 14rem;
+
+      // margin-left: 1.42rem;
+      width: 100%;
       height: 17rem;
     }
     .name {
@@ -273,7 +265,7 @@ export default {
       font-size: 1rem;
       font-weight: 400;
       color: #3c3c3c;
-      line-height: 1.17rem;
+      line-height: 1.3rem;
       /*margin-bottom: 2rem;*/
     }
   }

@@ -8,37 +8,28 @@
     <div class="describe">乡村振兴领先的全过程服务商</div>
 
     <div class="info">
-      <div class="left">中国<span style="color: #C8000A">{{info.wenlv_head_enterprise}}</span></div>
-      <div class="right"><span style="color: #C8000A">{{info.wenlv_scenic_spot}}</span>专业运营旅游景区</div>
-    </div>
-    <div class="info">
-      <div class="left"><span style="color: #C8000A">{{info.wenlv_industries_num}}</span>美丽中国价值经典</div>
-      <div class="right">文旅产业<span style="color: #C8000A">{{info.wenlv_title}}</span></div>
-    </div>
-    <div class="info">
-      <div class="left"><span style="color: #C8000A">{{info.wenlv_years_num}}</span>文旅行业不辍耕耘</div>
-      <!-- <div class="right"></div> -->
-    </div>
-
-    <div class="view">
-      <img src="../../assets/imgs/bgNum1.png"
-           alt="">
-      <div class="meg">
-        <div class="megTitle">规划设计</div>
-        <div class="meglotImg">
-          <div class="lot">查看更多</div>
-          <img style="color: #FFF"
-               src="../../assets/imgs/mark.png"
-               alt="">
-        </div>
+      <div class="left">
+        <div class="left">中国<span style="color: #C8000A;font-weight: 800;">{{info.wenlv_head_enterprise}}</span></div>
+        <div class="left"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_industries_num}}</span>美丽中国价值经典</div>
+        <div class="left"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_years_num}}</span>文旅行业不辍耕耘</div>
+      </div>
+      <div class="line"></div>
+      <div class="right">
+        <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_scenic_spot}}</span>专业运营旅游景区</div>
+        <div class="right">文旅产业<span style="color: #C8000A;font-weight: 800;">{{info.wenlv_title}}</span></div>
+        <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_description}}</span></div>
       </div>
     </div>
-    <div class="views">
+
+    <!--second-->
+    <div class="views"
+         v-for="(item,idx) in views"
+         :key="idx">
       <div class="zero">
-        <img src="../../assets/imgs/bgNum2.png"
+        <img :src=getImgUrl(item.original_image)
              alt="">
         <div class="meg">
-          <div class="megTitle">规划设计</div>
+          <div class="megTitle">{{item.name}}</div>
           <div class="megLotImg">
             <div class="lot">查看更多</div>
             <img style="color: #FFF"
@@ -49,10 +40,10 @@
       </div>
       <div class="son">
         <div class="first">
-          <img src="../../assets/imgs/bgNum3.png"
+          <img :src=getImgUrl(item.original_image)
                alt="">
           <div class="meg">
-            <div class="megTitle">规划设计</div>
+            <div class="megTitle">{{item.name}}</div>
             <div class="megLotImg">
               <div class="lot">查看更多</div>
               <img style="color: #FFF"
@@ -62,10 +53,10 @@
           </div>
         </div>
         <div class="second">
-          <img src="../../assets/imgs/bgNum4.png"
+          <img :src=getImgUrl(item.original_image)
                alt="">
           <div class="meg">
-            <div class="megTitle">规划设计</div>
+            <div class="megTitle">{{item.name}}</div>
             <div class="megLotImg">
               <div class="lot">查看更多</div>
               <img style="color: #FFF"
@@ -76,6 +67,8 @@
         </div>
       </div>
     </div>
+
+    <!--案例-->
     <div class="project">
       <div class="proTitle">
         <div class="title">
@@ -84,14 +77,17 @@
         </div>
         <div class="imgInfo">
           <img src="../../assets/imgs/mode.png"
+               @click="jumpCaseDetails()"
                alt="">
         </div>
       </div>
       <div class="bar">
         <div class="barNums"
-             v-for="(item,i) in barInfo"
-             :key="i">
-          <div class="barTitle">{{item.name}}</div>
+             v-for="(item,i) in introduce"
+             :key="i"
+             @click="jump(i)">
+          <div class="barTitle"
+               :class="changeColor == i?'active':''">{{item.name}}</div>
           <div class="stick">|</div>
         </div>
       </div>
@@ -106,6 +102,8 @@
         </li>
       </ul>
     </div>
+
+    <!--news-->
     <div class="news">
       <div class="newsTitle">
         <div class="newsBar">
@@ -114,18 +112,19 @@
         </div>
         <div class="mode">
           <img src="../../assets/imgs/mode.png"
+               @click="jumpNews()"
                alt="">
         </div>
       </div>
       <div class="showImg"
-           v-for="(item,i) in newInfo"
+           v-for="(item,i) in news"
            :key="i">
-        <div class="num">{{item.num}}</div>
-        <div class="date">{{item.date}}</div>
+        <div class="num">{{item.business_ids}}</div>
+        <div class="date">{{item.add_date}}</div>
         <div class="imgTitle">{{item.title}}</div>
-        <div class="imgInfo">{{item.message}}</div>
+        <div class="imgInfo">{{item.summary}}</div>
         <div class="first">
-          <img :src="require(`../../assets/bei/${item.img}`)"
+          <img :src=getImgUrl(item.original_image)
                alt="">
         </div>
         <br>
@@ -135,6 +134,7 @@
         </div>
       </div>
     </div>
+
     <div class="brand">
       <div class="brandTitle">
         中国文旅智业<span style="color: #C8000A">头部品牌</span>
@@ -148,17 +148,39 @@
                  alt="">
           </div>
           <!--                    <img :src="require(`../../assets/bei/${item.img}.png`)" alt="">-->
-          <div class="markTitle">{{item.title}}</div>
+          <div class="markTitle">{{item.title}}<span>{{item.info}}</span></div>
           <div class="markMes">{{item.markMes}}</div>
         </li>
       </ul>
       <div class="brandFooter">
         <div class="brandContent"
              v-for="(item,i) in brandName"
-             :key="i">
-          <div class="cityName">{{item.name}}</div>
-          <div class="footerStick">|</div>
+             :key="i"
+             @click="jumpInfo(i)"
+             :class="changeColorOne == i?'active':''">
+          <div class="cityName"
+               :class="changeColorOne == i?'activeName':''">{{item.name}}</div>
+          <div class="footerStick"
+               :class="changeColorOne == i?'activeStock':''">|</div>
         </div>
+      </div>
+    </div>
+    <div class="mark">
+      <div class="address">
+        <img src="../../assets/bei/icong_weizhi.png"
+             alt="">
+        <div class="addressInfo">{{addressInfo[chooseInfoOne].company_name}}</div>
+      </div>
+      <div class="detail">{{addressInfo[chooseInfoOne].company_address}}</div>
+      <div class="phone">
+        <img src="../../assets/bei/icom_dianhua.png"
+             alt="">
+        <div class="name">咨询电话: <span>{{addressInfo[chooseInfoOne].company_phone}}</span></div>
+      </div>
+      <div class="mail">
+        <img src="../../assets/bei/icom_youxiang.png"
+             alt="">
+        <div class="name">业务邮箱: <span>{{addressInfo[chooseInfoOne].company_email}}</span></div>
       </div>
     </div>
     <div class="message">
@@ -206,7 +228,10 @@ import { subForm, index_h5 } from "../../api/api.js";
 export default {
   data () {
     return {
+      introduce: '',
       company: '',
+      baseUrl: 'http://ceshi.davost.com',
+      views: '',
       name: '',
       phone: '',
       info: '',
@@ -236,27 +261,32 @@ export default {
       brandInfo: [
         {
           img: 'icon_chuangli',
-          title: '创立21年',
-          markMes: '文旅行业实践者',
-        },
-        {
-          img: 'icon_rongyu',
-          title: '完成项目3000+',
+          title: '创立',
+          info: '21年',
           markMes: '文旅行业实践者',
         },
         {
           img: 'icon_wancheng',
-          title: '运营景区100+',
-          markMes: '文旅行业实践者',
-        },
-        {
-          img: 'icon_yuangong',
-          title: '荣获奖项100+',
+          title: '完成项目',
+          info: '3000+',
           markMes: '文旅行业实践者',
         },
         {
           img: 'icon_yunying',
-          title: '骨干员工近1000',
+          title: '运营景区',
+          info: '100+',
+          markMes: '文旅行业实践者',
+        },
+        {
+          img: 'icon_rongyu',
+          title: '荣获奖项',
+          info: '100+',
+          markMes: '文旅行业实践者',
+        },
+        {
+          img: 'icon_yuangong',
+          title: '骨干员工近',
+          info: '1000',
           markMes: '文旅行业实践者',
         },
       ],
@@ -276,6 +306,45 @@ export default {
           img: 'banner.png',
         }
       ],
+      addressInfo: [
+        {
+          company_name: '北京（ 总部 ）',
+          company_address: '北京市，朝阳区三元桥左家庄1号国门大厦B座6F',
+          company_phone: '400-8130-588',
+          company_email: 'contact@davost.com',
+        },
+        {
+          company_name: '上海',
+          company_address: '上海市－闵行区申虹路666弄正荣中心6号楼602',
+          company_phone: '400-8130-588',
+          company_email: 'contact@davost.com',
+        },
+        {
+          company_name: '深圳',
+          company_address: '深圳市-福田区侨香路3085号 岭南大厦 9C-1',
+          company_phone: '400-8130-588',
+          company_email: 'contact@davost.com',
+        },
+        {
+          company_name: '成都',
+          company_address: '成都市 - 高新区府城大道505号仁和春天国际广场A座1610',
+          company_phone: '400-8130-588',
+          company_email: 'contact@davost.com',
+        },
+        {
+          company_name: '西安',
+          company_address: '陕西省西安市经济技术开发区凤城七路旭辉中心1幢1单元7层10704号',
+          company_phone: '400-8130-588',
+          company_email: 'contact@davost.com',
+        },
+      ],
+      chooseInfoOne: 0,
+      changBtnOne: true,
+      changeColorOne: 0,
+      openTitle: 0,
+      changBtn: true,
+      changeColor: 0,
+      news: '',
       imgGroup: [
         {
           img: 'bgNum3',
@@ -307,22 +376,64 @@ export default {
     getList () {
       index_h5().then((res) => {
         console.log(res, 'tt');
+        this.views = res.data.data.column_introduce
         this.info = res.data.data.company_information
+        this.introduce = res.data.data.column_introduce
+        this.news = res.data.data.news
       })
+    },
+    jump (i) {
+      this.openTitle = i
+      this.changBtn = false
+      this.changeColor = i
+      console.log(i, 'nnn');
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
     },
     sendForm () {
       console.log('提交');
-      const data = {
-        company: this.company,
-        name: this.name,
-        phone: this.phone
+      if (this.company) {
+        if (this.name) {
+          if (this.phone) {
+            const data = {
+              company: this.company,
+              name: this.name,
+              phone: this.phone
+            }
+            console.log(data, 'yy');
+            subForm(data).then((res) => {
+              console.log(res);
+              this.$message.success('提交成功')
+              this.clearInfo()
+            })
+          } else {
+            this.$message.error('请填写您的电话号码')
+          }
+        } else {
+          this.$message.error('请填写您的姓名')
+        }
+      } else {
+        this.$message.error('请输入公司名称');
       }
-      console.log(data, 'yy');
-      subForm(data).then((res) => {
-        console.log(res);
-        this.$message.success('提交成功')
-        this.clearInfo()
+    },
+    // 跳转巅峰案例
+    jumpCaseDetails () {
+      this.$router.push({
+        path: 'introduce_h5/2/0',
       })
+    },
+    // 跳转巅峰要闻
+    jumpNews () {
+      this.$router.push({
+        path: 'introduce_h5/0/3'
+      })
+    },
+    jumpInfo (i) {
+      this.chooseInfoOne = i
+      this.changBtnOne = false
+      this.changeColorOne = i
+      console.log(i, 'nnn');
     },
     // 提交后清空数据
     clearInfo () {
@@ -334,12 +445,12 @@ export default {
 }
 </script>
 <style scoped lang="less">
-  .content{
-    img{
-      width: 100%;
-      /*height: 30vh;*/
-    }
+.content {
+  img {
+    width: 100%;
+    /*height: 30vh;*/
   }
+}
 
 .title {
   /*width: 7.5rem;*/
@@ -359,10 +470,16 @@ export default {
   margin-bottom: 0.75rem;
 }
 .info {
-  /*display: flex;*/
+  display: flex;
   /*justify-content: space-around;*/
   /*white-space: nowrap;*/
   .left {
+    width: 100%;
+    display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+    -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+    overflow: hidden; /*超出的文本隐藏*/
+    text-overflow: ellipsis; /* 溢出用省略号*/
+    -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
     color: #231914;
     font-weight: bold;
     font-size: 0.8675rem;
@@ -370,13 +487,26 @@ export default {
     margin-bottom: 0.5rem;
     float: left;
   }
+  .line {
+    margin-left: 0.35rem;
+    width: 2px;
+    height: 5.58rem;
+    border-left: 0.08rem solid #f4f4f4;
+  }
   .right {
+    display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+    -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+    overflow: hidden; /*超出的文本隐藏*/
+    text-overflow: ellipsis; /* 溢出用省略号*/
+    -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
+    width: 100%;
     color: #231914;
     font-weight: bold;
     font-size: 0.8675rem;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
-    float: right;
+    /*float: right;*/
+    text-align: right;
   }
 }
 .view {
@@ -405,8 +535,8 @@ export default {
       margin-left: 1rem;
       opacity: 0.9;
     }
-    .megLotImg {
-      // display: flex;
+    .meglotImg {
+      display: flex;
       .lot {
         margin-left: 1rem;
         color: #ffffff;
@@ -415,7 +545,8 @@ export default {
         opacity: 0.7;
       }
       img {
-        margin-top: 0.2rem;
+        color: #fff;
+        /*margin-top: 0.2rem;*/
         width: 1.33rem;
         height: 1.33rem;
       }
@@ -424,14 +555,19 @@ export default {
 }
 .views {
   width: 100%;
+  margin-bottom: 1.67rem;
   /*margin: 0 auto;*/
   // position: relative;
   text-align: center;
   .zero {
+    margin-left: 0.5rem;
     position: relative;
     margin-bottom: 0.33rem;
     img {
+      /*margin-left: 1rem;*/
+      /*margin-right: 1rem;*/
       width: 95%;
+      height: 15.82rem;
     }
     .meg {
       position: absolute;
@@ -476,18 +612,19 @@ export default {
     justify-content: space-between;
     /*margin: 0 auto;*/
     .first {
-      /*width: 50%;*/
+      width: 50%;
       img {
+        /*margin-left: 0.2rem;*/
         /*width: 17rem;*/
-        width: 97%;
+        width: 95%;
         height: 18.83rem;
       }
       .meg {
-        margin-left: 0.3rem;
+        margin-left: 0.32rem;
         position: absolute;
         bottom: 0.3rem;
         text-align: left;
-        width: 48.5%;
+        width: 48%;
         height: 4.375rem;
         /*margin-left: 1rem;*/
         /*margin: 0 auto;*/
@@ -519,18 +656,18 @@ export default {
       }
     }
     .second {
-      /*width: 50%;*/
+      width: 50%;
       img {
-        width: 97%;
+        width: 100%;
         /*width: 17rem;*/
         height: 18.83rem;
       }
       .meg {
-        margin-left: 0.3rem;
+        /*margin-left: 0.3rem;*/
         position: absolute;
         bottom: 0.3rem;
         text-align: left;
-        width: 48.5%;
+        width: 50%;
         height: 4.375rem;
         /*margin-left: 1rem;*/
         /*margin: 0 auto;*/
@@ -605,6 +742,7 @@ export default {
     overflow-x: scroll;
     margin-top: 1.33rem;
     margin-left: 1.33rem;
+    margin-bottom: 1rem;
     display: flex;
     /*justify-content: space-between;*/
     .barNums {
@@ -619,6 +757,13 @@ export default {
         font-weight: bold;
         color: #6c6662;
         line-height: 1.37rem;
+      }
+      .active {
+        width: 9rem;
+        font-size: 1.5rem;
+        text-align: center;
+        color: #c8000a;
+        font-weight: bold;
       }
       .stick {
         color: #231914;
@@ -725,6 +870,11 @@ export default {
       line-height: 0.98rem;
     }
     .imgTitle {
+      display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+      -webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+      overflow: hidden; /*超出的文本隐藏*/
+      text-overflow: ellipsis; /* 溢出用省略号*/
+      -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
       margin-top: 1rem;
       width: 25.83rem;
       height: 1.67rem;
@@ -757,6 +907,7 @@ export default {
       /*width: 100%;*/
       height: 1.5rem;
       margin-left: 44%;
+      margin-bottom: 2.5rem;
       /*margin: 0 auto 1.33rem;*/
       /*text-align: center;*/
       /*margin-bottom: 1.33rem;*/
@@ -811,6 +962,10 @@ export default {
         font-weight: 400;
         color: #231914;
         line-height: 1.17rem;
+        span {
+          font-size: 1.67rem;
+          font-weight: 800;
+        }
       }
       .markMes {
         margin-top: 0.42rem;
@@ -831,6 +986,7 @@ export default {
     /*justify-content: space-between;*/
     .brandContent {
       display: flex;
+      // width: 8.2rem;
       line-height: 3.33rem;
       .cityName {
         width: 3.1rem;
@@ -840,15 +996,90 @@ export default {
         font-weight: 400;
         color: #231914;
       }
-      .active {
-        /*display: none;*/
-        width: 3.2rem;
-        /*padding: 3rem;*/
-        background-color: #c8000a;
+      .activeName {
+        color: #fff;
       }
       .footerStick {
         color: #cacaca;
         /*padding-left: 2rem;*/
+      }
+      .activeStock {
+        color: #c8000a;
+      }
+    }
+    .active {
+      text-align: center;
+      width: 7.2rem;
+      color: #fff;
+      background-color: #c8000a;
+    }
+  }
+}
+.mark {
+  background: #f4f4f4;
+  // margin: 0 1.33rem 1.5rem 1.33rem;
+  .address {
+    display: flex;
+    img {
+      margin-top: 2.17rem;
+      margin-left: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+    .addressInfo {
+      margin-left: 0.67rem;
+      margin-top: 2.3rem;
+      font-size: 1.33rem;
+      font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+      font-weight: 800;
+      color: #231914;
+      line-height: 1.56rem;
+    }
+  }
+  .detail {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    font-size: 1.17rem;
+    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+    font-weight: 400;
+    color: #3c3c3c;
+    line-height: 1.37rem;
+  }
+  .phone {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    .name {
+      font-size: 1.17rem;
+      color: #3c3c3c;
+      margin-left: 0.36rem;
+      span {
+        font-size: 1.17rem;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #231914;
+        line-height: 1.37rem;
+      }
+    }
+  }
+  .mail {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-bottom: 1.83rem;
+    display: flex;
+    .name {
+      font-size: 1.17rem;
+      color: #3c3c3c;
+      margin-left: 0.36rem;
+      span {
+        font-size: 1.17rem;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #231914;
+        line-height: 1.37rem;
       }
     }
   }

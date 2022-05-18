@@ -19,6 +19,13 @@
         <div class="info">{{item.summary}}</div>
       </div>
     </div>
+    <div class="pagination">
+      <el-pagination background
+                     layout="prev, pager, next"
+                     :total="total"
+                     @current-change="onPageChange">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -28,6 +35,7 @@ export default {
     return {
       searchInfo: '',
       baseUrl: 'http://ceshi.davost.com',
+      total: 0,
       pages: 1,
       pagesize: 10,
     }
@@ -44,7 +52,12 @@ export default {
       books_h5(data).then((res) => {
         console.log(res, '著作');
         this.searchInfo = res.data.data.books
+        this.total = res.data.data.books.length
       })
+    },
+    onPageChange (e) {
+      this.pages = e
+      this.getList()
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
@@ -123,5 +136,8 @@ export default {
       line-height: 1.5rem;
     }
   }
+}
+.pagination {
+  text-align: center;
 }
 </style>

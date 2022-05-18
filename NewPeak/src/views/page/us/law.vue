@@ -44,11 +44,15 @@ export default {
 <style lang="less" scoped>
 .showImg {
   position: relative;
+  img {
+    width: 100%;
+  }
   .cha {
     position: absolute;
-    top: 7.8rem;
-    left: 15.25rem;
-    width: 7.83rem;
+    top: 40%;
+    text-align: center;
+    // left: 15.25rem;
+    width: 100%;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
@@ -60,8 +64,10 @@ export default {
   .eng {
     margin-top: 0.33rem;
     position: absolute;
-    top: 9.8rem;
-    left: 14.15rem;
+    top: 51%;
+    text-align: center;
+    // left: 14.15rem;
+    width: 100%;
     height: 1.25rem;
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;

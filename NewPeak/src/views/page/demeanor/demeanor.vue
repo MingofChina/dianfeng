@@ -36,13 +36,23 @@
       <div class="title">
         {{barInfo[openTitle].description}}
       </div>
-      <div class="img"
+
+      <el-carousel indicator-position="outside">
+        <el-carousel-item v-for="(it,idx) in barInfo[openTitle].original_image"
+                          :key="idx">
+          <img :src=getImgUrl(it.original_image)
+               alt="">
+          <!-- <div class="imgTitle">{{it.title}}</div> -->
+        </el-carousel-item>
+      </el-carousel>
+
+      <!-- <div class="img"
            v-for="(it,idx) in barInfo[openTitle].original_image"
            :key="idx">
         <img :src=getImgUrl(it.original_image)
              alt="">
         <div class="imgTitle">{{it.title}}</div>
-      </div>
+      </div> -->
     </div>
     <div class="foot">
       <div class="bar">
@@ -58,12 +68,22 @@
       <div class="title">
         {{footBarInfo[openTitleOne].description}}
       </div>
-      <div class="footImg"
+
+      <el-carousel indicator-position="outside">
+        <el-carousel-item v-for="(it,idx) in footBarInfo[openTitleOne].original_image"
+                          :key="idx">
+          <img :src=getImgUrl(it.original_image)
+               alt="">
+          <!-- <div class="imgTitle">{{it.title}}</div> -->
+        </el-carousel-item>
+      </el-carousel>
+
+      <!-- <div class="footImg"
            v-for="(it,idx) in footBarInfo[openTitleOne].original_image"
            :key="idx">
         <img :src=getImgUrl(it.original_image)
              alt="">
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -118,11 +138,15 @@ export default {
 <style lang="less" scoped>
 .showImg {
   position: relative;
+  img {
+    width: 100%;
+  }
   .cha {
     position: absolute;
-    top: 7.8rem;
-    left: 15.25rem;
-    width: 7.83rem;
+    top: 40%;
+    // left: 15.25rem;
+    width: 100%;
+    text-align: center;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
@@ -132,11 +156,14 @@ export default {
     z-index: 2;
   }
   .eng {
+    width: 100%;
     margin-top: 0.33rem;
     position: absolute;
-    top: 9.8rem;
-    left: 16.25rem;
+    top: 51%;
+    text-align: center;
+    // left: 16.25rem;
     height: 1.25rem;
+    text-transform: uppercase;
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
@@ -242,30 +269,11 @@ export default {
     text-align: left;
     margin-bottom: 0.67rem;
   }
-  .img {
-    position: relative;
+  img {
     margin-left: 1.33rem;
     margin-right: 1.33rem;
-    img {
-      // width: 28.58rem;
-      width: 100%;
-      height: 18.92rem;
-      margin-bottom: 1.67rem;
-    }
-    .imgTitle {
-      position: absolute;
-      top: 0.67rem;
-      left: 0.67rem;
-      width: 10.33rem;
-      height: 2.5rem;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.49);
-      font-size: 1rem;
-      font-family: Source Han Sans CN-Regular, Source Han Sans CN;
-      font-weight: 400;
-      color: #ffffff;
-      line-height: 2.67rem;
-    }
+    width: 94%;
+    height: 19.24rem;
   }
 }
 .foot {
@@ -313,12 +321,11 @@ export default {
     color: #000000;
     line-height: 1.67rem;
   }
-  .footImg {
-    margin: 0 1.33rem 2.08rem 1.33rem;
-    img {
-      width: 100%;
-      height: 18.92rem;
-    }
+  img {
+    margin-left: 1.33rem;
+    margin-right: 1.33rem;
+    width: 94%;
+    height: 19.24rem;
   }
 }
 </style>

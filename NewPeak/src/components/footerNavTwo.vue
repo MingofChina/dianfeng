@@ -8,20 +8,20 @@
               <div class="liebiao-1">
                 <span>
                   <img style="width: 1rem;height: 1rem"
-                       src="../assets/img/icon_the phone@2x.png"
+                       src="../assets/imgs/Vector.png"
                        alt="" />
                 </span>
                 <span style="font-size: 12px">服务热线</span>
-                <h2>{{ bottom.company_phone }}</h2>
+                <h4>{{ bottom.company_phone }}</h4>
               </div>
               <div class="liebiao-1">
                 <span>
                   <img style="width: 1rem;height: 1rem"
-                       src="../assets/img/icon_the phone@2x.png"
+                       src="../assets/imgs/Vector.png"
                        alt="" />
                 </span>
                 <span style="font-size: 12px">服务热线</span>
-                <h2>{{ bottom.free_phone }}</h2>
+                <h4>{{ bottom.free_phone }}</h4>
               </div>
             </div>
             <div style="white-space:nowrap;"
@@ -32,15 +32,11 @@
                        alt="" />
                   <p>关注小程序</p>
                 </li>
-              </ul>
-              <ul>
                 <li>
                   <img :src="baseUrl+bottom.video_number_url"
                        alt="" />
                   <p>关注视频号</p>
                 </li>
-              </ul>
-              <ul>
                 <li>
                   <img :src="baseUrl+bottom.public_number_url"
                        alt="" />
@@ -53,6 +49,7 @@
         <div class="finish-2">
           <div class="fin-2-left">
             <div class="fin-2-right divhover">法律声明</div>
+            <div class="line"></div>
             <div class="base">{{ bottom.meta_copyright }}</div>
             <div class="baseInfo">
               <div class=" divhover"
@@ -175,17 +172,20 @@ export default {
   // background-color: #fff;
 }
 .finish-1 {
-  width: 85%;
+  width: 95%;
   margin: 0 auto;
   /*padding-left: 1rem;*/
   /*padding-top:1.875rem;*/
-  display: flex;
+  // display: flex;
+  // justify-content: space-between;
 }
 .arrlist-2 {
   color: #ffff;
 }
 .arrlist-2 div ul {
-  display: inline-block;
+  // display: inline-block;
+  display: flex;
+  justify-content: space-between;
   padding: 0;
 }
 .arrlist-2 div ul li {
@@ -193,7 +193,7 @@ export default {
   text-align: left;
   font-size: 20px;
   color: #fff;
-  margin-right: 1.875rem;
+  // margin-right: 1.5rem;
 }
 .arrlist-2 div ul li img {
   width: 8.875rem;
@@ -214,13 +214,13 @@ export default {
 }
 .liebiao-1 {
   box-sizing: border-box;
-  margin-right: 2.625rem;
+  // margin-right: 2.625rem;
 }
-.liebiao-1 h2 {
+.liebiao-1 h4 {
   color: #d2d2d2;
   /*width: 133px;*/
   margin-top: 0.75rem;
-  font-size: 1.25rem;
+  font-size: 1.67rem;
 }
 .er {
   width: 100%;
@@ -240,15 +240,15 @@ export default {
   margin-top: 2.5rem;
   color: #ffffff;
   line-height: 6.875rem;
-  border-top: 1px solid #ffffff;
-  padding-left: 2rem;
+  // border-top: 1px solid #ffffff;
+  // padding-left: 2rem;
   padding-bottom: 1rem;
 }
 .fin-2-left {
   /*display: flex;*/
   list-style: none;
   /*text-align: center;*/
-  width: 85%;
+  width: 100%;
 }
 .fin-2-left div {
   margin-top: 2rem;
@@ -257,23 +257,35 @@ export default {
 }
 .fin-2-left .base {
   text-align: left;
-  width: 100%;
+  // width: 100%;
   margin-top: 2rem;
   line-height: 1rem;
   font-size: 0.83rem;
   color: rgba(255, 255, 255, 0.5);
+  padding-left: 2rem;
   /*margin-right: 1.6875rem;*/
 }
 .fin-2-left .baseInfo {
   display: flex;
+  padding-left: 2rem;
   justify-content: space-between;
   // /*margin-left: 0.3rem;*/
   margin: 0 1.35rem 0 0;
   color: rgba(255, 255, 255, 0.5);
 }
+.line {
+  width: 100%;
+  // padding: 1px;
+  // margin-: 1px;
+  border-bottom: 0.062rem solid rgba(255, 255, 255, 0.1);
+}
 .fin-2-right {
+  // width: 100%;
+  padding-left: 2rem;
+  // height: 2rem;
+  // border-bottom: 0.062rem solid #fff;
   text-align: left;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1rem;
+  color: #fff;
+  font-size: 1.33rem;
 }
 </style>

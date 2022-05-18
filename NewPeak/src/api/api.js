@@ -152,7 +152,7 @@ export function leagues(query) {
 
 
 
-// 巅峰案例 
+// 巅峰案例
 export function sexample(query) {
     return request({
         url: 'api/Cases/Case_List',
@@ -217,7 +217,7 @@ export function relation(query) {
     })
 }
 
-//-- 法律声明  
+//-- 法律声明
 export function legislation(query) {
     return request({
         url: 'api/Contact/Legal_Declaration',
@@ -389,6 +389,15 @@ export function teaminfoh5(query) {
 
     return request({
         url: 'api/Intopeak/Peak_Team_Detail',
+        method: 'post',
+        params: query
+    })
+}
+// 产业联盟
+export function alliance_h5(query) {
+
+    return request({
+        url: 'api/Intopeak/Industrial_Alliance',
         method: 'post',
         params: query
     })

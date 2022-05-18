@@ -27,6 +27,13 @@
         <span v-show="item.summary.length<40?false:true">...</span>
       </li>
     </ul>
+    <div class="pagination">
+      <el-pagination background
+                     layout="prev, pager, next"
+                     :total="total"
+                     @current-change="onPageChange">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -40,6 +47,7 @@ export default {
       changBtn: true,
       changeColor: 0,
       pages: 1,
+      total: 0,
       pagesize: 10
     }
   },
@@ -56,7 +64,12 @@ export default {
         console.log(res, '案例');
         this.btnInfo = res.data.data.column
         this.imgGroup = res.data.data.case
+        this.total = res.data.data.case_pages_number
       })
+    },
+    onPageChange (e) {
+      this.pages = e
+      this.getList()
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
@@ -193,5 +206,8 @@ export default {
       color: #a0a0a0;
     }
   }
+}
+.pagination {
+  text-align: center;
 }
 </style>

@@ -177,13 +177,13 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     .imgs {
-      width: 17rem;
+      width: 48%;
       height: 24.83rem;
       margin-bottom: 1rem;
       background-color: #fff;
       border-radius: 3px;
       img {
-        width: 16.5rem;
+        width: 100%;
         height: 17.42rem;
       }
       .title {

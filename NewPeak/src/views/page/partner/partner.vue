@@ -106,11 +106,15 @@ export default {
 <style lang="less" scoped>
 .showImg {
   position: relative;
+  img {
+    width: 100%;
+  }
   .cha {
     position: absolute;
-    top: 7.8rem;
-    left: 15.25rem;
-    width: 7.83rem;
+    top: 40%;
+    // left: 15.25rem;
+    text-align: center;
+    width: 100%;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
@@ -122,8 +126,10 @@ export default {
   .eng {
     margin-top: 0.33rem;
     position: absolute;
-    top: 9.8rem;
-    left: 16.25rem;
+    width: 100%;
+    top: 51%;
+    text-align: center;
+    // left: 16.25rem;
     height: 1.25rem;
     text-transform: uppercase;
     font-size: 0.83rem;

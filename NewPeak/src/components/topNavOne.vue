@@ -22,7 +22,8 @@
                :key="index">
 
             <div class="infoFirst"
-                 @click="jump(index)">{{item.name}}
+                 @click="jump(index)"
+                 :class="changeColor == index?'active':''">{{item.name}}
             </div>
 
             <ul class="infoSecond"
@@ -30,7 +31,8 @@
               <li v-for="(it,i) in item.second"
                   :key="i">
                 <div class="secondMeg"
-                     @click="jumpSecond(index,i)">
+                     @click="jumpSecond(index,i)"
+                     :class="changeColorTwo == i?'activeTwo':''">
                   {{it.secondTitle}}
                 </div>
               </li>
@@ -50,6 +52,8 @@ export default {
     return {
       idx: -1,
       isHidden: 1,
+      changeColorTwo: -1,
+      changeColor: -1,
       menus: [
         {
           name: '走进巅峰',
@@ -102,7 +106,7 @@ export default {
             //   secondTitle: '详情',
             // },
             {
-              secondTitle: '巅峰观点',
+              secondTitle: '行业观点',
             },
             {
               secondTitle: '专业著作',
@@ -138,6 +142,7 @@ export default {
       this.isHidden = 1
     },
     jump (index) {
+      this.changeColor = index
       console.log(index, 'ff');
       this.idx = this.idx == index ? -1 : index
       if (index == 4) {
@@ -145,6 +150,7 @@ export default {
       }
     },
     jumpSecond (i, idx) {
+      this.changeColorTwo = idx
       console.log(i, 'yyy', idx);
       //https://www.liepin.com/company/7884213
       if (`/introduce_h5/${i}/${idx}` == '/introduce_h5/0/5') {
@@ -193,6 +199,10 @@ export default {
         text-align: center;
         border: 1px solid #f4f4f4;
       }
+      .active {
+        background: #c8000a;
+        color: #fff;
+      }
       .infoSecond {
         margin: 0;
         margin-left: 0.2rem;
@@ -208,12 +218,18 @@ export default {
           height: 1.75rem;
           font-size: 1.17rem;
           font-weight: 500;
-          color: #c8000a;
+
           line-height: 1.37rem;
           .secondMeg {
-            padding-left: 1.7rem;
-            width: 6.3rem;
-            padding-right: 1.33rem;
+            text-align: center;
+            padding-left: 1rem;
+            color: #000;
+            width: 7.3rem;
+            padding-right: 1rem;
+          }
+          .activeTwo {
+            font-weight: 600;
+            color: #c8000a;
           }
         }
       }

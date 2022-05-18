@@ -12,7 +12,16 @@
       <div class="title">中国文旅产业巅峰大会</div>
       <div class="mes">{{focMes}}</div>
       <div class="bannerNums">
-        <ul class="banner">
+        <el-carousel indicator-position="outside">
+          <el-carousel-item v-for="(item,i) in bannerList"
+                            :key="i">
+            <img :src=getImgUrl(item.original_image)
+                 alt="">
+            <div class="bgMes">{{item.title}}</div>
+          </el-carousel-item>
+        </el-carousel>
+
+        <!-- <ul class="banner">
           <li class="show"
               v-for="(item,i) in bannerList"
               :key="i">
@@ -30,7 +39,7 @@
             </div>
             <div class="bgMes">{{item.title}}</div>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
     <div class="focFoot"
@@ -53,6 +62,13 @@
         </div>
       </div>
     </div>
+    <div class="pagination">
+      <el-pagination background
+                     layout="prev, pager, next"
+                     :total="total"
+                     @current-change="onPageChange">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -64,6 +80,7 @@ export default {
       bannerList: '',
       baseUrl: 'http://ceshi.davost.com',
       econInfo: '',
+      total: 0,
       pages: 1,
       pagesize: 10
     }
@@ -87,8 +104,13 @@ export default {
       }
       bottom_h5(data).then((res) => {
         this.econInfo = res.data.data.peak_news
+        this.total = res.data.data.peak_news.length
         console.log(res, '瞅你那逼样');
       })
+    },
+    onPageChange (e) {
+      this.pages = e
+      this.getInfo()
     },
     details (info) {
       this.$router.push({
@@ -114,11 +136,16 @@ export default {
 <style lang="less" scoped>
 .showImg {
   position: relative;
+  img {
+    width: 100%;
+  }
   .cha {
+    width: 100%;
     position: absolute;
     top: 7.8rem;
-    left: 15.25rem;
-    width: 7.83rem;
+    // left: 15.25rem;
+    text-align: center;
+    // width: 7.83rem;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
@@ -128,10 +155,13 @@ export default {
     z-index: 2;
   }
   .eng {
+    width: 100%;
     margin-top: 0.33rem;
     position: absolute;
+    text-align: center;
     top: 9.8rem;
-    left: 14.25rem;
+    text-transform: uppercase;
+    // left: 14.25rem;
     height: 1.25rem;
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
@@ -164,55 +194,28 @@ export default {
   }
   .bannerNums {
     position: relative;
+    margin-left: 1.33rem;
+    // margin-right: 1.33rem;
     margin-top: 1rem;
+    img {
+      width: 97%;
+    }
+    .bgMes {
+      position: absolute;
+      bottom: 0;
+      width: 97%;
+      height: 4rem;
+      text-align: center;
+      background: #c8000a;
+      font-size: 1.17rem;
+      font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 4rem;
+      letter-spacing: 1px;
+    }
     // margin-left: 1.33rem;
     // padding-right: 1.33rem;
-    .banner {
-      min-width: 600%;
-      display: flex;
-      list-style: none;
-      padding: 0;
-      margin-right: 1.33rem;
-      .show {
-        padding-left: 1.33rem;
-        padding-right: 1.33rem;
-        width: 100%;
-        height: 20.67rem;
-        img {
-          width: 100%;
-          height: 20.67rem;
-        }
-        .btn {
-          img {
-            width: 2rem;
-            height: 2rem;
-          }
-          .first {
-            position: absolute;
-            top: 48%;
-          }
-          .second {
-            position: absolute;
-            top: 48%;
-            margin-left: 87%;
-          }
-        }
-      }
-      .bgMes {
-        position: absolute;
-        bottom: 0;
-        width: 93%;
-        height: 4rem;
-        text-align: center;
-        background: #c8000a;
-        font-size: 1.17rem;
-        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-        font-weight: 500;
-        color: #ffffff;
-        line-height: 4rem;
-        letter-spacing: 1px;
-      }
-    }
   }
 }
 .focFoot {
@@ -282,5 +285,8 @@ export default {
       }
     }
   }
+}
+.pagination {
+  text-align: center;
 }
 </style>

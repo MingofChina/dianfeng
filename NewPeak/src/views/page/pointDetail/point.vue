@@ -29,6 +29,13 @@
         </div>
       </div>
     </div>
+    <div class="pagination">
+      <el-pagination background
+                     layout="prev, pager, next"
+                     :total="total"
+                     @current-change="onPageChange">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -37,6 +44,7 @@ export default {
   data () {
     return {
       econInfo: '',
+      total: 0,
       baseUrl: 'http://ceshi.davost.com',
       pages: 1,
       pagesize: 10
@@ -54,8 +62,14 @@ export default {
       industry_h5(data).then((res) => {
         console.log(res, '观点数据');
         this.econInfo = res.data.data.idea
+        this.total = res.data.data.idea.length
         console.log(this.econInfo[0].summary.length, 'hhh');
       })
+    },
+    onPageChange (e) {
+      console.log(e, 8888);
+      this.pages = e
+      this.getlist()
     },
     // 返回图片
     getImgUrl (imgUrl) {
@@ -76,11 +90,15 @@ export default {
 <style lang="less" scoped>
 .showImg {
   position: relative;
+  img {
+    width: 100%;
+  }
   .cha {
     position: absolute;
-    top: 7.8rem;
-    left: 15.8rem;
-    width: 7.83rem;
+    top: 40%;
+    // left: 15.8rem;
+    width: 100%;
+    text-align: center;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
@@ -92,8 +110,10 @@ export default {
   .eng {
     margin-top: 0.33rem;
     position: absolute;
-    top: 9.8rem;
-    left: 16.8rem;
+    top: 51%;
+    width: 100%;
+    text-align: center;
+    // left: 16.8rem;
     height: 1.25rem;
     font-size: 0.83rem;
     font-weight: 400;
@@ -150,6 +170,7 @@ export default {
         }
         .markInfo {
           // margin-top: -0.4rem;
+          margin-left: 0.38rem;
           font-size: 0.83rem;
           font-family: Source Han Sans CN-Normal, Source Han Sans CN;
           font-weight: 400;
@@ -167,5 +188,8 @@ export default {
       }
     }
   }
+}
+.pagination {
+  text-align: center;
 }
 </style>
