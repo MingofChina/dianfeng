@@ -18,7 +18,7 @@
       </div>
       <div class="content">{{item.small_descrip}}</div>
       <div class="ban">
-        <el-carousel indicator-position="outside">
+        <el-carousel arrow="always">
           <el-carousel-item v-for="(it,idx) in unionInfo"
                             :key="idx">
             <img :src=getImgUrl(it.original_image)
@@ -283,7 +283,7 @@ export default {
       color: #c8000a;
     }
     .title {
-      /*margin-left: 0.5rem;*/
+      margin-left: 0.5rem;
       /*padding-right: 1.33rem;*/
       font-size: 1.33rem;
       font-family: Source Han Sans CN-Medium, Source Han Sans CN;

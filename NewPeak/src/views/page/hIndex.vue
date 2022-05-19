@@ -18,7 +18,7 @@
       <div class="right">
         <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_scenic_spot}}</span>专业运营旅游景区</div>
         <div class="right">文旅产业<span style="color: #C8000A;font-weight: 800;">{{info.wenlv_title}}</span></div>
-        <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_description}}</span></div>
+        <!-- <div class="right"><span style="color: #C8000A;font-weight: 800;">{{info.wenlv_description}}</span></div> -->
       </div>
     </div>
 
@@ -135,11 +135,10 @@
         </div>
       </div>
     </div>
-
+    <div class="brandTitle">
+      中国文旅智业<span style="color: #C8000A">头部品牌</span>
+    </div>
     <div class="brand">
-      <div class="brandTitle">
-        中国文旅智业<span style="color: #C8000A">头部品牌</span>
-      </div>
       <ul class="brandNums">
         <li class="brandNum"
             v-for="(item,i) in brandInfo"
@@ -182,6 +181,12 @@
         <img src="../../assets/bei/icom_youxiang.png"
              alt="">
         <div class="name">业务邮箱: <span>{{addressInfo[chooseInfoOne].company_email}}</span></div>
+      </div>
+      <div class="btn">
+        <button class="work"
+                @click="jumpAsk()">业务咨询</button>
+        <button class="join"
+                @click="jumpCompany()">加入我们</button>
       </div>
     </div>
     <div class="message">
@@ -435,6 +440,12 @@ export default {
       this.changBtnOne = false
       this.changeColorOne = i
       console.log(i, 'nnn');
+    },
+    jumpCompany () {
+      window.location.href = 'https://www.liepin.com/company/7884213'
+    },
+    jumpAsk () {
+      window.location.href = 'http://wt.zoosnet.net/LR/Chatpre.aspx?id=LRW27398692&lng=cn'
     },
     // 提交后清空数据
     clearInfo () {
@@ -915,25 +926,23 @@ export default {
     }
   }
 }
+.brandTitle {
+  /*margin-top: 2rem;*/
+  padding-top: 2rem;
+  margin: 0 auto;
+  width: 19.25rem;
+  height: 2.25rem;
+  overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #231914;
+  line-height: 1.76rem;
+  letter-spacing: 5px;
+}
 .brand {
-  /*width: 37.5rem;*/
-  /*height: 35.5rem;*/
-  /*overflow: hidden;*/
-  background: url("../../assets/bei/beijing(1).png") no-repeat;
-  background-size: 100% 100%;
-  .brandTitle {
-    /*margin-top: 2rem;*/
-    padding-top: 2rem;
-    margin: 0 auto;
-    width: 19.25rem;
-    height: 2.25rem;
-    overflow: hidden;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #231914;
-    line-height: 1.76rem;
-    letter-spacing: 5px;
-  }
+  background: url("../../assets/imgs/Group.png") no-repeat;
+  background-size: 99% 80%;
+
   .brandNums {
     list-style: none;
     padding: 0;
@@ -982,7 +991,11 @@ export default {
     width: 100%;
     overflow-x: scroll;
     height: 3.33rem;
-    background: rgba(240, 240, 240, 0.7);
+    background: linear-gradient(
+      225deg,
+      #f2f2f2 0%,
+      rgba(240, 240, 240, 0.7) 100%
+    );
     display: flex;
     /*justify-content: space-between;*/
     .brandContent {
@@ -1084,6 +1097,26 @@ export default {
       }
     }
   }
+  .btn {
+    text-align: center;
+    // margin-bottom: 1.33rem;
+    .work {
+      width: 30%;
+      height: 3.33rem;
+      color: #fff;
+      background: #c8000a;
+      border: 0;
+      margin-bottom: 1.33rem;
+    }
+    .join {
+      width: 30%;
+      height: 3.33rem;
+      border: 1px solid #c8000a;
+      color: #c8000a;
+      margin-left: 2rem;
+      margin-bottom: 1.33rem;
+    }
+  }
 }
 .message {
   margin-top: 2.33rem;
@@ -1095,7 +1128,7 @@ export default {
     display: flex;
     .onlineTitle {
       margin-top: 2.33rem;
-      width: 10.5rem;
+      // width: 10.5rem;
       height: 2.5rem;
       font-size: 1.67rem;
       font-weight: bold;
@@ -1103,6 +1136,7 @@ export default {
       line-height: 1.95rem;
     }
     .onlineMes {
+      margin-left: 0.33rem;
       margin-top: 2.83rem;
       font-size: 1rem;
       font-weight: 400;
@@ -1119,7 +1153,7 @@ export default {
         height: 3.5rem;
         border: 0px;
         background-color: #f0f0f0;
-        padding-left: 2.7rem;
+        padding-left: 3.67rem;
       }
       .inpIcon {
         position: absolute;

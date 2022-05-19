@@ -92,6 +92,11 @@ export default {
       pages: 1,
     }
   },
+  // watch: {
+  //   '$route' (to, from) {
+  //     this.$router.go(0);
+  //   }
+  // },
   created () {
     console.log(this.$route.query.id, '8888');
     this.getList()
@@ -130,8 +135,8 @@ export default {
   .btn {
     width: 8rem;
     height: 2.67rem;
-    background: #cacaca;
-    border: 0;
+    background: #fff;
+    border: 0.08rem solid #cacaca;
     // margin-left: 2rem;
     margin-right: 2rem;
     font-size: 1.17rem;

@@ -26,7 +26,7 @@
              v-for="(item,i11) in peopleInfo"
              :key="i11"
              @click="jump(item)">
-          <img :src="item.original_image"
+          <img :src=getImgUrl(item.original_image)
                style="width: 9rem;height: 11rem;border-radius: 0rem 0rem 0rem 0rem;opacity: 1;margin-top: 10px;">
           <div style="display: flex;flex-direction: column;margin-left: 10px;margin-top: 1.6rem">
             <div style="display: flex;align-items: center;">
@@ -44,7 +44,7 @@
         <li v-for="(items,index22) in staffInfo"
             :key="index22"
             @click="jump(items)">
-          <img :src="items.original_image">
+          <img :src=getImgUrl(items.original_image)>
           <div class="name">{{items.name}}</div>
           <div class="mes">{{items.title}}</div>
 
@@ -64,6 +64,7 @@ export default {
       staffInfo: [
 
       ],
+      baseUrl: 'http://ceshi.davost.com',
       datalist: [],
       list: [],
       peopleInfo: [
@@ -80,6 +81,9 @@ export default {
   methods: {
     jump (e) {
       this.$router.push({ path: '/teamDetail_h5', query: { 'name': e } })
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
     },
     async getdianfengteamdat () {
       let data = {

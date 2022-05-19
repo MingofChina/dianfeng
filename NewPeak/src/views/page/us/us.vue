@@ -108,7 +108,7 @@ export default {
   .cha {
     width: 100%;
     position: absolute;
-    top: 7.8rem;
+    top: 40%;
     text-align: center;
 
     height: 2.5rem;
@@ -124,7 +124,7 @@ export default {
     margin-top: 0.33rem;
     position: absolute;
     text-align: center;
-    top: 9.8rem;
+    top: 51%;
     height: 1.25rem;
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;

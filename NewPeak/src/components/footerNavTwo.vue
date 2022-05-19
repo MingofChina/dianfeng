@@ -91,7 +91,7 @@ export default {
     },
     ulrHref (data) {
       if (data == 1) {
-        location.href = 'https://beian.miit.gov.cn/'
+        location.href = 'https://beian.miit.gov.cn/#/Integrated/index'
       } else {
         location.href = 'https://www.jtnfa.com/'
 

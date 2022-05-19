@@ -9,7 +9,7 @@
     <div class="viewMain">
       <div class="viTitle">
         <div class="stork">|</div>
-        <div class="title">著作推荐</div>
+        <div class="title">热点要闻</div>
       </div>
       <div class="info"
            v-for="(item,i) in detailsRecommend"

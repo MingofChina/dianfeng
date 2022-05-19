@@ -209,5 +209,6 @@ export default {
 }
 .pagination {
   text-align: center;
+  margin-bottom: 1.33rem;
 }
 </style>

@@ -39,15 +39,14 @@
       <div class="engTitle"
            style="margin-top:1rem">ABOUT US</div>
       <div class="paragraph"
-           v-html="message"
-           style="text-indent: 2.8em"></div>
+           v-html="message"></div>
     </div>
     <div class="radio"
          style="display: flex;justify-content: center;">
       <video height="200"
              controls
              autoplay
-             :src="srcs"
+             :src=getImgUrl(srcs)
              type="video/mp4">
         <!-- <source >
     <source :src="srcs" type="video/ogg"> -->
@@ -65,7 +64,7 @@
            :key="index">
         <div style="display:flex;justify-content: space-between;align-items: center">
           <img class="selectImg"
-               :src="item.logo"
+               :src=getImgUrl(item.logo)
                alt="">
           <div class="selectInfo">{{item.brand_slogan}}</div>
           <img class="select"
@@ -75,7 +74,7 @@
         <div v-show="index===indexs?showdetail===true?true:false:false"
              style="display:flex;flex-direction: column;">
           <div style="color:#c8000a;font-size: 1.6rem;">{{item.small_descrip}}</div>
-          <div style="text-indent:2.4em;margin-top: 5px;">{{item.summary}}</div>
+          <div style="margin-top: 5px;">{{item.summary}}</div>
         </div>
       </div>
     </div>
@@ -104,7 +103,7 @@
           <!-- overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical; -->
           <div class="message-info"
                style="">{{infos}}</div>
-          <img :src="scrs"
+          <img :src=getImgUrl(scrs)
                style="margin-top: 1rem;margin-left: 1.25rem;width: 80%;height: 80px;" />
         </div>
       </div>
@@ -155,7 +154,7 @@
             v-for="(item,i) in certificateArr"
             :key="i">
           <div class="imgCon">
-            <img :src="item.original_image">
+            <img :src=getImgUrl(item.original_image)>
           </div>
           <div class="reson">{{item.title}}</div>
         </li>
@@ -177,7 +176,7 @@
             v-for="(items,index1) in quaArr"
             :key="index1">
           <div class="quaImg">
-            <img :src="items.original_image">
+            <img :src=getImgUrl(items.original_image)>
           </div>
           <div>{{items.title}}</div>
         </li>
@@ -207,6 +206,7 @@ export default {
     return {
       yeardate: [],
       datelist: [],
+      baseUrl: 'http://ceshi.davost.com',
       scrs: "",
       quaArr: [],
       infos: "",
@@ -315,6 +315,9 @@ export default {
           return el.year == this.years ? true : false
         })
       }
+    },
+    getImgUrl (imgUrl) {
+      return this.baseUrl + imgUrl;
     },
     //左边时间增加
     leftyears () {
@@ -581,9 +584,9 @@ export default {
   position: relative;
   img {
     width: 100%;
-    img {
-      width: 100%;
-    }
+    // img {
+    //   width: 100%;
+    // }
   }
   .cha {
     width: 100%;
@@ -851,7 +854,8 @@ export default {
       height: 4.76rem;
     }
     .selectInfo {
-      /*margin-left: 2.92rem;*/
+      width: 100%;
+      margin-left: 2rem;
       margin-top: 0.3rem;
     }
     .select {

@@ -12,7 +12,7 @@
       <div class="title">中国文旅产业巅峰大会</div>
       <div class="mes">{{focMes}}</div>
       <div class="bannerNums">
-        <el-carousel indicator-position="outside">
+        <el-carousel arrow="always">
           <el-carousel-item v-for="(item,i) in bannerList"
                             :key="i">
             <img :src=getImgUrl(item.original_image)
@@ -288,5 +288,6 @@ export default {
 }
 .pagination {
   text-align: center;
+  margin-bottom: 1.33rem;
 }
 </style>

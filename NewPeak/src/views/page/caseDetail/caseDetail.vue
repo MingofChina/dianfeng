@@ -9,7 +9,7 @@
     <div class="viewMain">
       <div class="viTitle">
         <div class="stork">|</div>
-        <div class="title">著作推荐</div>
+        <div class="title">热点案例</div>
       </div>
       <div class="info"
            v-for="(item,i) in caseDet"
@@ -158,7 +158,7 @@ export default {
     img {
       // margin-right: 1.33rem;
       margin: 0;
-      width: 45%;
+      width: 10.83rem;
       height: 7.75rem;
       margin-bottom: 1rem;
     }
