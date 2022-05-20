@@ -12,11 +12,20 @@
              alt=""
              @click="openMenu()"
              class="change-img" />
+        <div class="imgCon"
+             v-show="this.isHidden==2?true:false">
+          <div></div>
+          <img src="../assets/imgs/close.png"
+               alt=""
+               class="change-img"
+               @click="closeMenu" />
+        </div>
+        <!-- <div v-show="this.isHidden==2?true:false">|</div>
         <img v-show="this.isHidden==2?true:false"
              src="../assets/imgs/close.png"
              alt=""
              class="change-img"
-             @click="closeMenu" />
+             @click="closeMenu" /> -->
         <div class="content"
              v-show="this.isHidden == 2?true:false">
           <div v-for="(item,index) in menus"
@@ -334,6 +343,18 @@ export default {
 .logo-img {
   width: 9rem;
   height: 3rem;
+}
+.imgCon {
+  display: flex;
+  div {
+    height: 3rem;
+    border-left: 0.08rem solid #cacaca;
+  }
+  .change-img {
+    margin-left: 1rem;
+    width: 3rem;
+    height: 3rem;
+  }
 }
 .change-img {
   width: 3rem;

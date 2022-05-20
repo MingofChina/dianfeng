@@ -16,18 +16,18 @@
          v-for="(item,i) in addressInfo"
          :key="i">
       <div class="address">
-        <img src="../../../assets/bei/icong_weizhi.png"
+        <img src="../../../assets/imgs/local.png"
              alt="">
         <div class="addressInfo">{{item.company_name}}</div>
       </div>
       <div class="detail">{{item.company_address}}</div>
       <div class="phone">
-        <img src="../../../assets/bei/icom_dianhua.png"
+        <img src="../../../assets/imgs/phone.png"
              alt="">
         <div class="name">咨询电话: <span>{{item.company_phone}}</span></div>
       </div>
       <div class="mail">
-        <img src="../../../assets/bei/icom_youxiang.png"
+        <img src="../../../assets/imgs/e-mail.png"
              alt="">
         <div class="name">业务邮箱: <span>{{item.company_email}}</span></div>
       </div>
@@ -180,6 +180,12 @@ export default {
     margin-left: 2rem;
     margin-right: 2rem;
     display: flex;
+    img {
+      // margin-top: 2.17rem;
+      // margin-left: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
     .name {
       font-size: 1.17rem;
       color: #3c3c3c;
@@ -199,6 +205,12 @@ export default {
     margin-right: 2rem;
     padding-bottom: 1.83rem;
     display: flex;
+    img {
+      // margin-top: 2.17rem;
+      // margin-left: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
     .name {
       font-size: 1.17rem;
       color: #3c3c3c;

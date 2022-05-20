@@ -2,6 +2,10 @@
   <div id="app">
     <div class="head">
       <div class="viewTitle">{{booksDetail.title}}</div>
+      <div class="con">
+        <div>{{booksDetail.branch}}</div>
+        <div>{{booksDetail.addtime}}</div>
+      </div>
       <div class="article"
            v-html="booksDetail.description">
       </div>
@@ -9,13 +13,14 @@
     <div class="viewMain">
       <div class="viTitle">
         <div class="stork">|</div>
-        <div class="title">前沿观点推荐</div>
+        <div class="title">著作推荐</div>
       </div>
       <div class="info"
            v-for="(item,i) in bookInfo"
            :key="i">
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
+          <div class="title"
+               @click="booksInfo(item.id)">{{item.title}}</div>
           <div class="mes">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
@@ -73,18 +78,21 @@ export default {
         { name: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其有机地组合成一个和谐优美、富有特色的夜景图画，以此来表现一个城市或地区的夜间形象，从而满足旅游者对文化氛围和艺术展现的视觉追求。在灯光照明技术的发展和应用推动下，景观照明工程开启了我国夜景塑造的发展历程，随着社会经济发展和人们生活方式的转变，夜景塑造在景观照明基础上衍生出以美化为特色的夜景亮化和以灯光秀为代表的夜景光影新阶段。' },
         { name: '华灯初上，流光溢彩，从视觉盛宴到感觉体验，夜景使城市摆脱了黑夜的束缚，长时间多维度地满足了游客需求。夜景也是夜游经济发展的基础，是不可或缺的组成部分，在地化场景的夜景该如何打造，是夜景项目最核心的问题。' },
       ],
+      booksId: '',
       articleLast: '夜景塑造即利用灯光将城市或某区域内的构筑物、景观等加以重塑，并将其有机地组合成一个和谐优美、富有特色的夜景图画，以此来表现一个城市或地区的夜间形象，从而满足旅游者对文化氛围和艺术展现的视觉追求。在灯光照明技术的发展和应用推动下，景观照明工程开启了我国夜景塑造的发展历程，随着社会经济发展和人们生活方式的转变，夜景塑造在景观照明基础上衍生出以美化为特色的夜景亮化和以灯光秀为代表的夜景光影新阶段。'
     }
   },
   created () {
     console.log(this.$route.query.id, 'yy');
-
+    if (!this.booksId) {
+      this.booksId = this.$route.query.id
+    }
     this.getList()
   },
   methods: {
     getList () {
       const data = {
-        id: this.$route.query.id
+        id: this.booksId
       }
       bookDetail_h5(data).then((res) => {
         this.booksDetail = res.data.data.books_detail
@@ -95,6 +103,12 @@ export default {
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
+    },
+    booksInfo (info) {
+      console.log(info, 'bbb');
+      this.booksId = info;
+      this.getList()
+
     },
   }
 }
@@ -113,6 +127,11 @@ export default {
     font-weight: bold;
     color: #231914;
     line-height: 1.56rem;
+  }
+  .con {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
   .article {
     margin-bottom: 0.67rem;

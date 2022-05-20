@@ -64,7 +64,7 @@ export default {
         console.log(res, '案例');
         this.btnInfo = res.data.data.column
         this.imgGroup = res.data.data.case
-        this.total = res.data.data.case_pages_number
+        this.total = res.data.data.case_pages_number * 10
       })
     },
     onPageChange (e) {

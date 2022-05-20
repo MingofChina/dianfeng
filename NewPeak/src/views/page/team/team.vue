@@ -1,6 +1,6 @@
 <template>
   <div id="app"
-       style="background: #F4F4F4;">
+       style="background: #F4F4F4;padding-bottom:1rem">
     <div class="showImg">
       <img src="../../../assets/imgs/team.png">
       <div>
@@ -47,7 +47,6 @@
           <img :src=getImgUrl(items.original_image)>
           <div class="name">{{items.name}}</div>
           <div class="mes">{{items.title}}</div>
-
         </li>
       </ul>
     </div>
@@ -150,6 +149,8 @@ export default {
   }
 }
 .team {
+  // padding-bottom: 1.33rem;
+  // background: #f4f4f4;
   .btnCon {
     width: 7rem;
     height: 2.67rem;
@@ -195,7 +196,7 @@ export default {
   // background: #f4f4f4;
 
   .info {
-    width: 31.25rem;
+    width: 93%;
     height: 12.33rem;
     display: flex;
     img {

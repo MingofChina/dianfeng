@@ -52,7 +52,7 @@ export default {
       books_h5(data).then((res) => {
         console.log(res, '著作');
         this.searchInfo = res.data.data.books
-        this.total = res.data.data.books.length
+        this.total = 10 * res.data.data.books_pages_number
       })
     },
     onPageChange (e) {

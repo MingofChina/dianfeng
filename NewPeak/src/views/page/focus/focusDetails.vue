@@ -15,7 +15,8 @@
            v-for="(item,i) in detailsRecommend"
            :key="i">
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
+          <div class="title"
+               @click="newInfo(item.id)">{{item.title}}</div>
           <div class="mes">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
@@ -51,18 +52,22 @@ export default {
       recommend: '',
       baseUrl: 'http://ceshi.davost.com',
       details: '',
+      caseId: '',
       articleArr: '',
     }
   },
   created () {
     console.log('要闻进来的，要闻详情');
     console.log(this.$route.query.id, 'ttt');
+    if (!this.caseId) {
+      this.caseId = this.$route.query.id
+    }
     this.getList()
   },
   methods: {
     getList () {
       const data = {
-        id: this.$route.query.id
+        id: this.caseId
       }
       newsDetail_h5(data).then((res) => {
         this.details = res.data.data.peak_news_detail
@@ -73,12 +78,20 @@ export default {
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
     },
+    newInfo (info) {
+      console.log(info, 'bbb');
+      this.caseId = info;
+      this.getList()
+
+    },
   }
 }
 </script>
 
 <style lang="less" scoped>
 .head {
+  width: 93%;
+  overflow: hidden;
   background: #f4f4f4;
   padding: 2rem 1.33rem 0 1.33rem;
   text-align: center;

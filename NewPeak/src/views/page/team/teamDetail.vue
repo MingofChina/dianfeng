@@ -2,92 +2,87 @@
   <div id="app">
     <div class="main">
       <div class="head">
-        <img src="../../../assets/img/tou.png"
+        <img :src=getImgUrl(picture)
              alt="">
-        <div class="name">{{name}}</div>
-        <div class="mes">{{title}}</div>
+        <div class="con">
+          <div class="name">{{name}}</div>
+          <div class="mes">{{title}}</div>
+        </div>
+
       </div>
       <div class="personal">个人简介</div>
       <div v-html="jianjie">
-		
-	  </div>
-      <div class="experience" style="margin-top: 20px;">获奖经历</div>
-	  
-      <div class="listInfo" v-html="experienceInfo">
+
       </div>
-      <div class="experience" v-html="experice"></div>
-     
+      <div class="experience"
+           style="margin-top: 20px;"
+           v-show="experienceInfo?true:false">获奖经历</div>
+      <div class="listInfo"
+           v-html="experienceInfo">
+      </div>
+      <div class="experience"
+           v-html="experice"></div>
     </div>
-	
-	
+
   </div>
 </template>
 <script>
-	
-	import {teaminfoh5} from "@/api/api";
-	
-	
+
+import { teaminfoh5 } from "@/api/api";
+
+
 export default {
   data () {
     return {
-		name:"",
-		title:"",
-		experice:"",
-      experienceInfo:"",
-       jianjie:"",
+      name: "",
+      title: "",
+      experice: "",
+      experienceInfo: "",
+      jianjie: "",
+      picture: '',
+      baseUrl: 'http://ceshi.davost.com',
     }
   },
-   mounted() {
-  
-	 this.getinfo(this.$route.query.name.id)
-   },
-   methods:{
-	    
-	   
-	 async getinfo(e){
-		 let  data = {
-			 
-			 id:e
-		 }
-		 
-		 const  res  =await  teaminfoh5(data) 
-		 
-		  console.log(res,6666)
-		    if(res.data.code===0){
-		   this.name=res.data.data.team_detail.name
-		   this.title=res.data.data.team_detail.title
-		   this.jianjie=res.data.data.team_detail.summary
-		   this.experienceInfo=res.data.data.team_detail.awards
-		   this.experice=res.data.data.team_detail.projects
-		 
-		 }
-		 
-		 
-	 }  
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  mounted () {
+
+    this.getinfo(this.$route.query.name.id)
+  },
+  methods: {
+    async getinfo (e) {
+      let data = {
+        id: e
+      }
+      const res = await teaminfoh5(data)
+      console.log(res, 6666)
+      if (res.data.code === 0) {
+        this.picture = res.data.data.team_detail.original_image
+        this.name = res.data.data.team_detail.name
+        this.title = res.data.data.team_detail.title
+        this.jianjie = res.data.data.team_detail.summary
+        this.experienceInfo = res.data.data.team_detail.awards
+        this.experice = res.data.data.team_detail.projects
+      }
+    },
+    getImgUrl (imgUrl) {
+      console.log(imgUrl, 'yyy');
+      return this.baseUrl + imgUrl;
+    },
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 </script>
 
@@ -101,21 +96,24 @@ export default {
       width: 10rem;
       height: 11.83rem;
     }
-    .name {
-      margin-left: 1rem;
-      font-size: 1.33rem;
-      font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-      font-weight: 500;
-      color: #231914;
-      line-height: 1.56rem;
-    }
-    .mes {
-      margin-left: 1rem;
-      font-size: 1.33rem;
-      font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-      font-weight: 500;
-      color: #231914;
-      line-height: 1.56rem;
+    .con {
+      .name {
+        margin-left: 1rem;
+        font-size: 1.33rem;
+        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+        font-weight: 800;
+        color: #231914;
+        line-height: 1.56rem;
+      }
+      .mes {
+        margin-top: 1rem;
+        margin-left: 1rem;
+        font-size: 1rem;
+        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+        font-weight: 500;
+        color: #231914;
+        line-height: 1.56rem;
+      }
     }
   }
   .personal {

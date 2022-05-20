@@ -74,7 +74,7 @@
         <div v-show="index===indexs?showdetail===true?true:false:false"
              style="display:flex;flex-direction: column;">
           <div style="color:#c8000a;font-size: 1.6rem;">{{item.small_descrip}}</div>
-          <div style="margin-top: 5px;">{{item.summary}}</div>
+          <div style="margin-top: 5px;font-size:1.4rem">{{item.summary}}</div>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
       <div style="display: flex;">
         <div style="position: relative;">
 
-          <div style="border-right: 1px  solid #FFFFFF;height: 174px;width: 64px;margin-left: 30px;position: relative;margin-top: 20px;">
+          <div style="border-right: 1px  solid #FFFFFF;height: 174px;width: 64px;position: relative;margin-top: 20px;">
             <div v-for="(item,index) in  datelist"
                  :key="index">
               <div class="datalist-style"
@@ -109,7 +109,7 @@
       </div>
       <div style="position: relative;width: 100%;margin-top: 10px;height: 20px;width: 100%;">
         <img src="../../../assets/imgs/downarrow.png"
-             style="position: absolute;left: 8.6rem;"
+             style="position: absolute;left: 15%;"
              @click="arrowsgetdata" />
       </div>
 
@@ -507,44 +507,12 @@ export default {
   },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 </script>
 <style scoped lang="less">
 .datalist-style {
-  font-size: 2rem;
+  margin-left: 1.33rem;
+  font-size: 1rem;
   color: #ffffff;
   opacity: 60%;
   padding-top: 12px;

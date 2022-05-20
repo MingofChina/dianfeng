@@ -26,9 +26,25 @@
           v-for="(item,i) in company[chooseInfo].child"
           :key="i">
         <img :src=getImgUrl(item.original_image)
+             @click="imgInfo(i,item.original_image)"
              alt="">
       </li>
     </ul>
+    <!-- <div v-show="isShow==4?true:false"> -->
+    <!-- <el-image style="width: 100px; height: 100px"
+                :src=getImgUrl(imgBig)
+                :preview-src-list=getImgUrl(imgBig)>
+      </el-image> -->
+    <!-- </div> -->
+
+    <el-dialog :visible.sync="dialogVisible"
+               width="80%"
+               :before-close="handleClose">
+      <!-- <span>这是一段信息</span> -->
+      <img :src=getImgUrl(imgBig)
+           alt="">
+    </el-dialog>
+
     <div class="partTitle">
       <div class="customer">合作伙伴</div>
       <div class="custEng">partners</div>
@@ -38,6 +54,7 @@
           v-for="(item,i) in BdInfo"
           :key="i">
         <img :src=getImgUrl(item.original_image)
+             @click="imgInfo(i,item.original_image)"
              alt="">
       </li>
     </ul>
@@ -49,32 +66,15 @@ export default {
   data () {
     return {
       company: '',
-      companyInfo: [
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-        { img: 'company' },
-      ],
+      companyInfo: '',
       chooseInfo: 0,
       changBtn: true,
       changeColor: 0,
       BdInfo: '',
+      imgBig: '',
+      imgSort: '',
+      dialogVisible: false,
+      isShow: 0,
       baseUrl: 'http://ceshi.davost.com',
     }
   },
@@ -92,13 +92,18 @@ export default {
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
     },
+    imgInfo (i, sort) {
+      this.imgSort = i
+      this.imgBig = sort
+      this.dialogVisible = true
+      console.log(i, sort, '4454');
+    },
     jump (i) {
       this.chooseInfo = i
       this.changBtn = false
       this.changeColor = i
       console.log(i, 'nnn');
     }
-
   }
 }
 </script>
@@ -181,6 +186,9 @@ export default {
     }
   }
 }
+img {
+  width: 100%;
+}
 .content {
   margin-left: 1.33rem;
   margin-right: 1.33rem;
@@ -190,7 +198,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   .child {
-    border: 1px dashed black;
+    // border: 1px dashed black;
     margin-bottom: 0.66rem;
     img {
       width: 6.33rem;

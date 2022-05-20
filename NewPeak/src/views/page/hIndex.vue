@@ -34,7 +34,7 @@
           <div class="megLotImg">
             <div class="lot">查看更多</div>
             <img style="color: #FFF"
-                 src="../../assets/imgs/mark.png"
+                 src="../../assets/imgs/mask.png"
                  alt="">
           </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="megLotImg">
               <div class="lot">查看更多</div>
               <img style="color: #FFF"
-                   src="../../assets/imgs/mark.png"
+                   src="../../assets/imgs/mask.png"
                    alt="">
             </div>
           </div>
@@ -61,7 +61,7 @@
             <div class="megLotImg">
               <div class="lot">查看更多</div>
               <img style="color: #FFF"
-                   src="../../assets/imgs/mark.png"
+                   src="../../assets/imgs/mask.png"
                    alt="">
             </div>
           </div>
@@ -131,6 +131,7 @@
         <br>
         <div class="second">
           <img src="../../assets/imgs/detail.png"
+               @click="newJump(item.id)"
                alt="">
         </div>
       </div>
@@ -200,7 +201,7 @@
                  v-model="company"
                  placeholder="请输入您的企业名称" />
           <img class="inpIcon"
-               src="../../assets/bei/icon_qiye.png"
+               src="../../assets/imgs/city.png"
                alt="">
         </div>
         <div class="company">
@@ -208,7 +209,7 @@
                  v-model='name'
                  placeholder="请输入您的姓名" />
           <img class="inpIcon"
-               src="../../assets/bei/icon_xingming.png"
+               src="../../assets/imgs/people.png"
                alt="">
         </div>
         <div class="company">
@@ -216,7 +217,7 @@
                  v-model="phone"
                  placeholder="请输入您的电话号码" />
           <img class="inpIcon"
-               src="../../assets/bei/icon_dianhua.png"
+               src="../../assets/imgs/tel.png"
                alt="">
         </div>
         <div class="btn">
@@ -397,6 +398,9 @@ export default {
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
     },
+    newJump (nums) {
+      console.log(nums, '444');
+    },
     sendForm () {
       console.log('提交');
       if (this.company) {
@@ -557,7 +561,7 @@ export default {
         opacity: 0.7;
       }
       img {
-        color: #fff;
+        // color: #fff;
         /*margin-top: 0.2rem;*/
         width: 1.33rem;
         height: 1.33rem;
@@ -603,7 +607,7 @@ export default {
         display: flex;
         .lot {
           color: #ffffff;
-          font-size: 0.75rem;
+          font-size: 1rem;
           font-weight: 400;
           margin-left: 1rem;
           opacity: 0.7;
@@ -919,7 +923,7 @@ export default {
       /*width: 100%;*/
       height: 1.5rem;
       margin-left: 44%;
-      margin-bottom: 2.5rem;
+      margin-bottom: 5rem;
       /*margin: 0 auto 1.33rem;*/
       /*text-align: center;*/
       /*margin-bottom: 1.33rem;*/
@@ -1032,6 +1036,12 @@ export default {
 .mark {
   background: #f4f4f4;
   // margin: 0 1.33rem 1.5rem 1.33rem;
+  // img{
+  //   margin-top: 2.17rem;
+  //     margin-left: 2rem;
+  //     width: 2rem;
+  //     height: 2rem;
+  // }
   .address {
     display: flex;
     img {
@@ -1065,6 +1075,13 @@ export default {
     margin-left: 2rem;
     margin-right: 2rem;
     display: flex;
+
+    img {
+      // margin-top: 2.17rem;
+      // margin-left: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
     .name {
       font-size: 1.17rem;
       color: #3c3c3c;
@@ -1084,6 +1101,12 @@ export default {
     margin-right: 2rem;
     padding-bottom: 1.83rem;
     display: flex;
+    img {
+      // margin-top: 2.17rem;
+      // margin-left: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
     .name {
       font-size: 1.17rem;
       color: #3c3c3c;
@@ -1157,7 +1180,9 @@ export default {
       }
       .inpIcon {
         position: absolute;
-        top: 1rem;
+        width: 2rem;
+        height: 2rem;
+        top: 0.9rem;
         left: 0.5rem;
       }
     }

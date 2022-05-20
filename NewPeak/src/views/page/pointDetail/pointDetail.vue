@@ -2,6 +2,10 @@
   <div id="app">
     <div class="head">
       <div class="viewTitle">{{detailsInfo.title}}</div>
+      <div class="con">
+        <div>{{detailsInfo.addtime}}</div>
+        <div>{{detailsInfo.branch}}</div>
+      </div>
       <div class="article"
            v-html="detailsInfo.description">
       </div>
@@ -9,7 +13,7 @@
     <div class="viewMain">
       <div class="viTitle">
         <div class="stork">|</div>
-        <div class="title">著作推荐</div>
+        <div class="title">前沿观点推荐</div>
       </div>
       <div class="info"
            v-for="(item,i) in books"
@@ -108,6 +112,11 @@ export default {
     font-weight: bold;
     color: #231914;
     line-height: 1.56rem;
+  }
+  .con {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
   .article {
     margin-bottom: 0.67rem;

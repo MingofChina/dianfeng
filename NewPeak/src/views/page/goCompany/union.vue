@@ -19,7 +19,7 @@
       <div class="content">{{item.small_descrip}}</div>
       <div class="ban">
         <el-carousel arrow="always">
-          <el-carousel-item v-for="(it,idx) in unionInfo"
+          <el-carousel-item v-for="(it,idx) in unionInfo[i].original_image"
                             :key="idx">
             <img :src=getImgUrl(it.original_image)
                  alt="">
@@ -59,7 +59,8 @@
           <div class="detail">
             <img src="../../../assets/bei/icon_more(2).png"
                  alt="">
-            <div class="detailName">查看详情</div>
+            <div class="detailName"
+                 @click="details(itemm.id)">查看详情</div>
           </div>
           <div class="date">{{itemm.addtime}}</div>
         </div>
@@ -227,6 +228,15 @@ export default {
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
     },
+    details (info) {
+      console.log(info, '999');
+      this.$router.push({
+        path: '/focusDetail_h5',
+        query: {
+          id: info
+        }
+      })
+    }
   }
 }
 </script>

@@ -67,7 +67,20 @@ export default {
   },
   methods: {
     topFn () {
-      document.documentElement.scrollTop = 0
+      if (this.isHidden == 2) {
+        console.log('pc');
+        document.documentElement.scrollTop = 0
+      } else if (this.isHidden == 1) {
+        console.log('移动');
+        let top = document.documentElement.scrollTop || document.body.scrollTop
+        // 实现滚动效果
+        const timeTop = setInterval(() => {
+          document.body.scrollTop = document.documentElement.scrollTop = top -= 50
+          if (top <= 0) {
+            clearInterval(timeTop)
+          }
+        }, 10)
+      }
     },
 
     _isMobile () {

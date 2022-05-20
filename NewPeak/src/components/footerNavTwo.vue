@@ -48,7 +48,8 @@
         </div>
         <div class="finish-2">
           <div class="fin-2-left">
-            <div class="fin-2-right divhover">法律声明</div>
+            <div class="fin-2-right divhover"
+                 @click="law()">法律声明</div>
             <div class="line"></div>
             <div class="base">{{ bottom.meta_copyright }}</div>
             <div class="baseInfo">
@@ -83,6 +84,11 @@ export default {
   methods: {
     topFn () {
       document.documentElement.scrollTop = 0
+    },
+    law () {
+      this.$router.push({
+        path: '/introduce_h5/5/1',
+      })
     },
     // 底部导航信息
     async BottomMessagefn () {

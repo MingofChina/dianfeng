@@ -62,7 +62,7 @@ export default {
       industry_h5(data).then((res) => {
         console.log(res, '观点数据');
         this.econInfo = res.data.data.idea
-        this.total = res.data.data.idea.length
+        this.total = res.data.data.idea_pages_number * 10
         console.log(this.econInfo[0].summary.length, 'hhh');
       })
     },

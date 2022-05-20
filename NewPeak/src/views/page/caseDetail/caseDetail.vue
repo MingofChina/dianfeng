@@ -2,6 +2,10 @@
   <div id="app">
     <div class="head">
       <div class="viewTitle">{{fwbType.title}}</div>
+      <div class="con">
+        <div>{{fwbType.branch}}</div>
+        <div>{{fwbType.addtime}}</div>
+      </div>
       <div class="article"
            v-html="fwbType.description">
       </div>
@@ -15,7 +19,8 @@
            v-for="(item,i) in caseDet"
            :key="i">
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
+          <div class="title"
+               @click="caseInfo(item.id)">{{item.title}}</div>
           <div class="mes">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
@@ -49,18 +54,21 @@ export default {
       baseUrl: 'http://ceshi.davost.com',
       recommend: '',
       fwbType: '',
-
+      caseId: '',
     }
   },
   created () {
     console.log('案例进来的');
-    console.log(this.$route.query.id, 'ttt');
+    // console.log(this.$route.query.id, 'ttt');
+    if (!this.caseId) {
+      this.caseId = this.$route.query.id
+    }
     this.getList()
   },
   methods: {
     getList () {
       const data = {
-        id: this.$route.query.id
+        id: this.caseId
       }
       caseDetail_h5(data).then((res) => {
         console.log(res, '0000');
@@ -70,6 +78,10 @@ export default {
         this.recommend = res.data.data.peak_case_relevant
 
       })
+    },
+    caseInfo (info) {
+      this.caseId = info;
+      this.getList()
     },
     getImgUrl (imgUrl) {
       console.log(this.baseUrl + imgUrl, 'iii');
@@ -92,6 +104,11 @@ export default {
     font-weight: bold;
     color: #231914;
     line-height: 1.56rem;
+  }
+  .con {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
   .article {
     margin-bottom: 0.67rem;
