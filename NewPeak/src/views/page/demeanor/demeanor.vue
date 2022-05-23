@@ -37,7 +37,7 @@
         {{barInfo[openTitle].description}}
       </div>
 
-      <el-carousel indicator-position="outside">
+      <el-carousel arrow="always" :autoplay="false">
         <el-carousel-item v-for="(it,idx) in barInfo[openTitle].original_image"
                           :key="idx">
           <img :src=getImgUrl(it.original_image)
@@ -69,7 +69,7 @@
         {{footBarInfo[openTitleOne].description}}
       </div>
 
-      <el-carousel arrow="always">
+      <el-carousel arrow="always" :autoplay="false">
         <el-carousel-item v-for="(it,idx) in footBarInfo[openTitleOne].original_image"
                           :key="idx">
           <img :src=getImgUrl(it.original_image)

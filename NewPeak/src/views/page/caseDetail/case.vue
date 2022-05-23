@@ -104,13 +104,14 @@ export default {
   position: relative;
   img {
     width: 100%;
-    height: 30vh;
+    /*height: 30vh;*/
   }
   .cha {
     position: absolute;
-    top: 43.7%;
-    left: 40%;
-    width: 7.83rem;
+    top: 40%;
+    /*left: 40%;*/
+    width: 100%;
+    text-align: center;
     height: 2.5rem;
     font-size: 1.67rem;
     font-weight: bold;
@@ -120,10 +121,11 @@ export default {
     z-index: 2;
   }
   .eng {
+    width: 100%;
     margin-top: 0.33rem;
     position: absolute;
-    top: 54%;
-    left: 39%;
+    top: 51%;
+    text-align: center;
     height: 1.25rem;
     font-size: 0.83rem;
     font-weight: 400;
@@ -141,8 +143,9 @@ export default {
   .btn {
     width: 8rem;
     height: 2.67rem;
-    background: #cacaca;
-    border: 0;
+    border:0.068rem solid #cacaca;
+    background: #fff;
+    /*border: 0;*/
     // margin-left: 2rem;
     margin-right: 2rem;
     font-size: 1.17rem;

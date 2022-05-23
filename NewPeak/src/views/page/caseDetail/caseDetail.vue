@@ -72,7 +72,7 @@ export default {
       }
       caseDetail_h5(data).then((res) => {
         console.log(res, '0000');
-        // this.fwbType = 
+        // this.fwbType =
         this.fwbType = res.data.data.case_detail
         this.caseDet = res.data.data.peak_case_hots
         this.recommend = res.data.data.peak_case_relevant
@@ -93,6 +93,8 @@ export default {
 
 <style lang="less" scoped>
 .head {
+  width: 93%;
+  overflow: hidden;
   background: #f4f4f4;
   padding: 2rem 1.33rem 0 1.33rem;
   text-align: center;

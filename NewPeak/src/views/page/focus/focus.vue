@@ -142,7 +142,7 @@ export default {
   .cha {
     width: 100%;
     position: absolute;
-    top: 7.8rem;
+    top: 40%;
     // left: 15.25rem;
     text-align: center;
     // width: 7.83rem;
@@ -159,7 +159,7 @@ export default {
     margin-top: 0.33rem;
     position: absolute;
     text-align: center;
-    top: 9.8rem;
+    top: 51%;
     text-transform: uppercase;
     // left: 14.25rem;
     height: 1.25rem;

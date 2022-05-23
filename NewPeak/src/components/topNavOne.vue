@@ -347,7 +347,8 @@ export default {
 .imgCon {
   display: flex;
   div {
-    height: 3rem;
+    margin-top: 0.45rem;
+    height: 2.3rem;
     border-left: 0.08rem solid #cacaca;
   }
   .change-img {
