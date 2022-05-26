@@ -21,7 +21,8 @@
         <div class="infoCon">
           <div class="title"
                @click="caseInfo(item.id)">{{item.title}}</div>
-          <div class="mes">{{item.summary}}</div>
+          <div class="mes"
+               @click="caseInfo(item.id)">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
         <img :src=getImgUrl(item.original_image)>
@@ -37,8 +38,10 @@
            :key="i">
         <img :src=getImgUrl(item.original_image)>
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
-          <div class="mes">{{item.summary}}</div>
+          <div class="title"
+               @click="caseInfo(item.id)">{{item.title}}</div>
+          <div class="mes"
+               @click="caseInfo(item.id)">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
       </div>

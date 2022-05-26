@@ -56,11 +56,11 @@ export default {
     if (this._isMobile()) {
       this.isHidden = 1
       console.log(this._isMobile(), 'iii')
-      alert("手机端");
+      // alert("手机端");
       this.$router.replace('/index_h5');
     } else {
       this.isHidden = 2
-      alert("pc端");
+      // alert("pc端");
       this.$router.replace('/index');
     }
 

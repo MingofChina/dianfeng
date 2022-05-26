@@ -2,6 +2,10 @@
   <div id="app">
     <div class="head">
       <div class="viewTitle">{{details.title}}</div>
+      <div class="con">
+        <div>{{details.branch}}</div>
+        <div>{{details.addtime}}</div>
+      </div>
       <div class="article"
            v-html="details.description">
       </div>
@@ -17,7 +21,8 @@
         <div class="infoCon">
           <div class="title"
                @click="newInfo(item.id)">{{item.title}}</div>
-          <div class="mes">{{item.summary}}</div>
+          <div class="mes"
+               @click="newInfo(item.id)">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
         <img :src=getImgUrl(item.original_image)
@@ -34,8 +39,10 @@
            :key="i">
         <img :src=getImgUrl(item.original_image)>
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
-          <div class="mes">{{item.summary}}</div>
+          <div class="title"
+               @click="newInfo(item.id)">{{item.title}}</div>
+          <div class="mes"
+               @click="newInfo(item.id)">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
       </div>
@@ -82,7 +89,6 @@ export default {
       console.log(info, 'bbb');
       this.caseId = info;
       this.getList()
-
     },
   }
 }
@@ -103,6 +109,11 @@ export default {
     font-weight: bold;
     color: #231914;
     line-height: 1.56rem;
+  }
+  .con {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
   .article {
     margin-bottom: 0.67rem;

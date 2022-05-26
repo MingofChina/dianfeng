@@ -3,8 +3,8 @@
     <div class="head">
       <div class="viewTitle">{{detailsInfo.title}}</div>
       <div class="con">
-        <div>{{detailsInfo.addtime}}</div>
         <div>{{detailsInfo.branch}}</div>
+        <div>{{detailsInfo.addtime}}</div>
       </div>
       <div class="article"
            v-html="detailsInfo.description">
@@ -19,8 +19,10 @@
            v-for="(item,i) in books"
            :key="i">
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
-          <div class="mes">{{item.summary}}</div>
+          <div class="title"
+               @click="pointInfo(item.id)">{{item.title}}</div>
+          <div class="mes"
+               @click="pointInfo(item.id)">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
         <img :src=getImgUrl(item.original_image)
@@ -38,8 +40,10 @@
         <img :src=getImgUrl(item.original_image)
              alt="">
         <div class="infoCon">
-          <div class="title">{{item.title}}</div>
-          <div class="mes">{{item.summary}}</div>
+          <div class="title"
+               @click="pointInfo(item.id)">{{item.title}}</div>
+          <div class="mes"
+               @click="pointInfo(item.id)">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
         </div>
         <!-- <img :src="require(`../../../assets/bei/${item.img}.png`)"
@@ -73,17 +77,21 @@ export default {
       ],
       detailsInfo: '',
       books: '',
+      pointId: '',
       baseUrl: 'http://ceshi.davost.com',
     }
   },
   created () {
-    console.log(this.$route.query.id, '7777');
+    // console.log(this.$route.query.id, '7777');
+    if (!this.pointId) {
+      this.pointId = this.$route.query.id
+    }
     this.getList()
   },
   methods: {
     getList () {
       const data = {
-        id: this.$route.query.id
+        id: this.pointId
       }
       pointDetail_h5(data).then((res) => {
         console.log(res, '详情');
@@ -91,6 +99,10 @@ export default {
         this.books = res.data.data.peak_idea_hots
         this.recommend = res.data.data.peak_idea_relevant
       })
+    },
+    pointInfo (info) {
+      this.pointId = info,
+        this.getList()
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;

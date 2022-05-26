@@ -18,36 +18,14 @@
       </div>
       <div class="content">{{item.small_descrip}}</div>
       <div class="ban">
-        <el-carousel arrow="always">
+        <el-carousel arrow="always"
+                     indicator-position="none">
           <el-carousel-item v-for="(it,idx) in unionInfo[i].original_image"
                             :key="idx">
             <img :src=getImgUrl(it.original_image)
                  alt="">
           </el-carousel-item>
         </el-carousel>
-
-        <!-- <el-carousel indicator-position="outside">
-          <el-carousel-item v-for="item in 4"
-                            :key="item">
-            <h3>{{ item }}</h3>
-          </el-carousel-item>
-        </el-carousel> -->
-        <!-- <ul class="bannerNums">
-          <li class="banner"
-              v-for="(it,idx) in item.original_image"
-              :key="idx">
-            <img :src=getImgUrl(it.original_image)
-                 alt="">
-            <div class="btn">
-              <img class="left"
-                   src="../../../assets/imgs/focLeft.png"
-                   alt="">
-              <img class="right"
-                   src="../../../assets/imgs/focRight.png"
-                   alt="">
-            </div>
-          </li>
-        </ul> -->
       </div>
       <div class="news"
            v-for="(itemm,index) in item.document"
@@ -66,112 +44,6 @@
         </div>
       </div>
     </div>
-    <!--    <ul class="bannerNums">-->
-    <!--      <li class="banner">-->
-    <!--        <img src="../../../assets/imgs/unionBanner.png"-->
-    <!--             alt="">-->
-    <!--        <div class="btn">-->
-    <!--          <img class="left"-->
-    <!--               src="../../../assets/imgs/focLeft.png"-->
-    <!--               alt="">-->
-    <!--          <img class="right"-->
-    <!--               src="../../../assets/imgs/focRight.png"-->
-    <!--               alt="">-->
-    <!--        </div>-->
-    <!--      </li>-->
-    <!--    </ul>-->
-    <!--    <div class="news"-->
-    <!--         v-for="(item,i) in news"-->
-    <!--         :key="i">-->
-    <!--      <div class="newTitle">{{item.title}}</div>-->
-    <!--      <div class="newInfo">{{item.info}}</div>-->
-    <!--      <div class="newDetail">-->
-    <!--        <div class="detail">-->
-    <!--          <img src="../../../assets/bei/icon_more(2).png"-->
-    <!--               alt="">-->
-    <!--          <div class="detailName">查看详情</div>-->
-    <!--        </div>-->
-    <!--        <div class="date">{{item.date}}</div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!-- 数字化 -->
-    <!--    <div class="nums">-->
-    <!--      <div class="viTitle">-->
-    <!--        <div class="stork">|</div>-->
-    <!--        <div class="title">文旅好IP 文旅产业数字化平台</div>-->
-    <!--      </div>-->
-    <!--      <div class="content">{{infoTwo}}</div>-->
-    <!--      <div class="ban">-->
-    <!--        <ul class="bannerNums">-->
-    <!--          <li class="banner">-->
-    <!--            <img src="../../../assets/imgs/nums.png"-->
-    <!--                 alt="">-->
-    <!--            <div class="btn">-->
-    <!--              <img class="left"-->
-    <!--                   src="../../../assets/imgs/focLeft.png"-->
-    <!--                   alt="">-->
-    <!--              <img class="right"-->
-    <!--                   src="../../../assets/imgs/focRight.png"-->
-    <!--                   alt="">-->
-    <!--            </div>-->
-    <!--          </li>-->
-    <!--        </ul>-->
-    <!--      </div>-->
-    <!--      <div class="news"-->
-    <!--           v-for="(item,i) in news"-->
-    <!--           :key="i">-->
-    <!--        <div class="newTitle">{{item.title}}</div>-->
-    <!--        <div class="newInfo">{{item.info}}</div>-->
-    <!--        <div class="newDetail">-->
-    <!--          <div class="detail">-->
-    <!--            <img src="../../../assets/bei/icon_more(2).png"-->
-    <!--                 alt="">-->
-    <!--            <div class="detailName">查看详情</div>-->
-    <!--          </div>-->
-    <!--          <div class="date">{{item.date}}</div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    &lt;!&ndash; 经济联盟 &ndash;&gt;-->
-    <!--    <div class="enc"-->
-    <!--         v-for="(item,i) in encInfo"-->
-    <!--         :key="i">-->
-    <!--      <div class="viTitle">-->
-    <!--        <div class="stork">|</div>-->
-    <!--        <div class="title">{{item.title}}</div>-->
-    <!--      </div>-->
-    <!--      <div class="content"-->
-    <!--           v-for="(res,idx) in item.content"-->
-    <!--           :key="idx">{{res.name}}</div>-->
-    <!--      <ul class="bannerNums">-->
-    <!--        <li class="banner">-->
-    <!--          <img :src="require(`../../../assets/imgs/${item.img}.png`)"-->
-    <!--               alt="">-->
-    <!--          <div class="btn">-->
-    <!--            <img class="left"-->
-    <!--                 src="../../../assets/imgs/focLeft.png"-->
-    <!--                 alt="">-->
-    <!--            <img class="right"-->
-    <!--                 src="../../../assets/imgs/focRight.png"-->
-    <!--                 alt="">-->
-    <!--          </div>-->
-    <!--        </li>-->
-    <!--      </ul>-->
-    <!--      <div class="news"-->
-    <!--           v-for="(item,i) in news"-->
-    <!--           :key="i">-->
-    <!--        <div class="newTitle">{{item.title}}</div>-->
-    <!--        <div class="newInfo">{{item.info}}</div>-->
-    <!--        <div class="newDetail">-->
-    <!--          <div class="detail">-->
-    <!--            <img src="../../../assets/bei/icon_more(2).png"-->
-    <!--                 alt="">-->
-    <!--            <div class="detailName">查看详情</div>-->
-    <!--          </div>-->
-    <!--          <div class="date">{{item.date}}</div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </div>
 </template>
 <script>
@@ -289,7 +161,7 @@ export default {
   .viTitle {
     display: flex;
     .stork {
-      margin-top: -0.15rem;
+      margin-top: 0.15rem;
       color: #c8000a;
     }
     .title {
@@ -312,46 +184,13 @@ export default {
     line-height: 1.67rem;
   }
   .ban {
+    margin-top: 1rem;
+    margin-bottom: 1.33rem;
     // width: 100%;
     img {
-      width: 100%;
+      width: 98%;
       height: 20.08rem;
     }
-    /*margin-right: 1.33rem;*/
-    // position: relative;
-    // .bannerNums {
-    //   min-width: 300%;
-    //   display: flex;
-    //   margin-right: 1.33rem;
-    //   .banner {
-    //     /*padding-left: 1.33rem;*/
-    //     /*padding-right: 1.33rem;*/
-    //     /*padding: 0;*/
-    //     width: 100%;
-    //     img {
-    //       width: 100%;
-    //       height: 18.08rem;
-    //     }
-    //     .btn {
-    //       img {
-    //         width: 2rem;
-    //         height: 2rem;
-    //       }
-    //       .left {
-    //         position: absolute;
-    //         top: 48%;
-    //         left: 3%;
-    //         /*left: 1rem;*/
-    //       }
-    //       .right {
-    //         position: absolute;
-    //         top: 48%;
-    //         /*right: 1rem;*/
-    //         margin-left: 91%;
-    //       }
-    //     }
-    //   }
-    // }
   }
   .news {
     /*margin: 1.33rem 1.22rem 1.33rem 1.22rem;*/

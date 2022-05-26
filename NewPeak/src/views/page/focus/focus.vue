@@ -12,34 +12,16 @@
       <div class="title">中国文旅产业巅峰大会</div>
       <div class="mes">{{focMes}}</div>
       <div class="bannerNums">
-        <el-carousel arrow="always">
+        <el-carousel arrow="always"
+                     indicator-position="none">
           <el-carousel-item v-for="(item,i) in bannerList"
                             :key="i">
             <img :src=getImgUrl(item.original_image)
                  alt="">
-            <div class="bgMes">{{item.title}}</div>
+            <div class="bgMes"
+                 @click="details(item.id)">{{item.title}}</div>
           </el-carousel-item>
         </el-carousel>
-
-        <!-- <ul class="banner">
-          <li class="show"
-              v-for="(item,i) in bannerList"
-              :key="i">
-            <img :src=getImgUrl(item.original_image)
-                 alt="">
-            <div class="btn">
-              <img class="first"
-                   src="../../../assets/imgs/focLeft.png"
-                   alt=""
-                   @click="leftBanner(i)">
-              <img class="second"
-                   src="../../../assets/imgs/focRight.png"
-                   alt=""
-                   @click="rightBanner(i)">
-            </div>
-            <div class="bgMes">{{item.title}}</div>
-          </li>
-        </ul> -->
       </div>
     </div>
     <div class="focFoot"
@@ -92,7 +74,7 @@ export default {
   methods: {
     getList () {
       top_h5().then((res) => {
-        console.log(res);
+        console.log(res, '要闻');
         this.focMes = res.data.data.wenlv_description
         this.bannerList = res.data.data.wenlv_image
       })

@@ -104,7 +104,7 @@
           <div class="message-info"
                style="">{{infos}}</div>
           <img :src=getImgUrl(scrs)
-               style="margin-top: 1rem;margin-left: 1.25rem;width: 80%;height: 80px;" />
+               style="margin-top: 1rem;margin-left: 1.25rem;width: 80%;height:55%" />
         </div>
       </div>
       <div style="position: relative;width: 100%;margin-top: 10px;height: 20px;width: 100%;">
@@ -818,7 +818,7 @@ export default {
     /*width: 100%;*/
     margin: 1.33rem 1rem 0.67rem 1rem;
     .selectImg {
-      // width: 10rem;
+      width: 30%;
       height: 4.76rem;
     }
     .selectInfo {
@@ -869,7 +869,7 @@ export default {
           padding-left: 0.75rem;
           padding-right: 0.75rem;
           margin-top: 0.67rem;
-          width: 94%;
+          width: 90%;
           height: 9.75rem;
         }
       }
@@ -918,8 +918,9 @@ export default {
         border: 0.08rem solid #cacaca;
         img {
           margin-left: 0.75rem;
+          margin-right: 0.75rem;
           margin-top: 0.67rem;
-          width: 13rem;
+          width: 90%;
           height: 9.75rem;
         }
       }

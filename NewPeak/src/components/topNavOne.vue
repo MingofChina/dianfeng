@@ -15,7 +15,7 @@
         <div class="imgCon"
              v-show="this.isHidden==2?true:false">
           <div></div>
-          <img src="../assets/imgs/close.png"
+          <img src="../assets/imgs/Mask group@2x.png"
                alt=""
                class="change-img"
                @click="closeMenu" />
@@ -349,7 +349,7 @@ export default {
   div {
     margin-top: 0.45rem;
     height: 2.3rem;
-    border-left: 0.08rem solid #cacaca;
+    border-left: 0.098rem solid #cacaca;
   }
   .change-img {
     margin-left: 1rem;
