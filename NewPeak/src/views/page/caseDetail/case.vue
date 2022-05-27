@@ -45,6 +45,7 @@ export default {
       baseUrl: 'http://ceshi.davost.com',
       btnInfo: '',
       changBtn: true,
+      changeId: 24,
       changeColor: 0,
       pages: 1,
       total: 0,
@@ -58,15 +59,30 @@ export default {
     getList () {
       const data = {
         pages: this.pages,
-        pagesize: this.pagesize
+        pagesize: this.pagesize,
+        id: this.changeId,
       }
       case_h5(data).then((res) => {
         console.log(res, '案例');
         this.btnInfo = res.data.data.column
+        this.changeId = res.data.data.column[0].id
         this.imgGroup = res.data.data.case
         this.total = res.data.data.case_pages_number * 10
       })
+
     },
+    // getListInfo () {
+    //   const data = {
+    //     pages: this.pages,
+    //     pagesize: this.pagesize,
+    //     id: this.changeId
+    //   }
+    //   case_h5(data).then((res) => {
+    //     console.log(res, 'll');
+    //     this.total = res.data.data.case_pages_number
+    //     this.imgGroup = res.data.data.case
+    //   })
+    // },
     onPageChange (e) {
       this.pages = e
       this.getList()
@@ -86,13 +102,16 @@ export default {
     jump (i, info) {
       this.changBtn = false
       this.changeColor = i
-      console.log(i, 'nnn', info);
-      this.$router.push({
-        path: '/business_h5',
-        query: {
-          id: info
-        }
-      })
+      this.changeId = info
+
+      this.getList()
+      // console.log(i, 'nnn', info);
+      // this.$router.push({
+      //   path: '/business_h5',
+      //   query: {
+      //     id: info
+      //   }
+      // })
     }
 
   }
@@ -143,7 +162,7 @@ export default {
   .btn {
     width: 8rem;
     height: 2.67rem;
-    border:0.068rem solid #cacaca;
+    border: 0.068rem solid #cacaca;
     background: #fff;
     /*border: 0;*/
     // margin-left: 2rem;

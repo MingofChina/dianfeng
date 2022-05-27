@@ -106,6 +106,7 @@ export default {
       const data = {
         id: this.$route.query.id
       }
+      console.log(data.id);
       business_h5(data).then((res) => {
         console.log(res, 'ggg');
         this.addressInfo = res.data.data.branch_office
@@ -130,7 +131,7 @@ export default {
 .teamBtn {
   margin: 1rem 0 1rem 1.33rem;
   white-space: nowrap;
-  width: 36.2rem;
+  width: 96%;
   overflow: scroll;
   .btn {
     width: 8rem;

@@ -34,34 +34,81 @@
 		</div>
 
 		<!--second-->
-		<div class="views" v-for="(item, idx) in views" :key="idx">
+		<div class="views">
 			<div class="zero">
-				<img :src="getImgUrl(item.original_image)" alt="" />
+				<img :src="getImgUrl(this.views[0].original_image)" alt="" />
 				<div class="meg">
-					<div class="megTitle">{{ item.name }}</div>
+					<div class="megTitle">{{ this.views[0].name }}</div>
 					<div class="megLotImg">
-						<div class="lot">查看更多</div>
+						<div class="lot" @click="jumpPlan(views[0].childcontent[0].id)">查看更多</div>
+						<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="views">
+			<div class="zero">
+				<img :src="getImgUrl(this.views[1].original_image)" alt="" />
+				<div class="meg">
+					<div class="megTitle">{{ this.views[1].name }}</div>
+					<div class="megLotImg">
+						<div class="lot" @click="jumpPlan(views[1].childcontent[0].id)">查看更多</div>
 						<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
 					</div>
 				</div>
 			</div>
 			<div class="son">
 				<div class="first">
-					<img :src="getImgUrl(item.original_image)" alt="" />
+					<img :src="getImgUrl(this.views[2].original_image)" alt="" />
 					<div class="meg">
-						<div class="megTitle">{{ item.name }}</div>
+						<div class="megTitle">{{ this.views[2].name }}</div>
 						<div class="megLotImg">
-							<div class="lot">查看更多</div>
+							<div class="lot" @click="jumpPlan(views[2].childcontent[0].id)">查看更多</div>
 							<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
 						</div>
 					</div>
 				</div>
 				<div class="second">
-					<img :src="getImgUrl(item.original_image)" alt="" />
+					<img :src="getImgUrl(this.views[3].original_image)" alt="" />
 					<div class="meg">
-						<div class="megTitle">{{ item.name }}</div>
+						<div class="megTitle">{{ this.views[3].name }}</div>
 						<div class="megLotImg">
-							<div class="lot">查看更多</div>
+							<div class="lot" @click="jumpPlan(views[3].childcontent[0].id)">查看更多</div>
+							<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="views">
+			<div class="zero">
+				<img :src="getImgUrl(this.views[4].original_image)" alt="" />
+				<div class="meg">
+					<div class="megTitle">{{ this.views[4].name }}</div>
+					<div class="megLotImg">
+						<div class="lot" @click="jumpPlan(views[4].childcontent[0].id)">查看更多</div>
+						<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
+					</div>
+				</div>
+			</div>
+			<div class="son">
+				<div class="first">
+					<img :src="getImgUrl(this.views[5].original_image)" alt="" />
+					<div class="meg">
+						<div class="megTitle">{{ this.views[5].name }}</div>
+						<div class="megLotImg">
+							<div class="lot" @click="jumpPlan(views[5].childcontent[0].id)">查看更多</div>
+							<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
+						</div>
+					</div>
+				</div>
+				<div class="second">
+					<img :src="getImgUrl(this.views[6].original_image)" alt="" />
+					<div class="meg">
+						<div class="megTitle">{{ this.views[6].name }}</div>
+						<div class="megLotImg">
+							<div class="lot" @click="jumpPlan(views[6].childcontent[0].id)">查看更多</div>
 							<img style="color: #FFF" src="../../assets/imgs/mask.png" alt="" />
 						</div>
 					</div>
@@ -78,23 +125,19 @@
 				</div>
 				<div class="imgInfo"><img src="../../assets/imgs/mode.png" @click="jumpCaseDetails()" alt="" /></div>
 			</div>
-			<!-- 		<div class="bar">
-				<div class="barNums" v-for="(item, i) in introduce" :key="i" @click="jump(i)">
-					<div class="barTitle" :class="changeColor == i ? 'active' : ''">{{ item.name }}</div>
-					<div class="stick">|</div>
-				</div>
-			</div> -->
+
 			<div class="bar">
-				<div class="barNums" v-for="(item, i) in introduce" :key="i" @click="jump(i)">
+				<div class="barNums" v-for="(item, i) in introduce" :key="i" @click="jump(i, item)">
 					<div class="barTitle" :class="changeColor == i ? 'active' : ''">{{ item.name }}</div>
 					<div class="stick" v-if="i !== introduce.length - 1">|</div>
 				</div>
 			</div>
 			<ul class="imgShow">
 				<li class="imgs" v-for="(item, i) in imgGroup" :key="i">
-					<img :src="require(`../../assets/imgs/${item.img}.png`)" alt="" />
+					<img :src="getImgUrl(item.original_image)" alt="" />
 					<div class="title">{{ item.title }}</div>
-					<div class="message">{{ item.message }}</div>
+					<div class="message">{{ item.summary }}</div>
+					<span v-show="item.summary.length < 40 ? false : true">...</span>
 				</li>
 			</ul>
 		</div>
@@ -195,6 +238,7 @@ import { subForm, index_h5 } from '../../api/api.js';
 export default {
 	data() {
 		return {
+			viewsDetailsInfo: '',
 			introduce: '',
 			company: '',
 			baseUrl: 'http://ceshi.davost.com',
@@ -202,7 +246,7 @@ export default {
 			name: '',
 			phone: '',
 			info: '',
-			barInfo: [{ name: '规划设计' }, { name: '运营招商' }, { name: 'EPC建设' }, { name: '光影夜游' }],
+			// barInfo: [{ name: '规划设计' }, { name: '运营招商' }, { name: 'EPC建设' }, { name: '光影夜游' }],
 			brandName: [
 				{
 					name: '北京'
@@ -307,28 +351,30 @@ export default {
 			changBtn: true,
 			changeColor: 0,
 			news: '',
+			imgGroupNums: '',
 			imgGroup: [
-				{
-					img: 'bgNum3',
-					title: '顺德华侨城',
-					message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
-				},
-				{
-					img: 'bgNum4',
-					title: '内蒙古呼和浩特小黑河景观工程',
-					message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
-				},
-				{
-					img: 'bgNum3',
-					title: '顺德华侨城',
-					message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
-				},
-				{
-					img: 'bgNum4',
-					title: '内蒙古呼和浩特小黑河景观工程',
-					message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
-				}
-			]
+				// {
+				//   img: 'bgNum3',
+				//   title: '顺德华侨城',
+				//   message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
+				// },
+				// {
+				//   img: 'bgNum4',
+				//   title: '内蒙古呼和浩特小黑河景观工程',
+				//   message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
+				// },
+				// {
+				//   img: 'bgNum3',
+				//   title: '顺德华侨城',
+				//   message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
+				// },
+				// {
+				//   img: 'bgNum4',
+				//   title: '内蒙古呼和浩特小黑河景观工程',
+				//   message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
+				// }
+			],
+			allList: []
 		};
 	},
 	created() {
@@ -340,15 +386,23 @@ export default {
 				console.log(res, 'tt');
 				this.views = res.data.data.column_introduce;
 				this.info = res.data.data.company_information;
-				this.introduce = res.data.data.column_introduce;
+				this.introduce = res.data.data.product_cate;
 				this.news = res.data.data.news;
+				this.allList = res.data.data.product;
+				let id = this.introduce[0].id;
+				this.imgGroup = res.data.data.product.filter(item => item.business_ids == id);
 			});
 		},
-		jump(i) {
+		jump(i, info) {
+			let id = info.id;
+			this.imgGroup = this.allList.filter(item => item.business_ids == id);
+			this.viewsDetailsInfo = '';
+			// this.viewsDetailsInfo = this.introduce[i].childcontent.map(res => {
+			// 	return res.id;
+			// });
 			this.openTitle = i;
 			this.changBtn = false;
 			this.changeColor = i;
-			console.log(i, 'nnn');
 		},
 		getImgUrl(imgUrl) {
 			return this.baseUrl + imgUrl;
@@ -392,6 +446,16 @@ export default {
 		jumpCaseDetails() {
 			this.$router.push({
 				path: 'introduce_h5/2/0'
+			});
+		},
+		//规划详情
+		jumpPlan(info) {
+			console.log(info, 'jumpPlan');
+			this.$router.push({
+				path: '/business_h5',
+				query: {
+					id: info
+				}
 			});
 		},
 		// 跳转巅峰要闻
@@ -532,7 +596,7 @@ export default {
 }
 .views {
 	width: 100%;
-	margin-bottom: 1.67rem;
+	margin-bottom: 0.8rem;
 	/*margin: 0 auto;*/
 	// position: relative;
 	text-align: center;
@@ -550,9 +614,9 @@ export default {
 			position: absolute;
 			bottom: 0.3rem;
 			text-align: left;
-			width: 94.8%;
+			width: 95%;
 			height: 4.375rem;
-			margin-left: 1rem;
+			margin-left: 2.3%;
 			/*margin: 0 auto;*/
 			background: rgba(0, 0, 0, 0.5);
 			z-index: 2;
@@ -619,7 +683,7 @@ export default {
 					display: flex;
 					.lot {
 						color: #ffffff;
-						font-size: 0.75rem;
+						font-size: 1.2rem;
 						font-weight: 400;
 						margin-left: 1rem;
 						opacity: 0.7;
@@ -662,7 +726,7 @@ export default {
 					display: flex;
 					.lot {
 						color: #ffffff;
-						font-size: 0.75rem;
+						font-size: 1.2rem;
 						font-weight: 400;
 						margin-left: 1rem;
 						opacity: 0.7;
@@ -778,8 +842,13 @@ export default {
 				height: 15.42rem;
 			}
 			.title {
+				display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+				-webkit-line-clamp: 1; /*显示的行数；如果要设置2行加...则设置为2*/
+				overflow: hidden; /*超出的文本隐藏*/
+				text-overflow: ellipsis; /* 溢出用省略号*/
+				-webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
 				margin-left: 0.67rem;
-				width: 12.42rem;
+				// width: 12.42rem;
 				/*height: 1.83rem;*/
 				text-align: left;
 				font-size: 1.17rem;
@@ -788,14 +857,18 @@ export default {
 				line-height: 1.37rem;
 			}
 			.message {
+				overflow: hidden;
 				margin-left: 0.67rem;
 				margin-top: 0.33rem;
-				width: 12.42rem;
+				// width: 12.42rem;
 				height: 2.67rem;
 				font-size: 0.92rem;
 				font-weight: 400;
 				color: #a0a0a0;
-				line-height: 1.07rem;
+				line-height: 1.3rem;
+			}
+			span {
+				margin-left: 0.67rem;
 			}
 		}
 	}

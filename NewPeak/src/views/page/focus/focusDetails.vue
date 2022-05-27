@@ -100,6 +100,8 @@ export default {
   overflow: hidden;
   background: #f4f4f4;
   padding: 2rem 1.33rem 0 1.33rem;
+  // margin-left: 1.33rem;
+  // margin-right: 1.33rem;
   text-align: center;
   .viewTitle {
     height: 5rem;
@@ -191,6 +193,7 @@ export default {
 }
 .viewFoot {
   background: #f4f4f4;
+  // width: 100%;
   padding: 1.67rem 1.33rem 0 1.33rem;
   .viTitle {
     display: flex;

@@ -33,7 +33,7 @@
 
             <div class="infoFirst"
                  @click="jump(index)"
-                 :class="changeColor == index?'active':''">{{item.name}}
+                 :class="changeColor == index?'active':''">{{item.firstName}}
             </div>
             <div class="two"
                  v-show="changeColor==1?false:true">
@@ -45,7 +45,7 @@
                     <div class="secondMeg"
                          @click="jumpSecond(index,i)"
                          :class="changeColorTwo == i?'activeTwo':''">
-                      {{it.secondTitle}}
+                      {{it.name}}
                     </div>
                   </div>
                 </li>
@@ -62,14 +62,14 @@
                 <el-tab-pane style="color:#c8000a"
                              v-for="(it,i) in item.second"
                              :key="i"
-                             :label="it.secondTitle"
+                             :label="it.name"
                              @tab-click="handleClick">
                   <ul>
-                    <li v-for="(last,next) in it.third"
+                    <li v-for="(last,next) in it.childcontent"
                         :key="next"
-                        @click="jumpThird(next,i)"
+                        @click="jumpThird(next,last.id)"
                         :class="changeColorThird==next?'activeThird':''">
-                      {{last.thirdName}}
+                      {{last.title}}
                     </li>
                   </ul>
                 </el-tab-pane>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { case_h5 } from "@/api/api";
+import { case_h5, index_h5 } from "@/api/api";
 export default {
   data () {
     return {
@@ -95,130 +95,130 @@ export default {
       changeColor: -1,
       menus: [
         {
-          name: '走进巅峰',
+          firstName: '走进巅峰',
           second: [
             {
-              secondTitle: '巅峰介绍',
+              name: '巅峰介绍',
             },
             {
-              secondTitle: '巅峰团队',
+              name: '巅峰团队',
             },
             {
-              secondTitle: '巅峰风采',
+              name: '巅峰风采',
             },
             {
-              secondTitle: '巅峰要闻',
+              name: '巅峰要闻',
             },
             {
-              secondTitle: '产业联盟',
+              name: '产业联盟',
             },
             {
-              secondTitle: '加入巅峰',
+              name: '加入巅峰',
             },
             {
-              secondTitle: '合作伙伴',
+              name: '合作伙伴',
             },
           ]
         },
         {
-          name: '巅峰业务',
+          firstName: '巅峰业务',
           second: [
-            {
-              secondTitle: '规划设计',
-              third: [
-                { thirdName: '文旅发展规划' },
-                { thirdName: '详细规划' },
-                { thirdName: '全域旅游规划' },
-                { thirdName: '度假区创建辅导' },
-                { thirdName: '建筑与景观设计' },
-                { thirdName: '全域旅游创建辅导' },
-                { thirdName: '5A景区创建辅导' },
-                { thirdName: '文旅开发策划规划' },
-                { thirdName: '乡村振兴旅游规划' },
-                { thirdName: '景区/度假区策划规定' },
-              ],
-            },
-            {
-              secondTitle: '运营招商',
-              third: [
-                { thirdName: '景区运营' },
-                { thirdName: '招商管理' },
-                { thirdName: '技术咨询' },
-                { thirdName: '活动营销' },
-                { thirdName: '文旅好IP' },
-              ],
-            },
-            {
-              secondTitle: 'EPC建设',
-              third: [
-                { thirdName: '落地建设' },
-              ],
-            },
-            {
-              secondTitle: '光影夜游',
-              third: [
-                { thirdName: '光影演艺' },
-                { thirdName: '夜游空间秀' },
-                { thirdName: '光影节秀' },
-                { thirdName: '奇幻光乐园' },
-              ],
-            },
-            {
-              secondTitle: '文创设计',
-              third: [
-                { thirdName: '品牌IP' },
-                { thirdName: '标识导视' },
-                { thirdName: '展览展陈' },
-                { thirdName: '文创景观' },
-                { thirdName: '文创产品' },
-              ],
-            },
-            {
-              secondTitle: '文旅教育',
-              third: [
-                { thirdName: '文旅沙龙' },
-                { thirdName: '企业数字化' },
-                { thirdName: '案例探访' },
-                { thirdName: '定制服务介绍' },
-                { thirdName: '专题培训' },
-                { thirdName: '全域旅游创建' },
-                { thirdName: '景区网校' },
-                { thirdName: '共建学院' },
-              ],
-            },
-            {
-              secondTitle: '品牌营销',
-              third: [
-                { thirdName: '品牌营销策划' },
-                { thirdName: '大型节事活动' },
-                { thirdName: '央视广告投放' },
-                { thirdName: '乡村振兴文艺活动' },
-              ],
-            },
-            {
-              secondTitle: '绿心公社',
-              third: [
-                { thirdName: '生态农庄' },
-                { thirdName: '亲子乐园' },
-                { thirdName: '营地驿站' },
-                { thirdName: '民宿产品' },
-              ],
-            },
+            // {
+            //   name: '规划设计',
+            //   third: [
+            //     { title: '文旅发展规划' },
+            //     { title: '详细规划' },
+            //     { title: '全域旅游规划' },
+            //     { title: '度假区创建辅导' },
+            //     { title: '建筑与景观设计' },
+            //     { title: '全域旅游创建辅导' },
+            //     { title: '5A景区创建辅导' },
+            //     { title: '文旅开发策划规划' },
+            //     { title: '乡村振兴旅游规划' },
+            //     { title: '景区/度假区策划规定' },
+            //   ],
+            // },
+            // {
+            //   name: '运营招商',
+            //   third: [
+            //     { title: '景区运营' },
+            //     { title: '招商管理' },
+            //     { title: '技术咨询' },
+            //     { title: '活动营销' },
+            //     { title: '文旅好IP' },
+            //   ],
+            // },
+            // {
+            //   name: 'EPC建设',
+            //   third: [
+            //     { title: '落地建设' },
+            //   ],
+            // },
+            // {
+            //   name: '光影夜游',
+            //   third: [
+            //     { title: '光影演艺' },
+            //     { title: '夜游空间秀' },
+            //     { title: '光影节秀' },
+            //     { title: '奇幻光乐园' },
+            //   ],
+            // },
+            // {
+            //   name: '文创设计',
+            //   third: [
+            //     { title: '品牌IP' },
+            //     { title: '标识导视' },
+            //     { title: '展览展陈' },
+            //     { title: '文创景观' },
+            //     { title: '文创产品' },
+            //   ],
+            // },
+            // {
+            //   name: '文旅教育',
+            //   third: [
+            //     { title: '文旅沙龙' },
+            //     { title: '企业数字化' },
+            //     { title: '案例探访' },
+            //     { title: '定制服务介绍' },
+            //     { title: '专题培训' },
+            //     { title: '全域旅游创建' },
+            //     { title: '景区网校' },
+            //     { title: '共建学院' },
+            //   ],
+            // },
+            // {
+            //   name: '品牌营销',
+            //   third: [
+            //     { title: '品牌营销策划' },
+            //     { title: '大型节事活动' },
+            //     { title: '央视广告投放' },
+            //     { title: '乡村振兴文艺活动' },
+            //   ],
+            // },
+            // {
+            //   name: '绿心公社',
+            //   third: [
+            //     { title: '生态农庄' },
+            //     { title: '亲子乐园' },
+            //     { title: '营地驿站' },
+            //     { title: '民宿产品' },
+            //   ],
+            // },
           ]
         },
         {
-          name: '巅峰案例',
+          firstName: '巅峰案例',
           second: [
             // {
             //   secondTitle: '业务详情',
             // },
             {
-              secondTitle: '巅峰案例',
+              name: '巅峰案例',
             },
           ]
         },
         {
-          name: '巅峰观点',
+          firstName: '巅峰观点',
           second: [
             // {
             //   secondTitle: '巅峰著作',
@@ -227,25 +227,25 @@ export default {
             //   secondTitle: '详情',
             // },
             {
-              secondTitle: '行业观点',
+              name: '行业观点',
             },
             {
-              secondTitle: '专业著作',
+              name: '专业著作',
             }
           ]
         },
         {
-          name: '巅峰公开课',
+          firstName: '巅峰公开课',
           second: []
         },
         {
-          name: '联系我们',
+          firstName: '联系我们',
           second: [
             {
-              secondTitle: '联系我们',
+              name: '联系我们',
             },
             {
-              secondTitle: '法律声明',
+              name: '法律声明',
             }
           ]
         },
@@ -279,6 +279,12 @@ export default {
     openMenu () {
       this.$router.replace('/index_h5');
       this.isHidden = 2
+      index_h5().then(res => {
+        // childcontent->title
+        // 父name
+        this.menus[1].second = res.data.data.column_introduce
+        console.log(this.menus[1].second, 'ooo');
+      })
     },
     closeMenu () {
       this.isHidden = 1
@@ -309,16 +315,13 @@ export default {
       this.changeColorThird = -1
       console.log('准备清空');
     },
-    jumpThird (num, i) {
-      // console.log(i);
-      // this.btnInfo[i].id
-      // console.log(this.btnInfo[i].id, 'mm');
-      console.log('触发？', i);
+    jumpThird (num, info) {
+      console.log('触发？', info);
       this.changeColorThird = num
       this.$router.push({
         path: '/business_h5',
         query: {
-          id: this.btnInfo[i].id
+          id: info
         }
       })
       this.closeMenu()
