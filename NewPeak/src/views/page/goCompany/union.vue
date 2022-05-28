@@ -18,14 +18,21 @@
       </div>
       <div class="content">{{item.small_descrip}}</div>
       <div class="ban">
-        <el-carousel arrow="always"
-                     indicator-position="none">
+        <el-carousel arrow="never"
+                     ref="cardShow"
+                     :autoplay="false"
+                     indicator-position="none"
+                     >
           <el-carousel-item v-for="(it,idx) in unionInfo[i].original_image"
                             :key="idx">
             <img :src=getImgUrl(it.original_image)
                  alt="">
           </el-carousel-item>
         </el-carousel>
+        <div class="btn">
+          <img class="left" src="../../../assets/imgs/focLeft.png" alt="" @click="imgInfo('left',i)">
+          <img class="right" src="../../../assets/imgs/focRight.png" alt="" @click="imgInfo('right',i)">
+        </div>
       </div>
       <div class="news"
            v-for="(itemm,index) in item.document"
@@ -96,6 +103,15 @@ export default {
         console.log(res, '产业联盟')
         this.unionInfo = res.data.data.union
       })
+    },
+    imgInfo(info,i){
+      console.log(this.$refs.cardShow[i],'hhhh',i)
+      if (info === 'right') {
+        this.$refs.cardShow[i].next()
+      } else {
+        this.$refs.cardShow[i].prev()
+      }
+
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
@@ -186,6 +202,27 @@ export default {
   .ban {
     margin-top: 1rem;
     margin-bottom: 1.33rem;
+    position: relative;
+    .btn{
+      z-index: 99;
+      img{
+        margin-right: 0.8rem;
+        width: 2rem;
+        height: 2rem;
+      }
+      .left{
+        position: absolute;
+        z-index: 99;
+        top: 48%;
+        left: 1rem;
+      }
+      .right{
+        position: absolute;
+        z-index: 99;
+        top: 48%;
+        right:1rem
+      }
+    }
     // width: 100%;
     img {
       width: 98%;

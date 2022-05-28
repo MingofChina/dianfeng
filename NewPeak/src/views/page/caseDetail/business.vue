@@ -157,7 +157,7 @@ export default {
   .viTitle {
     display: flex;
     .stork {
-      margin-top: -0.15rem;
+      margin-top: -0.1rem;
       color: #c8000a;
     }
     .title {

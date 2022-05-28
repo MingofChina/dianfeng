@@ -133,7 +133,7 @@
 				</div>
 			</div>
 			<ul class="imgShow">
-				<li class="imgs" v-for="(item, i) in imgGroup" :key="i">
+				<li class="imgs" v-for="(item, i) in imgGroup" :key="i" @click="goLast(item.id)">
 					<img :src="getImgUrl(item.original_image)" alt="" />
 					<div class="title">{{ item.title }}</div>
 					<div class="message">{{ item.summary }}</div>
@@ -387,15 +387,15 @@ export default {
 				this.views = res.data.data.column_introduce;
 				this.info = res.data.data.company_information;
 				this.introduce = res.data.data.product_cate;
-				this.news = res.data.data.news;
+				this.news = res.data.data.news.splice(0,2);
 				this.allList = res.data.data.product;
 				let id = this.introduce[0].id;
-				this.imgGroup = res.data.data.product.filter(item => item.business_ids == id);
+				this.imgGroup = res.data.data.product.filter(item => item.business_ids == id).splice(0,4);
 			});
 		},
 		jump(i, info) {
 			let id = info.id;
-			this.imgGroup = this.allList.filter(item => item.business_ids == id);
+			this.imgGroup = this.allList.filter(item => item.business_ids == id).splice(0,4);
 			this.viewsDetailsInfo = '';
 			// this.viewsDetailsInfo = this.introduce[i].childcontent.map(res => {
 			// 	return res.id;
@@ -415,6 +415,15 @@ export default {
 					id: info
 				}
 			});
+		},
+		goLast (info) {
+			console.log(info, 'ggg');
+			this.$router.push({
+				path: '/caseDetail_h5',
+				query: {
+					id: info
+				}
+			})
 		},
 		sendForm() {
 			console.log('提交');
@@ -801,7 +810,7 @@ export default {
 				height: 2.4rem;
 			}
 			.active {
-				font-size: 1.5rem;
+				font-size: 1.1rem;
 				color: #c8000a;
 				&::after {
 					content: '';

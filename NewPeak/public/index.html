@@ -12,6 +12,21 @@
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.4&35df7fe10d67c109d06d13c4a5861cdc"></script>
 </head>
 
+<script type="text/javascript">
+    function resize(){
+        var docEl = document.documentElement;
+        var clientWidth = window.innerWidth;
+        if(clientWidth <= 320){
+            docEl.style.fontSize = '50px';
+        }else if(clientWidth >= 640){
+            docEl.style.fontSize = '100px';
+        }else{
+            docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+        }
+    }
+    //解决加载时放大后再缩小
+    resize();
+</script>
 <body style="margin: 0px;">
     <noscript>
 
@@ -21,5 +36,9 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
 </body>
+<script>
+    // document.getElementById('body').style.visibility = 'visible'
+    // document.getElementById('body').style.visibility = 'visible'
+</script>
 
 </html>

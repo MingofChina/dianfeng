@@ -196,8 +196,9 @@ img {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   .child {
+    margin-left: 1.5%;
     // border: 1px dashed black;
     margin-bottom: 0.66rem;
     img {

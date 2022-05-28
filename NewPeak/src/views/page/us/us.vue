@@ -11,7 +11,7 @@
     <!-- 地图 -->
     <div class="content">
       <div id="container"
-           style="width:width: 34.8rem;height: 18.42rem;"></div>
+           style="width:100%;height: 18.42rem;"></div>
     </div>
     <div class="mark"
          v-for="(item, i) in addressInfo"
@@ -71,14 +71,18 @@ export default {
     carGPSIP () {
       var map = new AMap.Map('container', {
         resizeEnable: true,
-      }); // 初始化地图      
+      }); // 初始化地图
       var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
       // 遍历生成多个标记点
       console.log(this.lnglats, '好多');
       for (var i = 0, marker; i < this.lnglats.length; i++) {
         // console.log(this.lnglats[i], 'eeee');
         var marker = new AMap.Marker({
-          // icon: icon,
+          icon: new AMap.Icon({
+            image:require('../../../assets/imgs/local.png'),
+            size: new AMap.Size(20, 20),  //图标大小
+            imageSize: new AMap.Size(20,20),
+          }),
           position: this.lnglats[i], // 不同标记点的经纬度
           map: map
         });

@@ -12,7 +12,9 @@
       <div class="title">中国文旅产业巅峰大会</div>
       <div class="mes">{{focMes}}</div>
       <div class="bannerNums">
-        <el-carousel arrow="always"
+        <el-carousel arrow="never"
+                     ref="cardShow"
+                     :autoplay="false"
                      indicator-position="none">
           <el-carousel-item v-for="(item,i) in bannerList"
                             :key="i">
@@ -22,6 +24,10 @@
                  @click="details(item.id)">{{item.title}}</div>
           </el-carousel-item>
         </el-carousel>
+        <div class="btn">
+          <img class="left" src="../../../assets/imgs/focLeft.png" alt="" @click="imgInfo('left')">
+          <img class="right" src="../../../assets/imgs/focRight.png" alt="" @click="imgInfo('right')">
+        </div>
       </div>
     </div>
     <div class="focFoot"
@@ -76,6 +82,7 @@ export default {
       top_h5().then((res) => {
         console.log(res, '要闻');
         this.focMes = res.data.data.wenlv_description
+
         this.bannerList = res.data.data.wenlv_image
       })
     },
@@ -86,7 +93,7 @@ export default {
       }
       bottom_h5(data).then((res) => {
         this.econInfo = res.data.data.peak_news
-        this.total = res.data.data.peak_news.length
+        this.total= res.data.data.page_numbers*10
         console.log(res, '瞅你那逼样');
       })
     },
@@ -102,6 +109,14 @@ export default {
         }
       })
       console.log('跳转go', info);
+    },
+    imgInfo(info){
+      if (info === 'right') {
+        this.$refs.cardShow.next()
+      } else {
+        this.$refs.cardShow.prev()
+      }
+
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
@@ -179,6 +194,26 @@ export default {
     margin-left: 1.33rem;
     // margin-right: 1.33rem;
     margin-top: 1rem;
+    .btn{
+      z-index: 99;
+      img{
+        margin-right: 0.8rem;
+        width: 2rem;
+        height: 2rem;
+      }
+      .left{
+        position: absolute;
+        z-index: 99;
+        top: 47%;
+        left: 1rem;
+      }
+      .right{
+        position: absolute;
+        z-index: 99;
+        top: 47%;
+        right:1rem
+      }
+    }
     img {
       width: 97%;
     }

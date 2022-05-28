@@ -58,7 +58,7 @@
                  class="third"
                  v-if="idx==index">
               <el-tabs tab-position="left"
-                       style="height: 200px;">
+                       style="height: 175px;">
                 <el-tab-pane style="color:#c8000a"
                              v-for="(it,i) in item.second"
                              :key="i"
@@ -335,12 +335,18 @@ export default {
   width: 100%;
   // height: 600px;
 }
+
 /deep/.el-tabs__active-bar {
   background-color: #c8000a;
+  display: none;
+}
+/deep/.el-tabs__item{
+  background-color: #F1F1F1;
 }
 /deep/.el-tabs__item.is-active {
   font-size: 1.17rem;
   font-weight: 600;
+  background-color: #ffffff;
   color: #c8000a;
 }
 .logo-img {
@@ -427,6 +433,7 @@ export default {
       .third {
         background: #fff;
         width: 100%;
+        /*height: 20%;*/
         margin-left: 0.2rem;
         ul {
           list-style: none;

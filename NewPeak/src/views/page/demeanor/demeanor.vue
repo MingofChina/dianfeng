@@ -296,7 +296,7 @@ export default {
       .barTitle {
         margin-left: 1.33rem;
         width: 7.5rem;
-        height: 1.9rem;
+        height: 2.1rem;
         font-size: 1.17rem;
         font-weight: 400;
         color: #6e6e6e;
