@@ -14,7 +14,7 @@
       <div v-html="jianjie">
 
       </div>
-      <div class="experience"
+      <div class="experience title"
            style="margin-top: 20px;"
            v-show="experienceInfo?true:false">获奖经历</div>
       <div class="listInfo"
@@ -120,7 +120,7 @@ export default {
     margin-bottom: 1rem;
     font-size: 1.17rem;
     font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-    font-weight: 500;
+    font-weight: 800;
     color: #231914;
     line-height: 1.37rem;
   }
@@ -133,13 +133,18 @@ export default {
     line-height: 2rem;
   }
   .experience {
+    margin-bottom: 1rem;
     font-size: 1.17rem;
     font-family: Source Han Sans CN-Medium, Source Han Sans CN;
     font-weight: 500;
     color: #231914;
     line-height: 1.37rem;
   }
+  .title{
+    font-weight: 800;
+  }
   .listInfo {
+    margin-bottom: 1rem;
     list-style: none;
     padding: 0;
     display: flex;

@@ -4,7 +4,7 @@
       <img src="../../../assets/imgs/work.png"
            alt="">
       <div>
-        <div class="cha">专业著作</div>
+        <div class="cha">巅峰著作</div>
         <div class="eng">Professional work</div>
       </div>
     </div>

@@ -87,7 +87,13 @@ export default {
           map: map
         });
         console.log(this.addressInfo[i].company_address, 'info');
-        marker.content = this.addressInfo[i].company_address
+        // marker.content = this.addressInfo[i].company_address
+        marker.content = `
+        <div class="mark">
+        <img src='../../../assets/imgs/local.png' alt="">
+        <div>${this.addressInfo[i].company_address}</div>
+</div>
+        `
         marker.on('click', markerClick);
         marker.emit('click', { target: marker }); // 默认初始化不出现信息窗体,打开初始化就出现信息窗体
       }
@@ -154,7 +160,7 @@ export default {
     img {
       margin-top: 2.17rem;
       margin-left: 2rem;
-      width: 2rem;
+      width: 1.9rem;
       height: 2rem;
     }
     .addressInfo {
@@ -185,8 +191,8 @@ export default {
     img {
       // margin-top: 2.17rem;
       // margin-left: 2rem;
-      width: 2rem;
-      height: 2rem;
+      width: 1.8rem;
+      height: 1.6rem;
     }
     .name {
       font-size: 1.17rem;
@@ -210,8 +216,8 @@ export default {
     img {
       // margin-top: 2.17rem;
       // margin-left: 2rem;
-      width: 2rem;
-      height: 2rem;
+      width: 1.8rem;
+      height: 1.6rem;
     }
     .name {
       font-size: 1.17rem;

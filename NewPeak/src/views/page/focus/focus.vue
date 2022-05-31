@@ -5,7 +5,7 @@
            alt="">
       <div>
         <div class="cha">巅峰要闻</div>
-        <div class="eng">News of the peak</div>
+        <div class="eng">Davost News</div>
       </div>
     </div>
     <div class="focMain">

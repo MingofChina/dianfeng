@@ -5,7 +5,7 @@
            alt="">
       <div>
         <div class="cha">巅峰介绍</div>
-        <div class="eng">The peak is introduced</div>
+        <div class="eng">Davost Overview</div>
       </div>
     </div>
     <div class="intMeg">
@@ -104,7 +104,7 @@
           <div class="message-info"
                style="">{{infos}}</div>
           <img :src=getImgUrl(scrs)
-               style="margin-top: 1rem;margin-left: 1.25rem;width: 80%;height:55%" />
+               style="margin-top: 0.6rem;margin-left: 1.25rem;width: 80%;height:55%" />
         </div>
       </div>
       <div style="position: relative;width: 100%;margin-top: 10px;height: 20px;width: 100%;">
@@ -178,7 +178,7 @@
           <div class="quaImg">
             <img :src=getImgUrl(items.original_image)>
           </div>
-          <div>{{items.title}}</div>
+          <div class="title">{{items.title}}</div>
         </li>
       </ul>
       <div class="direction">
@@ -253,7 +253,7 @@ export default {
       this.nowtimer = e.addtime
       this.idindex = indexs
     },
-    //箭头循环数据  
+    //箭头循环数据
     arrowsgetdata () {
 
       this.pages = this.pages + 1
@@ -274,7 +274,7 @@ export default {
 
 
     },
-    //选择年份 
+    //选择年份
     choseyear (e, indexsss, items) {
 
       this.pages = 0
@@ -511,6 +511,7 @@ export default {
 </script>
 <style scoped lang="less">
 .datalist-style {
+  margin-top: 1rem;
   margin-left: 1.33rem;
   font-size: 1rem;
   color: #ffffff;
@@ -545,7 +546,8 @@ export default {
   letter-spacing: 1px;
   display: flex;
   flex-wrap: wrap;
-  width: 92%;
+  width: 83%;
+  height: 5.2rem;
 }
 
 .showImg {
@@ -907,12 +909,14 @@ export default {
     margin-left: 1.33rem;
     margin-right: 1.33rem;
     .quaNums {
-      width: 13.83rem;
+      width: 15.83rem;
       margin-top: 0.67rem;
       margin-bottom: 1rem;
-
+      .title{
+        text-align: center;
+      }
       .quaImg {
-        width: 14.5rem;
+        width: 15.8rem;
         height: 11.33rem;
         background-color: #fff;
         border: 0.08rem solid #cacaca;

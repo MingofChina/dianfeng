@@ -6,7 +6,7 @@
            alt="">
       <div>
         <div class="cha">产业联盟</div>
-        <div class="eng">Industry alliance</div>
+        <div class="eng">Our Alliances</div>
       </div>
     </div>
     <div class="law"

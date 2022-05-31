@@ -11,17 +11,17 @@
                        src="../assets/imgs/Vector.png"
                        alt="" />
                 </span>
-                <span style="font-size: 12px">服务热线</span>
-                <h4>{{ bottom.company_phone }}</h4>
+                <span style="font-size: 12px">全国服务热线</span>
+                <h4>{{ bottom.free_phone }}</h4>
               </div>
               <div class="liebiao-1">
-                <span>
-                  <img style="width: 1rem;height: 1rem"
-                       src="../assets/imgs/Vector.png"
-                       alt="" />
-                </span>
-                <span style="font-size: 12px">服务热线</span>
-                <h4>{{ bottom.free_phone }}</h4>
+<!--                <span>-->
+<!--                  <img style="width: 1rem;height: 1rem"-->
+<!--                       src="../assets/imgs/Vector.png"-->
+<!--                       alt="" />-->
+<!--                </span>-->
+<!--                <span style="font-size: 12px">服务热线</span>-->
+                <h4 style="margin-top: 17.5%">{{ bottom.company_phone }}</h4>
               </div>
             </div>
             <div style="white-space:nowrap;"
@@ -160,7 +160,7 @@ export default {
 
 <style  scoped lang="less">
 .divhover:hover {
-  color: #c8000a;
+  color: #fff;
 }
 .zuoce {
   font-size: 0.9rem;

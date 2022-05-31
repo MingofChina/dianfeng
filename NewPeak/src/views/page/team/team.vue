@@ -5,7 +5,7 @@
       <img src="../../../assets/imgs/team.png" />
       <div>
         <div class="cha">巅峰团队</div>
-        <div class="eng">Top team</div>
+        <div class="eng">Our Teams</div>
       </div>
     </div>
     <div class="team">

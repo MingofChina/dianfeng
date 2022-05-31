@@ -230,7 +230,7 @@ export default {
               name: '行业观点',
             },
             {
-              name: '专业著作',
+              name: '巅峰著作',
             }
           ]
         },

@@ -5,7 +5,7 @@
            alt="">
       <div>
         <div class="cha">合作伙伴</div>
-        <div class="eng">partners</div>
+        <div class="eng">Our Partners</div>
       </div>
     </div>
     <div class="partTitle">

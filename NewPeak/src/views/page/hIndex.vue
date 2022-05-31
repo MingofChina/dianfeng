@@ -152,7 +152,7 @@
 				<div class="mode"><img src="../../assets/imgs/mode.png" @click="jumpNews()" alt="" /></div>
 			</div>
 			<div class="showImg" v-for="(item, i) in news" :key="i">
-				<div class="num">{{ item.business_ids }}</div>
+				<div class="num">{{ item.add_date.substring(item.add_date.length - 2) }}</div>
 				<div class="date">{{ item.add_date }}</div>
 				<div class="imgTitle">{{ item.title }}</div>
 				<div class="imgInfo">{{ item.summary }}</div>
@@ -179,29 +179,29 @@
 			</ul>
 			<div class="brandFooter">
 				<div class="brandContent" v-for="(item, i) in brandName" :key="i" @click="jumpInfo(i)" :class="changeColorOne == i ? 'active' : ''">
-					<div class="cityName" :class="changeColorOne == i ? 'activeName' : ''">{{ item.name }}</div>
+					<div class="cityName" :class="changeColorOne == i ? 'activeName' : ''">{{ item.company_name }}</div>
 					<div class="footerStick" :class="changeColorOne == i ? 'activeStock' : ''">|</div>
 				</div>
 			</div>
 		</div>
 		<div class="mark">
 			<div class="address">
-				<img src="../../assets/bei/icong_weizhi.png" alt="" />
-				<div class="addressInfo">{{ addressInfo[chooseInfoOne].company_name }}</div>
+				<img src="../../assets/imgs/local.png" alt="" />
+				<div class="addressInfo">{{ brandName[chooseInfoOne].company_name }}</div>
 			</div>
-			<div class="detail">{{ addressInfo[chooseInfoOne].company_address }}</div>
+			<div class="detail">{{ brandName[chooseInfoOne].company_address }}</div>
 			<div class="phone">
-				<img src="../../assets/bei/icom_dianhua.png" alt="" />
+				<img src="../../assets/imgs/phone.png" alt="" />
 				<div class="name">
 					咨询电话:
-					<span>{{ addressInfo[chooseInfoOne].company_phone }}</span>
+					<span>{{ brandName[chooseInfoOne].company_phone }}</span>
 				</div>
 			</div>
 			<div class="mail">
-				<img src="../../assets/bei/icom_youxiang.png" alt="" />
+				<img src="../../assets/imgs/e-mail.png" alt="" />
 				<div class="name">
 					业务邮箱:
-					<span>{{ addressInfo[chooseInfoOne].company_email }}</span>
+					<span>{{ brandName[chooseInfoOne].company_email }}</span>
 				</div>
 			</div>
 			<div class="btn">
@@ -247,23 +247,7 @@ export default {
 			phone: '',
 			info: '',
 			// barInfo: [{ name: '规划设计' }, { name: '运营招商' }, { name: 'EPC建设' }, { name: '光影夜游' }],
-			brandName: [
-				{
-					name: '北京'
-				},
-				{
-					name: '上海'
-				},
-				{
-					name: '深圳'
-				},
-				{
-					name: '成都'
-				},
-				{
-					name: '西安'
-				}
-			],
+			brandName: [],
 			brandInfo: [
 				{
 					img: 'icon_chuangli',
@@ -291,8 +275,8 @@ export default {
 				},
 				{
 					img: 'icon_yuangong',
-					title: '骨干员工近',
-					info: '1000',
+					title: '骨干员工',
+					info: '1000+',
 					markMes: '文旅行业实践者'
 				}
 			],
@@ -310,38 +294,6 @@ export default {
 					title: '江西麻姑山景区旅游策划暨景区总江西麻...',
 					message: '麻姑山景区位于江西省抚州市南城县，距离南城县城4km，约10分钟车程，距离抚州市70km...',
 					img: 'banner.png'
-				}
-			],
-			addressInfo: [
-				{
-					company_name: '北京（ 总部 ）',
-					company_address: '北京市，朝阳区三元桥左家庄1号国门大厦B座6F',
-					company_phone: '400-8130-588',
-					company_email: 'contact@davost.com'
-				},
-				{
-					company_name: '上海',
-					company_address: '上海市－闵行区申虹路666弄正荣中心6号楼602',
-					company_phone: '400-8130-588',
-					company_email: 'contact@davost.com'
-				},
-				{
-					company_name: '深圳',
-					company_address: '深圳市-福田区侨香路3085号 岭南大厦 9C-1',
-					company_phone: '400-8130-588',
-					company_email: 'contact@davost.com'
-				},
-				{
-					company_name: '成都',
-					company_address: '成都市 - 高新区府城大道505号仁和春天国际广场A座1610',
-					company_phone: '400-8130-588',
-					company_email: 'contact@davost.com'
-				},
-				{
-					company_name: '西安',
-					company_address: '陕西省西安市经济技术开发区凤城七路旭辉中心1幢1单元7层10704号',
-					company_phone: '400-8130-588',
-					company_email: 'contact@davost.com'
 				}
 			],
 			chooseInfoOne: 0,
@@ -389,6 +341,7 @@ export default {
 				this.introduce = res.data.data.product_cate;
 				this.news = res.data.data.news.splice(0,2);
 				this.allList = res.data.data.product;
+				this.brandName = res.data.data.branch_office
 				let id = this.introduce[0].id;
 				this.imgGroup = res.data.data.product.filter(item => item.business_ids == id).splice(0,4);
 			});
@@ -483,7 +436,7 @@ export default {
 			window.location.href = 'https://www.liepin.com/company/7884213';
 		},
 		jumpAsk() {
-			window.location.href = 'http://wt.zoosnet.net/LR/Chatpre.aspx?id=LRW27398692&lng=cn';
+			window.location.href = 'http://hh.davost.com/contactUs/31';
 		},
 		// 提交后清空数据
 		clearInfo() {
@@ -503,7 +456,6 @@ export default {
 }
 
 .title {
-	/*width: 7.5rem;*/
 	margin-top: 1.5rem;
 	text-align: center;
 	font-size: 1.25rem;
@@ -632,7 +584,7 @@ export default {
 			.megTitle {
 				padding-top: 0.75rem;
 				color: #ffffff;
-				font-size: 1rem;
+				font-size: 1.3rem;
 				font-weight: 500;
 				margin-left: 1rem;
 				opacity: 0.9;
@@ -683,7 +635,7 @@ export default {
 				.megTitle {
 					padding-top: 0.75rem;
 					color: #ffffff;
-					font-size: 1rem;
+					font-size: 1.3rem;
 					font-weight: 500;
 					margin-left: 1rem;
 					opacity: 0.9;
@@ -726,7 +678,7 @@ export default {
 				.megTitle {
 					padding-top: 0.75rem;
 					color: #ffffff;
-					font-size: 1rem;
+					font-size: 1.3rem;
 					font-weight: 500;
 					margin-left: 1rem;
 					opacity: 0.9;
@@ -820,7 +772,7 @@ export default {
 					display: block;
 					position: relative;
 					margin-top: 0.2rem;
-					margin-left: 1.7rem;
+					margin-left: 1.3rem;
 				}
 			}
 			.stick {
@@ -1094,7 +1046,7 @@ export default {
 		img {
 			margin-top: 2.17rem;
 			margin-left: 2rem;
-			width: 2rem;
+			width: 1.8rem;
 			height: 2rem;
 		}
 		.addressInfo {
@@ -1125,9 +1077,9 @@ export default {
 
 		img {
 			// margin-top: 2.17rem;
-			// margin-left: 2rem;
-			width: 2rem;
-			height: 2rem;
+			margin-right: 0.5rem;
+			width: 1.8rem;
+			height: 1.6rem;
 		}
 		.name {
 			font-size: 1.17rem;
@@ -1150,9 +1102,9 @@ export default {
 		display: flex;
 		img {
 			// margin-top: 2.17rem;
-			// margin-left: 2rem;
-			width: 2rem;
-			height: 2rem;
+			margin-right: 0.5rem;
+			width: 1.8rem;
+			height: 1.6rem;
 		}
 		.name {
 			font-size: 1.17rem;

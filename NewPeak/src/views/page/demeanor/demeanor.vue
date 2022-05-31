@@ -5,7 +5,7 @@
            alt="" />
       <div>
         <div class="cha">巅峰风采</div>
-        <div class="eng">Top talent</div>
+        <div class="eng">Our Careers</div>
       </div>
     </div>
     <div class="title">
@@ -137,6 +137,13 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+ /deep/ .el-carousel__arrow--left{
+    left: 1.3rem;
+  }
+ /deep/ .el-carousel__arrow{
+   width: 2.5rem;
+   height: 2.5rem;
+ }
 .showImg {
   position: relative;
   img {
@@ -246,7 +253,7 @@ export default {
       display: flex;
       .barTitle {
         width: 7.5rem;
-        height: 1.75rem;
+        height: 2rem;
         font-size: 1.17rem;
         font-weight: 400;
         color: #6e6e6e;
@@ -261,7 +268,7 @@ export default {
       }
       .stick {
         color: #231914;
-        margin: -0.3rem 1.33rem 0 1.33rem;
+        margin: 0rem 1.33rem 0 1.33rem;
       }
     }
   }
