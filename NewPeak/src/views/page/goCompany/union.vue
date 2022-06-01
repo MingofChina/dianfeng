@@ -164,7 +164,7 @@ export default {
     font-size: 0.83rem;
     font-weight: 400;
     color: #ffffff;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     line-height: 0.98rem;
   }
 }
@@ -185,13 +185,13 @@ export default {
       /*padding-right: 1.33rem;*/
       font-size: 1.33rem;
       font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-      font-weight: 500;
+      font-weight: 800;
       color: #231914;
       line-height: 1.56rem;
     }
   }
   .content {
-    /*margin-right: 1.33rem;*/
+    margin-right: 1.33rem;
     margin-top: 1rem;
     font-size: 1rem;
     font-family: Source Han Sans CN-Light, Source Han Sans CN;
@@ -236,7 +236,7 @@ export default {
     .newTitle {
       font-size: 1.17rem;
       font-family: Source Han Sans CN-Regular, Source Han Sans CN;
-      font-weight: 400;
+      font-weight: 600;
       color: #231914;
       line-height: 1.37rem;
     }
@@ -337,7 +337,7 @@ export default {
     }
   }
   .news {
-    margin: 1.33rem 1.22rem 1.33rem 1.22rem;
+    /*margin: 1.33rem 1.22rem 1.33rem 1.22rem;*/
     padding-bottom: 1.4rem;
     .newTitle {
       font-size: 1.17rem;
@@ -347,6 +347,7 @@ export default {
       line-height: 1.37rem;
     }
     .newInfo {
+      /*margin-right: 1.33rem;*/
       font-size: 1rem;
       font-family: Source Han Sans CN-Regular, Source Han Sans CN;
       font-weight: 400;

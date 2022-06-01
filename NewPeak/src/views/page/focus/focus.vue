@@ -157,7 +157,7 @@ export default {
     position: absolute;
     text-align: center;
     top: 51%;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     // left: 14.25rem;
     height: 1.25rem;
     font-size: 0.83rem;

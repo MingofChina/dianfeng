@@ -136,7 +136,7 @@ export default {
     text-align: center;
     // left: 16.25rem;
     height: 1.25rem;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;

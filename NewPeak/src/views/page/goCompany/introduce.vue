@@ -73,8 +73,8 @@
         </div>
         <div v-show="index===indexs?showdetail===true?true:false:false"
              style="display:flex;flex-direction: column;">
-          <div style="color:#c8000a;font-size: 1.6rem;">{{item.small_descrip}}</div>
-          <div style="margin-top: 5px;font-size:1.4rem">{{item.summary}}</div>
+          <div style="color:#c8000a;font-size: 1.6rem;font-weight: 800">{{item.small_descrip}}</div>
+          <div style="margin-top: 5px;font-size:1.4rem;letter-spacing: 1px">{{item.summary}}</div>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@
           <div class="message-info"
                style="">{{infos}}</div>
           <img :src=getImgUrl(scrs)
-               style="margin-top: 0.6rem;margin-left: 1.25rem;width: 80%;height:55%" />
+               style="margin-top: 0.6rem;margin-left: 1.25rem;width: 80%;height:11rem" />
         </div>
       </div>
       <div style="position: relative;width: 100%;margin-top: 10px;height: 20px;width: 100%;">
@@ -579,7 +579,7 @@ export default {
     margin-top: 0.33rem;
     position: absolute;
     top: 51%;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     // left: 12.25rem;
     height: 1.25rem;
     font-size: 0.83rem;
@@ -877,8 +877,8 @@ export default {
       }
       .reson {
         text-align: center;
-        font-size: 1rem;
-        font-weight: 400;
+        font-size: 1.17rem;
+        font-weight: 500;
         color: #231914;
         line-height: 2.17rem;
       }
@@ -892,7 +892,7 @@ export default {
 }
 .qualifications {
   .title {
-    margin-left: 1.33rem;
+    /*margin-left: 1.33rem;*/
     margin-top: 1.67rem;
     font-size: 1.17rem;
     font-weight: 500;

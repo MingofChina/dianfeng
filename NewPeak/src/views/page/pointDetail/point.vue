@@ -118,7 +118,7 @@ export default {
     font-size: 0.83rem;
     font-weight: 400;
     color: #ffffff;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     line-height: 0.98rem;
   }
 }

@@ -15,16 +15,10 @@
                 <h4>{{ bottom.free_phone }}</h4>
               </div>
               <div class="liebiao-1">
-<!--                <span>-->
-<!--                  <img style="width: 1rem;height: 1rem"-->
-<!--                       src="../assets/imgs/Vector.png"-->
-<!--                       alt="" />-->
-<!--                </span>-->
-<!--                <span style="font-size: 12px">服务热线</span>-->
                 <h4 style="margin-top: 17.5%">{{ bottom.company_phone }}</h4>
               </div>
             </div>
-            <div style="white-space:nowrap;"
+            <div
                  class="er">
               <ul>
                 <li>
@@ -44,8 +38,22 @@
                 </li>
               </ul>
             </div>
+              <div class="last">
+                  <ul class="second">
+                      <li class="content">
+                          <img class="info" :src="baseUrl+bottom.scenic_spot_treasure_url"
+                               alt="" />
+                          <p>景区工作宝典</p>
+                      </li>
+                      <li>
+                          <img class="info" :src="baseUrl+bottom.lvdou_number_url"
+                               alt="" />
+                          <p>旅豆学堂公众号</p>
+                      </li>
+                  </ul>
+              </div>
           </div>
-        </div>
+          </div>
         <div class="finish-2">
           <div class="fin-2-left">
             <div class="fin-2-right divhover"
@@ -93,6 +101,7 @@ export default {
     // 底部导航信息
     async BottomMessagefn () {
       let { data } = await BottomMessage({ id: 45 });
+        console.log(data,'dd')
       this.bottom = data.data;
     },
     ulrHref (data) {
@@ -119,7 +128,8 @@ export default {
     },
     // 底部导航信息
     async columnfn () {
-      let { data } = await column();
+      let { data } = await column()
+        console.log(data,'fff')
       this.top = data.data;
       // console.log(this.top);
     },
@@ -191,6 +201,7 @@ export default {
 .arrlist-2 div ul {
   // display: inline-block;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 0;
 }
@@ -200,6 +211,22 @@ export default {
   font-size: 20px;
   color: #fff;
   // margin-right: 1.5rem;
+}
+.arrlist-2 .last .second{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    margin-left: 15%;
+    margin-right: 15%;
+    justify-content: space-around;
+}
+.arrlist-2 .last .second .content{
+    text-align: left;
+    font-size: 20px;
+    color: #fff;
+}
+.arrlist-2 .last .second .content .info{
+    width: 8.875rem;
 }
 .arrlist-2 div ul li img {
   width: 8.875rem;

@@ -46,13 +46,7 @@
         </el-carousel-item>
       </el-carousel>
 
-      <!-- <div class="img"
-           v-for="(it,idx) in barInfo[openTitle].original_image"
-           :key="idx">
-        <img :src=getImgUrl(it.original_image)
-             alt="">
-        <div class="imgTitle">{{it.title}}</div>
-      </div> -->
+
     </div>
     <div class="foot">
       <div class="bar">
@@ -78,12 +72,6 @@
         </el-carousel-item>
       </el-carousel>
 
-      <!-- <div class="footImg"
-           v-for="(it,idx) in footBarInfo[openTitleOne].original_image"
-           :key="idx">
-        <img :src=getImgUrl(it.original_image)
-             alt="">
-      </div> -->
     </div>
   </div>
 </template>
@@ -171,7 +159,7 @@ export default {
     text-align: center;
     // left: 16.25rem;
     height: 1.25rem;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 0.83rem;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
@@ -249,10 +237,11 @@ export default {
       display: none;
     }
     .barNums {
-      margin-left: 1.33rem;
+      /*margin-left: 1.33rem;*/
       display: flex;
       .barTitle {
         width: 7.5rem;
+        text-align: center;
         height: 2rem;
         font-size: 1.17rem;
         font-weight: 400;
@@ -301,13 +290,14 @@ export default {
     .barNums {
       display: flex;
       .barTitle {
-        margin-left: 1.33rem;
+        /*margin-left: 1.33rem;*/
         width: 7.5rem;
+        text-align: center;
         height: 2.1rem;
         font-size: 1.17rem;
         font-weight: 400;
         color: #6e6e6e;
-        line-height: 1.37rem;
+        /*line-height: 1.37rem;*/
       }
       .active {
         width: 8rem;
@@ -317,8 +307,9 @@ export default {
         font-weight: bold;
       }
       .stick {
+        /*margin-top: 0.8rem;*/
         color: #231914;
-        margin: -0.3rem 1.33rem 0 1.33rem;
+        margin: 0.3rem 1.33rem 0 1.33rem;
       }
     }
   }

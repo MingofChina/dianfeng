@@ -196,7 +196,7 @@ export const constantRoutes = [{
                 name: 'us_h5',
                 component: us_h5,
                 meta: {
-                    title: '关于我们'
+                    title: '联系我们'
                 }
             },
             {

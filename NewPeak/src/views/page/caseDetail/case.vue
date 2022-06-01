@@ -5,7 +5,7 @@
            alt="">
       <div>
         <div class="cha">巅峰案例</div>
-        <div class="eng">Top Top case</div>
+        <div class="eng">Top case</div>
       </div>
     </div>
     <div class="teamBtn">
@@ -149,7 +149,7 @@ export default {
     font-size: 0.83rem;
     font-weight: 400;
     color: #ffffff;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     line-height: 0.98rem;
   }
 }

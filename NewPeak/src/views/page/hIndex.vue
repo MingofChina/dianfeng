@@ -205,7 +205,7 @@
 				</div>
 			</div>
 			<div class="btn">
-				<button class="work" @click="jumpAsk()">业务咨询</button>
+				<button class="work" @click="jumpAsk(brandName[chooseInfoOne].id)">业务咨询</button>
 				<button class="join" @click="jumpCompany()">加入我们</button>
 			</div>
 		</div>
@@ -435,8 +435,14 @@ export default {
 		jumpCompany() {
 			window.location.href = 'https://www.liepin.com/company/7884213';
 		},
-		jumpAsk() {
-			window.location.href = 'http://hh.davost.com/contactUs/31';
+		jumpAsk(info) {
+			console.log(info,'jj')
+			this.$router.push({
+				path:'/introduce_h5/5/0',
+				query:{
+					id: info
+				}
+			})
 		},
 		// 提交后清空数据
 		clearInfo() {
@@ -449,7 +455,11 @@ export default {
 </script>
 <style scoped lang="less">
 .content {
+    margin: 0;
+    padding: 0;
 	img {
+        margin: 0;
+        padding: 0;
 		width: 100%;
 		/*height: 30vh;*/
 	}
@@ -493,7 +503,7 @@ export default {
 		margin-left: 0.35rem;
 		width: 2px;
 		height: 5.58rem;
-		border-left: 0.08rem solid #f4f4f4;
+		border-left: 0.08rem solid #f0f0f0;
 	}
 	.right {
 		display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
@@ -776,6 +786,7 @@ export default {
 				}
 			}
 			.stick {
+				margin-top: 0.15rem;
 				color: #231914;
 				margin-right: 1.33rem;
 			}

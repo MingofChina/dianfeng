@@ -171,7 +171,7 @@ export default {
     // left: 16.25rem;
     height: 1.25rem;
     font-size: 0.83rem;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
     color: #ffffff;

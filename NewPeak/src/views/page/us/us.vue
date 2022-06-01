@@ -138,7 +138,7 @@ export default {
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
     color: #ffffff;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     line-height: 0.98rem;
   }
 }

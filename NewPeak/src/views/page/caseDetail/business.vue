@@ -92,6 +92,7 @@ export default {
       imgGroup: '',
       changeColor: 0,
       pages: 1,
+      busId:'',
     }
   },
   // watch: {
@@ -101,6 +102,9 @@ export default {
   // },
   created () {
     console.log(this.$route.query.id, '8888');
+    // if(!this.busId){
+    //   this.busId = this.$route.query.id
+    // }
     this.getList()
   },
   methods: {
@@ -117,6 +121,18 @@ export default {
         this.btnInfo = res.data.data.business_detail
       })
     },
+    jumpInfo(info){
+      // console.log(info,'jj')
+      // this.busId = info
+      this.$router.push({
+        path:'/caseDetail_h5',
+        query:{
+          id:info
+        }
+      })
+      // this.getList()
+      // this.topFn()
+    },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
     },
@@ -125,16 +141,22 @@ export default {
       this.changeColor = i
       console.log(i, 'nnn', info);
     },
-    jumpInfo(info){
-      console.log(info,'jj')
-      let routeUrl = this.$router.resolve({
-        path: '/business_h5',
-        query: {
-          id: info
-        }
-      })
-      window.open(routeUrl.href, '_blank')
-    }
+    topFn () {
+      if (this.isHidden == 2) {
+        console.log('pc');
+        document.documentElement.scrollTop = 0
+      } else if (this.isHidden == 1) {
+        console.log('移动');
+        let top = document.documentElement.scrollTop || document.body.scrollTop
+        // 实现滚动效果
+        const timeTop = setInterval(() => {
+          document.body.scrollTop = document.documentElement.scrollTop = top -= 50
+          if (top <= 0) {
+            clearInterval(timeTop)
+          }
+        }, 10)
+      }
+    },
   }
 }
 </script>
