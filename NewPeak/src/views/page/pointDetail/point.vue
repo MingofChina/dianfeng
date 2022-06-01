@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="showImg">
       <img src="../../../assets/imgs/point.png"
            alt="">

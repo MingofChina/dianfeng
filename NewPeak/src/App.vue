@@ -31,10 +31,14 @@
   }
 </script>
 <style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
 body{
   width: 100%;
   height: 100%;
-   margin: 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
 /* #app{

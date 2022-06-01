@@ -1,6 +1,8 @@
 
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="showImg">
       <img src="../../../assets/imgs/union.png"
            alt="">
@@ -21,8 +23,7 @@
         <el-carousel arrow="never"
                      ref="cardShow"
                      :autoplay="false"
-                     indicator-position="none"
-                     >
+                     indicator-position="none">
           <el-carousel-item v-for="(it,idx) in unionInfo[i].original_image"
                             :key="idx">
             <img :src=getImgUrl(it.original_image)
@@ -30,8 +31,14 @@
           </el-carousel-item>
         </el-carousel>
         <div class="btn">
-          <img class="left" src="../../../assets/imgs/focLeft.png" alt="" @click="imgInfo('left',i)">
-          <img class="right" src="../../../assets/imgs/focRight.png" alt="" @click="imgInfo('right',i)">
+          <img class="left"
+               src="../../../assets/imgs/focLeft.png"
+               alt=""
+               @click="imgInfo('left',i)">
+          <img class="right"
+               src="../../../assets/imgs/focRight.png"
+               alt=""
+               @click="imgInfo('right',i)">
         </div>
       </div>
       <div class="news"
@@ -104,8 +111,8 @@ export default {
         this.unionInfo = res.data.data.union
       })
     },
-    imgInfo(info,i){
-      console.log(this.$refs.cardShow[i],'hhhh',i)
+    imgInfo (info, i) {
+      console.log(this.$refs.cardShow[i], 'hhhh', i)
       if (info === 'right') {
         this.$refs.cardShow[i].next()
       } else {
@@ -203,24 +210,24 @@ export default {
     margin-top: 1rem;
     margin-bottom: 1.33rem;
     position: relative;
-    .btn{
+    .btn {
       z-index: 99;
-      img{
+      img {
         margin-right: 0.8rem;
         width: 2rem;
         height: 2rem;
       }
-      .left{
+      .left {
         position: absolute;
         z-index: 99;
         top: 48%;
         left: 1rem;
       }
-      .right{
+      .right {
         position: absolute;
         z-index: 99;
         top: 48%;
-        right:1rem
+        right: 1rem;
       }
     }
     // width: 100%;

@@ -6,11 +6,9 @@
           <div class="arrlist-2">
             <div class="second">
               <div class="liebiao-1">
-                <span>
-                  <img style="width: 1rem;height: 1rem"
+                <span><img style="width: 1rem;height: 1rem"
                        src="../assets/imgs/Vector.png"
-                       alt="" />
-                </span>
+                       alt="" /></span>
                 <span style="font-size: 12px">全国服务热线</span>
                 <h4>{{ bottom.free_phone }}</h4>
               </div>
@@ -18,7 +16,7 @@
                 <h4 style="margin-top: 17.5%">{{ bottom.company_phone }}</h4>
               </div>
             </div>
-            <div
+            <!-- <div
                  class="er">
               <ul>
                 <li>
@@ -37,23 +35,46 @@
                   <p>关注公众号</p>
                 </li>
               </ul>
-            </div>
-              <div class="last">
-                  <ul class="second">
-                      <li class="content">
-                          <img class="info" :src="baseUrl+bottom.scenic_spot_treasure_url"
-                               alt="" />
-                          <p>景区工作宝典</p>
-                      </li>
-                      <li>
-                          <img class="info" :src="baseUrl+bottom.lvdou_number_url"
-                               alt="" />
-                          <p>旅豆学堂公众号</p>
-                      </li>
-                  </ul>
+            </div> -->
+            <div class="contact">
+              <div class="contactImg">
+                <img :src="baseUrl + bottom.applet_url" />
+                <p>关注小程序</p>
               </div>
+              <div class="contactImg">
+                <img :src="baseUrl + bottom.video_number_url" />
+                <p>关注视频号</p>
+              </div>
+              <div class="contactImg">
+                <img :src="baseUrl + bottom.public_number_url" />
+                <p>关注公众号</p>
+              </div>
+            </div>
+            <div class="contact"
+                 style="display: flex;justify-content: space-around;margin-top: 8vw;">
+              <div class="contactImg">
+                <img :src="baseUrl + bottom.scenic_spot_treasure_url" />
+                <p>景区工作宝典</p>
+              </div>
+              <div class="contactImg">
+                <img :src="baseUrl + bottom.lvdou_number_url" />
+                <p>旅豆学堂公众号</p>
+              </div>
+            </div>
+            <!-- 	<div class="last">
+							<ul class="second">
+								<li class="content">
+									<img class="info" :src="baseUrl + bottom.scenic_spot_treasure_url" alt="" />
+									<p>景区工作宝典</p>
+								</li>
+								<li>
+									<img class="info" :src="baseUrl + bottom.lvdou_number_url" alt="" />
+									<p>旅豆学堂公众号</p>
+								</li>
+							</ul>
+						</div> -->
           </div>
-          </div>
+        </div>
         <div class="finish-2">
           <div class="fin-2-left">
             <div class="fin-2-right divhover"
@@ -70,12 +91,11 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import { column, BottomMessage } from "@/api/api";
+import { column, BottomMessage } from '@/api/api';
 export default {
   data () {
     return {
@@ -91,25 +111,24 @@ export default {
   },
   methods: {
     topFn () {
-      document.documentElement.scrollTop = 0
+      document.documentElement.scrollTop = 0;
     },
     law () {
       this.$router.push({
-        path: '/introduce_h5/5/1',
-      })
+        path: '/introduce_h5/5/1'
+      });
     },
     // 底部导航信息
     async BottomMessagefn () {
       let { data } = await BottomMessage({ id: 45 });
-        console.log(data,'dd')
+      console.log(data, 'dd');
       this.bottom = data.data;
     },
     ulrHref (data) {
       if (data == 1) {
-        location.href = 'https://beian.miit.gov.cn/#/Integrated/index'
+        location.href = 'https://beian.miit.gov.cn/#/Integrated/index';
       } else {
-        location.href = 'https://www.jtnfa.com/'
-
+        location.href = 'https://www.jtnfa.com/';
       }
     },
     tositeMap () {
@@ -128,8 +147,8 @@ export default {
     },
     // 底部导航信息
     async columnfn () {
-      let { data } = await column()
-        console.log(data,'fff')
+      let { data } = await column();
+      console.log(data, 'fff');
       this.top = data.data;
       // console.log(this.top);
     },
@@ -140,19 +159,18 @@ export default {
           path: `/peakBusiness/${data.childcontent[0].id}`
         });
         window.open(routeUrl.href, '_blank');
-        return
+        return;
       } else if (index1 == 2) {
-        sessionStorage.setItem('peakCasesId', data.id)
+        sessionStorage.setItem('peakCasesId', data.id);
         // this.$router.push(`/peakCases/${data.id}`)
         let routeUrl = this.$router.resolve({
           path: `/peakCases/${data.id}`
         });
         window.open(routeUrl.href, '_blank');
       } else if (index1 == 4) {
-
       } else {
         if (index1 == 0 && index == 5) {
-          location.href = data.url
+          location.href = data.url;
         } else {
           // this.$router.push(`/${data.url}/${data.id}`) ;
           let routeUrl = this.$router.resolve({
@@ -160,15 +178,27 @@ export default {
           });
           window.open(routeUrl.href, '_blank');
         }
-
       }
-
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style  scoped lang="less">
+<style scoped lang="less">
+.contact {
+  // width: 100%;
+  display: flex;
+  margin-left: 1.33rem;
+  margin-right: 1.33rem;
+  justify-content: space-between;
+}
+.contactImg {
+  width: 30%;
+  text-align: center;
+}
+.contactImg img {
+  width: 100%;
+}
 .divhover:hover {
   color: #fff;
 }
@@ -188,8 +218,8 @@ export default {
   // background-color: #fff;
 }
 .finish-1 {
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
+  // margin: 0 auto;
   /*padding-left: 1rem;*/
   /*padding-top:1.875rem;*/
   // display: flex;
@@ -212,21 +242,21 @@ export default {
   color: #fff;
   // margin-right: 1.5rem;
 }
-.arrlist-2 .last .second{
-    list-style: none;
-    padding: 0;
-    display: flex;
-    margin-left: 15%;
-    margin-right: 15%;
-    justify-content: space-around;
+.arrlist-2 .last .second {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin-left: 15%;
+  margin-right: 15%;
+  justify-content: space-around;
 }
-.arrlist-2 .last .second .content{
-    text-align: left;
-    font-size: 20px;
-    color: #fff;
+.arrlist-2 .last .second .content {
+  text-align: left;
+  font-size: 20px;
+  color: #fff;
 }
-.arrlist-2 .last .second .content .info{
-    width: 8.875rem;
+.arrlist-2 .last .second .content .info {
+  width: 8.875rem;
 }
 .arrlist-2 div ul li img {
   width: 8.875rem;
@@ -239,6 +269,8 @@ export default {
 }
 .second {
   display: flex;
+  margin-left: 1.33rem;
+  margin-right: 1.33rem;
   justify-content: space-between;
 }
 .second div {

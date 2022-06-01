@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="showImg">
       <img src="../../../assets/imgs/introduce.png"
            alt="">
@@ -83,7 +85,7 @@
       <div style="display: flex;">
         <div style="position: relative;">
 
-          <div style="border-right: 1px  solid #FFFFFF;height: 174px;width: 64px;position: relative;margin-top: 20px;">
+          <div style="border-right: 1px  solid #FFFFFF;height: 90%;width: 64px;position: relative;margin-top: 20px;">
             <div v-for="(item,index) in  datelist"
                  :key="index">
               <div class="datalist-style"
@@ -104,7 +106,7 @@
           <div class="message-info"
                style="">{{infos}}</div>
           <img :src=getImgUrl(scrs)
-               style="margin-top: 0.6rem;margin-left: 1.25rem;width: 80%;height:11rem" />
+               style="margin-top: 0%;margin-left: 1.25rem;width: 80%;height:55%" />
         </div>
       </div>
       <div style="position: relative;width: 100%;margin-top: 10px;height: 20px;width: 100%;">
@@ -115,7 +117,7 @@
 
       <div style="display: flex;justify-content: center;margin-top: 1rem;">
         <div style="width: 90%; display: flex;justify-content: space-between;">
-          <div style="display: flex;flex-flow: column-reverse;margin-bottom: 5px;">
+          <div style="display: flex;flex-flow: column-reverse;margin-bottom: 1%;">
             <img src="../../../assets/imgs/leftarrows.png"
                  style="width: 2.22rem;height: 2.22rem;"
                  @click="leftyears" />
@@ -136,7 +138,7 @@
               </div>
             </div>
           </div>
-          <div style="display: flex;flex-flow: column-reverse;margin-bottom: 5px;">
+          <div style="display: flex;flex-flow: column-reverse;">
             <img src="../../../assets/imgs/rightarrows.png"
                  style="width: 2.22rem;height: 2.22rem;"
                  @click="rightyear" />
@@ -169,8 +171,7 @@
       </div>
     </div>
     <div class="qualifications">
-      <div class="title"
-           style="font-size: 1.17rem;font-family: Source Han Sans CN-Medium, Source Han Sans CN;font-weight: 600;color: #231914;margin-top: 20px;">企业资质</div>
+      <div class="title">企业资质</div>
       <ul class="qua">
         <li class="quaNums"
             v-for="(items,index1) in quaArr"
@@ -529,10 +530,10 @@ export default {
 }
 .backgroun-styles {
   background-image: url(../../../assets/imgs/background.png);
-  background-size: 300px;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 35.25rem;
+  height: 51vh;
   width: 100%;
   margin-top: 30px;
 }
@@ -547,7 +548,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 83%;
-  height: 5.2rem;
+  height: 30%;
 }
 
 .showImg {
@@ -892,7 +893,7 @@ export default {
 }
 .qualifications {
   .title {
-    /*margin-left: 1.33rem;*/
+    margin-left: 1.33rem;
     margin-top: 1.67rem;
     font-size: 1.17rem;
     font-weight: 500;
@@ -909,19 +910,20 @@ export default {
     margin-left: 1.33rem;
     margin-right: 1.33rem;
     .quaNums {
-      width: 15.83rem;
+      width: 45%;
       margin-top: 0.67rem;
       margin-bottom: 1rem;
-      .title{
+      .title {
+        margin: 0;
         text-align: center;
       }
       .quaImg {
-        width: 15.8rem;
+        width: 100%;
         height: 11.33rem;
         background-color: #fff;
         border: 0.08rem solid #cacaca;
         img {
-          margin-left: 0.75rem;
+          margin-left: 5%;
           margin-right: 0.75rem;
           margin-top: 0.67rem;
           width: 90%;

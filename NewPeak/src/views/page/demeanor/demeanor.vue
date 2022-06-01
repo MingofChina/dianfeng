@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="showImg">
       <img src="../../../assets/imgs/fengCai.png"
            alt="" />
@@ -45,7 +47,6 @@
           <!-- <div class="imgTitle">{{it.title}}</div> -->
         </el-carousel-item>
       </el-carousel>
-
 
     </div>
     <div class="foot">
@@ -125,13 +126,13 @@ export default {
 };
 </script>
 <style lang="less" scoped>
- /deep/ .el-carousel__arrow--left{
-    left: 1.3rem;
-  }
- /deep/ .el-carousel__arrow{
-   width: 2.5rem;
-   height: 2.5rem;
- }
+/deep/ .el-carousel__arrow--left {
+  left: 1.3rem;
+}
+/deep/ .el-carousel__arrow {
+  width: 2.5rem;
+  height: 2.5rem;
+}
 .showImg {
   position: relative;
   img {

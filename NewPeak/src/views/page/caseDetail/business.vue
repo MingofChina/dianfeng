@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="teamBtn">
       <button class="btn"
               v-for="(item,i) in btnInfo"
@@ -17,7 +19,8 @@
            v-html="btnInfo[changeColor].description"></div>
     </div>
     <div class="law">
-      <div class="viTitle" v-show="this.imgGroup.length>0?true:false">
+      <div class="viTitle"
+           v-show="this.imgGroup.length>0?true:false">
         <div class="stork">|</div>
         <div class="title">经典案例</div>
       </div>
@@ -25,8 +28,7 @@
         <li class="imgs"
             v-for="(item,i) in imgGroup"
             :key="i"
-            @click="jumpInfo(item.id)"
-        >
+            @click="jumpInfo(item.id)">
           <img :src=getImgUrl(item.original_image)
                alt="">
           <div class="title">{{item.title}}</div>
@@ -36,7 +38,8 @@
       </ul>
     </div>
     <div class="viewFoot">
-      <div class="viTitle" v-show="this.recommend.length>0?true:false">
+      <div class="viTitle"
+           v-show="this.recommend.length>0?true:false">
         <div class="stork">|</div>
         <div class="title">延伸阅读</div>
       </div>
@@ -45,7 +48,8 @@
            :key="i">
         <img :src=getImgUrl(item.original_image)
              alt="">
-        <div class="infoCon" @click="jumpInfo(item.id)">
+        <div class="infoCon"
+             @click="jumpInfo(item.id)">
           <div class="title">{{item.title}}</div>
           <div class="mes">{{item.summary}}</div>
           <span v-show="item.summary.length<40?false:true">...</span>
@@ -92,7 +96,7 @@ export default {
       imgGroup: '',
       changeColor: 0,
       pages: 1,
-      busId:'',
+      busId: '',
     }
   },
   // watch: {
@@ -121,13 +125,13 @@ export default {
         this.btnInfo = res.data.data.business_detail
       })
     },
-    jumpInfo(info){
+    jumpInfo (info) {
       // console.log(info,'jj')
       // this.busId = info
       this.$router.push({
-        path:'/caseDetail_h5',
-        query:{
-          id:info
+        path: '/caseDetail_h5',
+        query: {
+          id: info
         }
       })
       // this.getList()

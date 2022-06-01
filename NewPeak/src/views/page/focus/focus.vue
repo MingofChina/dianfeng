@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="showImg">
       <img src="../../../assets/imgs/focusBg.png"
            alt="">
@@ -25,8 +27,14 @@
           </el-carousel-item>
         </el-carousel>
         <div class="btn">
-          <img class="left" src="../../../assets/imgs/focLeft.png" alt="" @click="imgInfo('left')">
-          <img class="right" src="../../../assets/imgs/focRight.png" alt="" @click="imgInfo('right')">
+          <img class="left"
+               src="../../../assets/imgs/focLeft.png"
+               alt=""
+               @click="imgInfo('left')">
+          <img class="right"
+               src="../../../assets/imgs/focRight.png"
+               alt=""
+               @click="imgInfo('right')">
         </div>
       </div>
     </div>
@@ -93,7 +101,7 @@ export default {
       }
       bottom_h5(data).then((res) => {
         this.econInfo = res.data.data.peak_news
-        this.total= res.data.data.page_numbers*10
+        this.total = res.data.data.page_numbers * 10
         console.log(res, '瞅你那逼样');
       })
     },
@@ -110,7 +118,7 @@ export default {
       })
       console.log('跳转go', info);
     },
-    imgInfo(info){
+    imgInfo (info) {
       if (info === 'right') {
         this.$refs.cardShow.next()
       } else {
@@ -194,24 +202,24 @@ export default {
     margin-left: 1.33rem;
     // margin-right: 1.33rem;
     margin-top: 1rem;
-    .btn{
+    .btn {
       z-index: 99;
-      img{
+      img {
         margin-right: 0.8rem;
         width: 2rem;
         height: 2rem;
       }
-      .left{
+      .left {
         position: absolute;
         z-index: 99;
         top: 47%;
         left: 1rem;
       }
-      .right{
+      .right {
         position: absolute;
         z-index: 99;
         top: 47%;
-        right:1rem
+        right: 1rem;
       }
     }
     img {

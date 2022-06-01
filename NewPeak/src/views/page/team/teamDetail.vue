@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="main">
       <div class="head">
         <img :src=getImgUrl(picture)
@@ -140,7 +142,7 @@ export default {
     color: #231914;
     line-height: 1.37rem;
   }
-  .title{
+  .title {
     font-weight: 800;
   }
   .listInfo {

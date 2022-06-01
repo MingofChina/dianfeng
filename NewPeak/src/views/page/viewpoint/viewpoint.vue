@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="head">
       <div class="viewTitle">{{booksDetail.title}}</div>
       <div class="con">
