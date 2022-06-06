@@ -122,100 +122,11 @@ export default {
         },
         {
           firstName: '巅峰业务',
-          second: [
-            // {
-            //   name: '规划设计',
-            //   third: [
-            //     { title: '文旅发展规划' },
-            //     { title: '详细规划' },
-            //     { title: '全域旅游规划' },
-            //     { title: '度假区创建辅导' },
-            //     { title: '建筑与景观设计' },
-            //     { title: '全域旅游创建辅导' },
-            //     { title: '5A景区创建辅导' },
-            //     { title: '文旅开发策划规划' },
-            //     { title: '乡村振兴旅游规划' },
-            //     { title: '景区/度假区策划规定' },
-            //   ],
-            // },
-            // {
-            //   name: '运营招商',
-            //   third: [
-            //     { title: '景区运营' },
-            //     { title: '招商管理' },
-            //     { title: '技术咨询' },
-            //     { title: '活动营销' },
-            //     { title: '文旅好IP' },
-            //   ],
-            // },
-            // {
-            //   name: 'EPC建设',
-            //   third: [
-            //     { title: '落地建设' },
-            //   ],
-            // },
-            // {
-            //   name: '光影夜游',
-            //   third: [
-            //     { title: '光影演艺' },
-            //     { title: '夜游空间秀' },
-            //     { title: '光影节秀' },
-            //     { title: '奇幻光乐园' },
-            //   ],
-            // },
-            // {
-            //   name: '文创设计',
-            //   third: [
-            //     { title: '品牌IP' },
-            //     { title: '标识导视' },
-            //     { title: '展览展陈' },
-            //     { title: '文创景观' },
-            //     { title: '文创产品' },
-            //   ],
-            // },
-            // {
-            //   name: '文旅教育',
-            //   third: [
-            //     { title: '文旅沙龙' },
-            //     { title: '企业数字化' },
-            //     { title: '案例探访' },
-            //     { title: '定制服务介绍' },
-            //     { title: '专题培训' },
-            //     { title: '全域旅游创建' },
-            //     { title: '景区网校' },
-            //     { title: '共建学院' },
-            //   ],
-            // },
-            // {
-            //   name: '品牌营销',
-            //   third: [
-            //     { title: '品牌营销策划' },
-            //     { title: '大型节事活动' },
-            //     { title: '央视广告投放' },
-            //     { title: '乡村振兴文艺活动' },
-            //   ],
-            // },
-            // {
-            //   name: '绿心公社',
-            //   third: [
-            //     { title: '生态农庄' },
-            //     { title: '亲子乐园' },
-            //     { title: '营地驿站' },
-            //     { title: '民宿产品' },
-            //   ],
-            // },
-          ]
+          second: []
         },
         {
           firstName: '巅峰案例',
-          second: [
-            // {
-            //   secondTitle: '业务详情',
-            // },
-            {
-              name: '巅峰案例',
-            },
-          ]
+          second: []
         },
         {
           firstName: '巅峰观点',
@@ -241,12 +152,12 @@ export default {
         {
           firstName: '联系我们',
           second: [
-            {
-              name: '联系我们',
-            },
-            {
-              name: '法律声明',
-            }
+            // {
+            //   name: '联系我们',
+            // },
+            // {
+            //   name: '法律声明',
+            // }
           ]
         },
       ],
@@ -295,6 +206,12 @@ export default {
       this.idx = this.idx == index ? -1 : index
       if (index == 4) {
         window.location.href = 'https://www.douschool.com/'
+      } else if (index == 2) {
+        this.$router.replace(`/introduce_h5/${index}`)
+        this.closeMenu()
+      }else if(index==5){
+        this.$router.replace(`introduce_h5/${index}`)
+        this.closeMenu()
       }
     },
     jumpSecond (i, idx) {

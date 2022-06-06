@@ -8,7 +8,8 @@
               :key="i"
               :class="changeColor == i?'active':''"
               @click="jump(i,item.id)">{{item.title}}</button>
-
+      <button class="btn"  @click="positionLocal()">经典案例</button>
+      <button class="btn"  @click="positionLocalInfo()">延伸阅读</button>
     </div>
     <div class="law">
       <!-- <div class="viTitle">
@@ -18,7 +19,7 @@
       <div class="contenter"
            v-html="btnInfo[changeColor].description"></div>
     </div>
-    <div class="law">
+    <div class="law" ref="case">
       <div class="viTitle"
            v-show="this.imgGroup.length>0?true:false">
         <div class="stork">|</div>
@@ -37,7 +38,7 @@
         </li>
       </ul>
     </div>
-    <div class="viewFoot">
+    <div class="viewFoot" ref="read">
       <div class="viTitle"
            v-show="this.recommend.length>0?true:false">
         <div class="stork">|</div>
@@ -125,6 +126,14 @@ export default {
         this.btnInfo = res.data.data.business_detail
       })
     },
+    positionLocal(){
+      let a = this.$refs.case
+      a.scrollIntoView()
+    },
+    positionLocalInfo(){
+      let a = this.$refs.read
+      a.scrollIntoView()
+    },
     jumpInfo (info) {
       // console.log(info,'jj')
       // this.busId = info
@@ -171,10 +180,14 @@ export default {
   white-space: nowrap;
   width: 96%;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .btn {
     width: 8rem;
     height: 2.67rem;
     background: #fff;
+    color: #000;
     border: 0.08rem solid #cacaca;
     // margin-left: 2rem;
     margin-right: 2rem;

@@ -402,3 +402,10 @@ export function alliance_h5(query) {
         params: query
     })
 }
+export function banner_h5(query) {
+    return request({
+        url: 'api/Commons/Banner',
+        method: 'post',
+        params: query
+    })
+}

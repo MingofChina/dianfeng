@@ -3,11 +3,20 @@
        style="width: 100vw;
     overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/work.png"
-           alt="">
+<!--      <img src="../../../assets/imgs/work.png"-->
+<!--           alt="">-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">巅峰著作</div>
-        <div class="eng">Professional work</div>
+<!--        <div class="cha">巅峰著作</div>-->
+<!--        <div class="eng">Professional work</div>-->
       </div>
     </div>
     <div class="content"
@@ -31,10 +40,11 @@
   </div>
 </template>
 <script>
-import { books_h5 } from "../../../api/api.js";
+import { books_h5,banner_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
+      bannerList:'',
       searchInfo: '',
       baseUrl: 'http://ceshi.davost.com',
       total: 0,
@@ -44,6 +54,7 @@ export default {
   },
   created () {
     this.getList()
+    this.getBanner()
   },
   methods: {
     getList () {
@@ -55,6 +66,12 @@ export default {
         console.log(res, '著作');
         this.searchInfo = res.data.data.books
         this.total = 10 * res.data.data.books_pages_number
+      })
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
       })
     },
     onPageChange (e) {
@@ -82,6 +99,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     position: absolute;

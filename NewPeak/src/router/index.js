@@ -144,7 +144,7 @@ export const constantRoutes = [{
                 }
             },
             {
-                path: 'introduce_h5/2/0',
+                path: 'introduce_h5/2',
                 name: 'case_h5',
                 component: case_h5,
                 meta: {
@@ -192,7 +192,7 @@ export const constantRoutes = [{
                 }
             },
             {
-                path: 'introduce_h5/5/0',
+                path: 'introduce_h5/5',
                 name: 'us_h5',
                 component: us_h5,
                 meta: {

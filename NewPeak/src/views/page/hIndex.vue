@@ -1,9 +1,19 @@
 <template>
   <div id="app"
        style="width: 100vw;
-    overflow-x: hidden;">
-    <div class="content"><img src="../../assets/imgs/bg1.png"
-           alt="" /></div>
+    overflow-x: hidden;-webkit-text-size-adjust: none;">
+    <div class="content">
+<!--        <img src="../../assets/imgs/bg1.png" alt="" />-->
+        <el-carousel arrow="never"
+                     :autoplay="false"
+                     >
+            <el-carousel-item v-for="(it, idx) in bannerList"
+                              :key="idx">
+                <img :src="getImgUrl(it.original_image)"
+                     alt="" />
+            </el-carousel-item>
+        </el-carousel>
+    </div>
     <div class="title">中国文旅产业</div>
     <div class="describe">乡村振兴领先的全过程服务商</div>
 
@@ -38,14 +48,14 @@
 
     <!--second-->
     <div class="views">
-      <div class="zero">
+      <div class="zero"
+           @click="jumpPlan(views[0].childcontent[0].id)">
         <img :src="getImgUrl(this.views[0].original_image)"
              alt="" />
         <div class="meg">
           <div class="megTitle">{{ this.views[0].name }}</div>
           <div class="megLotImg">
-            <div class="lot"
-                 @click="jumpPlan(views[0].childcontent[0].id)">查看更多</div>
+            <div class="lot">查看更多</div>
             <img style="color: #FFF"
                  src="../../assets/imgs/mask.png"
                  alt="" />
@@ -54,14 +64,14 @@
       </div>
     </div>
     <div class="views">
-      <div class="zero">
+      <div class="zero"
+           @click="jumpPlan(views[1].childcontent[0].id)">
         <img :src="getImgUrl(this.views[1].original_image)"
              alt="" />
         <div class="meg">
           <div class="megTitle">{{ this.views[1].name }}</div>
           <div class="megLotImg">
-            <div class="lot"
-                 @click="jumpPlan(views[1].childcontent[0].id)">查看更多</div>
+            <div class="lot">查看更多</div>
             <img style="color: #FFF"
                  src="../../assets/imgs/mask.png"
                  alt="" />
@@ -69,28 +79,28 @@
         </div>
       </div>
       <div class="son">
-        <div class="first">
+        <div class="first"
+             @click="jumpPlan(views[2].childcontent[0].id)">
           <img :src="getImgUrl(this.views[2].original_image)"
                alt="" />
           <div class="meg">
             <div class="megTitle">{{ this.views[2].name }}</div>
             <div class="megLotImg">
-              <div class="lot"
-                   @click="jumpPlan(views[2].childcontent[0].id)">查看更多</div>
+              <div class="lot">查看更多</div>
               <img style="color: #FFF"
                    src="../../assets/imgs/mask.png"
                    alt="" />
             </div>
           </div>
         </div>
-        <div class="second">
+        <div class="second"
+             @click="jumpPlan(views[3].childcontent[0].id)">
           <img :src="getImgUrl(this.views[3].original_image)"
                alt="" />
           <div class="meg">
             <div class="megTitle">{{ this.views[3].name }}</div>
             <div class="megLotImg">
-              <div class="lot"
-                   @click="jumpPlan(views[3].childcontent[0].id)">查看更多</div>
+              <div class="lot">查看更多</div>
               <img style="color: #FFF"
                    src="../../assets/imgs/mask.png"
                    alt="" />
@@ -101,14 +111,14 @@
     </div>
 
     <div class="views">
-      <div class="zero">
+      <div class="zero"
+           @click="jumpPlan(views[4].childcontent[0].id)">
         <img :src="getImgUrl(this.views[4].original_image)"
              alt="" />
         <div class="meg">
           <div class="megTitle">{{ this.views[4].name }}</div>
           <div class="megLotImg">
-            <div class="lot"
-                 @click="jumpPlan(views[4].childcontent[0].id)">查看更多</div>
+            <div class="lot">查看更多</div>
             <img style="color: #FFF"
                  src="../../assets/imgs/mask.png"
                  alt="" />
@@ -116,28 +126,28 @@
         </div>
       </div>
       <div class="son">
-        <div class="first">
+        <div class="first"
+             @click="jumpPlan(views[5].childcontent[0].id)">
           <img :src="getImgUrl(this.views[5].original_image)"
                alt="" />
           <div class="meg">
             <div class="megTitle">{{ this.views[5].name }}</div>
             <div class="megLotImg">
-              <div class="lot"
-                   @click="jumpPlan(views[5].childcontent[0].id)">查看更多</div>
+              <div class="lot">查看更多</div>
               <img style="color: #FFF"
                    src="../../assets/imgs/mask.png"
                    alt="" />
             </div>
           </div>
         </div>
-        <div class="second">
+        <div class="second"
+             @click="jumpPlan(views[6].childcontent[0].id)">
           <img :src="getImgUrl(this.views[6].original_image)"
                alt="" />
           <div class="meg">
             <div class="megTitle">{{ this.views[6].name }}</div>
             <div class="megLotImg">
-              <div class="lot"
-                   @click="jumpPlan(views[6].childcontent[0].id)">查看更多</div>
+              <div class="lot">查看更多</div>
               <img style="color: #FFF"
                    src="../../assets/imgs/mask.png"
                    alt="" />
@@ -179,7 +189,7 @@
                alt="" />
           <div class="title">{{ item.title }}</div>
           <div class="message">{{ item.summary }}</div>
-          <span v-show="item.summary.length < 40 ? false : true">...</span>
+          <!-- <span v-show="item.summary.length < 40 ? false : true">...</span> -->
         </li>
       </ul>
     </div>
@@ -197,7 +207,8 @@
       </div>
       <div class="showImg"
            v-for="(item, i) in news"
-           :key="i">
+           :key="i"
+           @click="newJump(item.id)">
         <div class="num">{{ item.add_date.substring(item.add_date.length - 2) }}</div>
         <div class="date">{{ item.add_date }}</div>
         <div class="imgTitle">{{ item.title }}</div>
@@ -206,7 +217,6 @@
                alt="" /></div>
         <br />
         <div class="second"><img src="../../assets/imgs/detail.png"
-               @click="newJump(item.id)"
                alt="" /></div>
       </div>
     </div>
@@ -310,7 +320,7 @@
   </div>
 </template>
 <script>
-import { subForm, index_h5 } from '../../api/api.js';
+import { subForm, index_h5, banner_h5 } from '../../api/api.js';
 export default {
   data () {
     return {
@@ -402,11 +412,13 @@ export default {
         //   message: '麻姑山景区位于江西省抚州市南城县，距离南城县城...'
         // }
       ],
+      bannerList:[],
       allList: []
     };
   },
   created () {
     this.getList();
+    this.getBanner()
   },
   methods: {
     getList () {
@@ -421,6 +433,12 @@ export default {
         let id = this.introduce[0].id;
         this.imgGroup = res.data.data.product.filter(item => item.business_ids == id).splice(0, 4);
       });
+    },
+    getBanner () {
+      banner_h5().then(res => {
+          this.bannerList = res.data.data
+        console.log(res, 'ggggf');
+      })
     },
     jump (i, info) {
       let id = info.id;
@@ -514,7 +532,7 @@ export default {
     jumpAsk (info) {
       console.log(info, 'jj')
       this.$router.push({
-        path: '/introduce_h5/5/0',
+        path: '/introduce_h5/5',
         query: {
           id: info
         }
@@ -537,6 +555,7 @@ export default {
     margin: 0;
     padding: 0;
     width: 100%;
+    height: 100%;
     /*height: 30vh;*/
   }
   p {
@@ -568,6 +587,7 @@ export default {
     color: #231914;
     font-weight: bold;
     font-size: 0.8675rem;
+    -webkit-text-size-adjust: none;
     margin-left: 0.7rem;
     margin-bottom: 0.5rem;
     float: left;
@@ -583,6 +603,7 @@ export default {
     color: #231914;
     font-weight: bold;
     font-size: 0.8675rem;
+    -webkit-text-size-adjust: none;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
     /*float: right;*/
@@ -610,6 +631,7 @@ export default {
     .megTitle {
       padding-top: 0.75rem;
       color: #ffffff;
+      -webkit-text-size-adjust: none;
       font-size: 1rem;
       font-weight: 300;
       margin-left: 1rem;
@@ -618,6 +640,7 @@ export default {
     .meglotImg {
       display: flex;
       .lot {
+        -webkit-text-size-adjust: none;
         margin-left: 1rem;
         color: #ffffff;
         font-size: 1.8rem;
@@ -662,19 +685,22 @@ export default {
       background: rgba(0, 0, 0, 0.5);
       z-index: 2;
       .megTitle {
+        // -webkit-text-size-adjust: none;
         padding-top: 0.75rem;
         color: #ffffff;
-        font-size: 1.3rem;
-        font-weight: 500;
+        font-size: 1.1rem;
+        // font-weight: 500;
         margin-left: 1rem;
         opacity: 0.9;
       }
       .megLotImg {
         display: flex;
         .lot {
+          margin-top: 0.5%;
+          -webkit-text-size-adjust: none;
           color: #ffffff;
-          font-size: 1.2rem;
-          font-weight: 400;
+          font-size: 1rem;
+          // font-weight: 400;
           margin-left: 1rem;
           opacity: 0.7;
         }
@@ -718,7 +744,7 @@ export default {
         .megTitle {
           padding-top: 0.75rem;
           color: #ffffff;
-          font-size: 1.3rem;
+          font-size: 1.1rem;
           font-weight: 500;
           margin-left: 1rem;
           opacity: 0.9;
@@ -726,8 +752,9 @@ export default {
         .megLotImg {
           display: flex;
           .lot {
+            margin-top: 0.7%;
             color: #ffffff;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 400;
             margin-left: 1rem;
             opacity: 0.7;
@@ -761,7 +788,7 @@ export default {
         .megTitle {
           padding-top: 0.75rem;
           color: #ffffff;
-          font-size: 1.3rem;
+          font-size: 1.1rem;
           font-weight: 500;
           margin-left: 1rem;
           opacity: 0.9;
@@ -769,8 +796,9 @@ export default {
         .megLotImg {
           display: flex;
           .lot {
+            margin-top: 0.7%;
             color: #ffffff;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 400;
             margin-left: 1rem;
             opacity: 0.7;
@@ -902,6 +930,11 @@ export default {
         line-height: 1.37rem;
       }
       .message {
+        display: -webkit-box; /*作为弹性伸缩盒子模型显示*/
+        -webkit-line-clamp: 2; /*显示的行数；如果要设置2行加...则设置为2*/
+        overflow: hidden; /*超出的文本隐藏*/
+        text-overflow: ellipsis; /* 溢出用省略号*/
+        -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
         overflow: hidden;
         margin-left: 0.67rem;
         margin-top: 0.33rem;
@@ -919,6 +952,8 @@ export default {
   }
 }
 .news {
+  -webkit-text-size-adjust: 100% !important;
+  -webkit-text-size-adjust: none !important;
   margin-right: 1.33rem;
   .newsTitle {
     display: flex;
@@ -977,10 +1012,14 @@ export default {
       overflow: hidden; /*超出的文本隐藏*/
       text-overflow: ellipsis; /* 溢出用省略号*/
       -webkit-box-orient: vertical; /*伸缩盒子的子元素排列：从上到下*/
+      -webkit-text-size-adjust: 100% !important;
+      -webkit-text-size-adjust: none !important;
       margin-top: 1rem;
       width: 70%;
       height: 1.67rem;
       font-size: 1.33rem;
+      // max-height: 9999px;
+      // -webkit-text-size-adjust: none;
       font-weight: 500;
       color: #231914;
       line-height: 1.8rem;
@@ -1001,6 +1040,7 @@ export default {
       height: 18rem;
       img {
         width: 100%;
+        // height: 30vh;
       }
     }
     .second {
@@ -1016,10 +1056,11 @@ export default {
   /*margin-top: 2rem;*/
   padding-top: 2rem;
   margin: 0 auto;
-  width: 19.25rem;
+  width: 100%;
   height: 2.25rem;
   overflow: hidden;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  text-align: center;
   font-weight: bold;
   color: #231914;
   line-height: 1.76rem;
@@ -1027,8 +1068,7 @@ export default {
 }
 .brand {
   background: url("../../assets/imgs/Group.png") no-repeat;
-  background-size: 99% 80%;
-
+  background-size: 99% 90%;
   .brandNums {
     list-style: none;
     padding: 0;
@@ -1052,14 +1092,14 @@ export default {
         }
       }
       .markTitle {
-        margin-top: 1.33rem;
+        margin-top: 7%;
         text-align: center;
         font-size: 1rem;
         font-weight: 400;
         color: #231914;
         line-height: 1.17rem;
         span {
-          font-size: 1.67rem;
+          font-size: 1.5rem;
           font-weight: 800;
         }
       }
@@ -1094,14 +1134,15 @@ export default {
       display: flex;
       // line-height: 2.33rem;
       // overflow: hidden;
-      // width: 8.2rem;
+      width: 21%;
       // margin-top: 0.8rem;
       // line-height: 1rem;
       .cityName {
-        width: 3.1rem;
+        width: 100%;
         padding-left: 2rem;
         padding-right: 2rem;
         font-size: 1.17rem;
+        text-align: center;
         font-weight: 400;
         color: #231914;
       }

@@ -1,11 +1,20 @@
 <template>
   <div id="app">
     <div class="showImg">
-      <img src="../../../assets/imgs/case.png"
-           alt="">
+<!--      <img src="../../../assets/imgs/case.png"-->
+<!--           alt="">-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">巅峰案例</div>
-        <div class="eng">Top case</div>
+<!--        <div class="cha">巅峰案例</div>-->
+<!--        <div class="eng">Top case</div>-->
       </div>
     </div>
     <div class="teamBtn">
@@ -37,10 +46,12 @@
   </div>
 </template>
 <script>
-import { case_h5 } from "../../../api/api.js";
+import { case_h5,banner_h5 } from "../../../api/api.js";
+// import {banner_h5} from "../../../api/api";
 export default {
   data () {
     return {
+      bannerList:'',
       imgGroup: '',
       baseUrl: 'http://ceshi.davost.com',
       btnInfo: '',
@@ -54,6 +65,7 @@ export default {
   },
   created () {
     this.getList()
+    this.getBanner()
   },
   methods: {
     getList () {
@@ -90,6 +102,12 @@ export default {
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
     },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
+      })
+    },
     goLast (info) {
       console.log(info, 'ggg');
       this.$router.push({
@@ -123,6 +141,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
     /*height: 30vh;*/
   }
   .cha {
@@ -159,6 +178,9 @@ export default {
   white-space: nowrap;
   width: 95%;
   overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .btn {
     width: 8rem;
     height: 2.67rem;
