@@ -3,11 +3,20 @@
        style="width: 100vw;
     overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/fengCai.png"
-           alt="" />
+<!--      <img src="../../../assets/imgs/fengCai.png"-->
+<!--           alt="" />-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">巅峰风采</div>
-        <div class="eng">Our Careers</div>
+<!--        <div class="cha">巅峰风采</div>-->
+<!--        <div class="eng">Our Careers</div>-->
       </div>
     </div>
     <div class="title">
@@ -32,11 +41,11 @@
              @click="jump(i)">
           <div class="barTitle "
                :class="changeColor == i ? 'active' : ''">{{ item.title }}</div>
-          <div class="stick">|</div>
+          <div class="stick"
+               v-show="barInfo.length==i+1?false:true">|</div>
         </div>
       </div>
       <div class="title">{{ barInfo[openTitle].description }}</div>
-
       <el-carousel arrow="always"
                    :autoplay="false"
                    indicator-position="none">
@@ -44,10 +53,8 @@
                           :key="idx">
           <img :src="getImgUrl(it.original_image)"
                alt="" />
-          <!-- <div class="imgTitle">{{it.title}}</div> -->
         </el-carousel-item>
       </el-carousel>
-
     </div>
     <div class="foot">
       <div class="bar">
@@ -57,7 +64,8 @@
              @click="jumpOne(i)">
           <div class="barTitle"
                :class="changeColorOne == i ? 'active' : ''">{{ item.title }}</div>
-          <div class="stick">|</div>
+          <div class="stick"
+               v-show="footBarInfo.length==i+1?false:true">|</div>
         </div>
       </div>
       <div class="title">{{ footBarInfo[openTitleOne].description }}</div>
@@ -77,13 +85,14 @@
   </div>
 </template>
 <script>
-import { style_h5 } from '../../../api/api.js';
+import { style_h5,banner_h5 } from '../../../api/api.js';
 export default {
   data () {
     return {
       footInfo:
         '巅峰智业已走过20年的风雨历程，有坎坷、坚持，有辉煌、感动，不同的“巅峰”时期，每个人的心里都有一个不一样的巅峰。每年的巅峰司庆庆典都会邀请到文旅产业的重要领导、资深专家、以及头部企业的掌门人等文旅巨擘共襄盛宴，共庆巅峰璀璨。更有“十八般”武艺俱全的巅峰人齐聚巅峰星球村，展现实践成果的创意结晶，表达饱含激情的收获领悟。',
       barInfo: '',
+      bannerList:'',
       footBarInfo: '',
       openTitle: 0,
       openTitleOne: 0,
@@ -97,6 +106,7 @@ export default {
   },
   created () {
     this.getList();
+    this.getBanner()
   },
   methods: {
     getList () {
@@ -106,6 +116,12 @@ export default {
         this.barInfo = res.data.data.lecture_hall;
         this.footBarInfo = res.data.data.peak_siqing;
       });
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
+      })
     },
     getImgUrl (imgUrl) {
       return this.baseUrl + imgUrl;
@@ -137,6 +153,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     position: absolute;
@@ -258,7 +275,7 @@ export default {
       }
       .stick {
         color: #231914;
-        margin: 0rem 1.33rem 0 1.33rem;
+        margin: 0.1rem 1.33rem 0 1.33rem;
       }
     }
   }
@@ -288,6 +305,7 @@ export default {
     margin-top: 2rem;
     margin-bottom: 1rem;
     display: flex;
+    overflow: -moz-scrollbars-none;
     .barNums {
       display: flex;
       .barTitle {
@@ -301,7 +319,7 @@ export default {
         /*line-height: 1.37rem;*/
       }
       .active {
-        width: 8rem;
+        width: 9rem;
         font-size: 1.5rem;
         text-align: center;
         color: #c8000a;
@@ -310,7 +328,7 @@ export default {
       .stick {
         /*margin-top: 0.8rem;*/
         color: #231914;
-        margin: 0.3rem 1.33rem 0 1.33rem;
+        margin: 0.2rem 1.33rem 0 1.33rem;
       }
     }
   }

@@ -3,11 +3,20 @@
        style="width: 100vw;
     overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/focusBg.png"
-           alt="">
+<!--      <img src="../../../assets/imgs/focusBg.png"-->
+<!--           alt="">-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerListInfo"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">巅峰要闻</div>
-        <div class="eng">Davost News</div>
+<!--        <div class="cha">巅峰要闻</div>-->
+<!--        <div class="eng">Davost News</div>-->
       </div>
     </div>
     <div class="focMain">
@@ -21,7 +30,8 @@
           <el-carousel-item v-for="(item,i) in bannerList"
                             :key="i">
             <img :src=getImgUrl(item.original_image)
-                 alt="">
+                 alt=""
+                 @click="details(item.id)">
             <div class="bgMes"
                  @click="details(item.id)">{{item.title}}</div>
           </el-carousel-item>
@@ -40,7 +50,8 @@
     </div>
     <div class="focFoot"
          v-for="(item,i) in econInfo"
-         :key="i">
+         :key="i"
+         @click="details(item.id)">
       <img :src=getImgUrl(item.original_image)
            alt="">
       <div class="right">
@@ -51,8 +62,7 @@
           <div class="markCon">
             <img src="../../../assets/bei/icon_more(2).png"
                  alt="">
-            <div class="markInfo"
-                 @click="details(item.id)">查看详情</div>
+            <div class="markInfo">查看详情</div>
           </div>
           <div class="date">{{item.addtime}}</div>
         </div>
@@ -68,7 +78,7 @@
   </div>
 </template>
 <script>
-import { top_h5, bottom_h5 } from "../../../api/api.js";
+import { top_h5, bottom_h5,banner_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
@@ -77,6 +87,7 @@ export default {
       baseUrl: 'http://ceshi.davost.com',
       econInfo: '',
       total: 0,
+      bannerListInfo:'',
       pages: 1,
       pagesize: 10
     }
@@ -84,6 +95,7 @@ export default {
   created () {
     this.getList()
     this.getInfo()
+    this.getBanner()
   },
   methods: {
     getList () {
@@ -92,6 +104,12 @@ export default {
         this.focMes = res.data.data.wenlv_description
 
         this.bannerList = res.data.data.wenlv_image
+      })
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerListInfo = res.data.data
       })
     },
     getInfo () {
@@ -110,6 +128,7 @@ export default {
       this.getInfo()
     },
     details (info) {
+      console.log(22);
       this.$router.push({
         path: '/focusDetail_h5',
         query: {
@@ -143,6 +162,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     width: 100%;

@@ -2,10 +2,19 @@
   <div id="app"
        style="background: #F4F4F4;padding-bottom:1rem">
     <div class="showImg">
-      <img src="../../../assets/imgs/team.png" />
+<!--      <img src="../../../assets/imgs/team.png" />-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">巅峰团队</div>
-        <div class="eng">Our Teams</div>
+<!--        <div class="cha">巅峰团队</div>-->
+<!--        <div class="eng">Our Teams</div>-->
       </div>
     </div>
     <div class="team">
@@ -16,7 +25,7 @@
              style="display: flex;margin-left: 20px; ">
           <div class="btnCon"
                :class="changeColor == index111 ? 'active' : ''"
-               @click="checkTab(item1.cate_id)">{{ item1.name }}</div>
+               @click="changeInfo(item1.cate_id)">{{ item1.name }}</div>
         </div>
       </div>
     </div>
@@ -48,17 +57,19 @@
         </li>
       </ul>
     </div>
-    <div style="text-align: center;"
-         @click="addData"
-         v-if="isShow">加载更多</div>
+<!--    <div style="text-align: center;"-->
+<!--         @click="addData"-->
+<!--         v-if="isShow">加载更多</div>-->
   </div>
 </template>
 <script>
 import { dianfengh5team, team } from '@/api/api';
+import { banner_h5 } from '../../../api/api.js';
 
 export default {
   data () {
     return {
+      bannerList:'',
       staffInfo: [],
       baseUrl: 'http://ceshi.davost.com',
       datalist: [],
@@ -70,11 +81,13 @@ export default {
       pagesize: 10,
       tabId: null,
       totalList: [],
-      isShow: true
+      isShow: true,
+      infoId:'',
     };
   },
   mounted () {
     this.getdianfengteamdat();
+    this.getBanner()
   },
   methods: {
     //tab切换
@@ -90,8 +103,18 @@ export default {
       const res = await team(params);
       if (res.data.code == 0) {
         this.peopleInfo = res.data.data.team.slice(0, 3);
-        this.staffInfo = res.data.data.team.slice(3);
+        this.staffInfo = res.data.data.team.slice;
       }
+    },
+      changeInfo(id){
+        this.infoId = id
+        this.getdianfengteamdat()
+      },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
+      })
     },
     //分页
     async addData () {
@@ -125,14 +148,14 @@ export default {
       let data = {
         pages: this.pages,
         pagesize: this.pagesize,
-        cate_id: ''
+        cate_id: this.infoId
       };
       const res = await dianfengh5team(data);
       if (res.data.code === 0) {
         this.list = res.data.data.team_cate;
         this.totalList = res.data.data.team;
         this.peopleInfo = res.data.data.team.slice(0, 3);
-        this.staffInfo = res.data.data.team.slice(3);
+        this.staffInfo = res.data.data.team;
       }
     },
     jumpTeam (info) {
@@ -147,6 +170,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     position: absolute;
@@ -184,6 +208,7 @@ export default {
   .btnCon {
     width: 7rem;
     height: 2.67rem;
+    color: #000;
     border: 0.08rem solid #cacaca;
     background-color: #ffffff;
     line-height: 2.67rem;

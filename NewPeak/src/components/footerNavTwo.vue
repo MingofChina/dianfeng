@@ -13,41 +13,21 @@
                 <h4>{{ bottom.free_phone }}</h4>
               </div>
               <div class="liebiao-1">
-                <h4 style="margin-top: 17.5%">{{ bottom.company_phone }}</h4>
+                <h4 style="margin-top: 19.5%;margin-left:15%">{{ bottom.company_phone }}</h4>
               </div>
             </div>
-            <!-- <div
-                 class="er">
-              <ul>
-                <li>
-                  <img :src="baseUrl+bottom.applet_url"
-                       alt="" />
-                  <p>关注小程序</p>
-                </li>
-                <li>
-                  <img :src="baseUrl+bottom.video_number_url"
-                       alt="" />
-                  <p>关注视频号</p>
-                </li>
-                <li>
-                  <img :src="baseUrl+bottom.public_number_url"
-                       alt="" />
-                  <p>关注公众号</p>
-                </li>
-              </ul>
-            </div> -->
             <div class="contact">
               <div class="contactImg">
-                <img :src="baseUrl + bottom.applet_url" />
-                <p>关注小程序</p>
+                <img :src="baseUrl + bottom.video_number_url" />
+                <p>巅峰智业视频号</p>
               </div>
               <div class="contactImg">
-                <img :src="baseUrl + bottom.video_number_url" />
-                <p>关注视频号</p>
+                <img :src="baseUrl + bottom.applet_url" />
+                <p>文旅好IP</p>
               </div>
               <div class="contactImg">
                 <img :src="baseUrl + bottom.public_number_url" />
-                <p>关注公众号</p>
+                <p>巅峰智业公众号</p>
               </div>
             </div>
             <div class="contact"
@@ -61,18 +41,6 @@
                 <p>旅豆学堂公众号</p>
               </div>
             </div>
-            <!-- 	<div class="last">
-							<ul class="second">
-								<li class="content">
-									<img class="info" :src="baseUrl + bottom.scenic_spot_treasure_url" alt="" />
-									<p>景区工作宝典</p>
-								</li>
-								<li>
-									<img class="info" :src="baseUrl + bottom.lvdou_number_url" alt="" />
-									<p>旅豆学堂公众号</p>
-								</li>
-							</ul>
-						</div> -->
           </div>
         </div>
         <div class="finish-2">
@@ -190,6 +158,7 @@ export default {
   display: flex;
   margin-left: 1.33rem;
   margin-right: 1.33rem;
+  margin-top: 3%;
   justify-content: space-between;
 }
 .contactImg {
@@ -271,7 +240,7 @@ export default {
   display: flex;
   margin-left: 1.33rem;
   margin-right: 1.33rem;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 .second div {
   display: inline-block;
@@ -282,6 +251,7 @@ export default {
   // margin-right: 2.625rem;
 }
 .liebiao-1 h4 {
+  width: 100%;
   color: #d2d2d2;
   /*width: 133px;*/
   margin-top: 0.75rem;

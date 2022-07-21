@@ -1,11 +1,22 @@
 <template>
-  <div id="app">
+  <div id="app"
+       style="width: 100vw;
+    overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/us.png"
-           alt="">
+<!--      <img src="../../../assets/imgs/us.png"-->
+<!--           alt="">-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">联系我们</div>
-        <div class="eng">Contact work</div>
+<!--        <div class="cha">联系我们</div>-->
+<!--        <div class="eng">Contact work</div>-->
       </div>
     </div>
     <div class="title">
@@ -16,22 +27,30 @@
   </div>
 </template>
 <script>
-import { law_h5 } from "../../../api/api.js";
+import { law_h5,banner_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
+      bannerList:'',
       lawInfo: '',
       baseUrl: 'http://ceshi.davost.com',
     }
   },
   created () {
     this.getList()
+    this.getBanner()
   },
   methods: {
     getList () {
       law_h5().then((res) => {
         console.log(res, 'hhh');
         this.lawInfo = res.data.data.message
+      })
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
       })
     },
     getImgUrl (imgUrl) {
@@ -46,6 +65,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     position: absolute;

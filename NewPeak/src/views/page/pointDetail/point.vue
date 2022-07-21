@@ -3,16 +3,26 @@
        style="width: 100vw;
     overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/point.png"
-           alt="">
+<!--      <img src="../../../assets/imgs/point.png"-->
+<!--           alt="">-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">行业观点</div>
-        <div class="eng">Top view</div>
+<!--        <div class="cha">行业观点</div>-->
+<!--        <div class="eng">Top view</div>-->
       </div>
     </div>
     <div class="focFoot"
          v-for="(item,i) in econInfo"
-         :key="i">
+         :key="i"
+         @click="jump(item.id)">
       <img :src=getImgUrl(item.original_image)
            alt="">
       <div class="right">
@@ -24,8 +34,7 @@
             <!-- <div class="markInfo">{{item.detail}}</div> -->
             <img src="../../../assets/bei/icon_more(2).png"
                  alt="">
-            <div class="markInfo"
-                 @click="jump(item.id)">查看详情</div>
+            <div class="markInfo">查看详情</div>
           </div>
           <div class="date">{{item.addtime}}</div>
         </div>
@@ -41,7 +50,7 @@
   </div>
 </template>
 <script>
-import { industry_h5 } from "../../../api/api.js";
+import { industry_h5,banner_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
@@ -54,6 +63,7 @@ export default {
   },
   created () {
     this.getlist()
+    this.getBanner()
   },
   methods: {
     getlist () {
@@ -66,6 +76,12 @@ export default {
         this.econInfo = res.data.data.idea
         this.total = res.data.data.idea_pages_number * 10
         console.log(this.econInfo[0].summary.length, 'hhh');
+      })
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
       })
     },
     onPageChange (e) {
@@ -94,6 +110,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     position: absolute;

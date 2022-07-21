@@ -3,11 +3,20 @@
        style="width: 100vw;
     overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/partnerBg.png"
-           alt="">
+<!--      <img src="../../../assets/imgs/partnerBg.png"-->
+<!--           alt="">-->
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">合作伙伴</div>
-        <div class="eng">Our Partners</div>
+<!--        <div class="cha">合作伙伴</div>-->
+<!--        <div class="eng">Our Partners</div>-->
       </div>
     </div>
     <div class="partTitle">
@@ -32,17 +41,9 @@
              alt="">
       </li>
     </ul>
-    <!-- <div v-show="isShow==4?true:false"> -->
-    <!-- <el-image style="width: 100px; height: 100px"
-                :src=getImgUrl(imgBig)
-                :preview-src-list=getImgUrl(imgBig)>
-      </el-image> -->
-    <!-- </div> -->
-
     <el-dialog :visible.sync="dialogVisible"
                width="80%"
                :before-close="handleClose">
-      <!-- <span>这是一段信息</span> -->
       <img :src=getImgUrl(imgBig)
            alt="">
     </el-dialog>
@@ -63,10 +64,11 @@
   </div>
 </template>
 <script>
-import { partner_h5 } from "../../../api/api.js";
+import { partner_h5,banner_h5 } from "../../../api/api.js";
 export default {
   data () {
     return {
+      bannerList:'',
       company: '',
       companyInfo: '',
       chooseInfo: 0,
@@ -82,6 +84,7 @@ export default {
   },
   created () {
     this.getList()
+    this.getBanner()
   },
   methods: {
     getList () {
@@ -89,6 +92,12 @@ export default {
         console.log(res);
         this.BdInfo = res.data.data.cooperative_partner
         this.company = res.data.data.customer_list
+      })
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
       })
     },
     getImgUrl (imgUrl) {
@@ -115,6 +124,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
   }
   .cha {
     position: absolute;
@@ -197,14 +207,14 @@ img {
   list-style: none;
   padding: 0;
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
-  /*justify-content: space-between;*/
   .child {
+    width: 18%;
     margin-left: 1.5%;
-    // border: 1px dashed black;
     margin-bottom: 0.66rem;
     img {
-      width: 6.33rem;
+      width: 75%;
       height: 3.9rem;
     }
   }

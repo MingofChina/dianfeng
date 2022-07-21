@@ -3,13 +3,21 @@
        style="width: 100vw;
     overflow-x: hidden;">
     <div class="showImg">
-      <img src="../../../assets/imgs/introduce.png"
-           alt="">
+      <el-carousel arrow="never"
+                   :autoplay="false"
+      >
+        <el-carousel-item v-for="(it, idx) in bannerList"
+                          :key="idx">
+          <img :src="getImgUrl(it.original_image)"
+               alt="" />
+        </el-carousel-item>
+      </el-carousel>
       <div>
-        <div class="cha">巅峰介绍</div>
-        <div class="eng">Davost Overview</div>
+<!--        <div class="cha">巅峰介绍</div>-->
+<!--        <div class="eng">Davost Overview</div>-->
       </div>
     </div>
+
     <div class="intMeg">
       <div class="two">
         <div class="first">
@@ -50,17 +58,11 @@
              autoplay
              :src=getImgUrl(srcs)
              type="video/mp4">
-        <!-- <source >
-    <source :src="srcs" type="video/ogg"> -->
       </video>
     </div>
     <div class="brand">
       <div class="title"
            style="margin-top: 1.67rem;">巅峰旗下品牌</div>
-      <!-- <div class="cancelNum">
-        <img class="cancelImg" src="../../../assets/img/logo.png" alt="">
-        <img class="cancel" src="../../../assets/imgs/cancel.png" alt="">
-      </div> -->
       <div class="selectNum"
            v-for="(item,index) in selectArr"
            :key="index">
@@ -102,7 +104,7 @@
           </div>
         </div>
         <div style="display: flex;flex-flow: column;">
-          <!-- overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical; -->
+
           <div class="message-info"
                style="">{{infos}}</div>
           <img :src=getImgUrl(scrs)
@@ -198,6 +200,7 @@
 
 
 import { dianfengintroduce } from "@/api/api";
+import { banner_h5 } from '../../../api/api.js';
 import viewpoint from '../viewpoint/viewpoint.vue';
 
 
@@ -205,6 +208,7 @@ export default {
   components: { viewpoint },
   data () {
     return {
+      bannerList:'',
       yeardate: [],
       datelist: [],
       baseUrl: 'http://ceshi.davost.com',
@@ -253,6 +257,12 @@ export default {
       this.nowtimer = ""
       this.nowtimer = e.addtime
       this.idindex = indexs
+    },
+    getBanner(){
+      banner_h5().then((res)=>{
+        console.log(res,'res')
+        this.bannerList = res.data.data
+      })
     },
     //箭头循环数据
     arrowsgetdata () {
@@ -497,7 +507,7 @@ export default {
   created () {
 
     this.getdianfengintroduce()
-
+    this.getBanner()
 
 
 
@@ -555,6 +565,7 @@ export default {
   position: relative;
   img {
     width: 100%;
+    height: 100%;
     // img {
     //   width: 100%;
     // }
@@ -861,7 +872,7 @@ export default {
     margin-left: 1.33rem;
     margin-right: 1.33rem;
     .certificateNums {
-      width: 45%;
+      width: 48%;
       margin-top: 0.67rem;
       margin-bottom: 1rem;
       .imgCon {
@@ -896,7 +907,7 @@ export default {
     margin-left: 1.33rem;
     margin-top: 1.67rem;
     font-size: 1.17rem;
-    font-weight: 500;
+    font-weight: 800;
     color: #231914;
     line-height: 2.17rem;
   }
@@ -910,7 +921,7 @@ export default {
     margin-left: 1.33rem;
     margin-right: 1.33rem;
     .quaNums {
-      width: 45%;
+      width: 48%;
       margin-top: 0.67rem;
       margin-bottom: 1rem;
       .title {
